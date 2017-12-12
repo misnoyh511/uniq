@@ -10,7 +10,6 @@ import {NotificationService} from '../toastr/toastr.service';
 @Injectable()
 export class AuthenticationService {
     user: Observable<firebase.User>;
-    showComponent: any = {'login': true};
     private userDetails: firebase.User = null;
     users: FirebaseListObservable<any[]>;
 
@@ -99,16 +98,6 @@ export class AuthenticationService {
             return true;
         }
     }
-
-    setComponentType(type) {
-        this.showComponent = {};
-        this.showComponent[type] = true;
-    }
-
-    getComponentType(type) {
-        return this.showComponent[type];
-    }
-
     writeUserData(userId, user) {
         firebase.database().ref('users/' + userId).set({
             displayName: user.name,

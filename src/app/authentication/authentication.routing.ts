@@ -1,9 +1,15 @@
-import {Routes} from '@angular/router';
-import {AuthenticationComponent} from './authentication.component';
+import {Route} from '@angular/router';
+import {LoginComponent} from './login/login.component';
+import {SignUpComponent} from './sign-up/sign-up.component';
 
-export const AuthenticationRoutes: Routes = [
+export const AuthenticationRoutes:  Route[] = [
     {
-        path: '',
-        component: AuthenticationComponent
+        path: 'login',
+        component: LoginComponent
     },
+    {
+        path: 'sign-up',
+        component: SignUpComponent
+    }
 ];
+

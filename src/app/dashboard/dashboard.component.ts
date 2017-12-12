@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
   }
   logOut(){
     this.authenticationService.logout().then((data)=>{
-      this.authenticationService.setComponentType('login');
       this.router.navigate(['/'])
     });
 
