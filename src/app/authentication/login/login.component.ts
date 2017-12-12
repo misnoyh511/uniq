@@ -9,10 +9,8 @@ import {AppConfig} from '../../app.config';
     styleUrls: ['../authentication.component.css']
 })
 export class LoginComponent {
-    authenticate :any;
     user :any = {};
     constructor(private authenticationService : AuthenticationService ,private router : Router) {
-        this.authenticate = authenticationService;
         if(this.router.url == '/' && localStorage[AppConfig.USER_INFO_KEY]){
             this.router.navigate(['/dashboard']);
         }

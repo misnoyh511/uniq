@@ -28,7 +28,6 @@ export class NotificationService {
             timeout: options.timeout ?  options.timeout : this.timeout,
             theme: options.theme ? options.theme : this.theme,
             onAdd: (toast: ToastData) => {
-                console.log("toastOptionsadd",toastOptions);
             },
             onRemove: (toast: ToastData) => {
             }

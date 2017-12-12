@@ -74,29 +74,9 @@ export class AuthenticationService {
             new firebase.auth.GoogleAuthProvider()
         ).then((result) => {
             this.router.navigate(['/dashboard']);
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = result.credential.accessToken;
-            //this.db.list('/users').push(userObject);
-
         }).catch((error)=> {
             this.notificationService.showToastr(error.message);
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-
         });
-    }
-
-    isLoggedIn() {
-        if (this.userDetails == null) {
-            return false;
-        } else {
-            return true;
-        }
     }
     writeUserData(userId, user) {
         firebase.database().ref('users/' + userId).set({

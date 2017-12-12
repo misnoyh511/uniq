@@ -8,10 +8,8 @@ import {FirebaseListObservable ,AngularFireDatabase} from 'angularfire2/database
     styleUrls: ['../authentication.component.css']
 })
 export class SignUpComponent {
-    authenticate :any;
     user : any = {};
     constructor(private authenticationService : AuthenticationService ,private db: AngularFireDatabase) {
-        this.authenticate = authenticationService;
     }
     signUp(){
         this.authenticationService.signup(this.user);
