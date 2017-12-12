@@ -79,7 +79,7 @@ export class AuthenticationService {
             var token = result.credential.accessToken;
             //this.db.list('/users').push(userObject);
 
-        }).catch(function (error) {
+        }).catch((error)=> {
             this.notificationService.showToastr(error.message);
             // Handle Errors here.
             var errorCode = error.code;
