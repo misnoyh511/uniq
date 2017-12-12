@@ -1,0 +1,70 @@
+<div class="signup-main">
+    <div class="col-md-3">
+        <div class="signup-sidebar">
+            <div class="signup-logo-wrap">
+                <a href="#"><img src="../../../assets/images/logo-white.png" alt=""></a>
+            </div>
+            <div class="quote-wrap">
+                <p>"We used proof for Frontend Masters and had our best promotional period ever."</p>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="quote-avatar">
+                            <img src="images/marc.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="quote-desc">
+                            <span>Marc Grabanski</span>
+                            <h3>Frontend Masters</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-version">Version 2.1.74</div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="signup-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="login-signup-btn cursor">
+                        <span>Need an account?</span>
+                        <a (click)="authenticate.setComponentType('sign-up')">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            <div class="login-form-wrap">
+                <h1>Welcome to Proof</h1>
+                <p>Let's Grow Your Business</p>
+                <form >
+                    <div class="login-form-elements">
+                        <label>Enter Email</label>
+                        <input type="email" name="email" [(ngModel)]="user.email">
+                    </div>
+                    <div class="login-form-elements">
+                        <label>Enter Password</label>
+                        <input type="password" name="password" [(ngModel)]="user.password">
+                        <a href="#">Recover My Password</a>
+                    </div>
+                    <div class="login-form-elements">
+
+                        <button type="submit" (click)="login()">
+                            Sign In
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="social-media-login-title">
+                    <div class="social-media-login-title-border"></div>
+                    <h4>Or Sign in With One Click</h4>
+                    <div class="login-social-btn" id="googleBtn">
+                        <button class="login-google-btn" (click)="loginWithGoogle()">
+                            Continue With Google
+                            <img src="images/google-icon.png" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

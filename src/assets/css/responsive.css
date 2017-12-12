@@ -1,0 +1,127 @@
+@media only screen and (min-width:1025px) and (max-width:1200px)
+{
+    .header-main {width:960px;}
+    .main-navigation {width:592px;}
+    .login-form-wrap {width:100%;}
+}
+@media only screen and (min-width: 1025px)
+{
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+    .dropdown-menu {top:55px;}
+}
+@media only screen and (max-width: 1024px) {
+    .header-main {width:100%;}
+    .main-navigation {width:100%;}
+    .signup-main .col-md-9 {width:100%;}
+    .login-form-wrap {width:100%;}
+}
+@media only screen and (min-width:992px) and (max-width:1024px)
+{
+    .signup-main .col-md-3 {display:none;}
+}
+@media only screen and (min-width: 768px) and (max-width: 991px)
+{
+    .landing-container {text-align:center; margin:72px 0 0;}
+    .landing-content .col-sm-6 {width:74%; padding-right:0px;}
+    .landing-content {margin-bottom:20px;}
+    .landing-image {margin:0 0 100px;}
+    .features-container .row {display:block; margin-bottom:50px;}
+    .features-container {text-align:center;}
+    .feature-image {margin:40px 0;}
+    .feature-content {margin:20px 0;}
+    .landing-content p {padding-right:0;}
+    .feature-landing-section {background-image:none;}
+    .testimonial-wrap {text-align:center;}
+    .testimonial-icon {margin:0 auto 20px;}
+    .feature-landing-container .landing-content {margin-bottom:20px;}
+    .fature-howitworks-wrap {min-height:0; margin-bottom:20px;}
+    .integrations-wrapper .col-sm-2 {width:25%;}
+    .signup-main .col-md-3 {display:none;}
+}
+@media only screen and (max-width: 767px)
+{
+
+    .nav-wrapper {width:100%;float:none;}
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form {border:none; background:#fff;}
+    .navbar-collapse {width:90%;margin:-6px auto;box-shadow:0 2px 4px 0 rgba(0,0,0,.09); border-bottom-left-radius:3px; border-bottom-right-radius:3px;}
+    .main-navigation  {text-align:left;}
+    .main-navigation ul li {display:block; margin:15px 0 0; border-bottom:1px solid #eee; padding-bottom:15px;}
+    .main-navigation ul li a {padding:0 10px; display:block;}
+    .dropdown-menu {margin:15px 0 0 !important;}
+    .dropdown-menu li {text-align:left; margin:0 !important;}
+    .dropdown-menu li a {display:block !important; padding:0 25px !important;}
+    .main-navigation ul li a:hover {box-shadow:none;color: #8da2b5;}
+    .dropdown-menu li {border:none !important;}
+    .navbar-header {padding:10px;}
+    .login-btn a {padding:15px 10px !important;}
+    .signup-btn a {margin:12px 10px; text-align:center;}
+    .landing-container {text-align:center; margin:72px 0 0;}
+    .landing-content .col-sm-6 {width:100%;}
+    .form-element {margin-bottom:20px;}
+    .landing-content {margin-bottom:20px;}
+    .landing-image {margin:0 0 100px;}
+    .features-container .row {display:block; margin-bottom:50px;}
+    .features-container {text-align:center;}
+    .feature-image {margin:40px 0;}
+    .feature-content {margin:20px 0;}
+    .landing-content p {padding-right:0;}
+    .benefits-wrap {margin-bottom:40px;}
+    .benefits-container {margin:150px 0 50px;}
+    .platform-container h2 {font-size:28px; line-height:34px;}
+    .feature-content h3 {font-size:28px; line-height:28px;}
+    .feature-content p {font-size:16px; line-height:24px;}
+    .platform-container p {font-size:16px; line-height:24px;}
+    .joinus-wrapper h2 {font-size:28px; line-height:34px;}
+    .benefits-container h2 {font-size:28px; line-height:34px;}
+    .landing-content h1 {font-size:28px; line-height:34px;}
+    .integration-landing-container .landing-content h1 {font-size:28px; line-height:34px; margin:0;}
+    .landing-content p {font-size:16px; line-height:24px;}
+    .integration-landing-container .landing-content p {font-size:16px; line-height:24px;}
+    .feature-landing-section {background-image:none;}
+    .testimonial-wrap {text-align:center;}
+    .testimonial-icon {margin:0 auto 20px;}
+    .feature-landing-container .landing-content {margin-bottom:20px;}
+    .fature-howitworks-wrap {min-height:0; margin-bottom:20px;}
+    .integration-landing-container .landing-content {margin:70px 0;}
+    .integrations-container h2 {font-size:28px; line-height:34px;}
+    .integrations-container p {font-size:16px; line-height:24px;}
+    .pricing-container h1 {font-size:28px; line-height:34px;}
+    .pricing-container p {font-size:16px; line-height:24px;}
+    .signup-main .col-md-3 {display:none;}
+    .login-btn-highlights {display:none;}
+}
+
+@media only screen and (min-width: 640px) and (max-width: 767px)
+{
+    .footer-container {text-align:center;}
+    .footer-container .col-sm-3 {width:33%;float:left;}
+    .integrations-wrapper .col-sm-2 {width:33.33%; float:left;}
+    .pricing-wrap {width:400px; margin:0 auto 50px;}
+}
+@media only screen and (min-width: 480px) and (max-width: 639px) {
+    .footer-container {text-align:center;}
+    .footer-container .col-sm-3 {width:33%;float:left;}
+    .integrations-wrapper .col-sm-2 {width:33.33%; float:left;}
+    .pricing-advantage {display:none;}
+    .pricing-wrap {width:400px; margin:0 auto 50px;}
+}
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    .footer-container {text-align:center;}
+    .footer-container .col-sm-3 {width:100%;}
+    .footer-wrap {margin-bottom:20px;}
+    .integrations-wrapper .col-sm-2 {width:50%; float:left;}
+    .pricing-wrap {width:100%; margin:0 auto 50px;}
+    .login-form-wrap form {width:90%; margin:0 15px ;}
+    .login-signup-btn {float:none; margin:30px 0; text-align:center;}
+    .login-social-btn {width:90%; margin-bottom:50px;}
+    .login-social-btn button {padding:40px 20px 16px;}
+    .login-social-btn button img { top:10px; left:0; right:0; margin:auto;}
+}
+img {
+    max-width: 100%;
+    height: auto;
+    /*width: auto\9;  ie8 */
+}
+

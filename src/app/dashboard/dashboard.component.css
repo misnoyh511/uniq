@@ -1,0 +1,17 @@
+.navbar{
+    background: linear-gradient(to right, #363795, #005C97) !important;
+    border-radius: 0px !important;
+}
+.user-info{
+    color: white !important;
+    cursor: pointer;
+    padding-top: 7px;
+}
+.user-image{
+    border-radius: 71px;
+    height: 58px;
+}
+.user-name{
+    padding-top: 17px;
+    text-transform:capitalize;
+}

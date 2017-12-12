@@ -1,0 +1,75 @@
+<div class="signup-main">
+    <div class="col-md-3">
+        <div class="signup-sidebar">
+            <div class="signup-logo-wrap">
+                <a href="#"><img src="./../../assets/images/logo-white.png" alt=""></a>
+            </div>
+            <div class="quote-wrap">
+                <p>"Not only is the tool genius but the people are awesome 👍 Well done on a tool that's offering massive value!"</p>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="quote-avatar">
+                            <img src="./../../assets/images/robpene.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="quote-desc">
+                            <span>Rob Pene</span>
+                            <h3>Mission Driven Brand</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-version">Version 2.1.69</div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="signup-container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="login-signup-btn cursor">
+                        <span>Already have an account?</span>
+                        <a (click)="authenticate.setComponentType('login')">Sign In</a>
+                    </div>
+                </div>
+            </div>
+            <div class="login-form-wrap">
+                <h1 class="cursor">Let's Get Started</h1>
+                <p>Complete the first step below</p>
+                    <form (submit)="signUp()">
+                    <div class="login-form-elements">
+                        <label>Full Name</label>
+                        <input type="text" name="userName" [(ngModel)]="user.name">
+                    </div>
+                    <div class="login-form-elements">
+                        <label>Enter Email</label>
+                        <input type="email" name="email" [(ngModel)]="user.email">
+                    </div>
+                    <div class="login-form-elements">
+                        <label>Enter Password</label>
+                        <input type="password" name="password" [(ngModel)]="user.password">
+                    </div>
+                    <div class="login-form-elements">
+                        <div class="login-btn-highlights">
+                            <img src="./../../assets/images/simpleInstall.png" alt="">
+                        </div>
+                        <button type="submit">
+                            Continue
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="social-media-login-title">
+                    <div class="social-media-login-title-border"></div>
+                    <h4>Or Signup With One Click</h4>
+                    <div class="login-social-btn" id="googleBtn">
+                        <button class="login-google-btn" (click)="googleSignIn()">
+                            Signup With Google
+                            <img src="images/google-icon.png" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
