@@ -7,10 +7,12 @@
         <div class=" user-info">
             <ul class="nav navbar-nav navbar-right dropdo">
                 <li>
-                    <img class="user-image" src="{{user?.photoURL}}"/>
+                    <img [hidden]="!user?.photoURL" class="user-image" src="{{user?.photoURL}}"/>
+                    <img [hidden]="user?.photoURL" class="user-image" src="../../assets/images/user.jpg"/>
                 </li>
                 <li class="user-name">
-                    {{user?.displayName}}
+                    {{user?.providerData[0]?.displayName}}
+
                 </li>
                 <li class="user-info">
                     <button type="button"(click)="logOut()" class="btn btn-primary user-info">Log Out</button>
