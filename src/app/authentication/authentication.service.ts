@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import {FirebaseListObservable, AngularFireDatabase} from 'angularfire2/database-deprecated';
 import {Observable} from 'rxjs/Observable';
 import {NotificationService} from '../toastr/toastr.service';
+import {AppConfig} from '../app.config';
 
 
 @Injectable()
@@ -84,5 +85,10 @@ export class AuthenticationService {
             email:user.email
         });
         this.router.navigate(['/dashboard']);
+    }
+    checkAuthenticate(){
+        if((this.router.url == '/login' || this.router.url == '/sign-up') && localStorage[AppConfig.USER_INFO_KEY]){
+            this.router.navigate(['/dashboard']);
+        }
     }
 }

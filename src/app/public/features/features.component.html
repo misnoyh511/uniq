@@ -7,8 +7,8 @@
           <div class="landing-content">
             <h1>How it Works</h1>
             <p>Display real-time customer activity notifications on your website and let your existing customers sell for you.</p>
-            <a href="#" class="blue-btn">Sign Up</a>
-            <a href="#" class="white-btn">Already have an account?</a>
+            <a  class="blue-btn" [routerLink]="(['/sign-up'])">Sign Up</a>
+            <a  class="white-btn" [routerLink]="(['/login'])">Already have an account?</a>
             <div class="testimonial-wrap">
               <div class="row">
                 <div class="col-md-3">
@@ -40,7 +40,7 @@
     <div class="feature-getstarted-container">
       <h2>Get Started In Minutes</h2>
       <p>Proof easily connects to your website - no coding required!</p>
-      <a href="#" class="blue-btn">Get Started</a>
+      <a [routerLink]="(['/sign-up'])" class="blue-btn">Get Started</a>
 
       <div class="feature-howitworks-wrapper">
         <div class="row">
@@ -178,7 +178,7 @@
             <span>LET YOUR CUSTOMERS SELL FOR YOU</span>
             <h3>Social Proof Notifications</h3>
             <p>Let your customers sell for you with powerful social proof. Show notifications for purchases, lead magnet sign ups, webinar registrations, or any other forms on your site.</p>
-            <a href="#" class="blue-btn">Get Started</a>
+            <a [routerLink]="(['/sign-up'])" class="blue-btn">Get Started</a>
           </div>
         </div>
       </div>
@@ -188,7 +188,7 @@
             <span>SHOW YOUR VISITORS THEY ARE IN GOOD COMPANY</span>
             <h3>Live Visitor Count</h3>
             <p>Live Visitor Count displays how many visitors are viewing your entire site, or just a particular page. Let's your visitors know they aren't the only ones at the party.</p>
-            <a href="#" class="blue-btn">Get Started</a>
+            <a [routerLink]="(['/sign-up'])" class="blue-btn">Get Started</a>
           </div>
         </div>
         <div class="col-md-6">
@@ -209,7 +209,7 @@
             <span>Follow visitors through your marketing funnel</span>
             <h3>Customer Journeys</h3>
             <p>We show you the exact path visitors take from the first time they click, all the way to your conversion goal. We take the mystery out of your traffic.</p>
-            <a href="#" class="blue-btn">Get Started</a>
+            <a [routerLink]="(['/sign-up'])" class="blue-btn">Get Started</a>
           </div>
         </div>
       </div>
@@ -219,7 +219,7 @@
             <span>Put A Face To Your Visitors</span>
             <h3>Visitor profiles packed with details.</h3>
             <p>Once a visitor enters their email on your site, we'll show you everything we can find about them. Google analytics shows you how many people are on your site, we show you who they are.</p>
-            <a href="#" class="blue-btn">Get Started</a>
+            <a [routerLink]="(['/sign-up'])" class="blue-btn">Get Started</a>
           </div>
         </div>
         <div class="col-md-6">
@@ -239,7 +239,7 @@
             <span>Seamless Integrations</span>
             <h3>Integrate with Countless Existing Platforms</h3>
             <p>Setup Proof in minutes on nearly any website platform you're already using.</p>
-            <a href="#" class="blue-btn">Get Started</a>
+            <a [routerLink]="(['/sign-up'])" class="blue-btn">Get Started</a>
           </div>
         </div>
       </div>
@@ -253,7 +253,7 @@
       <div class="joinus-wrapper">
         <h2>Join the Thousands of Companies Using Proof</h2>
         <p>Signing up is fast, free and easy.</p>
-        <a href="#" class="white-btn">Get Started</a>
+        <a [routerLink]="(['/sign-up'])" class="white-btn">Get Started</a>
       </div>
     </div>
   </div>
@@ -267,8 +267,8 @@
             <h3>Product</h3>
             <ul>
               <li><a href="#">How it Works</a></li>
-              <li><a href="#">Signup</a></li>
-              <li><a href="#">Login</a></li>
+              <li><a [routerLink]="(['/sign-up'])">Signup</a></li>
+              <li><a [routerLink]="(['/login'])">Login</a></li>
             </ul>
           </div>
         </div>

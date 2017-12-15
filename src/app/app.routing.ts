@@ -10,7 +10,7 @@ export const AppRoutes: Routes = [
     ...PublicRoutes,
     {
         path: '',
-        redirectTo:'/login',
+        redirectTo:'/home',
         pathMatch : 'full'
     }
 ];

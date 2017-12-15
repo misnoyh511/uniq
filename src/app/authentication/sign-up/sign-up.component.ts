@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
-import {FirebaseListObservable ,AngularFireDatabase} from 'angularfire2/database-deprecated';
 
 @Component({
     selector: 'app-sign-up',
@@ -9,7 +8,8 @@ import {FirebaseListObservable ,AngularFireDatabase} from 'angularfire2/database
 })
 export class SignUpComponent {
     user : any = {};
-    constructor(private authenticationService : AuthenticationService ,private db: AngularFireDatabase) {
+    constructor(private authenticationService : AuthenticationService) {
+        this.authenticationService.checkAuthenticate();
     }
     signUp(){
         this.authenticationService.signup(this.user);

@@ -1,7 +1,5 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
-import {Router} from '@angular/router';
-import {AppConfig} from '../../app.config';
 
 @Component({
     selector: 'app-login',
@@ -10,10 +8,8 @@ import {AppConfig} from '../../app.config';
 })
 export class LoginComponent {
     user :any = {};
-    constructor(private authenticationService : AuthenticationService ,private router : Router) {
-        if(this.router.url == '/' && localStorage[AppConfig.USER_INFO_KEY]){
-            this.router.navigate(['/dashboard']);
-        }
+    constructor(private authenticationService : AuthenticationService ) {
+        this.authenticationService.checkAuthenticate();
     }
     loginWithGoogle(){
         this.authenticationService.loginWithGoogle();

@@ -1,11 +1,13 @@
 .navbar{
     background: linear-gradient(to right, #363795, #005C97) !important;
     border-radius: 0px !important;
+    border: 0;
+    min-height: 60px;
 }
 .user-info{
     color: white !important;
     cursor: pointer;
-    padding-top: 5px;
+    padding-top: 4px;
     margin-right: 8px;
     margin-left: 11px;
 }
@@ -17,4 +19,27 @@
     padding-top: 9px;
     text-transform:capitalize;
     padding-left: 10px;
+}
+.navbar-right{ margin-top: 8px;}
+.desk-none{ display: none;}
+
+@media(max-width: 767px){
+    .navbar-header {
+        padding: 0;
+    }
+    .desk-none{ display: block;}
+    .navbar-header{ display: inline-block;}
+    .user-info{ display: inline-block; float: right;}
+    .user-info li{ float: left;}
+    .mobi-none{ display: none;}
+    .mobi-logout{
+        margin: 0px 0 0 20px;
+        background: Rgba(0,0,0,0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        line-height: 40px;
+        text-align: center;
+    }
+    .user-info ul li:first-child{ display: none;}
 }

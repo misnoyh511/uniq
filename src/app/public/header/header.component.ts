@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AppConfig} from '../../app.config';
+import {Router} from "@angular/router";
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor() { }
+  isAuthenticate : boolean = false;
+  constructor(private authenticationService : AuthenticationService ,private router : Router) { }
 
   ngOnInit() {
+    if(localStorage[AppConfig.USER_INFO_KEY]){
+      this.isAuthenticate = true;
+    }
   }
+  logOut(){
+    this.authenticationService.logout().then((data)=>{
+      this.isAuthenticate = false;
+      this.router.navigate(['/'])
+    });
 
+  }
 }
