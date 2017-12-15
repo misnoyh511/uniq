@@ -29,7 +29,7 @@ p{margin:0 0 20px 0; }
 .landing-section {background:url(./assets/images/landing-bg.png) no-repeat bottom; min-height:729px; margin:76px 0 0;}
 .header-main {background:#fff; box-shadow:0 2px 4px 0 rgba(0,0,0,.09); border-bottom-left-radius:3px; border-bottom-right-radius:3px; position:fixed; top:0;
     width:1170px; height:71px; z-index:999; left:0; right:0; margin:auto;}
-.nav-wrapper nav.navbar-default {background-color:none !important; border:none;}
+.nav-wrapper nav.navbar-default {background-color:inherit !important; border:none;}
 
 .logo-wrap {float:left; margin:20px 20px;}
 

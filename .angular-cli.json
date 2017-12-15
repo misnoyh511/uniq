@@ -21,12 +21,13 @@
       "styles": [
         "../node_modules/ng2-toasty/style-bootstrap.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "assets/css/responsive.css",
         "assets/css/animate.css",
-        "styles.css"
+        "styles.css",
+        "assets/css/responsive.css"
       ],
       "scripts": [
-
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
