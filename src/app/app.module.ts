@@ -12,6 +12,7 @@ import {environment} from '../environments/environment';
 import {AuthGuard} from './auth-guard/auth-guard.middleware';
 import {ToastyModule} from 'ng2-toasty';
 import {NotificationService} from './toastr/toastr.service';
+import {PublicModule} from './public/public.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {NotificationService} from './toastr/toastr.service';
         AuthenticationModule,
         ToastyModule.forRoot(),
         RouterModule.forRoot(AppRoutes),
-        DashboardModule
+        DashboardModule,
+        PublicModule
     ],
     providers: [AuthGuard, NotificationService],
     bootstrap: [AppComponent]
