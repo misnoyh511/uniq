@@ -71,10 +71,17 @@ export class AuthenticationService {
     }
 
     loginWithGoogle() {
-        this.firebaseAuth.auth.signInWithPopup(
+        return this.firebaseAuth.auth.signInWithPopup(
             new firebase.auth.GoogleAuthProvider()
         ).then((result) => {
-            this.router.navigate(['/get-started']);
+        }).catch((error)=> {
+            this.notificationService.showToastr(error.message);
+        });
+    }
+    loginWithFacebook() {
+        return this.firebaseAuth.auth.signInWithPopup(
+            new firebase.auth.FacebookAuthProvider()
+        ).then((result) => {
         }).catch((error)=> {
             this.notificationService.showToastr(error.message);
         });

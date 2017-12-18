@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -8,11 +9,13 @@ import {AuthenticationService} from '../authentication.service';
 })
 export class LoginComponent {
     user :any = {};
-    constructor(private authenticationService : AuthenticationService ) {
+    constructor(private authenticationService : AuthenticationService ,private router : Router ) {
         this.authenticationService.checkAuthenticate();
     }
     loginWithGoogle(){
-        this.authenticationService.loginWithGoogle();
+        this.authenticationService.loginWithGoogle().then((data)=>{
+            this.router.navigate(['/get-started']);
+        })
     }
     login(){
         this.authenticationService.login(this.user.email,this.user.password);

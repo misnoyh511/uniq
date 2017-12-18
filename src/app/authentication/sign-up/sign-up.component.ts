@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-sign-up',
@@ -8,13 +9,15 @@ import {AuthenticationService} from '../authentication.service';
 })
 export class SignUpComponent {
     user : any = {};
-    constructor(private authenticationService : AuthenticationService) {
+    constructor(private authenticationService : AuthenticationService ,private router : Router) {
         this.authenticationService.checkAuthenticate();
     }
     signUp(){
         this.authenticationService.signup(this.user);
     }
     googleSignIn(){
-        this.authenticationService.loginWithGoogle();
+        this.authenticationService.loginWithGoogle().then((data)=>{
+            this.router.navigate(['/get-started']);
+        })
     }
 }

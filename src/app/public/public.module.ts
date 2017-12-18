@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import {FormsModule} from '@angular/forms';
 import { FeaturesComponent } from './features/features.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { IntergrationComponent } from './intergration/intergration.component';
@@ -14,7 +15,8 @@ import {CheckoutComponent} from './checkout/checkout.component';
 @NgModule({
     imports: [
         RouterModule.forChild(PublicRoutes),
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     declarations: [FeaturesComponent, PricingComponent, IntergrationComponent, HeaderComponent, HomeComponent,
         FooterComponent,CheckoutComponent],

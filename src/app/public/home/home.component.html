@@ -11,12 +11,12 @@
               <form>
                 <div class="col-sm-6">
                   <div class="form-element">
-                    <input type="text" placeholder="Enter your email">
+                    <input type="email" name="emailField" placeholder="Enter your email" [(ngModel)]="email">
                   </div>
                 </div>
                 <div class="col-sm-3">
                   <div class="form-element">
-                    <input type="submit" [routerLink]="(['/checkout'])" class="blue-btn" value="Get Started">
+                    <input type="submit" [routerLink]="(['/checkout',{email:email}])" class="blue-btn" value="Get Started" >
                   </div>
                 </div>
               </form>
