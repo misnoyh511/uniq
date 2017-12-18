@@ -25,7 +25,7 @@ export class CheckoutComponent implements OnInit {
      this.user['authenticated'] = true;
     });
   }
-  loginWithFacebook(){
+  loginWithFacebook(provider){
     this.authenticationService.loginWithFacebook().then((data)=>{
       this.user['authenticated'] = true;
     });
