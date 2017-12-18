@@ -57,7 +57,7 @@ export class AuthenticationService {
             .auth
             .signInWithEmailAndPassword(email, password)
             .then(value => {
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/get-started']);
             })
             .catch(err => {
                 this.notificationService.showToastr(err.message);
@@ -74,7 +74,7 @@ export class AuthenticationService {
         this.firebaseAuth.auth.signInWithPopup(
             new firebase.auth.GoogleAuthProvider()
         ).then((result) => {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/get-started']);
         }).catch((error)=> {
             this.notificationService.showToastr(error.message);
         });
@@ -84,11 +84,11 @@ export class AuthenticationService {
             displayName: user.name,
             email:user.email
         });
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/get-started']);
     }
     checkAuthenticate(){
         if((this.router.url == '/login' || this.router.url == '/sign-up') && localStorage[AppConfig.USER_INFO_KEY]){
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/get-started']);
         }
     }
 }

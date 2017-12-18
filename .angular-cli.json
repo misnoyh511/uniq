@@ -23,7 +23,8 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "assets/css/animate.css",
         "styles.css",
-        "assets/css/responsive.css"
+        "assets/css/responsive.css",
+        "assets/css/font-awesome.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

@@ -1,0 +1,147 @@
+<div class="integration-landing-section">
+  <div class="container">
+    <div class="header-main blueheaderbg">
+      <div class="container">
+        <div class="logo-wrap"> <a [routerLink]="(['/'])"><img src="../../../assets/images/logo-white.svg" alt=""></a> </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="checkout-section">
+  <div class="container">
+    <div class="checkoutMTB">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="checkwhitebox">
+            <div class="checkoutHeading">
+              <h1 class="ng-binding">Try Proof FREE for 14 Days</h1>
+              <h2 class="ng-binding">AND Get Conversion Secrets as a Free Bonus!</h2>
+            </div>
+            <div class="checkoutBody">
+              <div>
+                <div class="sectionLabel">Account Information</div>
+              </div>
+              <div class="checkoutRegister ng-isolate-scope">
+                <div class="checkoutflex">
+                  <div class="flex-col">
+                    <div class="fatInput ng-isolate-scope">
+                      <label class="fatLabel ng-binding" for="email">Email Address</label>
+                      <input name="email" id="email"  class="ng-pristine ng-empty ng-valid ng-valid-required ng-touched" type="text">
+                    </div>
+                  </div>
+                  <div class="flex-col">
+                    <div class="fatInput ng-isolate-scope">
+                      <label class="fatLabel ng-binding" for="password">Password</label>
+                      <input name="password" id="password"  class="ng-pristine ng-empty ng-valid ng-valid-required ng-touched" type="password">
+                    </div>
+                  </div>
+                </div>
+                <p><small>Prefer one-click sign in?</small></p>
+                <div class="miniSocialLoginWrap">
+                  <div class="miniSocialLogin google" (click)="authenticate('google')">Continue with Google</div>
+                  <div class="miniSocialLogin facebook" (click)="authenticate('facebook')">Continue with Facebook</div>
+                </div>
+              </div>
+              <div class="checkoutPayment ng-isolate-scope">
+                <form class="ng-pristine ng-valid-card ng-invalid ng-invalid-required ng-valid-expiry ng-valid-cvc">
+                  <div>
+                    <div class="sectionLabel">Personal Information</div>
+                  </div>
+                  <div class="checkoutflex">
+                    <div class="flex-col">
+                      <div class="fatInput ng-isolate-scope">
+                        <label class="fatLabel ng-binding">First Name</label>
+                        <input name="firstname" id="firstname" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required type="text">
+                      </div>
+                    </div>
+                    <div class="flex-col">
+                      <div class="fatInput ng-isolate-scope">
+                        <label class="fatLabel ng-binding" for="lastname">Last Name</label>
+                        <input name="lastname" id="lastname" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fatInput">
+                    <label class="fatLabel">Card Number</label>
+                    <input class="form-control input-lg ng-pristine ng-untouched ng-valid-card ng-empty ng-invalid ng-invalid-required" required id="cc-number" placeholder="xxxx-xxxx-xxxx-1234" name="cc number" type="text">
+                  </div>
+                  <div class="checkoutflex">
+                    <div class="flex-col">
+                      <div class="fatInput">
+                        <label class="fatLabel">Exp. Date</label>
+                        <input class="form-control input-lg ng-pristine ng-untouched ng-valid-expiry ng-empty ng-invalid ng-invalid-required" required id="cc-exp" placeholder="mm/yy" name="expiry" type="text">
+                      </div>
+                    </div>
+                    <div class="flex-col">
+                      <div class="fatInput">
+                        <label class="fatLabel" for="cc-cvc">CVC</label>
+                        <input class="form-control input-lg ng-pristine ng-untouched ng-valid-cvc ng-empty ng-invalid ng-invalid-required" id="cc-cvc" placeholder="123"  name="cvc"  type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="checkoutSummary ng-scope" data-ng-if="data.summary">
+                    <div class="flex lineItem">
+                      <div class="flex-col-3 bold leftdet">Proof Risk Free 14-Day Trial (Plans start at $29/mo)</div>
+                      <div class="flex-col text-right rightdet">$0</div>
+                    </div>
+                    <div class="flex lineItem">
+                      <div class="flex-col-3 bold leftdet">Conversion Secrets Course</div>
+                      <div class="flex-col text-right rightdet"><span class="oldPrice">$500</span></div>
+                    </div>
+                    <div class="flex lineItem">
+                      <div class="flex-col text-right"><strong>Total</strong>: $0</div>
+                    </div>
+                  </div>
+                  <button class="fatBtn block ng-binding" type="submit">Get Started for FREE <i class="fa fa-arrow-right"></i></button>
+                </form>
+                <p class="text-center margin-top"><small>By clicking this button you are agreeing to our terms of service &amp; privacy policy.</small></p>
+              </div>
+            </div>
+            <div class="testimonial ng-isolate-scope">
+              <div class="face"><img alt="David Schloss" data-ng-src="../../../assets/images/checkout-user.jpg" src="../../../assets/images/checkout-user.jpg"></div>
+              <!-- ngIf: data.rating -->
+              <div class="rating ng-scope" data-ng-if="data.rating"><img data-ng-src="../../../assets/images/Group.svg" src="../../../assets/images/Group.svg"></div>
+              <!-- end ngIf: data.rating -->
+              <div class="quote ng-binding">Hell yes! 30 of my 40 clients use Proof and their conversions are exponentially better.</div>
+              <div class="name ng-binding">- David Schloss</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="checkrightsec">
+            <div class="checkboxrightpanel">
+              <div class="productDetails ng-isolate-scope highlight">
+                <div class="productLabel ng-binding ng-scope">Free 14-Day Trial</div>
+                <h1 class="checkoutTitle ng-binding">Proof</h1>
+                <div class="checkoutProof">
+                  <p class="checkoutDescription ng-binding ng-scope" data-ng-if="data.description">Trusted by over 3,000 businesses to increase their conversion rates.</p>
+                </div>
+              </div>
+              <div class="whitepaddbox productDetails ng-isolate-scope">
+                <div class="productLabel ng-binding ng-scope" >+ Free Bonus</div>
+                <h1 class="checkoutTitle ng-binding">Conversion Secrets</h1>
+                <div class="checkoutProof"><img src="../../../assets/images/Group.svg" alt="5 Star Rating" class="checkoutRating ng-scope" /></div>
+                <p class="checkoutDescription ng-binding ng-scope">Get access to over a dozen trainings taught by top conversion experts walking you through, click-by-click, how to setup, launch, and optimize a profitable funnel. These advanced trainings paired with Proof will truly give you the resources to build high converting pages and sales funnels that turn clicks into paying customers.</p>
+                <img data-ng-src="../../../assets/images/conversion-secrets.png"  class="ng-scope" src="../../../assets/images/conversion-secrets.png" />
+                <div class="checkoutFeatures ng-scope">
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">10+ Conversions Trainings</span></div>
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">Pre-Built Funnel Templates</span></div>
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">Conversion Tracking Spreadsheet</span></div>
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">Expert CRO Tools</span></div>
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">Design Conversion Training</span></div>
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">Copywriting Conversion Training</span></div>
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">Foundation of Optimization</span></div>
+                  <div class="checkoutFeature ng-scope"><span class="checkoutFeatureTitle ng-binding">Winning Funnel Framework</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="termsOfService">
+              <h2>Terms of Service</h2>
+              <p class="ng-binding">Pay $0.00 today, then after 14 days plans start as low as $29/mo depending on amount of visitors to your site. Cancel anytime - no funny business :-)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,14 @@
+@media only screen and (max-width: 1366px) {
+
+}
 @media only screen and (min-width:1025px) and (max-width:1200px)
 {
-    .header-main {width:960px;}
+    .header-main {width:100%;}
     .main-navigation {width:592px;}
     .login-form-wrap {width:100%;}
+    .signup-sidebar {width:300px;}
+    .signup-main .col-md-9 {width: calc(100% - 300px);}
+    .login-form-wrap {width:80%;}
 }
 @media only screen and (min-width: 1025px)
 {
@@ -16,6 +22,8 @@
     .main-navigation {width:100%;}
     .signup-main .col-md-9 {width:100%;}
     .login-form-wrap {width:100%;}
+    .landing-container {padding:72px 0;}
+    .feature-landing-container .landing-content {margin:32px 0 0;}
 }
 @media only screen and (min-width:992px) and (max-width:1024px)
 {
@@ -37,19 +45,28 @@
     .testimonial-icon {margin:0 auto 20px;}
     .feature-landing-container .landing-content {margin-bottom:20px;}
     .fature-howitworks-wrap {min-height:0; margin-bottom:20px;}
-    .integrations-wrapper .col-sm-2 {width:25%;}
+    .integrations-wrapper .col-sm-2 {flex:0 0 25%; max-width:25%;}
     .signup-main .col-md-3 {display:none;}
+    .main-navigation ul li a {padding:25px 12px;}
+    .footer-container .col-sm-3 { flex:0 0 33%;}
+    .checkoutMTB .col-sm-8 { flex:0 0 100%; max-width:none;}
+    .checkoutMTB .col-sm-4 { flex:0 0 100%; max-width:none;}
+    .checkoutMTB .row {width:auto;}
+    .checkwhitebox {margin-bottom:40px;}
 }
 @media only screen and (max-width: 767px)
 {
 
-    .nav-wrapper {width:100%;float:none;}
+    .nav-wrapper {width:100%;float:right;}
     .navbar-default .navbar-collapse, .navbar-default .navbar-form {border:none; background:#fff;}
-    .navbar-collapse {width:90%;margin:-6px auto;box-shadow:0 2px 4px 0 rgba(0,0,0,.09); border-bottom-left-radius:3px; border-bottom-right-radius:3px;}
+    .navbar-collapse {width:90%;margin:4px auto;box-shadow:0 2px 4px 0 rgba(0,0,0,.09); border-bottom-left-radius:3px; border-bottom-right-radius:3px;}
+    .navbar-nav li {width:100%;}
     .main-navigation  {text-align:left;}
-    .main-navigation ul li {display:block; margin:15px 0 0; border-bottom:1px solid #eee; padding-bottom:15px;}
+    .main-navigation ul li {margin:15px 0 0; border-bottom:1px solid #eee; padding-bottom:15px;}
     .main-navigation ul li a {padding:0 10px; display:block;}
-    .dropdown-menu {margin:15px 0 0 !important;}
+    .main-navigation ul li ul {position:relative; display:block;}
+    .navbar-nav .dropdown-menu {position:relative; top:0; border:none;}
+    .dropdown-menu {margin:15px 0 0 !important; width: 100%; box-shadow: none;}
     .dropdown-menu li {text-align:left; margin:0 !important;}
     .dropdown-menu li a {display:block !important; padding:0 25px !important;}
     .main-navigation ul li a:hover {box-shadow:none;color: #8da2b5;}
@@ -91,6 +108,29 @@
     .pricing-container p {font-size:16px; line-height:24px;}
     .signup-main .col-md-3 {display:none;}
     .login-btn-highlights {display:none;}
+
+    .navbar-toggle.collapsed{ display:block; }
+    .navbar-collapse.collapse { display: none; }
+    .navbar-collapse.collapse.in { display: block; }
+    .navbar-header {position:absolute; top:-57px; right:0; padding:0;}
+    .navbar-toggle { position: relative; float: right; padding: 9px 10px; margin-top: 8px; margin-right: 15px; margin-bottom: 8px; background-color: transparent;
+        background-image: none; border: 1px solid transparent; border-top-color: transparent; border-right-color: transparent; border-bottom-color: transparent;
+        border-left-color: transparent; border-radius: 4px; cursor: pointer; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+    .navbar-default .navbar-toggle .icon-bar { background-color: #888;}
+    .navbar-default .navbar-toggle { border-color: #ddd;}
+    .navbar-toggle .icon-bar {  display: block;  width: 22px;  height: 2px; border-radius: 1px; }
+    .navbar-toggle .icon-bar + .icon-bar {  margin-top: 4px; }
+    .navbar-default .navbar-toggle:hover{ background-color: #ddd; }
+    .collapsed.in {  display: block; }
+    .landing-content .col-sm-5 {width:100%; padding-right:15px;}
+    .footer-container .col-sm-3 { flex:0 0 50%;}
+    .tab-content .col-sm-4 {flex:0 0 100%; max-width:none;}
+    .checkoutMTB .col-sm-8 { flex:0 0 100%; max-width:none;}
+    .checkoutMTB .col-sm-4 { flex:0 0 100%; max-width:none;}
+    .checkoutMTB .row {width:auto;}
+    .checkwhitebox {margin-bottom:40px;}
 }
 
 @media only screen and (min-width: 640px) and (max-width: 767px)
@@ -99,6 +139,10 @@
     .footer-container .col-sm-3 {width:33%;float:left;}
     .integrations-wrapper .col-sm-2 {width:33.33%; float:left;}
     .pricing-wrap {width:400px; margin:0 auto 50px;}
+    .navbar-nav {height:300px; overflow-y:scroll; display: block;}
+    .footer-container .col-sm-3 { flex:0 0 50%;}
+    .integrations-wrapper .col-sm-2 {flex:0 0 25%; max-width:25%;}
+
 }
 @media only screen and (min-width: 480px) and (max-width: 639px) {
     .footer-container {text-align:center;}
@@ -106,6 +150,11 @@
     .integrations-wrapper .col-sm-2 {width:33.33%; float:left;}
     .pricing-advantage {display:none;}
     .pricing-wrap {width:400px; margin:0 auto 50px;}
+    .navbar-nav {height:300px; overflow-y:scroll; display: block;}
+    .footer-container .col-sm-3 { flex:0 0 50%;}
+    .integrations-wrapper .col-sm-2 {flex:0 0 33%; max-width:33%;}
+    .checkoutflex {display:block;}
+    .checkoutflex .flex-col {width:100%;}
 }
 @media only screen and (min-width: 320px) and (max-width: 479px) {
     .footer-container {text-align:center;}
@@ -118,6 +167,15 @@
     .login-social-btn {width:90%; margin-bottom:50px;}
     .login-social-btn button {padding:40px 20px 16px;}
     .login-social-btn button img { top:10px; left:0; right:0; margin:auto;}
+    .navbar-nav {height:400px; overflow-y:scroll; display: block;}
+    .footer-container .col-sm-3 { flex:0 0 100%;}
+    .login-form-wrap h1 {font-size:24px;}
+    .pricing-advantage {display:none;}
+    .checkoutflex {display:block;}
+    .checkoutflex .flex-col {width:100%;}
+    .checkwhitebox .checkoutHeading h1 {font-size:24px;}
+    .checkwhitebox .checkoutHeading h2 {font-size:16px;}
+
 }
 img {
     max-width: 100%;

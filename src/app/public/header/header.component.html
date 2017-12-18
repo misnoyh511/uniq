@@ -1,35 +1,43 @@
 <div class="header-main">
-  <div class="logo-wrap">
-    <a [routerLink]="(['/home'])"><img src="../../../assets/images/logo.png" alt=""></a>
-  </div>
-  <div class="nav-wrapper">
-    <nav class="navbar navbar-default">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li>
-            <div class="main-navigation">
-              <ul>
-                <li class="dropdown" [routerLink]="(['/how-it-works'])"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">How it works</a>
-                </li>
-                <li><a [routerLink]="(['/pricing'])">Pricing</a></li>
-                <li><a [routerLink]="(['/home'])">Blog</a></li>
-                <li [routerLink]="(['/about'])">
-                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="login-btn cursor" *ngIf="!isAuthenticate"><a [routerLink]="(['/login'])">Login</a></li>
-          <li class="signup-btn cursor" *ngIf="!isAuthenticate"><a class="blue-btn" [routerLink]="(['/sign-up'])">Sign Up</a></li>
+  <div class="container">
+    <div class="logo-wrap">
+      <a [routerLink]="(['/'])"><img src="../../../assets/images/logo.png" alt=""></a>
+    </div>
+    <div class="nav-wrapper">
+      <nav class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed nav-toggle-out" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <div class="main-navigation">
+                <ul>
+                  <li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">How it works</a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a [routerLink]="(['/features'])">Features</a></li>
+                      <li><a [routerLink]="(['/integrations'])">Integrations</a></li>
+                    </ul>
+                  </li>
+                  <li><a [routerLink]="(['/pricing'])">Pricing</a></li>
+                  <li><a [routerLink]="(['/'])">Blog</a></li>
+                  <li class="dropdown"><a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About</a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a [routerLink]="(['/'])">Customers</a></li>
+                      <li><a [routerLink]="(['/'])">Our Team</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="login-btn cursor" *ngIf="!isAuthenticate"><a [routerLink]="(['/login'])">Login</a></li>
+            <li class="signup-btn cursor" *ngIf="!isAuthenticate"><a class="blue-btn" [routerLink]="(['/sign-up'])">Sign Up</a></li>
 
-          <li class="login-btn cursor" *ngIf="isAuthenticate"><a (click)="logOut()">Logout</a></li>
-          <li class="signup-btn cursor" *ngIf="isAuthenticate"><a class="blue-btn" [routerLink]="(['/dashboard'])">Dashboard</a></li>
-        </ul>
-      </div>
-      <!--/.nav-collapse -->
-    </nav>
+            <li class="login-btn cursor" *ngIf="isAuthenticate"><a (click)="logOut()">Logout</a></li>
+            <li class="signup-btn cursor" *ngIf="isAuthenticate"><a class="blue-btn" [routerLink]="(['/get-started'])">Dashboard</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   </div>
 </div>
