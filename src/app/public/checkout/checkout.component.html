@@ -44,7 +44,7 @@
               </div>
 
               <div class="checkoutRegister ng-isolate-scope" [hidden]="!user['authenticated']">
-                <div class="ng-binding ng-scope">You are signed in as {{user.email}}. <a class="clickable" href="">Not you? Sign Out</a></div>
+                <div class="ng-binding ng-scope">You are signed in as {{user.email}}.Not you? <a class="clickable cursor-class" (click)="signOut()">Sign Out</a></div>
               </div>
 
               <div class="checkoutPayment ng-isolate-scope">

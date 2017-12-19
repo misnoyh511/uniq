@@ -30,4 +30,9 @@ export class CheckoutComponent implements OnInit {
       this.user['authenticated'] = true;
     });
   }
+  signOut(){
+    this.authenticationService.logout().then((data)=>{
+      this.user['authenticated'] = false;
+    })
+  }
 }
