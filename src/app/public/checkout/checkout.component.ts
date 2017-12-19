@@ -22,12 +22,18 @@ export class CheckoutComponent implements OnInit {
   }
   authenticate(provider){
     this.authenticationService.loginWithGoogle().then((data)=>{
-     this.user['authenticated'] = true;
+      if(localStorage[AppConfig.USER_INFO_KEY]){
+        this.user.email = JSON.parse(localStorage[AppConfig.USER_INFO_KEY]).email;
+        this.user['authenticated'] = true;
+      }
     });
   }
   loginWithFacebook(provider){
     this.authenticationService.loginWithFacebook().then((data)=>{
-      this.user['authenticated'] = true;
+      if(localStorage[AppConfig.USER_INFO_KEY]){
+        this.user.email = JSON.parse(localStorage[AppConfig.USER_INFO_KEY]).email;
+        this.user['authenticated'] = true;
+      }
     });
   }
   signOut(){
