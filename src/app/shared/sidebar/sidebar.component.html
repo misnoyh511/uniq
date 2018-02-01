@@ -1,0 +1,30 @@
+<div class="dashboard-main">
+<div class="toggle-sidebar">
+
+</div>
+<div class="dashboard-sidebar">
+  <div class="dashboard-logo-wrap">
+    <a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>
+  </div>
+  <div class="dashboard-new">
+    <a class="cursor"><i class="fa fa-plus" aria-hidden="true"></i> <span>New</span></a>
+  </div>
+  <div class="dashboard-navigation">
+    <label>Welcome</label>
+    <ul>
+      <li><a [routerLink]="(['/'])"><i class="fa fa-star" aria-hidden="true"></i> <span>Getting Started</span></a></li>
+    </ul>
+    <label>Manage</label>
+    <ul>
+      <li><a [routerLink]="(['/'])"><i class="fa fa-bell" aria-hidden="true"></i><span>Notifications</span></a></li>
+      <li><a [routerLink]="(['/'])"><i class="fa fa-bolt" aria-hidden="true"></i><span>Traffic Feed </span> <strong>Beta</strong></a></li>
+    </ul>
+    <label>Account</label>
+    <ul>
+      <li><a [routerLink]="(['/'])"><i class="fa fa-file-code-o" aria-hidden="true"></i><span>Pixel Install</span></a></li>
+      <li><a [routerLink]="(['/'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Settings</span></a></li>
+    </ul>
+  </div>
+  <div class="app-version-dashboard"><span>Version 2.1.74</span> <a class="cursor" (click)="signOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></a></div>
+</div>
+</div>

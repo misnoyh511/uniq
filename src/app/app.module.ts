@@ -14,7 +14,7 @@ import {ToastyModule} from 'ng2-toasty';
 import {NotificationService} from './toastr/toastr.service';
 import {PublicModule} from './public/public.module';
 import { GetStarteddModule } from './get-started/get-started.module';
-
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -30,7 +30,8 @@ import { GetStarteddModule } from './get-started/get-started.module';
         RouterModule.forRoot(AppRoutes),
         DashboardModule,
         PublicModule,
-        GetStarteddModule
+        GetStarteddModule,
+        SharedModule
     ],
     providers: [AuthGuard, NotificationService],
     bootstrap: [AppComponent]
