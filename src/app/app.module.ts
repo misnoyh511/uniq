@@ -15,6 +15,7 @@ import {NotificationService} from './toastr/toastr.service';
 import {PublicModule} from './public/public.module';
 import { GetStarteddModule } from './get-started/get-started.module';
 import {SharedModule} from './shared/shared.module';
+import {NewBotModule} from "./new-bot/new-bot.module";
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import {SharedModule} from './shared/shared.module';
         DashboardModule,
         PublicModule,
         GetStarteddModule,
-        SharedModule
+        SharedModule,
+        NewBotModule
     ],
     providers: [AuthGuard, NotificationService],
     bootstrap: [AppComponent]

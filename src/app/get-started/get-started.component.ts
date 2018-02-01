@@ -14,6 +14,7 @@ export class GetStartedComponent implements OnInit {
   ngOnInit() {
   }
   signOut(){
+    //noinspection TypeScriptUnresolvedFunction
     this.authenticationService.logout().then((data)=>{
       this.router.navigate(['/'])
     });

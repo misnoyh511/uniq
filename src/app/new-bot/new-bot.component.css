@@ -1,0 +1,26 @@
+.dashboard-inner-container {width:850px; margin:0 auto;}
+.dashboard-new-wrapper {box-shadow: 0 5px 10px rgba(21,57,130,0.07), 0 0 0 1px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid rgba(0,0,0,.1); border-radius:8px; background:#fff; position:relative;}
+.dashboard-new-title-wrap {padding: 20px;background-color: #0095f7;border-top-left-radius: 8px;border-top-right-radius: 8px; text-align: center;position: relative;}
+.dashboard-new-title-wrap .col-sm-6 {padding:0;}
+.dashboard-new-title-wrap h3 {font-size: 20px;font-weight: 800; color:#fff; text-transform:none; margin:0;}
+
+.dashboard-new-title-wrap .title-links {position:absolute; right:10px; top:18px;}
+.dashboard-new-title-wrap .title-links a {width:30px; opacity:0.5; display:inline-block;border-radius:5px; margin-right:5px; height:30px; padding:1px 0 0;}
+.dashboard-new-title-wrap .title-links a:hover {background:rgba(255,255,255,0.3);}
+.dashboard-new-title-wrap .title-links a img {width:20px;}
+
+.dashboard-step-list {background:#2b3950;}
+.dashboard-step-list li {width:33%; text-align:center;}
+.dashboard-step-list li a {padding:15px 10px; color:#fff !important; }
+.dashboard-step-list li a strong {height: 35px;width: 35px;margin: 0 10px 0 0;line-height: 35px; display:inline-block; background-color:#374254; border-radius:100%;
+    font-size:18px; color:#fff;}
+.dashboard-step-list li a:hover, .dashboard-step-list li a.active {background-color:rgba(0,0,0,0.08) !important;}
+.dashboard-step-list li a:hover strong {background-color: #3b475a;}
+.dashboard-step-list li a:hover span {opacity:1;}
+.dashboard-step-list li a.active span {opacity:1;}
+.dashboard-step-list li a.active strong {background-color: #0095f7;}
+.dashboard-step-list li a span {font-size:16px;opacity:0.7;}
+
+.dashboard-new-wrapper .tab-content {margin:0;}
+
+

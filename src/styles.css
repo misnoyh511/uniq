@@ -1255,7 +1255,7 @@ p{margin:0 0 20px 0; }
 
 .btn-name-wrap {position:relative;}
 .delete-text-card-btn {width:30px; height:30px; border-radius:50%; color:#999; box-shadow: 0 5px 5px rgba(21,57,130,0.2); line-height:28px; position:absolute; top:-15px; right:-15px; background:#fff; cursor:pointer; transform:scale(0,0); transition:0.2s ease-in-out; z-index:9999;}
-.btn-name-wrap:hover .delete-text-card-btn {transform:scale(1,1); transition:0.2s ease-in-out;}*/
+.btn-name-wrap:hover .delete-text-card-btn {transform:scale(1,1); transition:0.2s ease-in-out;}
 
 .btn-toggle-links {text-align:left; }
 .btn-toggle-links a {display:inline-block; font-size:16px;color:#333; margin-right:20px; border-bottom:1px solid #fff;margin-bottom:10px;}
