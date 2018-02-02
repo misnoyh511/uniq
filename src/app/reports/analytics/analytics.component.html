@@ -1,0 +1,121 @@
+<app-sidebar></app-sidebar>
+<div class="dashboard-container analytics-page-container">
+  <div class="dashboard-inner-container">
+    <div class="dashboard-getting-stared-wrapper">
+      <div class="sub-nav-list">
+        <ul>
+          <li><a class="active" [routerLink]="(['/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i> <span>Analytics</span></a></li>
+          <li><a [routerLink]="(['/feedback'])"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>Feedback</span></a></li>
+          <li><a [routerLink]="(['/service-kpi'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Service KPI</span></a></li>
+        </ul>
+
+      </div>
+      <h1>Analytics</h1>
+      <p>Lorem ipsum is just a dummy text.</p>
+      <div class="getting-started-wrap-wrapper">
+        <div class="export-datepicker-wrapper">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-6">
+                  <a class="select-duration-btn" href="javascript:void()"><span>Select Duration</span></a>
+                  <div class="duration-wrap">
+                    <span>Yesterday</span>
+                    <span>Last 7 Days</span>
+                    <span>Last 30 Days</span>
+                    <div class="transcript-date-picker">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                      <input type="text" id="date-picker-main" name="daterange" value="01/01/2015 - 01/31/2015" />
+                      <a href="javascript:void(0)" id="update-date" class="blue-btn">Update</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 no-padding">
+                  <div class="export-btn">
+                    <a href="#" class="blue-btn"><i class="fa fa-share" aria-hidden="true"></i><span>Export All</span></a>
+                    <a href="#" class="blue-btn"><i class="fa fa-share" aria-hidden="true"></i><span>Export Summery</span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper analytics-inner-sections">
+          <div class="step-inner-title analytics-inner-titles">
+            <h3>Sessions
+              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip">
+                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
+                <ul>
+                  <li>Lorem ipusm is just a dummy text.</li>
+                  <li>Contrar sit amet lorem ipsum.</li>
+                </ul>
+              </div>
+            </h3>
+          </div>
+          <div class="analytics-inner-wrap">
+            <h4>Session Yesterday</h4>
+            <span class="session-number">15</span>
+            <div id="container_1"></div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper analytics-inner-sections">
+          <div class="step-inner-title analytics-inner-titles">
+            <h3>Message Per Sessions
+              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip">
+                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
+                <ul>
+                  <li>Lorem ipusm is just a dummy text.</li>
+                  <li>Contrar sit amet lorem ipsum.</li>
+                </ul>
+              </div>
+            </h3>
+          </div>
+          <div class="analytics-inner-wrap">
+            <h4>Queries per session yesterday</h4>
+            <span class="session-number">1.33</span>
+            <div id="container_2"></div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper analytics-inner-sections">
+          <div class="step-inner-title analytics-inner-titles">
+            <h3>Average Session Length
+              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip">
+                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
+                <ul>
+                  <li>Lorem ipusm is just a dummy text.</li>
+                  <li>Contrar sit amet lorem ipsum.</li>
+                </ul>
+              </div>
+            </h3>
+          </div>
+          <div class="analytics-inner-wrap">
+            <h4>A few seconds</h4>
+          </div>
+        </div>
+        <div class="step-inner-wrapper analytics-inner-sections">
+          <div class="step-inner-title analytics-inner-titles">
+            <h3>Users
+              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip">
+                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
+                <ul>
+                  <li>Lorem ipusm is just a dummy text.</li>
+                  <li>Contrar sit amet lorem ipsum.</li>
+                </ul>
+              </div>
+            </h3>
+          </div>
+
+          <div class="analytics-inner-wrap">
+            <h4>Users</h4>
+            <div id="container"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

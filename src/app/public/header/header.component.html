@@ -34,7 +34,7 @@
             <li class="signup-btn cursor" *ngIf="!isAuthenticate"><a class="blue-btn" [routerLink]="(['/sign-up'])">Sign Up</a></li>
 
             <li class="login-btn cursor" *ngIf="isAuthenticate"><a (click)="logOut()">Logout</a></li>
-            <li class="signup-btn cursor" *ngIf="isAuthenticate"><a class="blue-btn" [routerLink]="(['/get-started'])">Dashboard</a></li>
+            <li class="signup-btn cursor" *ngIf="isAuthenticate"><a class="blue-btn" [routerLink]="(['/dashboard'])">Dashboard</a></li>
           </ul>
         </div>
       </nav>

@@ -16,27 +16,35 @@ import {PublicModule} from './public/public.module';
 import { GetStarteddModule } from './get-started/get-started.module';
 import {SharedModule} from './shared/shared.module';
 import {NewBotModule} from "./new-bot/new-bot.module";
+import { AutomateModule } from './automate/automate.module';
+import { ConversationsModule } from './conversations/conversations.module';
+import { ReportsModule } from './reports/reports.module';
+import { AccountSettingsModule } from './account-settings/account-settings.module';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireAuthModule,
-        AuthenticationModule,
-        ToastyModule.forRoot(),
-        RouterModule.forRoot(AppRoutes),
-        DashboardModule,
-        PublicModule,
-        GetStarteddModule,
-        SharedModule,
-        NewBotModule
-    ],
-    providers: [AuthGuard, NotificationService],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AuthenticationModule,
+    ToastyModule.forRoot(),
+    RouterModule.forRoot(AppRoutes),
+    DashboardModule,
+    PublicModule,
+    GetStarteddModule,
+    SharedModule,
+    NewBotModule,
+    AutomateModule,
+    ConversationsModule,
+    ReportsModule,
+    AccountSettingsModule
+  ],
+  providers: [AuthGuard, NotificationService],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

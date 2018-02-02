@@ -14,7 +14,7 @@ export class LoginComponent {
     }
     loginWithGoogle(){
         this.authenticationService.loginWithGoogle().then((data)=>{
-            this.router.navigate(['/get-started']);
+            this.router.navigate(['/home']);
         })
     }
     login(){

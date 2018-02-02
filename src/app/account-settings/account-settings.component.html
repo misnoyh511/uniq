@@ -1,0 +1,171 @@
+<app-sidebar></app-sidebar>
+<div class="dashboard-container">
+
+  <div class="dashboard-inner-container">
+    <div class="dashboard-settings-wrapper">
+      <h3>Account Settings</h3>
+
+      <div class="settings-inner-wrap">
+        <h4>Login Methods</h4>
+
+        <div class="settings-full-panel">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="full-panel-text">
+                <span>Google Login</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="full-panel-buttons">
+                <button>
+                  <i class="fa fa-bolt" aria-hidden="true"></i>
+                  Link Account
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="settings-full-panel">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="full-panel-text">
+                <span>Username &amp; Password <strong>Active</strong></span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="full-panel-buttons">
+
+                <button data-toggle="modal" data-target="#editEmail">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                  Email
+                </button>
+                <button data-toggle="modal" data-target="#editPass">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                  Password
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3>Language Defaults</h3>
+
+      <div class="settings-inner-wrap">
+        <!--<p>To translate English words into another language update the fields below. Leave them blank if you prefer to keep them in English.</p>-->
+        <div class="language-form-wrap">
+          <div class="row">
+
+            <div class="col-sm-12">
+              <div class="db-form-elements">
+                <label>Select your account language</label>
+                <select>
+                  <option value="?" selected="selected"></option>
+                  <option label="English" value="string:en">English</option>
+                  <option label="Chinese" value="string:zh-cn">Chinese</option>
+                  <option label="Czech" value="string:cs">Czech</option>
+                  <option label="Danish" value="string:da">Danish</option>
+                  <option label="Dutch" value="string:nl">Dutch</option>
+                  <option label="French" value="string:fr">French</option>
+                  <option label="German" value="string:de">German</option>
+                  <option label="Greek" value="string:el">Greek</option>
+                  <option label="Hebrew" value="string:he">Hebrew</option>
+                  <option label="Hindi" value="string:hi">Hindi</option>
+                  <option label="Hungarian" value="string:hu">Hungarian</option>
+                  <option label="Indonesian" value="string:id">Indonesian</option>
+                  <option label="Italian" value="string:it">Italian</option>
+                  <option label="Japanese" value="string:ja">Japanese</option>
+                  <option label="Korean" value="string:ko">Korean</option>
+                  <option label="Norwegian" value="string:nb">Norwegian</option>
+                  <option label="Portuguese" value="string:pt">Portuguese</option>
+                  <option label="Romanian" value="string:ro">Romanian</option>
+                  <option label="Russian" value="string:ru">Russian</option>
+                  <option label="Spanish" value="string:es">Spanish</option>
+                  <option label="Swedish" value="string:sv">Swedish</option>
+                  <option label="Thai" value="string:th">Thai</option>
+                  <option label="Ukrainian" value="string:uk">Ukrainian</option>
+                  <option label="Vietnamese" value="string:vi">Vietnamese</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button class="blue-btn">Save Changes</button>
+        </div>
+      </div>
+      <h3>Your Plan</h3>
+
+      <div class="settings-inner-wrap">
+        <div class="settings-full-panel">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4>PLAN</h4>
+            </div>
+            <div class="col-sm-6">
+              <div class="full-panel-buttons">
+                <button onClick="location.href='dashboard-plans.html'">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="settings-full-panel">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="full-panel-text">
+                <span>PRO</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="full-panel-text">
+                <span>$79.00 / mo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3>Account On Trial</h3>
+
+      <div class="settings-inner-wrap">
+        <div class="settings-full-panel billing-wrap">
+          <span>Your trial will end in <strong>14</strong> days.</span>
+          <span>Setup billing for uninterrupted use. <i>Need more time?</i></span>
+          <a href="dashboard-plans.html" class="blue-btn">Setup Billing</a>
+        </div>
+      </div>
+      <div class="settings-inner-wrap">
+        <div class="settings-full-panel">
+          <span>Unique Visitors In This Billing Period</span>
+          <b>Your account usage data is not available.</b>
+        </div>
+      </div>
+      <h3>Billing</h3>
+
+      <div class="settings-inner-wrap">
+        <div class="settings-full-panel">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4>Payment Info</h4>
+            </div>
+            <div class="col-sm-6">
+              <div class="full-panel-buttons">
+                <button data-toggle="modal" data-target="#editCard">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="settings-full-panel">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="full-panel-text">
+                <span>You have one card on file.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

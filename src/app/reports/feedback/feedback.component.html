@@ -1,0 +1,94 @@
+<app-sidebar></app-sidebar>
+<div class="dashboard-container">
+
+  <div class="dashboard-inner-container">
+    <div class="dashboard-getting-stared-wrapper">
+      <div class="sub-nav-list">
+        <ul>
+          <li><a [routerLink]="(['/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i> <span>Analytics</span></a></li>
+          <li><a class="active" [routerLink]="(['/feedback'])"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>Feedback</span></a></li>
+          <li><a [routerLink]="(['/service-kpi'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Service KPI</span></a></li>
+        </ul>
+      </div>
+      <h1>Feedback</h1>
+      <p>Lorem ipsum dummy sit amet.</p>
+      <div class="getting-started-wrap-wrapper">
+        <div class="slide-top-btns">
+          <div class="row">
+            <div class="col-sm-8">
+
+            </div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper">
+          <div class="step-inner-title">
+            <h3>Feedback</h3>
+          </div>
+          <div class="feedback-wrapper">
+            <form>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="analytics-feedback-filters">
+                    <select>
+                      <option>All</option>
+                      <option>Positive</option>
+                      <option>Negative</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="analytics-feedback-filters">
+                    <select>
+                      <option>Session</option>
+                      <option>Messages</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <table class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>Message</th>
+                <th>Message Count</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Hola</td>
+                <td>60</td>
+              </tr>
+              <tr>
+                <td>Gracias</td>
+                <td>100</td>
+              </tr>
+              <tr>
+                <td>Te amo</td>
+                <td>107</td>
+              </tr>
+              <tr>
+                <td>Vamos</td>
+                <td>31</td>
+              </tr>
+              <tr>
+                <td>Amigo</td>
+                <td>635</td>
+              </tr>
+              <tr>
+                <td>Irendito</td>
+                <td>203</td>
+              </tr>
+              <tr>
+                <td>Despacito</td>
+                <td>25</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
