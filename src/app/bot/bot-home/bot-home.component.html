@@ -1,0 +1,86 @@
+<app-sidebar></app-sidebar>
+<div class="dashboard-container">
+
+  <div class="dashboard-inner-container">
+    <div class="dashboard-notifications-wrapper">
+      <div class="page-main-title-section">
+        <a href="https://www.google.co.in/" target="_blank" class="blue-btn"><i class="fa fa-eye" aria-hidden="true"></i><span>Preview Bot</span></a>
+        <h1>Welcome to Proof, Andres!</h1>
+        <p>Our mission is to help you grow your business using honest marketing strategies. We are continually developing Proof into the platform that will help you build massive trust with your audience and drive higher conversions.</p>
+      </div>
+      <div class="getting-started-video-wrapper notification-wrap">
+        <app-sub-nav [navType]="'home'"></app-sub-nav>
+        <div class="on-off-btn toggle-btn-on-off bot-title-on-off">
+          <span class="rounded-on-off-btn"></span>
+          <span class="on-off-text">Off</span>
+        </div>
+        <h3>My Bot 1</h3>
+        <div class="mybot-blocks-wrapper">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mybot-block-wrap">
+                <div class="block-status">
+                  <h5>Complete</h5>
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </div>
+                <div class="block-icon block-icon-config">
+                  <a [routerLink]="(['/bot-configuration'])"><img src="../assets/images/mybot-block-icon1.png" alt=""></a>
+                </div>
+                <div class="block-desc">
+                  <a [routerLink]="(['/bot-configuration'])"><h4>Initial Setup</h4></a>
+                  <p>Lorem ipsum is just a dummy text to prevent the space for original content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mybot-block-wrap">
+                <div class="block-status">
+                  <h5>Complete</h5>
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </div>
+                <div class="block-icon block-icon-install">
+                  <a [routerLink]="(['/bot-installation'])"><img src="../assets/images/mybot-block-icon2.png" alt=""></a>
+                </div>
+                <div class="block-desc">
+                  <a [routerLink]="(['/bot-installation'])"><h4>Installation</h4></a>
+                  <p></p>
+                  <p>Lorem ipsum is just a dummy text to prevent the space for original content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mybot-block-wrap">
+                <div class="block-status">
+                  <h5>Incomplete</h5>
+                  <i class="fa fa-exclamation" aria-hidden="true"></i>
+                </div>
+                <div class="block-icon block-icon-knwldge">
+                  <a [routerLink]="(['/setup-ai-questions'])"><img src="../assets/images/mybot-block-icon3.png" alt=""></a>
+                </div>
+                <div class="block-desc">
+                  <a [routerLink]="(['/setup-ai-questions'])"><h4>Knowledge Center</h4></a>
+                  <p>Lorem ipsum is just a dummy text to prevent the space for original content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mybot-block-wrap">
+                <div class="block-status">
+                  <h5>Incomplete</h5>
+                  <i class="fa fa-exclamation" aria-hidden="true"></i>
+                </div>
+                <div class="block-icon block-icon-improve">
+                  <a [routerLink]="(['/setup-ai'])"><img src="../assets/images/mybot-block-icon4.png" alt=""></a>
+                </div>
+                <div class="block-desc">
+                  <a [routerLink]="(['/setup-ai'])"><h4>Improvements</h4></a>
+                  <p>Lorem ipsum is just a dummy text to prevent the space for original content.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

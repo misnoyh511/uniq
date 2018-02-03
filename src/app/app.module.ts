@@ -6,6 +6,7 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AppComponent} from './app.component';
 import {AppRoutes} from './app.routing';
+
 import {AuthenticationModule} from './authentication/authentication.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {environment} from '../environments/environment';
@@ -20,6 +21,7 @@ import { AutomateModule } from './automate/automate.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { ReportsModule } from './reports/reports.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
+import { botModule } from './bot/bot.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { AccountSettingsModule } from './account-settings/account-settings.modul
     AuthenticationModule,
     ToastyModule.forRoot(),
     RouterModule.forRoot(AppRoutes),
+
     DashboardModule,
     PublicModule,
     GetStarteddModule,
@@ -41,7 +44,9 @@ import { AccountSettingsModule } from './account-settings/account-settings.modul
     AutomateModule,
     ConversationsModule,
     ReportsModule,
-    AccountSettingsModule
+    AccountSettingsModule,
+    botModule
+
   ],
   providers: [AuthGuard, NotificationService],
   bootstrap: [AppComponent]

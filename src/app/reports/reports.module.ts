@@ -5,6 +5,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ServiceKpiComponent } from './service-kpi/service-kpi.component';
 import {ReportsRoutes} from './reports.routing';
 import {SharedModule} from '../shared/shared.module';
+import { SubNavComponent } from './sub-nav/sub-nav.component';
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import {SharedModule} from '../shared/shared.module';
     RouterModule.forChild(ReportsRoutes),
     SharedModule
   ],
-  declarations: [AnalyticsComponent, FeedbackComponent, ServiceKpiComponent]
+  declarations: [AnalyticsComponent, FeedbackComponent, ServiceKpiComponent, SubNavComponent]
 })
 
 export class ReportsModule {

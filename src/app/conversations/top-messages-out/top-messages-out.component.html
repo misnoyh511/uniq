@@ -3,12 +3,7 @@
 
   <div class="dashboard-inner-container">
     <div class="dashboard-getting-stared-wrapper">
-      <div class="sub-nav-list">
-        <ul>
-          <li><a [routerLink]="(['/transcripts'])"><i class="fa fa-transgender-alt" aria-hidden="true"></i> <span>Transcripts</span></a></li>
-          <li><a [routerLink]="(['/top-messages-in'])"><i class="fa fa-comments" aria-hidden="true"></i> <span>Top Messages In</span></a></li>
-          <li><a class="active" [routerLink]="(['/top-messages-out'])"><i class="fa fa-comments" aria-hidden="true"></i> <span>Top Messages Out</span></a></li>        </ul>
-      </div>
+      <app-sub-nav [navType]="'topMessageOut'"></app-sub-nav>
       <h1>Top Message Out</h1>
       <p>Lorem sit amet ipsum text dummy is.</p>
       <div class="getting-started-wrap-wrapper">

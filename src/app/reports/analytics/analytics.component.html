@@ -2,14 +2,7 @@
 <div class="dashboard-container analytics-page-container">
   <div class="dashboard-inner-container">
     <div class="dashboard-getting-stared-wrapper">
-      <div class="sub-nav-list">
-        <ul>
-          <li><a class="active" [routerLink]="(['/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i> <span>Analytics</span></a></li>
-          <li><a [routerLink]="(['/feedback'])"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>Feedback</span></a></li>
-          <li><a [routerLink]="(['/service-kpi'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Service KPI</span></a></li>
-        </ul>
-
-      </div>
+      <app-sub-nav [navType]="'analytics'"></app-sub-nav>
       <h1>Analytics</h1>
       <p>Lorem ipsum is just a dummy text.</p>
       <div class="getting-started-wrap-wrapper">

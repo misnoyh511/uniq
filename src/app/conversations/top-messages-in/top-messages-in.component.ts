@@ -6,8 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-messages-in.component.css']
 })
 export class TopMessagesInComponent implements OnInit {
-
-  constructor() { }
+  options ={
+    title : { text : 'simple chart' },
+    series: [{
+      data: [29.9, 71.5, 106.4, 129.2]
+    }]
+  };
+  constructor() {
+  }
 
   ngOnInit() {
   }

@@ -9,6 +9,7 @@ import {AutomateRoutes} from "./automate/automate.routing";
 import {ConversationsRoutes} from "./conversations/conversations.routing";
 import {ReportsRoutes} from "./reports/reports.routing";
 import {AccountSettingsRoutes} from "./account-settings/account-settings.routing";
+import {botRoutes} from "./bot/bot.routing";
 
 export const AppRoutes: Routes = [
   ...AuthenticationRoutes,
@@ -20,6 +21,7 @@ export const AppRoutes: Routes = [
   ...ConversationsRoutes,
   ...ReportsRoutes,
   ...AccountSettingsRoutes,
+  ...botRoutes,
   {
     path: '',
     redirectTo: '/home',

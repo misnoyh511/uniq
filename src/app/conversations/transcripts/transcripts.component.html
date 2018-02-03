@@ -2,14 +2,7 @@
 <div class="dashboard-container analytics-page-container">
   <div class="dashboard-inner-container">
     <div class="dashboard-getting-stared-wrapper">
-      <div class="sub-nav-list">
-        <ul>
-          <li><a class="active" [routerLink]="(['/transcripts'])"><i class="fa fa-transgender-alt" aria-hidden="true"></i> <span>Transcripts</span></a></li>
-          <li><a [routerLink]="(['/top-messages-in'])"><i class="fa fa-comments" aria-hidden="true"></i> <span>Top Messages In</span></a></li>
-          <li><a [routerLink]="(['/top-messages-out'])"><i class="fa fa-comments" aria-hidden="true"></i> <span>Top Messages Out</span></a></li>
-        </ul>
-
-      </div>
+      <app-sub-nav [navType]="'transcripts'"></app-sub-nav>
       <h1>Transcripts</h1>
       <p>Sit Amet Lorem Ipsum Dummy Text.</p>
       <div class="getting-started-wrap-wrapper">

@@ -1,0 +1,13 @@
+<div class="sub-nav-list">
+  <ul>
+    <li><a [ngClass]="{'active' : navType === 'analytics'}" [routerLink]="(['/analytics'])"><i
+      class="fa fa-line-chart" aria-hidden="true"></i>
+      <span>Analytics</span></a></li>
+    <li><a [ngClass]="{'active' : navType === 'feedback'}" [routerLink]="(['/feedback'])"><i
+      class="fa fa-comments-o" aria-hidden="true"></i>
+      <span>Feedback</span></a></li>
+    <li><a [ngClass]="{'active' : navType === 'serviceKpi'}" [routerLink]="(['/service-kpi'])"><i
+      class="fa fa-cogs" aria-hidden="true"></i>
+      <span>Service KPI</span></a></li>
+  </ul>
+</div>

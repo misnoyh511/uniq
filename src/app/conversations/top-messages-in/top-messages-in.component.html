@@ -3,14 +3,7 @@
 
   <div class="dashboard-inner-container">
     <div class="dashboard-getting-stared-wrapper">
-      <div class="sub-nav-list">
-        <ul>
-          <li><a [routerLink]="(['/transcripts'])"><i class="fa fa-transgender-alt" aria-hidden="true"></i> <span>Transcripts</span></a></li>
-          <li><a class="active" [routerLink]="(['/top-messages-in'])"><i class="fa fa-comments" aria-hidden="true"></i> <span>Top Messages In</span></a></li>
-          <li><a [routerLink]="(['/top-messages-out'])"><i class="fa fa-comments" aria-hidden="true"></i> <span>Top Messages Out</span></a></li>
-        </ul>
-
-      </div>
+      <app-sub-nav [navType]="'topMessageIn'"></app-sub-nav>
       <h1>Top Message In</h1>
       <p>Lorem sit amet ipsum text dummy is.</p>
       <div class="getting-started-wrap-wrapper">
@@ -37,7 +30,7 @@
 
           <div class="analytics-inner-wrap">
             <h4>Top Message In</h4>
-
+            <chart [options]="options"></chart>
             <div id="container1"></div>
             <h4>Messages</h4>
             <table class="table table-bordered table-striped">
