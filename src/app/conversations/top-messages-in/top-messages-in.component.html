@@ -41,33 +41,9 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Hola</td>
-                <td>60</td>
-              </tr>
-              <tr>
-                <td>Gracias</td>
-                <td>100</td>
-              </tr>
-              <tr>
-                <td>Te amo</td>
-                <td>107</td>
-              </tr>
-              <tr>
-                <td>Vamos</td>
-                <td>31</td>
-              </tr>
-              <tr>
-                <td>Amigo</td>
-                <td>635</td>
-              </tr>
-              <tr>
-                <td>Irendito</td>
-                <td>203</td>
-              </tr>
-              <tr>
-                <td>Despacito</td>
-                <td>25</td>
+              <tr *ngFor="let msg of topMessagesIn">
+                <td>{{msg.message}}</td>
+                <td>{{msg.count}}</td>
               </tr>
               </tbody>
             </table>

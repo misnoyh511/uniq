@@ -7,6 +7,9 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AppComponent} from './app.component';
 import {AppRoutes} from './app.routing';
 
+import { HttpModule } from '@angular/http';
+import {LocalStorageService} from './local-storage/local-storage.service';
+import {InterceptorService} from './interceptor/interceptor.service';
 import {AuthenticationModule} from './authentication/authentication.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {environment} from '../environments/environment';
@@ -35,6 +38,7 @@ import { botModule } from './bot/bot.module';
     AuthenticationModule,
     ToastyModule.forRoot(),
     RouterModule.forRoot(AppRoutes),
+    HttpModule,
 
     DashboardModule,
     PublicModule,
@@ -48,7 +52,7 @@ import { botModule } from './bot/bot.module';
     botModule
 
   ],
-  providers: [AuthGuard, NotificationService],
+  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
