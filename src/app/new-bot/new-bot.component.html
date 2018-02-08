@@ -174,7 +174,9 @@
                                            <b class=""></b> -->
                                         </span>
 
-                   <mat-slide-toggle  color="primary" style="float:right">On
+                   <mat-slide-toggle (change)="toggle()" name="latteral_tab" type="text" [(ngModel)]="bot.latteral_tab" color="primary" style="float:right">
+                     {{bot.latteral_tab ? 'On' : 'Off'}}
+
                   </mat-slide-toggle>
 
                  <!-- <div class="on-off-btn toggle-btn-on-off active">
@@ -188,7 +190,8 @@
                                           <b class=""></b> -->
                                         </span>
 
-                  <mat-slide-toggle color="primary" style="float: right">Off
+                  <mat-slide-toggle (change)="toggle1()" name="floating_icon" type="text" [(ngModel)]="bot.floating_icon" color="primary" style="float: right">
+                    {{bot.floating_icon ? 'On' : 'Off'}}
                   </mat-slide-toggle>
                  <!-- <div class="on-off-btn toggle-btn-on-off">
                     <span class="rounded-on-off-btn"></span>
@@ -320,10 +323,12 @@
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
                 <div class="step-inner-title">
                   <h3>FAQ	Section<span>Pro</span></h3>
-                  <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
+                 <!-- <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
                     <span class="rounded-on-off-btn"></span>
                     <span class="on-off-text">Off</span>
-                  </div>
+                  </div>-->
+                  <mat-slide-toggle color="primary" style="float:right">Off
+                  </mat-slide-toggle>
                 </div>
                 <div class="visitor-count-wrap visitor-count-wrap2">
                   <div class="full-panel">
@@ -364,10 +369,12 @@
                 </div>
                 <div class="step-inner-title">
                   <h3>Pro-Active	Mode<span>Business</span></h3>
-                  <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
+                 <!-- <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
                     <span class="rounded-on-off-btn"></span>
                     <span class="on-off-text">Off</span>
-                  </div>
+                  </div>-->
+                  <mat-slide-toggle color="primary" style="float:right">Off
+                  </mat-slide-toggle>
                 </div>
                 <div class="visitor-count-wrap visitor-count-wrap1">
                   <div class="full-panel">
@@ -398,10 +405,12 @@
                 </div>
                 <div class="step-inner-title">
                   <h3>Live Chat <span>Pro</span></h3>
-                  <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count3">
+                  <!--<div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count3">
                     <span class="rounded-on-off-btn"></span>
                     <span class="on-off-text">Off</span>
-                  </div>
+                  </div>-->
+                  <mat-slide-toggle color="primary" style="float:right">Off
+                  </mat-slide-toggle>
                 </div>
                 <div class="visitor-count-wrap visitor-count-wrap3">
                   <div class="full-panel">
@@ -481,7 +490,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a href="#"  class="btnPrev launchBtnBack">Back</a>
+                    <a (click)="pro()" href="#customize" data-toggle="pill"  class="btnPrev launchBtnBack">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -501,7 +510,7 @@
 
 <div  id="timing" href="#timing" class="custom-timing-section">
   <div class="custom-timing-container">
-    <a href="javascript:void(0)"  mat-mini-fab color="primary" data-toggle="pill"  href="#customize" (click)="pro()">x</a>
+    <a href="javascript:void(0)" mat-mini-fab color="primary" data-toggle="pill"  href="#customize" (click)="pro()">x</a>
     <h2>Pro Active Mode</h2>
     <p>Sometimes notifications popup faster or slower than you'd prefer. With custom timing, you can speed them up, slow them down, or hold them on screen longer.</p>
     <p><strong>Upgrade to the BUSINESS plan for $129/mo to unlock Custom Timing, plus:</strong></p>

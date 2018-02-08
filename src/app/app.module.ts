@@ -55,7 +55,6 @@ import {JazzDialog} from "./new-bot/new-bot.component";
     AccountSettingsModule,
     botModule,
     HttpClientModule,
-
   ],
   providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient],
   bootstrap: [AppComponent]
