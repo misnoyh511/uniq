@@ -19,8 +19,9 @@
             <span>Getting Started</span></a></li>
         </ul>
         <div class="mybot-menu-wrap">
-          <a class="bot-name-link" [routerLink]="(['/bot-home'])"><b>My Bot 1</b></a>
-          <i class="fa fa-caret-down mybot-menu-tgl" aria-hidden="true"></i>
+          <a class="bot-name-link" [routerLink]="(['/bot-home'])" name="name" type="text">{{bot.name}}</a>
+
+        <!--  <i class="fa fa-caret-down mybot-menu-tgl" aria-hidden="true"></i>-->
           <!--<span><a href="configuration.html"><i class="fa fa-cog" aria-hidden="true"></i></a></span>	-->
           <div class="clearfix"></div>
           <div class="bot-list-wrap">

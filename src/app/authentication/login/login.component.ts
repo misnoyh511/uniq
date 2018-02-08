@@ -20,11 +20,7 @@ export class LoginComponent {
     login(){
         this.authenticationService.login(this.user.email,this.user.password);
       /*  this.authenticationService.loginAuth(this.user.email,this.user.password);*/
-        this.authenticationService.loginAuth(this.user).subscribe((data) => {
-            this.router.navigate(['/new-bot']);
-        }, (err) => {
-            console.log(err);
-        });
+        this.authenticationService.loginAuth();
 
     }
     }

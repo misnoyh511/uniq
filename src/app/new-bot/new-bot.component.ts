@@ -39,29 +39,34 @@ export class NewBotComponent implements OnInit {
   waiting_msg : String;
   initial_greeting : String;
   launchLink : boolean = false;
+  latteral_tab: boolean;
+  floating_icon: boolean;
   bot: any = {};
+
   constructor(private router : Router, private Service: NewBotService, private toasterService: NotificationService,public dialog: MatDialog, @Inject(DOCUMENT) private doc: any) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
       }
     });
-
   }
+ /* if(this.bot.latteral_tab === true){
+    this.bot.floating_icon = false;
+  }
+  else if(this.bot.latteral_tab === false){
+    this.bot.floating_icon = true;
+  }
+  else if(  this.bot.floating_icon = false){
+    this.bot.latteral_tab =true;
+  }
+  else this.bot.latteral_tab = false*/
 
-  ngOnInit() {
-/*
-    this.Service.broadcastToken.subscribe((x)=>{
-      console.log(x)
-      this.toasterService.pop('success', 'new bot created successful', '');
-    }, (err) => {
-      this.toasterService.pop('failure', 'Error Message', 'null');
-      console.log(err);
-    });*/
-
+    ngOnInit() {
+      this.bot.latteral_tab = true;
+      this.bot.floating_icon = false;
   }
   next(){
-    console.log(this.bot);
+    console.log("reached==========",this.bot);
   }
   save(){
    /* if (localStorage['token']) {*/
