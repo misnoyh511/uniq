@@ -50,23 +50,18 @@ export class NewBotComponent implements OnInit {
       }
     });
   }
- /* if(this.bot.latteral_tab === true){
-    this.bot.floating_icon = false;
-  }
-  else if(this.bot.latteral_tab === false){
-    this.bot.floating_icon = true;
-  }
-  else if(  this.bot.floating_icon = false){
-    this.bot.latteral_tab =true;
-  }
-  else this.bot.latteral_tab = false*/
-
     ngOnInit() {
       this.bot.latteral_tab = true;
-      this.bot.floating_icon = false;
   }
   next(){
     console.log("reached==========",this.bot);
+  }
+  toggle(){
+    this.bot.floating_icon = !this.bot.latteral_tab
+
+  }
+  toggle1() {
+    this.bot.latteral_tab = !this.bot.floating_icon
   }
   save(){
    /* if (localStorage['token']) {*/
