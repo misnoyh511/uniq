@@ -29,7 +29,7 @@
 
           <div class="analytics-inner-wrap">
             <h4>Top Message Out</h4>
-
+            <chart [options]="data"></chart>
             <div id="container1"></div>
             <h4>Messages</h4>
             <table class="table table-bordered table-striped">
@@ -40,33 +40,9 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Hola</td>
-                <td>60</td>
-              </tr>
-              <tr>
-                <td>Gracias</td>
-                <td>100</td>
-              </tr>
-              <tr>
-                <td>Te amo</td>
-                <td>107</td>
-              </tr>
-              <tr>
-                <td>Vamos</td>
-                <td>31</td>
-              </tr>
-              <tr>
-                <td>Amigo</td>
-                <td>635</td>
-              </tr>
-              <tr>
-                <td>Irendito</td>
-                <td>203</td>
-              </tr>
-              <tr>
-                <td>Despacito</td>
-                <td>25</td>
+              <tr *ngFor="let msg of topMessagesOut">
+                <td matTooltip={{msg.text}}>{{msg.text.length > 150 ? msg.text.substring(0, 150)+ '...' : msg.text}}</td>
+                <td>{{msg.count}}</td>
               </tr>
               </tbody>
             </table>

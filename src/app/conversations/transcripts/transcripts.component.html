@@ -43,44 +43,33 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td><a class="toggle-chat-wrap" href="#">Dec 21st, 2017 <br> 9:59pm</a></td>
-                <td><i class="fa fa-user" aria-hidden="true"></i> 5e304540-ed0d-11e...</td>
-                <td>a few seconds</td>
+              <tr *ngFor="let transcript of transcripts">
+                <td><a class="toggle-chat-wrap" href="#">{{transcript.created_at | date : 'MMM d, y h:mm:ss'}}</a></td>
+                <td><i class="fa fa-user" aria-hidden="true"></i> {{transcript.session_id}}</td>
+                <td>{{transcript.duration}} days</td>
                 <td>1</td>
                 <td>1</td>
                 <td>0</td>
                 <td><a href="#" class="toggle-chat-wrap"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
               </tr>
-              <tr>
-                <td><a class="toggle-chat-wrap" href="#">Dec 21st, 2017 <br> 9:59pm</a></td>
-                <td><i class="fa fa-user" aria-hidden="true"></i> 5e304540-ed0d-11e...</td>
-                <td>a few seconds</td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                <td><a class="toggle-chat-wrap" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
-              </tr>
-              <tr>
-                <td><a class="toggle-chat-wrap" href="#">Dec 21st, 2017 <br> 9:59pm</a></td>
-                <td><i class="fa fa-user" aria-hidden="true"></i> 5e304540-ed0d-11e...</td>
-                <td>a few seconds</td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                <td><a class="toggle-chat-wrap" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
-              </tr>
-              <tr>
-                <td><a class="toggle-chat-wrap" href="#">Dec 21st, 2017 <br> 9:59pm</a></td>
-                <td><i class="fa fa-user" aria-hidden="true"></i> 5e304540-ed0d-11e...</td>
-                <td>a few seconds</td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                <td><a class="toggle-chat-wrap" href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
-              </tr>
               </tbody>
             </table>
+
+            <!--client
+:
+null
+created_at
+:
+"2017-03-15T21:49:40.000Z"
+session_id
+:
+"466685d0-09c9-11e7-bc28-6d6714343f7a"
+text
+:
+"¿Cómo puedo obtener la Tarjeta Vecino?"
+type
+:
+"incoming"-->
 
           </div>
         </div>

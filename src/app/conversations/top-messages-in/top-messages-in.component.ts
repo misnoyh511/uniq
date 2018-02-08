@@ -1,31 +1,62 @@
-import { Component, OnInit } from '@angular/core';
-import {ConversationsService} from './../conversations.service';
+import {Component, OnInit} from '@angular/core';
+import {ConversationsService} from '../conversations.service';
 
 @Component({
-  selector: 'app-top-messages-in',
-  templateUrl: './top-messages-in.component.html',
-  styleUrls: ['./top-messages-in.component.css'],
-  providers:[ConversationsService]
+    selector: 'app-top-messages-in',
+    templateUrl: './top-messages-in.component.html',
+    styleUrls: ['./top-messages-in.component.css'],
+    providers: [ConversationsService]
 })
 export class TopMessagesInComponent implements OnInit {
-  topMessagesIn : any = [];
-  options ={
-    title : { text : 'simple chart' },
-    series: [{
-      data: [29.9, 71.5, 106.4, 129.2]
-    }]
-  };
-  constructor(private conversationsService:ConversationsService) {
+    topMessagesIn: any = [];
+    options: any = {};
 
-  }
+    constructor(private conversationsService: ConversationsService) {
 
-  ngOnInit() {
-    this.conversationsService.getTopMessagesIn(1).subscribe((response) => {
-      //this.topMessagesIn = response;
-      this.topMessagesIn = [{message:'abcd', count:'10'},{message:'abcde', count:'101'},{message:'abcdef', count:'102'},{message:'abcdefg', count:'103'}];
-    }, (err) => {
-      console.log(err);
-    });
-  }
+    }
+
+    ngOnInit() {
+        this.conversationsService.getTopMessagesIn().subscribe((response) => {
+            this.topMessagesIn = response.data;
+            this.options = {
+                chart: {
+                    type: 'bar',
+                    margin: 75,
+                    width: 775,
+                    height: 600
+                },
+                plotOptions: {
+                    column: {
+                        depth: 25
+                    }
+                },
+                xAxis: {
+                    categories: [],
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Message Count',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                series: [{
+                    data: []
+                }]
+            };
+            for (const i in this.topMessagesIn) {
+                this.options.xAxis.categories[i] = this.topMessagesIn[i].text;
+                this.options.series[0].data[i] = parseInt(this.topMessagesIn[i].count);
+            }
+        }, (err) => {
+            console.log(err);
+        });
+    }
 
 }

@@ -6,11 +6,14 @@ import { TranscriptsComponent } from './transcripts/transcripts.component';
 import {ConversationsRoutes} from './conversations.routing';
 import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   imports: [
     RouterModule.forChild(ConversationsRoutes),
-    SharedModule
+    SharedModule,
+    MatTooltipModule
   ],
   declarations: [TopMessagesInComponent, TopMessagesOutComponent, TranscriptsComponent, SubNavComponent]
 })
