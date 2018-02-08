@@ -12,14 +12,14 @@
       <div class="dashboard-new-title-wrap">
         <h3>Create	A	New	Bot</h3>
         <div class="title-links">
-          <a href="javascript:void(0)" class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
-          <a href="javascript:void(0)" class="launch-link" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
+          <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()" class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
+          <a href="javascript:void(0)" class="launch-link"  class="launch" (click)="launchLink = true" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
         </div>
       </div>
       <div class="dashboard-new-steps-wrapper">
         <ul class="nav nav-pills dashboard-step-list" id="pills-tab" role="tablist">
           <li class="nav-item" xyz="abc">
-            <a class="nav-link step-links active" id="new-step1" data-toggle="pill" href="#capture" role="tab" aria-controls="capture" aria-selected="true">
+            <a class="nav-link step-links active"  id="new-step1" data-toggle="pill" href="#capture" role="tab" aria-controls="capture" aria-selected="true">
               <strong>1</strong>
               <span>Your NLP</span>
             </a>
@@ -46,7 +46,57 @@
         <div class="tab-content">
           <div class="tab-pane active" id="capture" role="tabpanel" aria-labelledby="new-step1">
             <div class="tab-content-wrap">
-              <div class="step-inner-wrapper">
+              <div *ngIf="launchLink" class="tab-pane" role="tabpanel" aria-labelledby="new-step5" >
+                <div class="tab-content-wrap">
+                  <div class="step-inner-wrapper">
+                    <div class="step-inner-title">
+                      <h3>Give this Project an internal name</h3>
+                    </div>
+                    <div class="full-width-input-fields full-width-input-fields-step4">
+                      <p>Project Name
+                        <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                        <b> The Project name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
+                      </p>
+                      <div class="login-form-elements">
+                        <label> Enter Project Name</label>
+                        <input type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="error-msg-wrap">
+                    <div class="error-message">
+                      <span>Missing a Welcome	Message</span>
+                      <button class="launchBtnBack errorBtn errorBtnStep1">Resolve</button>
+                    </div>
+                    <div class="error-message">
+                      <span>Missing a Welcome	Message</span>
+                      <button class="launchBtnBack errorBtn errorBtnStep2">Resolve</button>
+                    </div>
+                    <div class="error-message">
+                      <span>Missing a Welcome	Message</span>
+                      <button class="launchBtnBack errorBtn errorBtnStep3">Resolve</button>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="next-button-wrap">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="blank-wrap">
+                        <a data-toggle="pill" href="#customize" (click)="pro()" class="btnPrev launchBtnBack">Back</a>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <button class="btnNext">
+                        Launch
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="!launchLink" class="step-inner-wrapper">
                 <div class="step-inner-title">
                   <h3>Tap On Your NLP Provider of Choice</h3>
                 </div>
@@ -66,18 +116,18 @@
                   </div>
                   <div class="login-form-elements transate-left">
                     <label> Enter Server Token</label>
-                    <input type="text">
+                    <input name="token" type="text"  [(ngModel)]="bot.token">
                   </div>
                 </form>
               </div>
             </div>
-            <div class="next-button-wrap">
+            <div class="next-button-wrap" *ngIf="!launchLink">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap"></div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext">
+                  <button class="btnNext"  data-toggle="pill" href="#message" (click)="next()">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -85,42 +135,8 @@
               </div>
             </div>
           </div>
-          <!-- <div class="tab-pane" id="display" role="tabpanel" aria-labelledby="new-step2">
-              <div class="tab-content-wrap">
-                  <div class="step-inner-wrapper">
-                      <div class="step-inner-title">
-                          <h3>Upload Your Knowledge Dataset</h3>
-                      </div>
-                      <div class="full-panel full-panel-step2">
-                          <span>Upload a CSV file with intents
-                              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                              <b> Upload a CSV file with intents</b>
-                          </span>
-                          <div class="right-side-form">
-                              <form>
-                                 <input id="files" class="uploadfiles" name="files[]" multiple type="file">
-                              </form>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="next-button-wrap">
-                  <div class="row">
-                      <div class="col-sm-6">
-                          <div class="blank-wrap">
-                              <a href="#" class="btnPrev">Back</a>
-                          </div>
-                      </div>
-                      <div class="col-sm-6">
-                      <button class="btnNext">
-                          Next
-                          <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                      </button>
-                      </div>
-                  </div>
-              </div>
-          </div> -->
-          <div class="tab-pane" id="message" role="tabpanel" aria-labelledby="new-step3">
+
+          <div  class="tab-pane" id="message" role="tabpanel" aria-labelledby="new-step3">
             <div class="tab-content-wrap message-wrapper">
               <div class="step-inner-wrapper custom-margin-bottom">
                 <div class="step-inner-title">
@@ -133,7 +149,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label>Enter Your Bot Name</label>
-                    <input type="text">
+                    <input name="name" type="text"  [(ngModel)]="bot.name">
                   </div>
                 </div>
 
@@ -144,7 +160,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label> Enter A Chat Window Name</label>
-                    <input type="text">
+                    <input name="chat_window_name" type="text" [(ngModel)]="bot.chat_window_name">
                   </div>
                 </div>
               </div>
@@ -157,20 +173,27 @@
                                           <!-- <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                            <b class=""></b> -->
                                         </span>
-                  <div class="on-off-btn toggle-btn-on-off active">
+
+                   <mat-slide-toggle  color="primary" style="float:right">On
+                  </mat-slide-toggle>
+
+                 <!-- <div class="on-off-btn toggle-btn-on-off active">
                     <span class="rounded-on-off-btn"></span>
                     <span class="on-off-text">On</span>
-                  </div>
+                  </div>-->
                 </div>
                 <div class="full-panel chat-style-floating-icon">
                                         <span>Floating Icon
                                           <!-- <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                           <b class=""></b> -->
                                         </span>
-                  <div class="on-off-btn toggle-btn-on-off">
+
+                  <mat-slide-toggle color="primary" style="float: right">Off
+                  </mat-slide-toggle>
+                 <!-- <div class="on-off-btn toggle-btn-on-off">
                     <span class="rounded-on-off-btn"></span>
                     <span class="on-off-text">Off</span>
-                  </div>
+                  </div>-->
                 </div>
               </div>
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
@@ -184,7 +207,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label>Enter A Welcome	Message</label>
-                    <input type="text">
+                    <input  name="initial_greeting" type="text" [(ngModel)]="bot.initial_greeting">
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -194,7 +217,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label> Please	Enter An Input Text</label>
-                    <input type="text">
+                    <input name="input_title" type="text" [(ngModel)]="bot.input_title">
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -204,7 +227,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label>Please Enter A Waiting Text</label>
-                    <input type="text">
+                    <input name="waiting_msg" type="text" [(ngModel)]="bot.waiting_msg">
                   </div>
                 </div>
               </div>
@@ -280,11 +303,11 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a href="#" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#capture"  (click)="pro()" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext">
+                  <button class="btnNext" data-toggle="pill" href="#customize" (click)="next()">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -337,7 +360,7 @@
               </div>
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
                 <div class="custom-timing-btn-wrap">
-                  <button class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                  <button   data-toggle="pill" href="#timing" (click)="pro()" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
                 </div>
                 <div class="step-inner-title">
                   <h3>Pro-Active	Mode<span>Business</span></h3>
@@ -371,7 +394,7 @@
               </div>
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
                 <div class="custom-timing-btn-wrap">
-                  <button class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                  <button data-toggle="pill" href="#timing" (click)="pro()" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
                 </div>
                 <div class="step-inner-title">
                   <h3>Live Chat <span>Pro</span></h3>
@@ -408,11 +431,11 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a href="#" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#message"(click)="pro()" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext launchBtn">
+                  <button href="#launch" data-toggle="pill" (click)="save()" class="btnNext launchBtn">
                     Save
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -458,7 +481,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a href="#" class="btnPrev launchBtnBack">Back</a>
+                    <a href="#"  class="btnPrev launchBtnBack">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -473,5 +496,33 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div  id="timing" href="#timing" class="custom-timing-section">
+  <div class="custom-timing-container">
+    <a href="javascript:void(0)"  mat-mini-fab color="primary" data-toggle="pill"  href="#customize" (click)="pro()">x</a>
+    <h2>Pro Active Mode</h2>
+    <p>Sometimes notifications popup faster or slower than you'd prefer. With custom timing, you can speed them up, slow them down, or hold them on screen longer.</p>
+    <p><strong>Upgrade to the BUSINESS plan for $129/mo to unlock Custom Timing, plus:</strong></p>
+    <ul>
+      <li>Priority Support</li>
+      <li>50,000 Unique Monthly Visitors</li>
+      <li>Unlimited Domains</li>
+
+    </ul>
+    <button (click)="openModal()" class="unlock-timing-toggle">
+      <i class="fa fa-unlock" aria-hidden="true"></i>
+      Activate Pro Active Mode
+    </button>
+  </div>
+</div>
+
+<div  id="upgrade" href="#upgrade" class="unlock-btn-wrapper">
+  <div class="unlock-btn-wrap">
+    <h3>Upgrade your account to the BUSINESS plan?</h3>
+    <p>Your account will be prorated for the amount you have already paid during the current billing period.</p>
+    <a class="blue-bg-link unlock-pro-btn" href="#">Yes, Upgrade Me!</a>
+    <a class="hide-unlock-wrapper" href="#">Cancel</a>
   </div>
 </div>

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'app-sign-up',
     templateUrl: 'sign-up.component.html',
-    styleUrls: ['../authentication.component.css']
+    styleUrls: ['../authentication.component.css'],
 })
 export class SignUpComponent {
     user : any = {};

@@ -25,6 +25,10 @@ import { ConversationsModule } from './conversations/conversations.module';
 import { ReportsModule } from './reports/reports.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
 import { botModule } from './bot/bot.module';
+import {HttpClientModule} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
+import {JazzDialog} from "./new-bot/new-bot.component";
+
 
 @NgModule({
   declarations: [
@@ -49,10 +53,11 @@ import { botModule } from './bot/bot.module';
     ConversationsModule,
     ReportsModule,
     AccountSettingsModule,
-    botModule
+    botModule,
+    HttpClientModule,
 
   ],
-  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService],
+  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule {
