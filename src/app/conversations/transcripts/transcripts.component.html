@@ -16,8 +16,8 @@
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Transcripts
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip">
+              <sup><i (mouseover)="showTooltip= true" (mouseout)="showTooltip= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip" [class.show]="showTooltip">
                 <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
                 <ul>
                   <li>Lorem ipusm is just a dummy text.</li>
@@ -29,7 +29,6 @@
 
           <div class="analytics-inner-wrap transcript-wrap">
             <h4>Total Transcripts <span><i class="fa fa-refresh"></i></span> </h4>
-
             <table class="table table-bordered table-striped">
               <thead>
               <tr>
@@ -50,36 +49,20 @@
                 <td>1</td>
                 <td>1</td>
                 <td>0</td>
-                <td><a href="#" class="toggle-chat-wrap"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
+                <td><a href="javascript:void(0)" (click)="showDialog = true" class="toggle-chat-wrap"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
               </tr>
               </tbody>
             </table>
-
-            <!--client
-:
-null
-created_at
-:
-"2017-03-15T21:49:40.000Z"
-session_id
-:
-"466685d0-09c9-11e7-bc28-6d6714343f7a"
-text
-:
-"¿Cómo puedo obtener la Tarjeta Vecino?"
-type
-:
-"incoming"-->
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="transcript-chat-wrapper">
+
+<div class="transcript-chat-wrapper" [class.active]="showDialog">
   <div class="transcript-chat-wrap">
-    <a href="javascript:void(0)" class="chat-close-btn"><i class="fa fa-close" aria-hidden="true"></i></a>
+    <a href="javascript:void(0)" (click)= "showDialog= false" class="chat-close-btn"><i class="fa fa-close" aria-hidden="true"></i></a>
     <div class="transcript-chat-title">
       <div class="row">
         <div class="col-md-6">

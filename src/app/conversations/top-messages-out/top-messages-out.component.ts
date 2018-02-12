@@ -11,6 +11,7 @@ export class TopMessagesOutComponent implements OnInit {
 
     topMessagesOut: any = [];
     data: any = {};
+    showTooltip= false;
 
   constructor(private conversationsService: ConversationsService) { }
 

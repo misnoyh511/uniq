@@ -12,6 +12,8 @@ export class TranscriptsComponent implements OnInit {
     transcripts: any = [];
     todayDate: any = new Date();
     date: any;
+    showDialog= false;
+    showTooltip= false;
 
     constructor(private conversationsService: ConversationsService) {
     }

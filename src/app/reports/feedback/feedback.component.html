@@ -23,18 +23,18 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="analytics-feedback-filters">
-                    <select>
-                      <option>All</option>
-                      <option>Positive</option>
-                      <option>Negative</option>
+                    <select [(ngModel)]="selectedValue" name="selectedValue" (change)="getSession()">
+                      <option value="all">All</option>
+                      <option value="positive">Positive</option>
+                      <option value="negative">Negative</option>
                     </select>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="analytics-feedback-filters">
-                    <select>
-                      <option>Session</option>
-                      <option>Messages</option>
+                    <select [(ngModel)]="selectedData" name="selectedData" (change)="getData()">
+                      <option value="session">Session</option>
+                      <option value="message">Messages</option>
                     </select>
                   </div>
                 </div>

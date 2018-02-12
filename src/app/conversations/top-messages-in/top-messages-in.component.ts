@@ -10,6 +10,7 @@ import {ConversationsService} from '../conversations.service';
 export class TopMessagesInComponent implements OnInit {
     topMessagesIn: any = [];
     options: any = {};
+    showTooltip = false;
 
     constructor(private conversationsService: ConversationsService) {
 
