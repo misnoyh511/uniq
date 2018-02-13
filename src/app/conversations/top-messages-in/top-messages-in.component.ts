@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ConversationsService} from '../conversations.service';
+import {ConversationsService} from "../conversations.service";
+
 
 @Component({
     selector: 'app-top-messages-in',

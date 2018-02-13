@@ -608,8 +608,9 @@ p{margin:0 0 20px 0; }
 .full-panel .message-bubble-desc span {font-size: 10px;color: #DDD; font-weight: bold;}
 .full-panel .message-bubble-desc span a {color:rgba(0,149,247,0.5);}
 
-.visitor-count-wrap {display:none;}
+/*.visitor-count-wrap {display:none;}*/
 .visitor-count-wrap-show {display:block;}
+
 
 .timing-auto-custom-wrap {float:right; margin:10px;}
 .timing-auto-custom-toggle .on-off-btn {float:none; margin:0;}

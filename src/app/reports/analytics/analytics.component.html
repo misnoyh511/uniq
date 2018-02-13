@@ -49,6 +49,7 @@
           <div class="analytics-inner-wrap">
             <h4>Session Yesterday</h4>
             <span class="session-number">15</span>
+            <chart [options]="options"></chart>
             <div id="container_1"></div>
           </div>
         </div>
@@ -68,6 +69,7 @@
           <div class="analytics-inner-wrap">
             <h4>Queries per session yesterday</h4>
             <span class="session-number">1.33</span>
+            <chart [options]="options1"></chart>
             <div id="container_2"></div>
           </div>
         </div>
@@ -104,6 +106,7 @@
 
           <div class="analytics-inner-wrap">
             <h4>{{users.clients}}</h4>
+            <chart [options]="options2"></chart>
             <div id="container"></div>
           </div>
         </div>

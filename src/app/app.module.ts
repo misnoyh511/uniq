@@ -29,7 +29,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {HttpClient} from "@angular/common/http";
 import {JazzDialog} from "./new-bot/new-bot.component";
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -54,7 +53,7 @@ import {JazzDialog} from "./new-bot/new-bot.component";
     ReportsModule,
     AccountSettingsModule,
     botModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient],
   bootstrap: [AppComponent]

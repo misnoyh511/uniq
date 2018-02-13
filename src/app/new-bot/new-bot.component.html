@@ -13,7 +13,7 @@
         <h3>Create	A	New	Bot</h3>
         <div class="title-links">
           <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()" class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
-          <a href="javascript:void(0)" class="launch-link"  class="launch" (click)="launchLink = true" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
+          <a href="javascript:void(0)" class="launch-link"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
         </div>
       </div>
       <div class="dashboard-new-steps-wrapper">
@@ -24,12 +24,6 @@
               <span>Your NLP</span>
             </a>
           </li>
-          <!--<li class="nav-item step-links">
-              <a class="nav-link" id="new-step2" data-toggle="pill" href="#display" role="tab" aria-controls="display" aria-selected="true">
-                  <strong>2</strong>
-                  <span>Knowledge Dataset</span>
-              </a>
-          </li> -->
           <li class="nav-item step-links">
             <a class="nav-link" id="new-step3" data-toggle="pill" href="#message" role="tab" aria-controls="message" aria-selected="true">
               <strong>2</strong>
@@ -46,7 +40,7 @@
         <div class="tab-content">
           <div class="tab-pane active" id="capture" role="tabpanel" aria-labelledby="new-step1">
             <div class="tab-content-wrap">
-              <div *ngIf="launchLink" class="tab-pane" role="tabpanel" aria-labelledby="new-step5" >
+             <!-- <div class="tab-pane" role="tabpanel" aria-labelledby="new-step5" >
                 <div class="tab-content-wrap">
                   <div class="step-inner-wrapper">
                     <div class="step-inner-title">
@@ -95,8 +89,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div *ngIf="!launchLink" class="step-inner-wrapper">
+              </div>-->
+              <div class="step-inner-wrapper">
                 <div class="step-inner-title">
                   <h3>Tap On Your NLP Provider of Choice</h3>
                 </div>
@@ -111,7 +105,6 @@
                   <div class="full-width-input-fields">
                     <p>Enter Your NLP Server Token
                       <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                      <!-- <b>Enter Your NLP Server Token</b>-->
                     </p>
                   </div>
                   <div class="login-form-elements transate-left">
@@ -121,7 +114,7 @@
                 </form>
               </div>
             </div>
-            <div class="next-button-wrap" *ngIf="!launchLink">
+            <div class="next-button-wrap">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap"></div>
@@ -160,7 +153,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label> Enter A Chat Window Name</label>
-                    <input name="chat_window_name" type="text" [(ngModel)]="bot.chat_window_name">
+                    <input name="chatWindowName" type="text" [(ngModel)]="bot.chatWindowName">
                   </div>
                 </div>
               </div>
@@ -170,33 +163,20 @@
                 </div>
                 <div class="full-panel chat-style-latteral-tab">
                                         <span>Latteral Tab
-                                          <!-- <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                           <b class=""></b> -->
                                         </span>
 
-                   <mat-slide-toggle (change)="toggle()" name="latteral_tab" type="text" [(ngModel)]="bot.latteral_tab" color="primary" style="float:right">
-                     {{bot.latteral_tab ? 'On' : 'Off'}}
+                   <mat-slide-toggle (change)="latteralToggle()" name="latteralTab" type="text" [(ngModel)]="bot.latteralTab" color="primary" style="float:right">
+                     {{bot.latteralTab ? 'On' : 'Off'}}
 
                   </mat-slide-toggle>
-
-                 <!-- <div class="on-off-btn toggle-btn-on-off active">
-                    <span class="rounded-on-off-btn"></span>
-                    <span class="on-off-text">On</span>
-                  </div>-->
                 </div>
                 <div class="full-panel chat-style-floating-icon">
                                         <span>Floating Icon
-                                          <!-- <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                          <b class=""></b> -->
                                         </span>
 
-                  <mat-slide-toggle (change)="toggle1()" name="floating_icon" type="text" [(ngModel)]="bot.floating_icon" color="primary" style="float: right">
-                    {{bot.floating_icon ? 'On' : 'Off'}}
+                  <mat-slide-toggle (change)="floatingToggle()" name="floatingIcon" type="text" [(ngModel)]="bot.floatingIcon" color="primary" style="float: right">
+                    {{bot.floatingIcon ? 'On' : 'Off'}}
                   </mat-slide-toggle>
-                 <!-- <div class="on-off-btn toggle-btn-on-off">
-                    <span class="rounded-on-off-btn"></span>
-                    <span class="on-off-text">Off</span>
-                  </div>-->
                 </div>
               </div>
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
@@ -210,7 +190,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label>Enter A Welcome	Message</label>
-                    <input  name="initial_greeting" type="text" [(ngModel)]="bot.initial_greeting">
+                    <input  name="initialGreeting" type="text" [(ngModel)]="bot.initialGreeting">
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -220,7 +200,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label> Please	Enter An Input Text</label>
-                    <input name="input_title" type="text" [(ngModel)]="bot.input_title">
+                    <input name="inputTitle" type="text" [(ngModel)]="bot.inputTitle">
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -230,7 +210,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label>Please Enter A Waiting Text</label>
-                    <input name="waiting_msg" type="text" [(ngModel)]="bot.waiting_msg">
+                    <input name="waitingMsg" type="text" [(ngModel)]="bot.waitingMsg">
                   </div>
                 </div>
               </div>
@@ -265,7 +245,6 @@
                                             <b>The tab/icon background	color seen by users</b>
                                         </span>
                   <div class="right-side-form">
-                    <!--<div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
                     <input class="jscolor" value="ab2567">
                   </div>
                 </div>
@@ -275,7 +254,6 @@
                                             <b>The tab/icon color seen by users</b>
                                         </span>
                   <div class="right-side-form">
-                    <!-- <div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
                     <input class="jscolor" value="ab2567">
                   </div>
                 </div>
@@ -306,7 +284,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a data-toggle="pill" href="#capture"  (click)="pro()" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#capture"  (click)="next()" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -323,23 +301,18 @@
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
                 <div class="step-inner-title">
                   <h3>FAQ	Section<span>Pro</span></h3>
-                 <!-- <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
-                    <span class="rounded-on-off-btn"></span>
-                    <span class="on-off-text">Off</span>
-                  </div>-->
-                  <mat-slide-toggle color="primary" style="float:right">Off
+                  <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text" [(ngModel)]="bot.faqSection" color="primary" style="float:right">
+                 {{bot.faqSection ? 'On' : 'Off'}}
                   </mat-slide-toggle>
-                </div>
-                <div class="visitor-count-wrap visitor-count-wrap2">
+                <div class="visitor-count-wrap visitor-count-wrap2" *ngIf="faqShowHide">
                   <div class="full-panel">
                                             <span>Add	FAQ on Mobile to begin a conversation
                                             	<sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                                 <b class="">This initiates a chatbot conversation with a FAQ.</b>
                                             </span>
-                    <div class="on-off-btn toggle-btn-on-off">
-                      <span class="rounded-on-off-btn"></span>
-                      <span class="on-off-text">Off</span>
-                    </div>
+                    <mat-slide-toggle type="text" name="beginConversation"  [(ngModel)]="bot.beginConversation" color="primary" style="float:right">
+                      {{bot.beginConversation ? 'On' : 'Off'}}
+                    </mat-slide-toggle>
                   </div>
                   <div class="full-width-input-fields full-width-input-fields-step4">
                     <p> Add a FAQ	topic
@@ -364,28 +337,24 @@
                 </div>
               </div>
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                <div class="custom-timing-btn-wrap">
-                  <button   data-toggle="pill" href="#timing" (click)="pro()" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                <div class="custom-timing-btn-wrap" *ngIf="proHide">
+                  <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
                 </div>
                 <div class="step-inner-title">
-                  <h3>Pro-Active	Mode<span>Business</span></h3>
-                 <!-- <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
-                    <span class="rounded-on-off-btn"></span>
-                    <span class="on-off-text">Off</span>
-                  </div>-->
-                  <mat-slide-toggle color="primary" style="float:right">Off
+                  <h3>Pro-Active Mode<span>Business</span></h3>
+                  <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text" [(ngModel)]="bot.proActive" color="primary" style="float:right">
+                    {{bot.proActive ? 'On' : 'Off'}}
                   </mat-slide-toggle>
                 </div>
-                <div class="visitor-count-wrap visitor-count-wrap1">
+                <div class="visitor-count-wrap visitor-count-wrap1"*ngIf="proActiveShowHide">
                   <div class="full-panel">
                                             <span>Open Chat Bot Window By	Default
                                             	<sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                                 <b class="">This opens the chat bot	window automatically and immediately.</b>
                                             </span>
-                    <div class="on-off-btn toggle-btn-on-off">
-                      <span class="rounded-on-off-btn"></span>
-                      <span class="on-off-text">Off</span>
-                    </div>
+                    <mat-slide-toggle type="text" name="chatBotWindow"  [(ngModel)]="bot.chatBotWindow" color="primary" style="float:right">
+                      {{bot.chatBotWindow ? 'On' : 'Off'}}
+                    </mat-slide-toggle>
                   </div>
                   <div class="full-width-input-fields full-width-input-fields-step4">
                     <p>Time to	Open Chat Window Automatically (Dwell time)
@@ -400,28 +369,24 @@
                 </div>
               </div>
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                <div class="custom-timing-btn-wrap">
-                  <button data-toggle="pill" href="#timing" (click)="pro()" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                <div class="custom-timing-btn-wrap" *ngIf="proHide">
+                  <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
                 </div>
                 <div class="step-inner-title">
                   <h3>Live Chat <span>Pro</span></h3>
-                  <!--<div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count3">
-                    <span class="rounded-on-off-btn"></span>
-                    <span class="on-off-text">Off</span>
-                  </div>-->
-                  <mat-slide-toggle color="primary" style="float:right">Off
+                  <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text" [(ngModel)]="bot.liveChat" color="primary" style="float:right">
+                    {{bot.liveChat ? 'On' : 'Off'}}
                   </mat-slide-toggle>
                 </div>
-                <div class="visitor-count-wrap visitor-count-wrap3">
+                <div class="visitor-count-wrap visitor-count-wrap3" *ngIf="liveChatShowHide">
                   <div class="full-panel">
                                             <span>Open Chat Bot Window By	Default
                                             	<sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                                 <b class="">This opens the chat bot	window automatically and immediately.</b>
                                             </span>
-                    <div class="on-off-btn toggle-btn-on-off">
-                      <span class="rounded-on-off-btn"></span>
-                      <span class="on-off-text">Off</span>
-                    </div>
+                    <mat-slide-toggle type="text" name="chatWindow"  [(ngModel)]="bot.chatWindow" color="primary" style="float:right">
+                      {{bot.chatWindow ? 'On' : 'Off'}}
+                    </mat-slide-toggle>
                   </div>
                   <div class="full-width-input-fields full-width-input-fields-step4">
                     <p>Time to	Open Chat Window Automatically (Dwell time)
@@ -440,7 +405,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a data-toggle="pill" href="#message"(click)="pro()" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#message"(click)="next()" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -452,7 +417,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane" id="launch" role="tabpanel" aria-labelledby="new-step5">
+          <div class="tab-pane" style="display: none" id="launch" role="tabpanel" aria-labelledby="new-step5">
             <div class="tab-content-wrap">
               <div class="step-inner-wrapper">
                 <div class="step-inner-title">
@@ -490,7 +455,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a (click)="pro()" href="#customize" data-toggle="pill"  class="btnPrev launchBtnBack">Back</a>
+                    <a (click)="next()" href="#customize" data-toggle="pill"  class="btnPrev launchBtnBack">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -508,9 +473,9 @@
   </div>
 </div>
 
-<div  id="timing" href="#timing" class="custom-timing-section">
+<div  id="timing"  class="custom-timing-section" [class.active]="showDialog">
   <div class="custom-timing-container">
-    <a href="javascript:void(0)" mat-mini-fab color="primary" data-toggle="pill"  href="#customize" (click)="pro()">x</a>
+    <a href="javascript:void(0)" mat-mini-fab color="primary" (click)= "showDialog= false">x</a>
     <h2>Pro Active Mode</h2>
     <p>Sometimes notifications popup faster or slower than you'd prefer. With custom timing, you can speed them up, slow them down, or hold them on screen longer.</p>
     <p><strong>Upgrade to the BUSINESS plan for $129/mo to unlock Custom Timing, plus:</strong></p>
@@ -526,12 +491,4 @@
     </button>
   </div>
 </div>
-
-<div  id="upgrade" href="#upgrade" class="unlock-btn-wrapper">
-  <div class="unlock-btn-wrap">
-    <h3>Upgrade your account to the BUSINESS plan?</h3>
-    <p>Your account will be prorated for the amount you have already paid during the current billing period.</p>
-    <a class="blue-bg-link unlock-pro-btn" href="#">Yes, Upgrade Me!</a>
-    <a class="hide-unlock-wrapper" href="#">Cancel</a>
-  </div>
 </div>
