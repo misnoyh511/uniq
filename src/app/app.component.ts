@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class AppComponent {
   constructor(private router: Router) {
     router.events.subscribe((val) => {
-      if (router.url.indexOf('home') > -1 || router.url.indexOf('features') > -1 || router.url.indexOf('integrations') > -1 || router.url.indexOf('pricing') > -1) {
+      if (router.url.indexOf('home') > -1 || router.url.indexOf('features') > -1 || router.url.indexOf('integrations') > -1 ||
+        router.url.indexOf('pricing') > -1 || router.url.indexOf('login') > -1 || router.url.indexOf('sign-up') > -1 ) {
         this.hideSideBar = false;
       }
       else {
