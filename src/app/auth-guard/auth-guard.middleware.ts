@@ -5,6 +5,8 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import { Observable } from 'rxjs/Observable';
+import {AppConfig} from "../app.config";
+
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -19,11 +21,10 @@ export class AuthGuard implements CanActivate {
      * @returns {boolean}
      */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.afAuth.authState
-            .take(1)
-            .map(authState => !!authState)
-            .do(authenticated => {
-                !authenticated ? this.router.navigate(['/']) : true
-            });
+        if(localStorage[AppConfig.USER_INFO_KEY]){
+            let user = JSON.parse(localStorage[AppConfig.USER_INFO_KEY]);
+            return (user.session_token)? true : false;
+        }
+        return false;
     }
 }

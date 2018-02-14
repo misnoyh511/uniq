@@ -65,17 +65,21 @@ export class AuthenticationService {
                 this.notificationService.showToastr(err.message);
             });
     }
-    loginAuth(){
-        return this.httpClient.get(AppConfig.API_ENDPOINT + '/login?email=testerg@hop.in&password=hopin123')
-       .map(response => {
-           console.log("================",response);
-           response['_body']=JSON.parse(response['_body']);
-           if(response['_body'] && response['_body']['users'] && response['_body']['users'][0] && response['_body']['users'][0]['session_token']){
-               localStorage.setItem('token', response['_body']['users'][0]['session_token']);
-               return response.json();
-           }
-        })
+
+    loginAuth(email: string, password: string) {
+        return this.httpClient.get(AppConfig.API_ENDPOINT + '/login?email=' + email + '&password=' + password)
+            .map(response => {
+                let resJson = response.json();
+                let users = resJson.users;
+                if (users && users.length > 0) {
+                    localStorage.setItem('USER_INFO_KEY', JSON.stringify(users[0]));
+                    this.router.navigate(['/home']);
+                    return users[0];
+                }
+            })
             .catch((err: Response) => {
+                console.log('imside error');
+                this.notificationService.showToastr(err);
                 return Observable.of(err);
             });
     }

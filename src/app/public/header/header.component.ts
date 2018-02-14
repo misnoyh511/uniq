@@ -18,10 +18,8 @@ export class HeaderComponent implements OnInit {
     }
   }
   logOut(){
-    this.authenticationService.logout().then((data)=>{
-      this.isAuthenticate = false;
-      this.router.navigate(['/'])
-    });
-
+    delete localStorage[AppConfig.USER_INFO_KEY];
+    this.isAuthenticate = false;
+    this.router.navigate(['/'])
   }
 }

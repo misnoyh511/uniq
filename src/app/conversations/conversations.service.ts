@@ -8,7 +8,7 @@ import {InterceptorService} from '../interceptor/interceptor.service';
 
 @Injectable()
 export class ConversationsService {
-    analyticsId = 'U4L0fRquX9gKcvylBZK2DWGKhXcNOABTmyOesUyh';
+    analyticsId = 'PkS4FDkQ9xlaX76nAxHWJDRX7oztEPrGWBpoTtjL';
   constructor(private http: Http, private httpClient: InterceptorService) {
   }
 

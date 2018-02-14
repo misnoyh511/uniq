@@ -18,10 +18,12 @@ export class LoginComponent {
         })
     }
     login(){
-        this.authenticationService.login(this.user.email,this.user.password);
-      /*  this.authenticationService.loginAuth(this.user.email,this.user.password);*/
-        this.authenticationService.loginAuth();
-
+      //this.authenticationService.login(this.user.email,this.user.password);
+        this.authenticationService.loginAuth(this.user.email,this.user.password).subscribe((data) => {
+            this.router.navigate(['/home']);
+        }, (err) => {
+            console.log(err);
+        });
     }
     }
 

@@ -1,33 +1,4 @@
-<!--<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" [routerLink]="(['/'])">
-                <img src="./../../assets/images/logo-white.png" alt=""></a>
-        </div>
-        <div class=" user-info">
-            <ul class="nav navbar-nav navbar-right dropdo">
-                <li>
-                    <img [hidden]="!user?.photoURL" class="user-image" src="{{user?.photoURL}}"/>
-                    <img [hidden]="user?.photoURL" class="user-image" src="../../assets/images/user.jpg"/>
-                </li>
-                <li class="user-name">
-                    {{user?.providerData[0]?.displayName}}
-
-                </li>
-                <li class="user-info mobi-none">
-                    <button type="button"(click)="logOut()" class="btn btn-primary user-info">Log Out</button>
-                </li>
-                <li class="mobi-logout desk-none">
-                    <span (click)="logOut()" class="glyphicon glyphicon-log-out"></span>
-                </li>
-            </ul>
-        </div>
-
-    </div>
-</nav>-->
-<app-sidebar></app-sidebar>
 <div class="dashboard-container">
-
   <div class="dashboard-plans-container">
     <h2>Choose Your Plan</h2>
     <div class="plan-toggle-wrap">

@@ -13,7 +13,7 @@ export class SidebarService {
 
   getBot() {
     let myHeaders = new Headers();
-    const token = this.localStorageService.getLocalStorage('token');
+    const token = this.localStorageService.getSessionToken();
     myHeaders.append("Accept",'application/vnd.hopin-v1+json');
     myHeaders.append('X-HopIn-Application-Id','2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
     myHeaders.append('X-HopIn-API-Key','Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');

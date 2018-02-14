@@ -1,4 +1,4 @@
-<app-sidebar></app-sidebar>
+
 <div class="dashboard-container">
 
   <div class="dashboard-inner-container dashboard-container-inner-new">
@@ -244,8 +244,9 @@
                                             <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                             <b>The tab/icon background	color seen by users</b>
                                         </span>
-                  <div class="right-side-form">
-                    <input class="jscolor" value="ab2567">
+                  <div class="right-side-form color-pick-section">
+                    <input type="color" name="color" [(ngModel)]="bot.color">
+                    <span [ngStyle]="{'background': bot.color}">{{bot.color}}</span>
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
@@ -253,8 +254,9 @@
                                             <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                             <b>The tab/icon color seen by users</b>
                                         </span>
-                  <div class="right-side-form">
-                    <input class="jscolor" value="ab2567">
+                  <div class="right-side-form color-pick-section">
+                    <input type="color" name="fcolor" [(ngModel)]="bot.fcolor">
+                    <span [ngStyle]="{'background': bot.fcolor}">{{bot.fcolor}}</span>
                   </div>
                 </div>
               </div>
@@ -299,7 +301,7 @@
           <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4">
             <div class="tab-content-wrap">
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
-                <div class="step-inner-title">
+                <div class="step-inner-title full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
                   <h3>FAQ	Section<span>Pro</span></h3>
                   <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text" [(ngModel)]="bot.faqSection" color="primary" style="float:right">
                  {{bot.faqSection ? 'On' : 'Off'}}

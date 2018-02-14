@@ -5,6 +5,7 @@ import {NotificationService} from '../toastr/toastr.service'
 import {DOCUMENT} from "@angular/platform-browser";
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig, MatSnackBar} from "@angular/material";
 import {FormsModule} from "@angular/forms";
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-new-bot',
@@ -60,6 +61,7 @@ export class NewBotComponent implements OnInit {
   proHide : boolean = true;
   snackBars: boolean = false;
   snackbarsOne: boolean = false;
+  color : string;
   bot: any = {};
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService, public dialog: MatDialog, @Inject(DOCUMENT) private doc: any,
@@ -72,6 +74,8 @@ export class NewBotComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.bot.color = "#AB2567"
+    this.bot.fcolor = "#AB2567"
     this.bot.latteralTab = true;
     this.faqShowHide = false;
     this.proActiveShowHide = false;
