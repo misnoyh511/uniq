@@ -9,9 +9,7 @@ import {LocalStorageService} from "../../local-storage/local-storage.service";
 export class SidebarService {
 
   constructor(private http: Http, private httpClient: InterceptorService, private localStorageService: LocalStorageService) { }
-
-
-  getBot() {
+    getBot() {
     let myHeaders = new Headers();
     const token = this.localStorageService.getSessionToken();
     myHeaders.append("Accept",'application/vnd.hopin-v1+json');
@@ -22,8 +20,8 @@ export class SidebarService {
 
     return this.http.get(AppConfig.API_ENDPOINT + '/ai', options)
         .map(response => {
-         localStorage.setItem('analytics_token', response.json().analytics_token);
-          return response.json();
+               localStorage.setItem('ANALYTICS_TOKEN',response.json()[0].analytics_token);
+            return response.json();
         }).catch((err: Response) => {
           return Observable.throw(err);
         });

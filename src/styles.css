@@ -1570,3 +1570,25 @@ a.mat-mini-fab.mat-primary {
     float: left;
     width: 25px;
 }
+
+
+#mybot-menu-wrap{
+    background: rgba(0,0,0,0.1);
+    width: 100%;
+    clear: both;
+    display: block;
+    float: left;
+    margin: 0 0 20px;
+    position: relative;
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+}
+
+#mybot-menu-wrap .mat-select-value-text{
+    color: #fff;
+}
+
+#mybot-menu-wrap .mat-select-arrow {
+    color: #fff;
+}

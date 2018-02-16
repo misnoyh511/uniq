@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
-  MatSlideToggleModule, MatDialogModule, MatInputModule, MatButtonModule, MatSnackBarModule
+  MatSlideToggleModule, MatDialogModule, MatInputModule, MatButtonModule, MatSnackBarModule, MatSelectModule,
 } from '@angular/material';
 
 @NgModule({
@@ -14,7 +14,8 @@ import {
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSelectModule
   ]
 })
 export class MaterialComponentsModule {

@@ -13,11 +13,12 @@ export class InterceptorService {
    * @param {Headers} headers
    */
   createAuthorizationHeader(headers: Headers) {
-    const token = this.localStorageService.getLocalStorage('token');
+    const token = this.localStorageService.getSessionToken();
     headers.append("Accept",'application/vnd.hopin-v1+json');
     headers.append('X-HopIn-Application-Id','2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
     headers.append('X-HopIn-API-Key','Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
     headers.append('X-HopIn-Session-Token',token);
+    //headers.append('Access-Control-Allow-Origin' ,'http://localhost:4200' );
   }
 
   /**

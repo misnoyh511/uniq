@@ -13,13 +13,14 @@ export class TopMessagesInComponent implements OnInit {
     options: any = {};
     showTooltip = false;
 
-    constructor(private conversationsService: ConversationsService) {
+    constructor(public conversationsService: ConversationsService) {
 
     }
 
     ngOnInit() {
         this.conversationsService.getTopMessagesIn().subscribe((response) => {
             this.topMessagesIn = response.data;
+
             this.options = {
                 chart: {
                     type: 'bar',

@@ -323,19 +323,16 @@
                     </p>
                     <div class="login-form-elements">
                       <label>Enter a FAQ	Topic</label>
-                      <input id="faq_top" type="text">
+                      <input id="faq_top" type="text" name="faqTopic" [(ngModel)]="bot.faqTopic">
                     </div>
                   </div>
                   <div class="full-width-input-fields full-width-input-fields-step4">
                     <div class="login-form-elements btn-right-aligned">
-                      <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+                      <button id="faq_add" class="blue-btn" (click)="addFaqTopic()"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
                     </div>
                   </div>
                   <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res">
-
-
                   </div>
-
                 </div>
               </div>
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">

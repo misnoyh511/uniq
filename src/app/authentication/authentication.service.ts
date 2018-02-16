@@ -78,7 +78,6 @@ export class AuthenticationService {
                 }
             })
             .catch((err: Response) => {
-                console.log('imside error');
                 this.notificationService.showToastr(err);
                 return Observable.of(err);
             });

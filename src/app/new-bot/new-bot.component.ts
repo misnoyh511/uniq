@@ -14,13 +14,6 @@ import { NgStyle } from '@angular/common';
   providers: [NewBotService ],
 })
 export class NewBotComponent implements OnInit {
-  _color: string = null;
-  isRequired = false;
-  isDisabled = false;
-  container: string = 'inline';
-  containers: Array<any> = [
-    { text: 'Inline', value: 'inline' },
-    { text: 'Dialog', value: 'dialog' }];
   dialogRef: MatDialogRef<JazzDialog>;
 
   config: MatDialogConfig = {
@@ -54,6 +47,8 @@ export class NewBotComponent implements OnInit {
   beginConversation : boolean;
   liveChat : boolean;
   showDialog : boolean = false;
+  faqTopic : string;
+  bot: any = {};
   proActive : boolean;
   chatBotWindow : boolean;
   liveChatShowHide : boolean;
@@ -62,7 +57,7 @@ export class NewBotComponent implements OnInit {
   snackBars: boolean = false;
   snackbarsOne: boolean = false;
   color : string;
-  bot: any = {};
+
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService, public dialog: MatDialog, @Inject(DOCUMENT) private doc: any,
               public snackBar: MatSnackBar) {
@@ -147,6 +142,19 @@ export class NewBotComponent implements OnInit {
       this.proHide= false;
     });
   }
+  addFaqTopic() {
+    this.bot.name = this.bot.faqTopic;
+      this.Service.addFaq({topics:[this.bot]}).subscribe((data) => {
+        //console.log("typeof=------------------",typeof([this.bot]));
+       /* for (let i = 0; i < this.bot.length; i++) {
+          console.log("lengthis===========",this.bot.length);*/
+        console.log('dataaa', data);
+        //console.log("\zxcvbnm,./zxcvbnm,./", this.bot);
+        //this.router.navigate(['/home']);
+      }, (err) => {
+        console.log(err);
+      });
+    }
 }
 @Component({
   selector: 'demo-jazz-dialog',
