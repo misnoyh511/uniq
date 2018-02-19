@@ -16,7 +16,17 @@ export const ConversationsRoutes:Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'top-messages-in/:id',
+    component: TopMessagesInComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'top-messages-out',
+    component: TopMessagesOutComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'top-messages-out/:id',
     component: TopMessagesOutComponent,
     canActivate: [AuthGuard]
   }

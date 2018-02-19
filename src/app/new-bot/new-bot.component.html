@@ -8,6 +8,8 @@
     <div class="pro-mode-active-label">
       <span>Congratulations! You have successfully upgraded to pro mode.</span>
     </div>
+    <div class="sub-nav-list">
+    </div>
     <div class="dashboard-new-wrapper">
       <div class="dashboard-new-title-wrap">
         <h3>Create	A	New	Bot</h3>
@@ -40,6 +42,8 @@
         <div class="tab-content">
           <div class="tab-pane active" id="capture" role="tabpanel" aria-labelledby="new-step1">
             <div class="tab-content-wrap">
+              <div class="row">
+                <div class="col-lg-9">
              <!-- <div class="tab-pane" role="tabpanel" aria-labelledby="new-step5" >
                 <div class="tab-content-wrap">
                   <div class="step-inner-wrapper">
@@ -114,6 +118,16 @@
                 </form>
               </div>
             </div>
+            <div class="col-lg-3">
+              <div class="step-video-wrapper">
+                <video class="video" loop autoplay>
+                  <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+              </div>
+              </div>
+            </div>
             <div class="next-button-wrap">
               <div class="row">
                 <div class="col-sm-6">
@@ -131,6 +145,8 @@
 
           <div  class="tab-pane" id="message" role="tabpanel" aria-labelledby="new-step3">
             <div class="tab-content-wrap message-wrapper">
+              <div class="row">
+                <div class="col-lg-9">
               <div class="step-inner-wrapper custom-margin-bottom">
                 <div class="step-inner-title">
                   <h3>Give it a name</h3>
@@ -157,6 +173,15 @@
                   </div>
                 </div>
               </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="step-image-wrapper step-give-name-image">
+                    <img src="assets/images/give-it-name.jpg" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-9">
               <div class="step-inner-wrapper custom-margin-bottom">
                 <div class="step-inner-title">
                   <h3>Chat Style</h3>
@@ -179,6 +204,15 @@
                   </mat-slide-toggle>
                 </div>
               </div>
+                </div>
+              <div class="col-lg-3">
+                <div class="step-image-wrapper step-chat-style-image">
+                  <img src="assets/images/chat-style.jpg" alt="">
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-9">
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
                 <div class="step-inner-title">
                   <h3>Chat Window	Customization</h3>
@@ -214,7 +248,15 @@
                   </div>
                 </div>
               </div>
-
+                </div>
+                <div class="col-lg-3">
+                  <div class="step-image-wrapper step-chat-window-image">
+                    <img src="assets/images/window-customization.jpg">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-9">
               <div class="step-inner-wrapper custom-margin-bottom">
                 <div class="step-inner-title">
                   <h3>Appearance</h3>
@@ -260,7 +302,14 @@
                   </div>
                 </div>
               </div>
-              <div class="step-inner-wrapper custom-margin-bottom">
+                </div>
+                <div class="col-lg-3">
+                  <div class="step-image-wrapper step-appearance-image">
+                    <img src="assets/images/appearance-image.jpg" alt="">
+                  </div>
+                </div>
+              </div>
+              <!--<div class="step-inner-wrapper custom-margin-bottom">
                 <div class="step-inner-title">
                   <h3>Language Settings</h3>
                 </div>
@@ -280,7 +329,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
             </div>
             <div class="next-button-wrap">
               <div class="row">
@@ -298,7 +347,7 @@
               </div>
             </div>
           </div>
-          <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4">
+         <!-- <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4">
             <div class="tab-content-wrap">
               <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
                 <div class="step-inner-title full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
@@ -466,7 +515,257 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
+          <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4">
+            <div class="tab-content-wrap modules-page">
+              <div class="row main-modules-wrap">
+                <div class="col-lg-9">
+                  <div class="step-inner-wrapper full-panel-wrap">
+                    <div class="step-inner-title">
+                      <h3>FAQ	Section<span>Pro</span></h3>
+                      <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text" [(ngModel)]="bot.faqSection" color="primary" style="float:left">
+                    <!--    {{bot.faqSection ? 'On' : 'Off'}}-->
+                      </mat-slide-toggle>
+                     <!-- <div class="on-off-btn toggle-btn-on-off toggle-configure-on-off">
+                        <span class="rounded-on-off-btn"></span>
+                        <span class="on-off-text"></span>
+                      </div>-->
+                      <div class="configure-btn">
+                        <button class="white-btn visitor-content-toggle">Configure</button>
+                      </div>
+                    </div>
+                    <div class="step-inner-text-wrap">
+                      <h4>Provide an easy to use FAQ menu</h4>
+                      <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                      <ul>
+                        <li>This is one super cool feature.</li>
+                        <li>It can also do impressive things.</li>
+                        <li>Finally it can do magic.</li>
+                      </ul>
+                    </div>
+                    <!--<div class="visitor-count-wrapper">
+                      <div class="visitor-count-wrap">
+                        <h3>Add FAQs</h3>
+                        <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                        <div class="close-visitor-count">
+                          <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="visiters-count-inner-wrap">
+                          <div class="full-panel">
+                                                        <span>Enable or Disable Feature
+                                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                            <b class="">This initiates a chatbot conversation with a FAQ.</b>
+                                                        </span>
+                            <div class="on-off-btn toggle-btn-on-off">
+                              <span class="rounded-on-off-btn"></span>
+                              <span class="on-off-text">Off</span>
+                            </div>
+                          </div>
+                          <div class="full-width-input-fields full-width-input-fields-step4">
+                            &lt;!&ndash;<p> Add a FAQ	topic
+                                <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                <b>A General Topic for which you have FAQ</b>
+                            </p>&ndash;&gt;
+                            <div class="login-form-elements">
+                              &lt;!&ndash;<label>Enter a FAQ	Topic</label> &ndash;&gt;
+                              <input id="faq_top" type="text" placeholder="Enter a FAQ Topic">
+                            </div>
+                          </div>
+                          <div class="full-width-input-fields full-width-input-fields-step4">
+                            <div class="login-form-elements btn-right-aligned">
+                              <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+                            </div>
+                          </div>
+                          <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res">
+
+
+                          </div>
+
+                        </div>
+                        <button class="blue-btn close-slide-btn">Done</button>
+                      </div>
+                    </div>-->
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="step-video-wrapper">
+                    <video class="video" loop autoplay>
+                      <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                      Your browser does not support HTML5 video.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <div class="row main-modules-wrap">
+                <div class="col-lg-9">
+                  <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+                    <div class="custom-timing-btn-wrap" *ngIf="proHide">
+                      <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                    </div>
+                    <div class="step-inner-title">
+                      <h3>Pro-Active	Mode<span>Business</span></h3>
+                      <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text" [(ngModel)]="bot.proActive" color="primary" style="float:left">
+                      <!--  {{bot.proActive ? 'On' : 'Off'}}-->
+                      </mat-slide-toggle>
+                      <!--<div class="on-off-btn toggle-btn-on-off toggle-configure-on-off">
+                        <span class="rounded-on-off-btn"></span>
+                        <span class="on-off-text"></span>
+                      </div>-->
+                      <div class="configure-btn">
+                        <button class="white-btn visitor-content-toggle">Configure</button>
+                      </div>
+                    </div>
+                    <div class="step-inner-text-wrap">
+                      <h4>Provide an easy to use FAQ menu</h4>
+                      <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                      <ul>
+                        <li>This is one super cool feature.</li>
+                        <li>It can also do impressive things.</li>
+                        <li>Finally it can do magic.</li>
+                      </ul>
+                    </div>
+                    <!--<div class="visitor-count-wrapper">
+                      <div class="visitor-count-wrap">
+                        <h3>Pro Active Mode</h3>
+                        <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                        <div class="close-visitor-count">
+                          <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="visiters-count-inner-wrap">
+                          <div class="full-panel">
+                                                    <span>Pro Active Mode Desktop
+                                                        <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                        <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                                    </span>
+                            <div class="on-off-btn toggle-btn-on-off">
+                              <span class="rounded-on-off-btn"></span>
+                              <span class="on-off-text">Off</span>
+                            </div>
+                          </div>
+                          <div class="full-panel">
+                                                    <span>Pro Active Mode Mobile
+                                                        <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                        <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                                    </span>
+                            <div class="on-off-btn toggle-btn-on-off">
+                              <span class="rounded-on-off-btn"></span>
+                              <span class="on-off-text">Off</span>
+                            </div>
+                          </div>
+                          <div class="full-panel">
+                            <span>Pro Active Level</span>
+                            <div class="progress-bar-wrap">
+                              <div id="progress-bar"></div>
+                              <span id="progress0"><strong>0</strong> <i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress1"><strong>1</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress2"><strong>2</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress3"><strong>3</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress4"><strong>4</strong><i>Lorem Ipsum Shit Amet</i></span>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="blue-btn close-slide-btn">Done</button>
+                      </div>
+                    </div>-->
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="step-video-wrapper">
+                    <video class="video" loop autoplay>
+                      <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                      Your browser does not support HTML5 video.
+                    </video>
+                  </div>
+                </div>
+              </div>
+              <div class="row main-modules-wrap">
+                <div class="col-lg-9">
+                  <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+                    <div class="custom-timing-btn-wrap"*ngIf="proHide">
+                      <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                    </div>
+                    <div class="step-inner-title">
+                      <h3>Live Chat <span>Pro</span></h3>
+                      <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text" [(ngModel)]="bot.liveChat" color="primary" style="float:left">
+                       <!-- {{bot.liveChat ? 'On' : 'Off'}}-->
+                      </mat-slide-toggle>
+                      <!--<div class="on-off-btn toggle-btn-on-off toggle-configure-on-off">
+                        <span class="rounded-on-off-btn"></span>
+                        <span class="on-off-text"></span>
+                      </div>-->
+                      <div class="configure-btn">
+                        <button class="white-btn visitor-content-toggle">Configure</button>
+                      </div>
+                    </div>
+                    <div class="step-inner-text-wrap">
+                      <h4>Provide an easy to use FAQ menu</h4>
+                      <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                      <ul>
+                        <li>This is one super cool feature.</li>
+                        <li>It can also do impressive things.</li>
+                        <li>Finally it can do magic.</li>
+                      </ul>
+                    </div>
+                    <!--<div class="visitor-count-wrapper">
+                      <div class="visitor-count-wrap">
+                        <h3>Live Chat</h3>
+                        <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                        <div class="close-visitor-count">
+                          <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="visiters-count-inner-wrap">
+                          <div class="full-panel">
+                                                        <span>Open Chat Bot Window By	Default
+                                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                            <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                                        </span>
+                            <div class="on-off-btn toggle-btn-on-off">
+                              <span class="rounded-on-off-btn"></span>
+                              <span class="on-off-text"></span>
+                            </div>
+                          </div>
+                          <div class="full-width-input-fields full-width-input-fields-step4">
+                            <p>Time to	Open Chat Window Automatically (Dwell time)
+                              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                              <b>The	amount of seconds it takes to open the chatbot window.</b>
+                            </p>
+                            <div class="login-form-elements">
+                              <label>Enter seconds to trigger chatbot open.</label>
+                              <input type="text">
+                            </div>
+                          </div>
+                        </div>
+                        <button class="blue-btn close-slide-btn">Done</button>
+                      </div>
+                    </div>-->
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="step-video-wrapper">
+                    <video class="video" loop autoplay>
+                      <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                      Your browser does not support HTML5 video.
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="next-button-wrap">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="blank-wrap">
+                    <a data-toggle="pill" href="#message"(click)="next()" class="btnPrev">Back</a>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <button class="btnNext launchBtn">
+                    Save
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>

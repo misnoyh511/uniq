@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ConversationsService} from '../conversations.service';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-top-messages-out',
@@ -12,10 +13,57 @@ export class TopMessagesOutComponent implements OnInit {
     topMessagesOut: any = [];
     data: any = {};
     showTooltip= false;
+    botId : any;
 
-  constructor(private conversationsService: ConversationsService) { }
+  constructor(private conversationsService: ConversationsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+      this.route.params.subscribe((params) => {
+          this.botId= params['id'];
+          console.log("===========================",this.botId);
+          this.conversationsService.getTopMessagesOut().subscribe((response) => {
+              this.topMessagesOut = response.data;
+              this.data = {
+                  chart: {
+                      type: 'bar',
+                      margin: 75,
+                      width: 775,
+                      height: 600
+                  },
+                  plotOptions: {
+                      column: {
+                          depth: 25
+                      }
+                  },
+                  xAxis: {
+                      categories: [],
+                      title: {
+                          text: null
+                      }
+                  },
+                  yAxis: {
+                      min: 0,
+                      title: {
+                          text: 'Message Count',
+                          align: 'high'
+                      },
+                      labels: {
+                          overflow: 'justify'
+                      }
+                  },
+                  series: [{
+                      data: []
+                  }]
+              };
+              for (const i in this.topMessagesOut) {
+                  this.data.xAxis.categories[i] = this.topMessagesOut[i].text;
+                  this.data.series[0].data[i] = parseInt(this.topMessagesOut[i].count);
+              }
+          }, (err) => {
+              console.log(err);
+          });
+      });
+
       this.conversationsService.getTopMessagesOut().subscribe((response) => {
           this.topMessagesOut = response.data;
           this.data = {

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {SidebarService} from "./sidebar.service";
-import {ConversationsService} from "../../conversations/conversations.service";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
@@ -9,12 +9,19 @@ import {ConversationsService} from "../../conversations/conversations.service";
   providers: [SidebarService ],
 })
 export class SidebarComponent implements OnInit {
+  @Input() navType;
+  @Input() getUrl;
   bot: any[];
   name : String;
   data: any;
   topMessagesIn: any = [];
   options: any = {};
-  constructor(private Service: SidebarService) { }
+  id:any;
+  botId : any;
+  linkUrl: any;
+  showLink = false;
+  showLink1 = false;
+  constructor(private Service: SidebarService,private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.onloaddata();
@@ -22,6 +29,15 @@ export class SidebarComponent implements OnInit {
       this.data = "Bot Providencia";
     }
   }
+  select() {
+    //for(let i = 0 ; i < ul.length ; i++)
+    this.showLink = true;
+    this.showLink1 = false;
+  }
+  /*select1() {
+    this.showLink1 = true;
+    this.showLink = false;
+}*/
   onloaddata() {
    this.Service.getBot().subscribe((data) => {
      this.bot = data;
@@ -30,47 +46,23 @@ export class SidebarComponent implements OnInit {
      }
    });
   }
-  dropDown(){
-    /*this.conversationsService.getTopMessagesIn().subscribe((response)=> {
-    this.topMessagesIn = response.data;
-    console.log("845248512481520",this.topMessagesIn);
-      this.options = {
-        chart: {
-          type: 'bar',
-          margin: 75,
-          width: 775,
-          height: 600
-        },
-        plotOptions: {
-          column: {
-            depth: 25
-          }
-        },
-        xAxis: {
-          categories: [],
-          title: {
-            text: null
-          }
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Message Count',
-            align: 'high'
-          },
-          labels: {
-            overflow: 'justify'
-          }
-        },
-        series: [{
-          data: []
-        }]
-      };
-      for (const i in this.topMessagesIn) {
-        this.options.xAxis.categories[i] = this.topMessagesIn[i].text;
-        this.options.series[0].data[i] = parseInt(this.topMessagesIn[i].count);
+  dropDown(getUrl){
+    if(getUrl.split("/")[2]) {
+      this.linkUrl = '/' + getUrl.split("/")[1];
+    } else {
+      delete this.linkUrl;
+    }
+
+  /*  this.route.params.subscribe((params) => {
+      this.botId = params['id'];
+      console.log("qsdwfevgrhnjmj,kdjhryjy",this.botId);
+    });*/
+     /* if (this.router.url.indexOf('top-messages-in') > -1) {
+        console.log('hghgh',g);
       }*/
-    localStorage.setItem('ANALYTICS_TOKEN', this.data);
+     if(this.data){
+      localStorage.setItem('ANALYTICS_TOKEN', this.data);
+     }
 
   }
 }

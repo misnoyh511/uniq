@@ -9,8 +9,8 @@
 
           <p>Set up keyphrases and the corresponding bot replies. Your bot will understand user phrases similar to those you’ve set up and reply with some text or a block. </p>
           <div class="group-add-block-btn-wrap-ai">
-            <button class="group-add-block-btn default-group add-group-btn active" ai-group-id="default">Default Group</button>
             <button class="group-add-block-btn add-new-block-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add Group</button>
+            <button class="group-add-block-btn default-group add-group-btn active" ai-group-id="default">Default Group</button>
           </div>
         </div>
       </div>
@@ -18,28 +18,39 @@
         <div class="automate-content-wrapper">
           <div class="sub-nav-list">
             <ul>
-              <li><a class="active" [routerLink]="(['/setup-ai'])"><i class="fa fa-wrench" aria-hidden="true"></i><span>Set Up AI</span></a></li>
               <li><a [routerLink]="(['/setup-ai-questions'])"><i class="fa fa-cog" aria-hidden="true"></i><span>Questions Without Answers</span></a></li>
+              <li><a class="active" [routerLink]="(['/setup-ai'])"><i class="fa fa-wrench" aria-hidden="true"></i><span>Set Up AI</span></a></li>
             </ul>
           </div>
           <div class="defualt-group-wrapper ai-group-wrapper active" ai-group-id="default">
-            <div class="ai-exim-buttons">
-              <button class="blue-btn" data-toggle="modal" data-target="#importAIModal"><i class="fa fa-arrow-right" aria-hidden="true"></i> <span>Import</span></button>
-              <button class="blue-btn" data-toggle="modal" data-target="#exportAIModal"><i class="fa fa-arrow-left" aria-hidden="true"> </i><span>Export</span> </button>
-            </div>
-            <div class="ai-group-title" >
-              <h2>Default Group</h2>
-              <input type="text">
-            </div>
-            <div class="search-ai-rules-wrap">
-              <input type="text" placeholder="Search here">
-              <button type="submit" class="blue-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-            </div>
+            <div class="step-inner-wrapper ai-group-wrap">
+              <div class="ai-group-title ai-default-group-title step-inner-title">
+                <h3>Default Group</h3>
+                <input type="text">
+              </div>
+              <div class="ai-intent-wrapper">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="add-rule-ai-btn-wrap">
+                      <button class="add-rule-ai-btn blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add Intent</button>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="search-ai-rules-wrap">
+                      <input placeholder="Search here" type="text">
+                      <button type="submit" class="blue-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="intent-list-wrap">
+                  <ul class="ai-intent-list-wrap">
 
-            <div class="add-rule-ai-btn-wrap">
-              <button class="add-rule-ai-btn blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add AI RULE</button>
+                  </ul>
+                </div>
+
+              </div>
             </div>
-            <div class="new-rule-wrapper">
+            <div class="new-rule-wrapper setup-ai-rules">
 
             </div>
           </div>

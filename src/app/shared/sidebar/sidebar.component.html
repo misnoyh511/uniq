@@ -19,24 +19,27 @@
             <span>Getting Started</span></a></li>
         </ul>
         <div id="mybot-menu-wrap">
-          <mat-select  name="data" [(ngModel)]="data" (ngModelChange)="dropDown()">
-            <mat-option *ngFor="let bots of bot" [value]="bots.analytics_token">{{bots.name}}</mat-option>
+          <mat-select   name="data" [(ngModel)]="data" (change)="dropDown(getUrl)">
+            <mat-option *ngFor="let bots of bot; let id = index" [value]="bots.analytics_token"
+                        [routerLink]="([linkUrl ? linkUrl : getUrl +'/'+ id])">{{bots.name}}
+            </mat-option>
           </mat-select>
           <div class="clearfix"></div>
-          <div class="bot-list-wrap">
+        <!--  <div class="bot-list-wrap">
             <ul>
               <li><a href="javascript:void(0)"> My Bot 1</a></li>
               <li><a href="javascript:void(0)"> My Bot 2</a></li>
               <li><a href="javascript:void(0)"> My Bot 3</a></li>
               <li><a href="javascript:void(0)"> My Bot 4</a></li>
             </ul>
-          </div>
+          </div>-->
         </div>
-        <label><a [routerLink]="(['/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Automate</a></label>
-        <label><a [routerLink]="(['/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></label>
-        <label><a [routerLink]="(['/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i>
-          Reports</a></label>
-
+      <ul>
+        <li><a (click)="select()" [ngClass]="{'active': showLink }" [routerLink]="(['/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center</a></li>
+        <li><a (click)="select()" [ngClass]="{'active': showLink1 }" [routerLink]="(['/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></li>
+        <li><a [routerLink]="(['/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i>
+          Reports</a></li>
+      </ul>
       </div>
 
     </div>
