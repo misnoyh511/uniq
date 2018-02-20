@@ -18,7 +18,6 @@ export class FeedbackComponent implements OnInit {
     ngOnInit() {
         this.reportsService.getAllSession().subscribe((response) => {
             this.sessions = response.data;
-            //console.log("sessionsis================", this.sessions);
         }, (err) => {
             console.log(err);
         });

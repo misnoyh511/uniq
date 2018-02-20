@@ -29,8 +29,29 @@
 
           <div class="analytics-inner-wrap">
             <h4>Top Message Out</h4>
-            <chart [options]="data"></chart>
-            <div id="container1"></div>
+            <!--<chart [options]="data"></chart>
+            <div id="container1"></div>-->
+            <table class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>Top 10 Messages Out</th>
+                <th>Percentage</th>
+                <th>Count</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let msg of topMessagesOut; let i = index;">
+                <td *ngIf="i<10" class="w-40">{{msg.text}}</td>
+                <td *ngIf="i<10">
+                  <div class="messages-percentage-bar">
+                    <div  ngClass={{colorClass[i%5]}} [style.width.%]="((msg.count/totalCount)* 100).toFixed(2)"></div>
+                  </div>
+                  <span>{{((msg.count/totalCount)* 100).toFixed(2)}}%</span>
+                </td>
+                <td *ngIf="i<10">{{msg.count}}</td>
+              </tr>
+              </tbody>
+            </table>
             <h4>Messages</h4>
             <table class="table table-bordered table-striped">
               <thead>

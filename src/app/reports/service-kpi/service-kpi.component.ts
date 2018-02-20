@@ -9,6 +9,9 @@ import {ReportsService} from '../reports.service';
 })
 export class ServiceKpiComponent implements OnInit {
     botData: any;
+    showUptimeTip = false;
+    showConfidenceTip = false;
+
     constructor(private reportsService: ReportsService) {
     }
 

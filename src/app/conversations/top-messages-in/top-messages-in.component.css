@@ -1,3 +1,15 @@
 chart {
     display: block;
 }
+.messages-percentage-bar {width:77%; border-radius:20px; background:#ccc; height:10px; display:inline-block; margin-right:10px; position:relative;}
+.messages-percentage-bar:after {content:'';height:100%; position:absolute; border-radius:20px; top:0; left:0;}
+.messages-percentage-bar > div{
+  float: left;
+  height: 100%;
+  border-radius: 20px 0 0 20px;
+}
+.messages-percentage-bar .green-bar {background:#25b6b8;}
+.messages-percentage-bar .purple-bar {background:#a48cd0;}
+.messages-percentage-bar .blue-bar {background:#469ce5;}
+.messages-percentage-bar .orange-bar {background:#f18242;}
+.messages-percentage-bar .maron-bar {background:#ce636d;}

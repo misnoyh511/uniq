@@ -10,8 +10,8 @@
             <div class="col-sm-12">
               <div class="row">
                 <div class="col-sm-6">
-                  <a class="select-duration-btn" href="javascript:void(0)"><span>Select Duration</span></a>
-                  <div class="duration-wrap">
+                  <a class="select-duration-btn" href="javascript:void(0)" (click)="openDropdown = !openDropdown"><span>Select Duration</span></a>
+                  <div class="duration-wrap" [class.active]="openDropdown">
                     <span>Yesterday</span>
                     <span>Last 7 Days</span>
                     <span>Last 30 Days</span>
@@ -35,19 +35,15 @@
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Sessions
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip">
-                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
-                <ul>
-                  <li>Lorem ipusm is just a dummy text.</li>
-                  <li>Contrar sit amet lorem ipsum.</li>
-                </ul>
+              <sup><i class="fa fa-question-circle" (mouseover)="showSessiontip= true" (mouseout)="showSessiontip= false" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip" [class.show]="showSessiontip">
+                <p>Analytics - Sessions</p>
               </div>
             </h3>
           </div>
           <div class="analytics-inner-wrap">
             <h4>Session Yesterday</h4>
-            <span class="session-number">15</span>
+            <span class="session-number">{{sessions}}</span>
             <chart [options]="options"></chart>
             <div id="container_1"></div>
           </div>
@@ -55,13 +51,9 @@
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Message Per Sessions
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip">
-                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
-                <ul>
-                  <li>Lorem ipusm is just a dummy text.</li>
-                  <li>Contrar sit amet lorem ipsum.</li>
-                </ul>
+              <sup><i class="fa fa-question-circle" (mouseover)="showMsgtip= true" (mouseout)="showMsgtip= false" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip" [class.show]="showMsgtip">
+                <p>Analytics - Message Per Sessions</p>
               </div>
             </h3>
           </div>
@@ -75,36 +67,28 @@
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Average Session Length
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip">
-                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
-                <ul>
-                  <li>Lorem ipusm is just a dummy text.</li>
-                  <li>Contrar sit amet lorem ipsum.</li>
-                </ul>
+              <sup><i class="fa fa-question-circle" (mouseover)="showAvgtip= true" (mouseout)="showAvgtip= false" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip" [class.show]="showAvgtip">
+                <p>Analytics - Average Session Length</p>
               </div>
             </h3>
           </div>
           <div class="analytics-inner-wrap">
-            <h4>A few seconds</h4>
+            <!--<h4>{{data.avg_time}}</h4>-->
           </div>
         </div>
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Users
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip">
-                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
-                <ul>
-                  <li>Lorem ipusm is just a dummy text.</li>
-                  <li>Contrar sit amet lorem ipsum.</li>
-                </ul>
+              <sup><i class="fa fa-question-circle" (mouseover)="showUsertip= true" (mouseout)="showUsertip= false" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip" [class.show]="showUsertip">
+                <p>Analytics - Users</p>
               </div>
             </h3>
           </div>
 
           <div class="analytics-inner-wrap">
-           <!-- <h4>{{users.clients}}</h4>-->
+            <h4>{{users}}</h4>
             <chart [options]="options2"></chart>
             <div id="container"></div>
           </div>

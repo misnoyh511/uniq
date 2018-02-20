@@ -61,4 +61,14 @@ export class ReportsService {
                 return Observable.throw(err);
             });
     }
+
+    getAvgTtime() {
+      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'average_time/' + this.analyticsId +
+        '?start=2017-03-01&end=2018-02-09')
+        .map(response => {
+          return response.json();
+        }).catch((err: Response) => {
+          return Observable.throw(err);
+        });
+    }
 }

@@ -19,13 +19,9 @@
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Bot KPI
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip">
-                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
-                <ul>
-                  <li>Lorem ipusm is just a dummy text.</li>
-                  <li>Contrar sit amet lorem ipsum.</li>
-                </ul>
+              <sup><i class="fa fa-question-circle" (mouseover)="showUptimeTip= true" (mouseout)="showUptimeTip= false" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip" [class.show]="showUptimeTip">
+                <p>BOT KPI -Uptime</p>
               </div>
             </h3>
           </div>
@@ -38,13 +34,9 @@
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Bot KPI
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip">
-                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
-                <ul>
-                  <li>Lorem ipusm is just a dummy text.</li>
-                  <li>Contrar sit amet lorem ipsum.</li>
-                </ul>
+              <sup><i class="fa fa-question-circle"(mouseover)="showConfidenceTip= true" (mouseout)="showConfidenceTip= false" aria-hidden="true"></i></sup>
+              <div class="analytics-tool-tip" [class.show]="showConfidenceTip">
+                <p>BOT KPI - Confidence Index</p>
               </div>
             </h3>
           </div>
