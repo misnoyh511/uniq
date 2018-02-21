@@ -16,11 +16,11 @@ export class FeedbackComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.reportsService.getAllSession().subscribe((response) => {
+        /*this.reportsService.getAllSession().subscribe((response) => {
             this.sessions = response.data;
         }, (err) => {
             console.log(err);
-        });
+        });*/
     }
     getSession() {
         if (this.selectedValue === 'negative' && this.selectedData === 'session') {

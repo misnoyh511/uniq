@@ -8,7 +8,7 @@ import {InterceptorService} from '../interceptor/interceptor.service';
 
 @Injectable()
 export class ReportsService {
-    analyticsId = 'U4L0fRquX9gKcvylBZK2DWGKhXcNOABTmyOesUyh';
+    analyticsId = 'PkS4FDkQ9xlaX76nAxHWJDRX7oztEPrGWBpoTtjL';
     constructor(private http: Http, private httpClient: InterceptorService) {
     }
 
@@ -32,9 +32,9 @@ export class ReportsService {
             });
     }
 
-    getAllSession() {
+    getAllSession(startDate, endDate) {
         return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'total_sessions/' + this.analyticsId +
-            '?start=2018-02-06&end=2018-02-06')
+            '?start=' + startDate + '&end=' + endDate)
             .map(response => {
                 return response.json();
             }).catch((err: Response) => {
@@ -44,7 +44,7 @@ export class ReportsService {
 
     getBotTrust() {
         return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'bot_trust/' + this.analyticsId +
-            '?start=2018-02-06&end=2018-02-06')
+            '?start=2018-02-06&end=2018-02-10')
             .map(response => {
                 return response.json();
             }).catch((err: Response) => {
@@ -52,9 +52,9 @@ export class ReportsService {
             });
     }
 
-    getTotalUsers() {
+    getTotalUsers(startDate, endDate) {
         return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'total_clients/' + this.analyticsId +
-            '?start=2017-03-01&end=2018-02-09')
+            '?start=' + startDate + '&end=' + endDate)
             .map(response => {
                 return response.json();
             }).catch((err: Response) => {
@@ -62,9 +62,9 @@ export class ReportsService {
             });
     }
 
-    getAvgTtime() {
+    getAvgTtime(startDate, endDate) {
       return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'average_time/' + this.analyticsId +
-        '?start=2017-03-01&end=2018-02-09')
+        '?start=' + startDate + '&end=' + endDate)
         .map(response => {
           return response.json();
         }).catch((err: Response) => {

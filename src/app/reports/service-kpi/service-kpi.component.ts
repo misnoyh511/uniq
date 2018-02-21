@@ -8,7 +8,7 @@ import {ReportsService} from '../reports.service';
     providers: [ReportsService]
 })
 export class ServiceKpiComponent implements OnInit {
-    botData: any;
+    botData: number;
     showUptimeTip = false;
     showConfidenceTip = false;
 
@@ -17,7 +17,7 @@ export class ServiceKpiComponent implements OnInit {
 
     ngOnInit() {
         this.reportsService.getBotTrust().subscribe((response) => {
-            this.botData = response.data;
+            this.botData = response.data[0].avg;
         }, (err) => {
             console.log(err);
         });
