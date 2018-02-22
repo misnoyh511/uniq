@@ -44,10 +44,10 @@
               <tr *ngFor="let transcript of transcripts">
                 <td><a class="toggle-chat-wrap" href="#">{{transcript.created_at | date : 'MMM d, y h:mm:ss'}}</a></td>
                 <td><i class="fa fa-user" aria-hidden="true"></i> {{transcript.session_id}}</td>
-                <td>{{transcript.duration}} days</td>
-                <td>1</td>
-                <td>1</td>
-                <td><a href="javascript:void(0)" (click)="showDialog = true" class="toggle-chat-wrap"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
+                <td>{{(transcript.totalMsgs.length <=2) ? 'less then 15 seconds' : (transcript.totalMsgs.length <= 10) ? '15 seconds to one min' : 'more then 1 min'}}</td>
+                <td>{{transcript.msg_in.length}}</td>
+                <td>{{transcript.msg_out.length}}</td>
+                <td><a href="javascript:void(0)" (click)="showDialog = true; openChatBox(transcript)" class="toggle-chat-wrap"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
               </tr>
               </tbody>
             </table>
@@ -67,19 +67,24 @@
           <h5>Banmedica - main:</h5>
         </div>
         <div class="col-md-6 right-text">
-          <p><strong>Started: </strong> <span>Dec 21st, 2017 9.46 PM</span></p>
+          <p><strong>Started: </strong> <span>{{startTime | date: 'MMM dd, yyyy hh:mm a'}}</span></p>
         </div>
       </div>
     </div>
-    <div class="chat-block-wrap chat-block-wrap-right">
-      <p>nececito un gastroenterologo soy de rancagua
-        <span>Friday, Dec 20th 2017, 9:37:49 PM</span>
-      </p>
+    <div class="chatSection">
+      <div *ngFor="let info of totalMsgs | sort: 'created_at'">
+        <div class="chat-block-wrap chat-block-wrap-right" *ngIf="info.type === 'outgoing'">
+          <p>{{info.msg.substring(0, 50)}}
+            <span>{{info.created_at | date: 'EEEE MMM dd, yyyy hh:mm a'}}</span>
+          </p>
+        </div>
+        <div class="chat-block-wrap chat-block-wrap-left" *ngIf="info.type === 'incoming'">
+          <p>{{info.msg.substring(0, 50)}}
+            <span>{{info.created_at | date: 'EEEE MMM dd, yyyy hh:mm a'}}</span>
+          </p>
+        </div>
+      </div>
     </div>
-    <div class="chat-block-wrap chat-block-wrap-left">
-      <p>Lo Seinto, no manejo esta informacion. Nececito un gastroenterologo soy de rancagua
-        <span>Friday, Dec 20th 2017, 9:37:49 PM</span>
-      </p>
-    </div>
+
   </div>
 </div>

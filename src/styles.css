@@ -1033,13 +1033,20 @@ p{margin:0 0 20px 0; }
 .transcript-chat-title p {margin:0; color:#999; font-size:13px;}
 .right-text {text-align:right;}
 
-.chat-block-wrap {width:100%; display:inline-block;}
-.chat-block-wrap p {display:inline-block; padding:10px 20px; font-size:14px; position:relative; color:#666; border-radius:20px; margin:0 0 20px 0; background:#eee;}
-.chat-block-wrap p span {font-size:12px; color:#999; position:absolute; bottom:-20px; left:0;}
+.chat-block-wrap {width:100%; display:inline-block; position:relative; margin-bottom: 20px;}
+.chat-block-wrap p {display:inline-block; padding:10px 20px; font-size:14px; color:#666; border-radius:20px; margin:0; background:#eee;}
+.chat-block-wrap p span {font-size:12px; color:#999; position:absolute; bottom:-20px; left:20px; right: 20px}
 .chat-block-wrap-right p {background:#0095f7; color:#fff; float:right;}
-
+.chat-block-wrap-right p span{ text-align: right;}
 .highcharts-button-symbol {display:none;}
 .highcharts-legend-box {display:none;}
+.chatSection {
+  width:100%;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: block;
+}
 
 .analytics-feedback-filters { margin:20px 0 0;}
 .analytics-feedback-filters select {background-color: #F8F8F8;border-radius: 3px;border: 1px solid #dadbdc; border-bottom-color: #cacccd;
