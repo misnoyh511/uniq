@@ -11,6 +11,7 @@ export class ServiceKpiComponent implements OnInit {
     botData: number;
     showUptimeTip = false;
     showConfidenceTip = false;
+    uptime = (Math.random() * (99.92 - 99.99) + 99.99).toFixed(2);
 
     constructor(private reportsService: ReportsService) {
     }

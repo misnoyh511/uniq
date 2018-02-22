@@ -28,7 +28,7 @@
 
           <div class="analytics-inner-wrap">
             <h4>Uptime</h4>
-            <span class="session-number">99%</span>
+            <span class="session-number">{{uptime}}%</span>
           </div>
         </div>
         <div class="step-inner-wrapper analytics-inner-sections">
@@ -43,7 +43,7 @@
 
           <div class="analytics-inner-wrap">
             <h4>Confidence Index</h4>
-            <span class="session-number">{{(botData * 100).toFixed(0)}}%</span>
+            <span class="session-number">{{(botData * 100).toFixed(2)}}%</span>
           </div>
         </div>
       </div>
