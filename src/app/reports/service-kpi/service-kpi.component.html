@@ -43,7 +43,7 @@
 
           <div class="analytics-inner-wrap">
             <h4>Confidence Index</h4>
-            <span class="session-number">{{(botData * 100).toFixed(2)}}%</span>
+            <span class="session-number">{{botData ? (botData * 100).toFixed(2)+ '%': ''}}</span>
           </div>
         </div>
       </div>
