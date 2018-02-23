@@ -20,8 +20,7 @@
         </ul>
         <div id="mybot-menu-wrap">
           <mat-select name="data" [(ngModel)]="data" (change)="dropDown(getUrl)">
-            <mat-option *ngFor="let bots of bot; let id = index" [value]="bots"
-                        [routerLink]="([linkUrl ? linkUrl : getUrl])">{{bots.name}}
+            <mat-option *ngFor="let bots of bot; let id = index" [value]="bots">{{bots.name}}
             </mat-option>
           </mat-select>
           <div class="clearfix"></div>

@@ -31,11 +31,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="analytics-feedback-filters feedback">
-                    {{feedback_type ? 'message': 'session'}}
-                    <!--<select [(ngModel)]="selectedData" name="selectedData" (change)="getData()">
-                      <option value="session">Session</option>
-                      <option value="message">Messages</option>
-                    </select>-->
+                    {{feedback_type === '1' ? 'message': 'session'}}
                   </div>
                 </div>
               </div>

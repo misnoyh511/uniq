@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ReportsService} from '../reports.service';
+import {Broadcaster} from '../../broadcaster';
 
 @Component({
     selector: 'app-feedback',
@@ -13,10 +14,15 @@ export class FeedbackComponent implements OnInit {
     selectedValue = 'all';
     selectedData = 'session';
     feedback_type: string;
-    constructor(private reportsService: ReportsService) {
+    constructor(private broadcaster: Broadcaster, private reportsService: ReportsService) {
     }
 
     ngOnInit() {
+      this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
+      this.registerStringBroadcast();
+    }
+
+    ngDoCheck() {
       this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
     }
     getSession() {
@@ -38,5 +44,12 @@ export class FeedbackComponent implements OnInit {
             });
         }
     }
+
+  registerStringBroadcast() {
+    this.broadcaster.on<string>('BotChanged')
+      .subscribe(message => {
+        this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
+      });
+  }
 
 }

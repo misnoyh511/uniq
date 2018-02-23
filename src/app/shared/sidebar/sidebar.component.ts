@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import {SidebarService} from "./sidebar.service";
-import {Router, ActivatedRoute} from "@angular/router";
+import {SidebarService} from './sidebar.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Broadcaster} from '../../broadcaster';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,24 +16,21 @@ export class SidebarComponent implements OnInit {
   bot: any[];
   name: String;
   data: any;
-  topMessagesIn: any = [];
-  options: any = {};
   id: any;
-  botId: any;
   linkUrl: any;
   showStarted = false;
   showKnowledge = false;
   showConversation = false;
   showReport = false;
   showAccount = false;
-  constructor(private location: Location, private Service: SidebarService, private router: Router, private route: ActivatedRoute) { }
+  message: string;
+  constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService) { }
 
   ngOnInit() {
     this.onloaddata();
     if (!this.data) {
       this.data = 'Bot Providencia';
     }
-    console.log('getUrl', location.pathname);
     if (location.pathname.includes('knowledge-center')) {
       this.showKnowledge = true;
     } else if (location.pathname.includes('conversation')) {
@@ -55,23 +53,15 @@ export class SidebarComponent implements OnInit {
    });
   }
   dropDown(getUrl) {
+    if (this.data) {
+      localStorage.setItem('ANALYTICS_TOKEN', this.data.analytics_token);
+      localStorage.setItem('FEEDBACK_TYPE', this.data.feedback_type);
+    }
+    this.broadcaster.broadcast('BotChanged', 'some message');
     if (getUrl.split('/')[2]) {
       this.linkUrl = '/' + this.getUrl ;
     } else {
       delete this.linkUrl;
     }
-
-  /*  this.route.params.subscribe((params) => {
-      this.botId = params['id'];
-      console.log("qsdwfevgrhnjmj,kdjhryjy",this.botId);
-    });*/
-     /* if (this.router.url.indexOf('top-messages-in') > -1) {
-        console.log('hghgh',g);
-      }*/
-     if (this.data) {
-      localStorage.setItem('ANALYTICS_TOKEN', this.data.analytics_token);
-      localStorage.setItem('FEEDBACK_TYPE', this.data.feedback_type);
-     }
-
   }
 }
