@@ -3,6 +3,7 @@ export class AppConfig {
 
     public static USER_INFO_KEY = 'USER_INFO_KEY';
     public static ANALYTICS_TOKEN = 'ANALYTICS_TOKEN';
-    public static ANALYTICS_API_ENDPOINT = "https://botdex.allegra.ai/api/";
-    public static API_ENDPOINT = "https://stagingapi.uniq.ai";
+    public static ANALYTICS_API_ENDPOINT = 'https://botdex.allegra.ai/api/';
+    public static API_ENDPOINT = 'https://stagingapi.uniq.ai';
+    public static MODULE_NAME = ['knowledge-center', 'conversation', 'reports'];
 }

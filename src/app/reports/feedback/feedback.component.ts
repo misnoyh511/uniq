@@ -12,15 +12,12 @@ export class FeedbackComponent implements OnInit {
     sessions: any = [];
     selectedValue = 'all';
     selectedData = 'session';
+    feedback_type: string;
     constructor(private reportsService: ReportsService) {
     }
 
     ngOnInit() {
-        /*this.reportsService.getAllSession().subscribe((response) => {
-            this.sessions = response.data;
-        }, (err) => {
-            console.log(err);
-        });*/
+      this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
     }
     getSession() {
         if (this.selectedValue === 'negative' && this.selectedData === 'session') {

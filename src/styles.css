@@ -1049,6 +1049,14 @@ p{margin:0 0 20px 0; }
 }
 
 .analytics-feedback-filters { margin:20px 0 0;}
+.feedback {
+  text-align: left;
+  background-color: #F8F8F8;
+  border-radius: 3px;
+  border: 1px solid #dadbdc;
+  border-bottom-color: #cacccd;
+  padding: 6px 10px;
+}
 .analytics-feedback-filters select {background-color: #F8F8F8;border-radius: 3px;border: 1px solid #dadbdc; border-bottom-color: #cacccd;
   box-shadow: 0 1px 1px -1px rgba(0,0,0,0.12), 0px 1px 0 rgba(255,255,255,0.72) inset;color: #545D63;display: inline-block;font-size: 1.3rem;font-weight: 800;
   margin: 0;height: 36px;line-height: 34px;padding: 0 1.24rem;position: relative;text-align: center;text-decoration: none;text-transform: capitalize; appearance:none; -webkit-appearance:none; -moz-appearance:none; cursor:pointer; background-image:url(./assets/images/select-icon.png); background-repeat:no-repeat; background-position:right;

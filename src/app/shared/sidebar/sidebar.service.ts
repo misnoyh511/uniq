@@ -12,15 +12,16 @@ export class SidebarService {
     getBot() {
     let myHeaders = new Headers();
     const token = this.localStorageService.getSessionToken();
-    myHeaders.append("Accept",'application/vnd.hopin-v1+json');
-    myHeaders.append('X-HopIn-Application-Id','2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
-    myHeaders.append('X-HopIn-API-Key','Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
-    myHeaders.append('X-HopIn-Session-Token',token);
+    myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
+    myHeaders.append('X-HopIn-Application-Id', '2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
+    myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
+    myHeaders.append('X-HopIn-Session-Token', token);
     let options = new RequestOptions({ headers: myHeaders});
 
     return this.http.get(AppConfig.API_ENDPOINT + '/ai', options)
         .map(response => {
-               localStorage.setItem('ANALYTICS_TOKEN',response.json()[0].analytics_token);
+               localStorage.setItem('ANALYTICS_TOKEN', response.json()[0].analytics_token);
+               localStorage.setItem('FEEDBACK_TYPE', response.json()[0].feedback_type);
             return response.json();
         }).catch((err: Response) => {
           return Observable.throw(err);

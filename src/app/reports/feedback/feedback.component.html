@@ -30,11 +30,12 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <div class="analytics-feedback-filters">
-                    <select [(ngModel)]="selectedData" name="selectedData" (change)="getData()">
+                  <div class="analytics-feedback-filters feedback">
+                    {{feedback_type ? 'message': 'session'}}
+                    <!--<select [(ngModel)]="selectedData" name="selectedData" (change)="getData()">
                       <option value="session">Session</option>
                       <option value="message">Messages</option>
-                    </select>
+                    </select>-->
                   </div>
                 </div>
               </div>

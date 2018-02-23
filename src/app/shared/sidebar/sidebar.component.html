@@ -15,13 +15,13 @@
       <div class="scrollable-wrap">
 
         <ul>
-          <li><a [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
+          <li><a (click)="showStarted = true; showKnowledge = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
             <span>Getting Started</span></a></li>
         </ul>
         <div id="mybot-menu-wrap">
-          <mat-select   name="data" [(ngModel)]="data" (change)="dropDown(getUrl)">
-            <mat-option *ngFor="let bots of bot; let id = index" [value]="bots.analytics_token"
-                        [routerLink]="([linkUrl ? linkUrl : getUrl +'/'+ id])">{{bots.name}}
+          <mat-select name="data" [(ngModel)]="data" (change)="dropDown(getUrl)">
+            <mat-option *ngFor="let bots of bot; let id = index" [value]="bots"
+                        [routerLink]="([linkUrl ? linkUrl : getUrl])">{{bots.name}}
             </mat-option>
           </mat-select>
           <div class="clearfix"></div>
@@ -35,9 +35,9 @@
           </div>-->
         </div>
       <ul>
-        <li><a (click)="select()" [ngClass]="{'active': showLink }" [routerLink]="(['/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center</a></li>
-        <li><a (click)="select()" [ngClass]="{'active': showLink1 }" [routerLink]="(['/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></li>
-        <li><a [routerLink]="(['/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i>
+        <li><a (click)="showKnowledge = true; showConversation = showReport = showStarted = showAccount = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center</a></li>
+        <li><a (click)="showConversation = true; showKnowledge = showReport = showStarted = showAccount = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></li>
+        <li><a (click)="showReport = true; showConversation = showKnowledge = showStarted = showAccount = false;" [class.active]="showReport" [routerLink]="(['reports/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i>
           Reports</a></li>
       </ul>
       </div>
@@ -46,7 +46,7 @@
     <div class="app-version-dashboard">
 
       <ul>
-        <li><a [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
+        <li><a (click)="showAccount = true; showReport = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
         </li>
       </ul>
       <span>Version 1.0.0</span> <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i></a>

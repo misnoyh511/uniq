@@ -2,31 +2,22 @@ import {Routes} from '@angular/router';
 import {TranscriptsComponent} from './transcripts/transcripts.component';
 import {TopMessagesInComponent} from './top-messages-in/top-messages-in.component';
 import {TopMessagesOutComponent} from './top-messages-out/top-messages-out.component';
-import {AuthGuard} from "../auth-guard/auth-guard.middleware";
+import {AuthGuard} from '../auth-guard/auth-guard.middleware';
+import {AppConfig} from '../app.config';
 
-export const ConversationsRoutes:Routes = [
+export const ConversationsRoutes: Routes = [
   {
-    path: 'transcripts',
+    path: AppConfig.MODULE_NAME[1] + '/transcripts',
     component: TranscriptsComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'top-messages-in',
+    path: AppConfig.MODULE_NAME[1] + '/top-messages-in',
     component: TopMessagesInComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'top-messages-in/:id',
-    component: TopMessagesInComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'top-messages-out',
-    component: TopMessagesOutComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'top-messages-out/:id',
+    path: AppConfig.MODULE_NAME[1] + '/top-messages-out',
     component: TopMessagesOutComponent,
     canActivate: [AuthGuard]
   }
