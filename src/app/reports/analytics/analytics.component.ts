@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ReportsService} from '../reports.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-reports',
   templateUrl: 'analytics.component.html',
   styleUrls: ['./analytics.component.css'],
-  providers: [ReportsService]
+  providers: [ReportsService, DatePipe]
 })
 export class AnalyticsComponent implements OnInit {
   sessions: string;
@@ -33,7 +34,7 @@ export class AnalyticsComponent implements OnInit {
     alwaysShowCalendars: false,
   };
 
-  constructor(private reportsService: ReportsService) {
+  constructor(private reportsService: ReportsService, private datePipe: DatePipe) {
 
   }
 
@@ -72,7 +73,12 @@ export class AnalyticsComponent implements OnInit {
 
   onLoadData(startDate, endDate) {
     this.reportsService.getAllSession(startDate, endDate).subscribe((response) => {
-      this.sessions = response.data[0].sessions;
+      this.sessions = response.data;
+      const startValue = parseInt(this.datePipe.transform(response.data[0].date, 'dd'));
+      const countArray = [];
+      for (const i in response.data) {
+        countArray.push(parseInt(response.data[i].count));
+      }
       this.options = {
         title: {
           text: ''
@@ -84,7 +90,7 @@ export class AnalyticsComponent implements OnInit {
 
         yAxis: {
           title: {
-            text: ''
+            text: 'Session'
           }
         },
 
@@ -93,112 +99,15 @@ export class AnalyticsComponent implements OnInit {
             label: {
               connectorAllowed: false
             },
-            pointStart: 2010,
+            pointStart: startValue,
           }
         },
 
         series: [{
-          name: 'Current Session',
-          data: [33934, 52503, 57177, 69658, 97031, 119931, 88931, 154175]
-        }, {
-          name: 'Last Session',
-          data: [43934, 40503, 67177, 55658, 87031, 132009, 119931, 124175],
-          dashStyle: 'dot'
-
+          name: 'Session Count',
+          data: countArray
         }],
 
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
-        }
-      },
-        this.options1 = {
-          title: {
-            text: ''
-          },
-
-          subtitle: {
-            text: ''
-          },
-
-          yAxis: {
-            title: {
-              text: ''
-            }
-          },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-          },
-
-          plotOptions: {
-            series: {
-              label: {
-                connectorAllowed: false
-              },
-              pointStart: 2010
-            }
-          },
-
-          series: [{
-            name: 'Current Session',
-            data: [20000, 23000, 28000, 21000, 29000, 21000, 27000]
-          }, {
-            name: 'Last Session',
-            data: [23000, 26000, 24000, 26000, 25000, 27000, 21000],
-            dashStyle: 'dot'
-          }],
-
-          responsive: {
-            rules: [{
-              condition: {
-                maxWidth: 500
-              },
-              chartOptions: {
-                legend: {
-                  layout: 'horizontal',
-                  align: 'center',
-                  verticalAlign: 'bottom'
-                }
-              }
-            }]
-          }
-
-        };
-      this.options2 = {
-        yAxis: {
-          title: {
-            text: 'Users'
-          }
-        },
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'middle'
-        },
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: 2010
-          }
-        },
-        series: [{
-          name: 'Installation',
-          data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-        }],
         responsive: {
           rules: [{
             condition: {
@@ -214,13 +123,20 @@ export class AnalyticsComponent implements OnInit {
           }]
         }
       };
+
+
     }, (err) => {
       console.log(err);
     });
 
     this.reportsService.getTotalUsers(startDate, endDate).subscribe((response) => {
-      this.users = response.data[0].clients;
-      this.options = {
+      this.users = response.data;
+      const startValue = parseInt(this.datePipe.transform(response.data[0].date_trunc, 'dd'));
+      const countArray = [];
+      for (const i in response.data) {
+        countArray.push(parseInt(response.data[i].count));
+      }
+      this.options2 = {
         title: {
           text: ''
         },
@@ -231,121 +147,24 @@ export class AnalyticsComponent implements OnInit {
 
         yAxis: {
           title: {
-            text: ''
-          }
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: 2010,
-          }
-        },
-
-        series: [{
-          name: 'Current Session',
-          data: [33934, 52503, 57177, 69658, 97031, 119931, 88931, 154175]
-        }, {
-          name: 'Last Session',
-          data: [43934, 40503, 67177, 55658, 87031, 132009, 119931, 124175],
-          dashStyle: 'dot'
-
-        }],
-
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
-        }
-      },
-        this.options1 = {
-          title: {
-            text: ''
-          },
-
-          subtitle: {
-            text: ''
-          },
-
-          yAxis: {
-            title: {
-              text: ''
-            }
-          },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-          },
-
-          plotOptions: {
-            series: {
-              label: {
-                connectorAllowed: false
-              },
-              pointStart: 2010
-            }
-          },
-
-          series: [{
-            name: 'Current Session',
-            data: [20000, 23000, 28000, 21000, 29000, 21000, 27000]
-          }, {
-            name: 'Last Session',
-            data: [23000, 26000, 24000, 26000, 25000, 27000, 21000],
-            dashStyle: 'dot'
-          }],
-
-          responsive: {
-            rules: [{
-              condition: {
-                maxWidth: 500
-              },
-              chartOptions: {
-                legend: {
-                  layout: 'horizontal',
-                  align: 'center',
-                  verticalAlign: 'bottom'
-                }
-              }
-            }]
-          }
-
-        };
-      this.options2 = {
-        yAxis: {
-          title: {
             text: 'Users'
           }
         },
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'middle'
-        },
+
         plotOptions: {
           series: {
             label: {
               connectorAllowed: false
             },
-            pointStart: 2010
+            pointStart: startValue,
           }
         },
+
         series: [{
-          name: 'Installation',
-          data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+          name: 'User Count',
+          data: countArray
         }],
+
         responsive: {
           rules: [{
             condition: {
@@ -372,8 +191,61 @@ export class AnalyticsComponent implements OnInit {
         sum = sum + response.data[i].avg_time;
       }
       this.avg_time = sum / response.data.length;
+      this.options1 = {
+        title: {
+          text: ''
+        },
 
+        subtitle: {
+          text: ''
+        },
 
+        yAxis: {
+          title: {
+            text: ''
+          }
+        },
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+          series: {
+            label: {
+              connectorAllowed: false
+            },
+            pointStart: 2010
+          }
+        },
+
+        series: [{
+          name: 'Current Session',
+          data: [20000, 23000, 28000, 21000, 29000, 21000, 27000]
+        }, {
+          name: 'Last Session',
+          data: [23000, 26000, 24000, 26000, 25000, 27000, 21000],
+          dashStyle: 'dot'
+        }],
+
+        responsive: {
+          rules: [{
+            condition: {
+              maxWidth: 500
+            },
+            chartOptions: {
+              legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+              }
+            }
+          }]
+        }
+
+      };
+/*
       this.options = {
         title: {
           text: ''
@@ -423,60 +295,7 @@ export class AnalyticsComponent implements OnInit {
           }]
         }
       },
-        this.options1 = {
-          title: {
-            text: ''
-          },
 
-          subtitle: {
-            text: ''
-          },
-
-          yAxis: {
-            title: {
-              text: ''
-            }
-          },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-          },
-
-          plotOptions: {
-            series: {
-              label: {
-                connectorAllowed: false
-              },
-              pointStart: 2010
-            }
-          },
-
-          series: [{
-            name: 'Current Session',
-            data: [20000, 23000, 28000, 21000, 29000, 21000, 27000]
-          }, {
-            name: 'Last Session',
-            data: [23000, 26000, 24000, 26000, 25000, 27000, 21000],
-            dashStyle: 'dot'
-          }],
-
-          responsive: {
-            rules: [{
-              condition: {
-                maxWidth: 500
-              },
-              chartOptions: {
-                legend: {
-                  layout: 'horizontal',
-                  align: 'center',
-                  verticalAlign: 'bottom'
-                }
-              }
-            }]
-          }
-
-        };
       this.options2 = {
         yAxis: {
           title: {
@@ -514,7 +333,7 @@ export class AnalyticsComponent implements OnInit {
             }
           }]
         }
-      };
+      };*/
     }, (err) => {
       console.log(err);
     });
