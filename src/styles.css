@@ -1686,3 +1686,11 @@ a.mat-mini-fab.mat-primary {
 .w-40 {
   width: 40%!important
 }
+
+.feedback_table {
+  text-align: left;
+}
+
+.feedback_table th {
+  width: 75%
+}

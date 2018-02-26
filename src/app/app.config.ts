@@ -6,4 +6,5 @@ export class AppConfig {
     public static ANALYTICS_API_ENDPOINT = 'https://botdex.allegra.ai/api/';
     public static API_ENDPOINT = 'https://stagingapi.uniq.ai';
     public static MODULE_NAME = ['knowledge-center', 'conversation', 'reports'];
+    public static FEEDBACK_TYPE = {};
 }

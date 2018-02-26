@@ -37,7 +37,7 @@
               </div>
             </form>
 
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped feedback_table" *ngIf="sessions && sessions.length">
               <thead>
               <tr>
                 <th>Message</th>
@@ -45,33 +45,9 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>Hola</td>
-                <td>60</td>
-              </tr>
-              <tr>
-                <td>Gracias</td>
-                <td>100</td>
-              </tr>
-              <tr>
-                <td>Te amo</td>
-                <td>107</td>
-              </tr>
-              <tr>
-                <td>Vamos</td>
-                <td>31</td>
-              </tr>
-              <tr>
-                <td>Amigo</td>
-                <td>635</td>
-              </tr>
-              <tr>
-                <td>Irendito</td>
-                <td>203</td>
-              </tr>
-              <tr>
-                <td>Despacito</td>
-                <td>25</td>
+              <tr *ngFor="let session of sessions">
+                <td matTooltip={{session.msg}}>{{session.msg.length > 100 ? session.msg.substring(0, 100)+ '...' : session.msg}}</td>
+                <td>{{session.count}}</td>
               </tr>
               </tbody>
             </table>

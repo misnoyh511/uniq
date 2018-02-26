@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import {SidebarService} from './sidebar.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Broadcaster} from '../../broadcaster';
+import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-sidebar',
@@ -56,6 +57,7 @@ export class SidebarComponent implements OnInit {
     if (this.data) {
       localStorage.setItem('ANALYTICS_TOKEN', this.data.analytics_token);
       localStorage.setItem('FEEDBACK_TYPE', this.data.feedback_type);
+      AppConfig.FEEDBACK_TYPE['type'] = this.data.feedback_type;
     }
     this.broadcaster.broadcast('BotChanged', 'some message');
     if (getUrl.split('/')[2]) {

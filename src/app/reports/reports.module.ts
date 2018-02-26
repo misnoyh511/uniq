@@ -7,13 +7,15 @@ import {ReportsRoutes} from './reports.routing';
 import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
 import { Daterangepicker } from 'ng2-daterangepicker';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
   imports: [
     RouterModule.forChild(ReportsRoutes),
     SharedModule,
-    Daterangepicker
+    Daterangepicker,
+    MatTooltipModule
   ],
   declarations: [AnalyticsComponent, FeedbackComponent, ServiceKpiComponent, SubNavComponent]
 })
