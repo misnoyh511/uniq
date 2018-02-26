@@ -15,7 +15,7 @@
         <h3>Create	A	New	Bot</h3>
         <div class="title-links">
           <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()" class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
-          <a href="javascript:void(0)" class="launch-link"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
+          <a data-toggle="pill" href="#launch" class="launch-link"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
         </div>
       </div>
       <div class="dashboard-new-steps-wrapper">
@@ -169,7 +169,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label> Enter A Chat Window Name</label>
-                    <input name="chatWindowName" type="text" [(ngModel)]="bot.chatWindowName">
+                    <input name="chatWindowName" type="text" [(ngModel)]="bot.chat_window_name">
                   </div>
                 </div>
               </div>
@@ -224,7 +224,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label>Enter A Welcome	Message</label>
-                    <input  name="initialGreeting" type="text" [(ngModel)]="bot.initialGreeting">
+                    <input  name="initialGreeting" type="text" [(ngModel)]="bot.initial_greeting">
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -234,7 +234,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label> Please	Enter An Input Text</label>
-                    <input name="inputTitle" type="text" [(ngModel)]="bot.inputTitle">
+                    <input name="inputTitle" type="text" [(ngModel)]="bot.input_title">
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -244,7 +244,7 @@
                   </p>
                   <div class="login-form-elements">
                     <label>Please Enter A Waiting Text</label>
-                    <input name="waitingMsg" type="text" [(ngModel)]="bot.waitingMsg">
+                    <input name="waitingMsg" type="text" [(ngModel)]="bot.waiting_msg">
                   </div>
                 </div>
               </div>
@@ -339,7 +339,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext" data-toggle="pill" href="#customize" (click)="next()">
+                  <button class="btnNext" data-toggle="pill" href="#customize" (click)="next(); uploadFile();">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -543,7 +543,7 @@
                         <li>Finally it can do magic.</li>
                       </ul>
                     </div>
-                    <!--<div class="visitor-count-wrapper">
+                    <div class="visitor-count-wrapper" *ngIf="showDiv">
                       <div class="visitor-count-wrap">
                         <h3>Add FAQs</h3>
                         <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
@@ -562,12 +562,12 @@
                             </div>
                           </div>
                           <div class="full-width-input-fields full-width-input-fields-step4">
-                            &lt;!&ndash;<p> Add a FAQ	topic
+                            <!--<p> Add a FAQ	topic
                                 <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                 <b>A General Topic for which you have FAQ</b>
-                            </p>&ndash;&gt;
+                            </p>-->
                             <div class="login-form-elements">
-                              &lt;!&ndash;<label>Enter a FAQ	Topic</label> &ndash;&gt;
+                              <!--<label>Enter a FAQ	Topic</label> -->
                               <input id="faq_top" type="text" placeholder="Enter a FAQ Topic">
                             </div>
                           </div>
@@ -584,7 +584,7 @@
                         </div>
                         <button class="blue-btn close-slide-btn">Done</button>
                       </div>
-                    </div>-->
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-3">
@@ -754,12 +754,63 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a data-toggle="pill" href="#message"(click)="next()" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#message" (click)="next()" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext launchBtn">
+                  <button data-toggle="pill" href="#launch" class="btnNext launchBtn">
                     Save
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="launch" role="tabpanel" aria-labelledby="new-step5">
+            <div class="tab-content-wrap">
+              <div class="step-inner-wrapper">
+                <div class="step-inner-title">
+                  <h3>Give this Project an internal name</h3>
+                </div>
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <p>Project Name
+                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b> The Project name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
+                  </p>
+                  <div class="login-form-elements">
+                    <label> Enter Project Name</label>
+                    <input type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="error-msg-wrap">
+                <div class="error-message">
+                  <span>Missing a Welcome	Message</span>
+                  <button class="launchBtnBack errorBtn errorBtnStep1">Resolve</button>
+                </div>
+                <div class="error-message">
+                  <span>Missing a Welcome	Message</span>
+                  <button class="launchBtnBack errorBtn errorBtnStep2">Resolve</button>
+                </div>
+                <div class="error-message">
+                  <span>Missing a Welcome	Message</span>
+                  <button class="launchBtnBack errorBtn errorBtnStep3">Resolve</button>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="next-button-wrap">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="blank-wrap">
+                    <a data-toggle="pill" href="#customize" class="btnPrev launchBtnBack">Back</a>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <button (click)="save()" class="btnNext">
+                    Launch
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
                 </div>
