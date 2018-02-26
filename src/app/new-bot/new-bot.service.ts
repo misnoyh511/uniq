@@ -1,39 +1,80 @@
 import { Injectable } from '@angular/core';
-import {Subject, Observable} from "rxjs";
-import {AppConfig} from "../app.config";
-import {Http, Response, RequestOptions, Headers} from "@angular/http";
-import { HttpClient,HttpHandler } from "@angular/common/http";
-import {InterceptorService} from "../interceptor/interceptor.service";
-import {LocalStorageService} from "../local-storage/local-storage.service";
+import {Subject, Observable} from 'rxjs';
+import {AppConfig} from '../app.config';
+import {Http, Response, RequestOptions, Headers} from '@angular/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import {InterceptorService} from '../interceptor/interceptor.service';
+import {LocalStorageService} from '../local-storage/local-storage.service';
+import {HttpEvent} from '@angular/common/http';
 
 @Injectable()
 export class NewBotService {
+  getData: any;
  // public  broadcasterToken =  new Subject<any>();
   constructor(private http: Http, private httpClient: InterceptorService, private localStorageService: LocalStorageService) { }
 
-  notifyToken(x:any){
+  notifyToken(x: any) {
    // this.broadcastToken.next(x)
   }
-  broadcastToken(botData){
-/*      console.log("===========================");*/
-    return this.http.post(AppConfig.API_ENDPOINT + '/ai', botData)
-}
-  addFaq(que){
-    let myHeaders = new Headers();
+
+   /*addFaq(que) {
+    const myHeaders = new Headers();
     const token = this.localStorageService.getSessionToken();
-    myHeaders.append("Accept",'application/vnd.hopin-v1+json');
-    myHeaders.append('X-HopIn-Application-Id','2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
-    myHeaders.append('X-HopIn-API-Key','Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
-    myHeaders.append('Content-Type','text/plain; charset=utf-8s');
-    myHeaders.append('X-HopIn-Session-Token',token);
-    let options = new RequestOptions({ headers: myHeaders});
-    return this.http.post(AppConfig.API_ENDPOINT + '/topics',que,options)
+    myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
+    myHeaders.append('X-HopIn-Application-Id', '2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
+    myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
+    myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
+    myHeaders.append('X-HopIn-Session-Token', token);
+    const options = new RequestOptions({ headers: myHeaders});
+    return this.http.post(AppConfig.API_ENDPOINT + '/topics', que, options)
         .map(response => {
-          //console.log("response===================",response);
+          // console.log("response===================",response);
         return response.json();
         })
         .catch((err: Response) => {
           return Observable.of(err);
         });
+  } */
+
+  getBot() {
+    const myHeaders = new Headers();
+    this.httpClient.createAuthorizationHeader(myHeaders);
+    const options = new RequestOptions({ headers: myHeaders});
+
+    return this.http.get(AppConfig.API_ENDPOINT + '/ai', options)
+      .map(response => {
+        localStorage.setItem('ANALYTICS_TOKEN', response.json()[0].analytics_token);
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+  broadcastToken(botData) {
+    const myHeaders = new Headers();
+    this.httpClient.createAuthorizationHeader(myHeaders);
+    myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
+    const options = new RequestOptions({ headers: myHeaders});
+    return this.http.post(AppConfig.API_ENDPOINT , botData, options)
+      .map(response => {
+        return response.json();
+      })
+      .catch((err: Response) => {
+        return Observable.of(err);
+      });
+
+  }
+
+  upload(data: {}): Observable<HttpEvent<any>> {
+    const myHeaders = new Headers();
+    this.httpClient.createAuthorizationHeader(myHeaders);
+    myHeaders.append('Content-Type', 'multipart/form-data; charset=utf-8;');
+    const options = new RequestOptions({ headers: myHeaders});
+    return this.http.post(AppConfig.API_ENDPOINT + '/media', data, options).map(response => {
+      this.getData = response.json();
+      return response.json();
+    }).catch((err: Response) => {
+      const details = err.json();
+      return Observable.throw(details);
+    });
   }
 }

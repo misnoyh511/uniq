@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Injectable, Pipe, PipeTransform} from '@angular/core';
 import {ReportsService} from '../reports.service';
 import { DatePipe } from '@angular/common';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-reports',
@@ -29,6 +30,7 @@ export class AnalyticsComponent implements OnInit {
   startDate: any;
   endDate: any;
   daterange: any = {};
+  message: any = [];
   public dateOptions: any = {
     locale: {format: 'MM/DD/YYYY'},
     alwaysShowCalendars: false,
@@ -74,112 +76,201 @@ export class AnalyticsComponent implements OnInit {
   onLoadData(startDate, endDate) {
     this.reportsService.getAllSession(startDate, endDate).subscribe((response) => {
       this.sessions = response.data;
-      const startValue = parseInt(this.datePipe.transform(response.data[0].date, 'dd'));
-      const countArray = [];
-      for (const i in response.data) {
-        countArray.push(parseInt(response.data[i].count));
-      }
-      this.options = {
-        title: {
-          text: ''
-        },
-
-        subtitle: {
-          text: ''
-        },
-
-        yAxis: {
-          title: {
-            text: 'Session'
-          }
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: startValue,
-          }
-        },
-
-        series: [{
-          name: 'Session Count',
-          data: countArray
-        }],
-
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
+      if (response.data && response.data.length) {
+        response.data = _.sortBy(response.data,
+          (item) => {
+            return +new Date(item.date);
+          });
+        const countArray = [];
+        for (const i in response.data) {
+          response.data[i].date = new Date(response.data[i].date);
+          countArray.push(parseInt(response.data[i].count));
         }
-      };
+        this.options = {
+          title: {
+            text: ''
+          },
 
+          subtitle: {
+            text: ''
+          },
 
+          xAxis: {
+            type: 'datetime'
+          },
+
+          yAxis: {
+            title: {
+              text: 'Count'
+            }
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+              pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
+                response.data[0].date.getDate()),
+              pointInterval: 24 * 3600 * 1000
+            }
+          },
+
+          series: [{
+            name: 'Session Count',
+            data: countArray
+          }],
+
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'bottom'
+                }
+              }
+            }]
+          }
+        };
+      }
+    }, (err) => {
+      console.log(err);
+    });
+
+    this.reportsService.getMessagePerSession(startDate, endDate).subscribe((response) => {
+      this.message = response.data;
+      if (response.data && response.data.length) {
+        response.data = _.sortBy(response.data,
+          (item) => {
+            return +new Date(item.date);
+          });
+        const countArray = [];
+        for (const i in response.data) {
+          response.data[i].date = new Date(response.data[i].date);
+          countArray.push(parseInt(response.data[i].count));
+        }
+        this.options1 = {
+          title: {
+            text: ''
+          },
+
+          subtitle: {
+            text: ''
+          },
+
+          xAxis: {
+            type: 'datetime'
+          },
+
+          yAxis: {
+            title: {
+              text: 'Count'
+            }
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+              pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
+                response.data[0].date.getDate()),
+              pointInterval: 24 * 3600 * 1000
+            }
+          },
+
+          series: [{
+            name: 'Session Count',
+            data: countArray
+          }],
+
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'bottom'
+                }
+              }
+            }]
+          }
+        };
+      }
     }, (err) => {
       console.log(err);
     });
 
     this.reportsService.getTotalUsers(startDate, endDate).subscribe((response) => {
       this.users = response.data;
-      const startValue = parseInt(this.datePipe.transform(response.data[0].date_trunc, 'dd'));
-      const countArray = [];
-      for (const i in response.data) {
-        countArray.push(parseInt(response.data[i].count));
-      }
-      this.options2 = {
-        title: {
-          text: ''
-        },
-
-        subtitle: {
-          text: ''
-        },
-
-        yAxis: {
-          title: {
-            text: 'Users'
-          }
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: startValue,
-          }
-        },
-
-        series: [{
-          name: 'User Count',
-          data: countArray
-        }],
-
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
+      if (response.data && response.data.length) {
+        response.data = _.sortBy(response.data,
+          (item) => {
+            return +new Date(item.date_trunc);
+          });
+        const countArray = [];
+        for (const i in response.data) {
+          response.data[i].date_trunc = new Date(response.data[i].date_trunc);
+          countArray.push(parseInt(response.data[i].count));
         }
-      };
+        this.options2 = {
+          title: {
+            text: ''
+          },
+
+          subtitle: {
+            text: ''
+          },
+
+          xAxis: {
+            type: 'datetime'
+          },
+
+          yAxis: {
+            title: {
+              text: 'Users'
+            }
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+              pointStart: Date.UTC(response.data[0].date_trunc.getFullYear(), response.data[0].date_trunc.getMonth(),
+                response.data[0].date_trunc.getDate()),
+              pointInterval: 24 * 3600 * 1000
+            }
+          },
+
+          series: [{
+            name: 'User Count',
+            data: countArray
+          }],
+
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'bottom'
+                }
+              }
+            }]
+          }
+        };
+      }
     }, (err) => {
       console.log(err);
     });
@@ -191,149 +282,6 @@ export class AnalyticsComponent implements OnInit {
         sum = sum + response.data[i].avg_time;
       }
       this.avg_time = sum / response.data.length;
-      this.options1 = {
-        title: {
-          text: ''
-        },
-
-        subtitle: {
-          text: ''
-        },
-
-        yAxis: {
-          title: {
-            text: ''
-          }
-        },
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'middle'
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: 2010
-          }
-        },
-
-        series: [{
-          name: 'Current Session',
-          data: [20000, 23000, 28000, 21000, 29000, 21000, 27000]
-        }, {
-          name: 'Last Session',
-          data: [23000, 26000, 24000, 26000, 25000, 27000, 21000],
-          dashStyle: 'dot'
-        }],
-
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
-        }
-
-      };
-/*
-      this.options = {
-        title: {
-          text: ''
-        },
-
-        subtitle: {
-          text: ''
-        },
-
-        yAxis: {
-          title: {
-            text: ''
-          }
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: 2010,
-          }
-        },
-
-        series: [{
-          name: 'Current Session',
-          data: [33934, 52503, 57177, 69658, 97031, 119931, 88931, 154175]
-        }, {
-          name: 'Last Session',
-          data: [43934, 40503, 67177, 55658, 87031, 132009, 119931, 124175],
-          dashStyle: 'dot'
-
-        }],
-
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
-        }
-      },
-
-      this.options2 = {
-        yAxis: {
-          title: {
-            text: 'Users'
-          }
-        },
-        legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'middle'
-        },
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false
-            },
-            pointStart: 2010
-          }
-        },
-        series: [{
-          name: 'Installation',
-          data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-        }],
-        responsive: {
-          rules: [{
-            condition: {
-              maxWidth: 500
-            },
-            chartOptions: {
-              legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-              }
-            }
-          }]
-        }
-      };*/
     }, (err) => {
       console.log(err);
     });

@@ -13,24 +13,24 @@ export class ReportsService {
     }
 
     getNegativeChat() {
-        return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'negative_chat/' + this.analyticsId +
-            '?start=2017-03-01&end=2017-04-17')
-            .map(response => {
-                return response.json();
-            }).catch((err: Response) => {
-                return Observable.throw(err);
-            });
-    }
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'negative_message/' + this.analyticsId +
+      '?start=2017-03-01&end=2018-02-17')
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
 
-    getNegativeSession() {
-        return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'negative_session/' + this.analyticsId +
-            '?start=2018-02-06&end=2018-02-06')
-            .map(response => {
-                return response.json();
-            }).catch((err: Response) => {
-                return Observable.throw(err);
-            });
-    }
+  getNegativeSession() {
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'negative_session/' + this.analyticsId +
+      '?start=2018-02-06&end=2018-02-06')
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
 
     getAllSession(startDate, endDate) {
         return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'total_sessions/' + this.analyticsId +
@@ -42,7 +42,48 @@ export class ReportsService {
             });
     }
 
-    getBotTrust() {
+  getPositiveChat() {
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'positive_message/' + this.analyticsId +
+      '?start=2017-03-01&end=2017-04-17')
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+  getPositiveSession() {
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'positive_session/' + this.analyticsId +
+      '?start=2018-02-06&end=2018-02-06')
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+  getFeedbackChat() {
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'feedback_chat/' + this.analyticsId +
+      '?start=2017-03-01&end=2017-04-17')
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+  getFeedbackSession() {
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'feedback_session/' + this.analyticsId +
+      '?start=2018-02-06&end=2018-02-06')
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+
+  getBotTrust() {
         return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'bot_trust/' + this.analyticsId +
             '?start=2018-02-06&end=2018-02-10')
             .map(response => {
@@ -71,4 +112,14 @@ export class ReportsService {
           return Observable.throw(err);
         });
     }
+
+  getMessagePerSession(startDate, endDate) {
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'msg_in/' + this.analyticsId +
+      '?start=' + startDate + '&end=' + endDate)
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
 }

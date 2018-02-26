@@ -19,15 +19,14 @@ import {NotificationService} from './toastr/toastr.service';
 import {PublicModule} from './public/public.module';
 import { GetStarteddModule } from './get-started/get-started.module';
 import {SharedModule} from './shared/shared.module';
-import {NewBotModule} from "./new-bot/new-bot.module";
+import {NewBotModule} from './new-bot/new-bot.module';
 import { AutomateModule } from './automate/automate.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { ReportsModule } from './reports/reports.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
 import { botModule } from './bot/bot.module';
-import {HttpClientModule} from "@angular/common/http";
-import {HttpClient} from "@angular/common/http";
-import {JazzDialog} from "./new-bot/new-bot.component";
+import {HttpClientModule} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 @NgModule({
   declarations: [
