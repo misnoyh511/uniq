@@ -73,9 +73,9 @@ export class ReportsService {
       });
   }
 
-  getBotTrust() {
+  getBotTrust(startDate, endDate) {
     return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'bot_trust/' + this.analyticsId +
-      '?start=2018-02-06&end=2018-02-10')
+      '?start=' + startDate + '&end=' + endDate)
       .map(response => {
         return response.json();
       }).catch((err: Response) => {

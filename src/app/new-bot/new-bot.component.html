@@ -21,19 +21,19 @@
       <div class="dashboard-new-steps-wrapper">
         <ul class="nav nav-pills dashboard-step-list" id="pills-tab" role="tablist">
           <li class="nav-item" xyz="abc">
-            <a class="nav-link step-links active"  id="new-step1" data-toggle="pill" href="#capture" role="tab" aria-controls="capture" aria-selected="true">
+            <a class="nav-link step-links" (click)="showNlp = true; showLook = showModules = false;" [class.active]="showNlp" id="new-step1" data-toggle="pill" href="#capture" role="tab" aria-controls="capture" aria-selected="true">
               <strong>1</strong>
               <span>Your NLP</span>
             </a>
           </li>
           <li class="nav-item step-links">
-            <a class="nav-link" id="new-step3" data-toggle="pill" href="#message" role="tab" aria-controls="message" aria-selected="true">
+            <a class="nav-link" id="new-step3" (click)="showLook = true; showNlp = showModules = false;" [class.active]="showLook" data-toggle="pill" href="#message" role="tab" aria-controls="message" aria-selected="true">
               <strong>2</strong>
               <span>Look &amp; Feel</span>
             </a>
           </li>
           <li class="nav-item step-links">
-            <a class="nav-link" id="new-step4" data-toggle="pill" href="#customize" role="tab" aria-controls="customize" aria-selected="true">
+            <a class="nav-link" id="new-step4" (click)="showModules = true; showLook = showNlp = false;" [class.active]="showModules" data-toggle="pill" href="#customize" role="tab" aria-controls="customize" aria-selected="true">
               <strong>3</strong>
               <span>Modules</span>
             </a>
@@ -44,56 +44,6 @@
             <div class="tab-content-wrap">
               <div class="row">
                 <div class="col-lg-9">
-             <!-- <div class="tab-pane" role="tabpanel" aria-labelledby="new-step5" >
-                <div class="tab-content-wrap">
-                  <div class="step-inner-wrapper">
-                    <div class="step-inner-title">
-                      <h3>Give this Project an internal name</h3>
-                    </div>
-                    <div class="full-width-input-fields full-width-input-fields-step4">
-                      <p>Project Name
-                        <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                        <b> The Project name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
-                      </p>
-                      <div class="login-form-elements">
-                        <label> Enter Project Name</label>
-                        <input type="text">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="error-msg-wrap">
-                    <div class="error-message">
-                      <span>Missing a Welcome	Message</span>
-                      <button class="launchBtnBack errorBtn errorBtnStep1">Resolve</button>
-                    </div>
-                    <div class="error-message">
-                      <span>Missing a Welcome	Message</span>
-                      <button class="launchBtnBack errorBtn errorBtnStep2">Resolve</button>
-                    </div>
-                    <div class="error-message">
-                      <span>Missing a Welcome	Message</span>
-                      <button class="launchBtnBack errorBtn errorBtnStep3">Resolve</button>
-                    </div>
-                  </div>
-                </div>
-
-
-                <div class="next-button-wrap">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="blank-wrap">
-                        <a data-toggle="pill" href="#customize" (click)="pro()" class="btnPrev launchBtnBack">Back</a>
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <button class="btnNext">
-                        Launch
-                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>-->
               <div class="step-inner-wrapper">
                 <div class="step-inner-title">
                   <h3>Tap On Your NLP Provider of Choice</h3>
@@ -108,7 +58,8 @@
                 <form>
                   <div class="full-width-input-fields">
                     <p>Enter Your NLP Server Token
-                      <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                      <sup><i (mouseover)="showTooltip= true" (mouseout)="showTooltip= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                      <b [class.show] = 'showTooltip'>Enter Your NLP Server Token</b>
                     </p>
                   </div>
                   <div class="login-form-elements transate-left">
@@ -134,7 +85,7 @@
                   <div class="blank-wrap"></div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext"  data-toggle="pill" href="#message" (click)="next()">
+                  <button class="btnNext"  data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -153,8 +104,8 @@
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <p>Bot Name
-                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b> The name of this project. Only you	will see this.</b>
+                    <sup><i (mouseover)="showBotName= true" (mouseout)="showBotName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showBotName"> The name of this project. Only you	will see this.</b>
                   </p>
                   <div class="login-form-elements">
                     <label>Enter Your Bot Name</label>
@@ -164,8 +115,8 @@
 
                 <div class="full-width-input-fields">
                   <p> Chat Window Name
-                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b> The Chat Window Header Title. Everyone	will see this.</b>
+                    <sup><i (mouseover)="showChatName= true" (mouseout)="showChatName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showChatName"> The Chat Window Header Title. Everyone	will see this.</b>
                   </p>
                   <div class="login-form-elements">
                     <label> Enter A Chat Window Name</label>
@@ -219,8 +170,8 @@
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <p>Welcome	Message
-                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b> The Chat Window Welcome Message. Everyone will see	this.</b>
+                    <sup><i (mouseover)="showWelcome= true" (mouseout)="showWelcome= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showWelcome"> The Chat Window Welcome Message. Everyone will see	this.</b>
                   </p>
                   <div class="login-form-elements">
                     <label>Enter A Welcome	Message</label>
@@ -229,8 +180,8 @@
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <p>Input Title
-                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b>The text that appears	in the chatbot	input text field.</b>
+                    <sup><i (mouseover)="showTitle= true" (mouseout)="showTitle= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showTitle">The text that appears	in the chatbot	input text field.</b>
                   </p>
                   <div class="login-form-elements">
                     <label> Please	Enter An Input Text</label>
@@ -239,8 +190,8 @@
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <p>Input Waiting Text
-                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b>The	text that appears in chat window when your bot is waiting.</b>
+                    <sup><i (mouseover)="showWaiting= true" (mouseout)="showWaiting= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showWaiting">The	text that appears in chat window when your bot is waiting.</b>
                   </p>
                   <div class="login-form-elements">
                     <label>Please Enter A Waiting Text</label>
@@ -263,28 +214,28 @@
                 </div>
                 <div class="full-panel full-panel-step2">
                                         <span>Upload Your Avatar Image
-                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b> Upload	a PNG or JPEG file</b>
+                                            <sup><i (mouseover)="showAvatar= true" (mouseout)="showAvatar= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
                                         </span>
                   <div class="right-side-form">
-                    <input type="file" id="files" class="uploadfiles" name="files[]" multiple />
+                    <input type="file" id="files" class="uploadfiles" name="files[]" multiple/>
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
                                         <span>Upload Your	Cover Image
-                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b>Upload a PNG or JPEG file</b>
+                                            <sup><i (mouseover)="showCover= true" (mouseout)="showCover= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showCover">Upload a PNG or JPEG file</b>
                                         </span>
                   <div class="right-side-form">
                     <form>
-                      <input type="file" id="uploadfiles" class="uploadfiles" name="files[]" multiple />
+                      <input type="file" (change)="fileChangeEvent($event)" name="files[]" [(ngModel)]="files" multiple/>
                     </form>
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
                                         <span> Choose the background color of chat tab/icon
-                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b>The tab/icon background	color seen by users</b>
+                                            <sup><i (mouseover)="showBackClr= true" (mouseout)="showBackClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                                         </span>
                   <div class="right-side-form color-pick-section">
                     <input type="color" name="color" [(ngModel)]="bot.color">
@@ -293,8 +244,8 @@
                 </div>
                 <div class="full-panel full-panel-step2">
                                         <span>Choose the font color ofthe	tab/icon.
-                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b>The tab/icon color seen by users</b>
+                                            <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showFontClr">The tab/icon color seen by users</b>
                                         </span>
                   <div class="right-side-form color-pick-section">
                     <input type="color" name="fcolor" [(ngModel)]="bot.fcolor">
@@ -309,37 +260,16 @@
                   </div>
                 </div>
               </div>
-              <!--<div class="step-inner-wrapper custom-margin-bottom">
-                <div class="step-inner-title">
-                  <h3>Language Settings</h3>
-                </div>
-                <div class="full-width-input-fields full-width-input-fields-step4">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="db-form-elements">
-                        <label>Translate "From"</label>
-                        <input type="text" value="from">
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="db-form-elements">
-                        <label>Translate "Someone"</label>
-                        <input type="text" value="Someone">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>-->
             </div>
             <div class="next-button-wrap">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a data-toggle="pill" href="#capture"  (click)="next()" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#capture"  (click)="next();  showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext" data-toggle="pill" href="#customize" (click)="next(); uploadFile();">
+                  <button class="btnNext" data-toggle="pill" href="#customize" (click)="next(); uploadFile(); showNlp = showLook = false; showModules = true;">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -347,175 +277,6 @@
               </div>
             </div>
           </div>
-         <!-- <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4">
-            <div class="tab-content-wrap">
-              <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
-                <div class="step-inner-title full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                  <h3>FAQ	Section<span>Pro</span></h3>
-                  <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text" [(ngModel)]="bot.faqSection" color="primary" style="float:right">
-                 {{bot.faqSection ? 'On' : 'Off'}}
-                  </mat-slide-toggle>
-                <div class="visitor-count-wrap visitor-count-wrap2" *ngIf="faqShowHide">
-                  <div class="full-panel">
-                                            <span>Add	FAQ on Mobile to begin a conversation
-                                            	<sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                <b class="">This initiates a chatbot conversation with a FAQ.</b>
-                                            </span>
-                    <mat-slide-toggle type="text" name="beginConversation"  [(ngModel)]="bot.beginConversation" color="primary" style="float:right">
-                      {{bot.beginConversation ? 'On' : 'Off'}}
-                    </mat-slide-toggle>
-                  </div>
-                  <div class="full-width-input-fields full-width-input-fields-step4">
-                    <p> Add a FAQ	topic
-                      <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                      <b>A General Topic for which you have FAQ</b>
-                    </p>
-                    <div class="login-form-elements">
-                      <label>Enter a FAQ	Topic</label>
-                      <input id="faq_top" type="text" name="faqTopic" [(ngModel)]="bot.faqTopic">
-                    </div>
-                  </div>
-                  <div class="full-width-input-fields full-width-input-fields-step4">
-                    <div class="login-form-elements btn-right-aligned">
-                      <button id="faq_add" class="blue-btn" (click)="addFaqTopic()"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
-                    </div>
-                  </div>
-                  <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res">
-                  </div>
-                </div>
-              </div>
-              <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                <div class="custom-timing-btn-wrap" *ngIf="proHide">
-                  <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
-                </div>
-                <div class="step-inner-title">
-                  <h3>Pro-Active Mode<span>Business</span></h3>
-                  <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text" [(ngModel)]="bot.proActive" color="primary" style="float:right">
-                    {{bot.proActive ? 'On' : 'Off'}}
-                  </mat-slide-toggle>
-                </div>
-                <div class="visitor-count-wrap visitor-count-wrap1"*ngIf="proActiveShowHide">
-                  <div class="full-panel">
-                                            <span>Open Chat Bot Window By	Default
-                                            	<sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                <b class="">This opens the chat bot	window automatically and immediately.</b>
-                                            </span>
-                    <mat-slide-toggle type="text" name="chatBotWindow"  [(ngModel)]="bot.chatBotWindow" color="primary" style="float:right">
-                      {{bot.chatBotWindow ? 'On' : 'Off'}}
-                    </mat-slide-toggle>
-                  </div>
-                  <div class="full-width-input-fields full-width-input-fields-step4">
-                    <p>Time to	Open Chat Window Automatically (Dwell time)
-                      <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                      <b>The	amount of seconds it takes to open the chatbot window.</b>
-                    </p>
-                    <div class="login-form-elements">
-                      <label>Enter seconds to trigger chatbot open.</label>
-                      <input type="text">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                <div class="custom-timing-btn-wrap" *ngIf="proHide">
-                  <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
-                </div>
-                <div class="step-inner-title">
-                  <h3>Live Chat <span>Pro</span></h3>
-                  <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text" [(ngModel)]="bot.liveChat" color="primary" style="float:right">
-                    {{bot.liveChat ? 'On' : 'Off'}}
-                  </mat-slide-toggle>
-                </div>
-                <div class="visitor-count-wrap visitor-count-wrap3" *ngIf="liveChatShowHide">
-                  <div class="full-panel">
-                                            <span>Open Chat Bot Window By	Default
-                                            	<sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                <b class="">This opens the chat bot	window automatically and immediately.</b>
-                                            </span>
-                    <mat-slide-toggle type="text" name="chatWindow"  [(ngModel)]="bot.chatWindow" color="primary" style="float:right">
-                      {{bot.chatWindow ? 'On' : 'Off'}}
-                    </mat-slide-toggle>
-                  </div>
-                  <div class="full-width-input-fields full-width-input-fields-step4">
-                    <p>Time to	Open Chat Window Automatically (Dwell time)
-                      <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                      <b>The	amount of seconds it takes to open the chatbot window.</b>
-                    </p>
-                    <div class="login-form-elements">
-                      <label>Enter seconds to trigger chatbot open.</label>
-                      <input type="text">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="next-button-wrap">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="blank-wrap">
-                    <a data-toggle="pill" href="#message"(click)="next()" class="btnPrev">Back</a>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <button href="#launch" data-toggle="pill" (click)="save()" class="btnNext launchBtn">
-                    Save
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" style="display: none" id="launch" role="tabpanel" aria-labelledby="new-step5">
-            <div class="tab-content-wrap">
-              <div class="step-inner-wrapper">
-                <div class="step-inner-title">
-                  <h3>Give this Project an internal name</h3>
-                </div>
-                <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Project Name
-                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b> The Project name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label> Enter Project Name</label>
-                    <input type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="error-msg-wrap">
-                <div class="error-message">
-                  <span>Missing a Welcome	Message</span>
-                  <button class="launchBtnBack errorBtn errorBtnStep1">Resolve</button>
-                </div>
-                <div class="error-message">
-                  <span>Missing a Welcome	Message</span>
-                  <button class="launchBtnBack errorBtn errorBtnStep2">Resolve</button>
-                </div>
-                <div class="error-message">
-                  <span>Missing a Welcome	Message</span>
-                  <button class="launchBtnBack errorBtn errorBtnStep3">Resolve</button>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="next-button-wrap">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="blank-wrap">
-                    <a (click)="next()" href="#customize" data-toggle="pill"  class="btnPrev launchBtnBack">Back</a>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <button class="btnNext">
-                    Launch
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>-->
           <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4">
             <div class="tab-content-wrap modules-page">
               <div class="row main-modules-wrap">
@@ -524,14 +285,9 @@
                     <div class="step-inner-title">
                       <h3>FAQ	Section<span>Pro</span></h3>
                       <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text" [(ngModel)]="bot.faqSection" color="primary" style="float:left">
-                    <!--    {{bot.faqSection ? 'On' : 'Off'}}-->
                       </mat-slide-toggle>
-                     <!-- <div class="on-off-btn toggle-btn-on-off toggle-configure-on-off">
-                        <span class="rounded-on-off-btn"></span>
-                        <span class="on-off-text"></span>
-                      </div>-->
-                      <div class="configure-btn">
-                        <button class="white-btn visitor-content-toggle">Configure</button>
+                      <div class="configure-btn" [class.active]="bot.faqSection">
+                        <button class="white-btn visitor-content-toggle" (click)="showDiv= true">Configure</button>
                       </div>
                     </div>
                     <div class="step-inner-text-wrap">
@@ -543,23 +299,21 @@
                         <li>Finally it can do magic.</li>
                       </ul>
                     </div>
-                    <div class="visitor-count-wrapper" *ngIf="showDiv">
+                    <div class="visitor-count-wrapper" [class.active]="showDiv">
                       <div class="visitor-count-wrap">
                         <h3>Add FAQs</h3>
                         <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
-                        <div class="close-visitor-count">
+                        <div class="close-visitor-count" (click)="showDiv = false">
                           <span><i class="fa fa-close" aria-hidden="true"></i></span>
                         </div>
                         <div class="visiters-count-inner-wrap">
                           <div class="full-panel">
                                                         <span>Enable or Disable Feature
-                                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                            <b class="">This initiates a chatbot conversation with a FAQ.</b>
+                                                            <sup><i (mouseover)="showFeature= true" (mouseout)="showFeature= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                            <b [class.show]="showFeature">This initiates a chatbot conversation with a FAQ.</b>
                                                         </span>
-                            <div class="on-off-btn toggle-btn-on-off">
-                              <span class="rounded-on-off-btn"></span>
-                              <span class="on-off-text">Off</span>
-                            </div>
+                            <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
+                            </mat-slide-toggle>
                           </div>
                           <div class="full-width-input-fields full-width-input-fields-step4">
                             <!--<p> Add a FAQ	topic
@@ -568,16 +322,15 @@
                             </p>-->
                             <div class="login-form-elements">
                               <!--<label>Enter a FAQ	Topic</label> -->
-                              <input id="faq_top" type="text" placeholder="Enter a FAQ Topic">
+                              <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text" placeholder="Enter a FAQ Topic">
                             </div>
                           </div>
                           <div class="full-width-input-fields full-width-input-fields-step4">
-                            <div class="login-form-elements btn-right-aligned">
+                            <div class="login-form-elements btn-right-aligned" (click)="addFaqTopic()">
                               <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
                             </div>
                           </div>
                           <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res">
-
 
                           </div>
 
@@ -600,7 +353,7 @@
                 <div class="col-lg-9">
                   <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
                     <div class="custom-timing-btn-wrap" *ngIf="proHide">
-                      <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                      <button (click)="showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
                     </div>
                     <div class="step-inner-title">
                       <h3>Pro-Active	Mode<span>Business</span></h3>
@@ -611,8 +364,8 @@
                         <span class="rounded-on-off-btn"></span>
                         <span class="on-off-text"></span>
                       </div>-->
-                      <div class="configure-btn">
-                        <button class="white-btn visitor-content-toggle">Configure</button>
+                      <div class="configure-btn" [class.active]="bot.proActive">
+                        <button class="white-btn visitor-content-toggle" (click)="showBusiness= true">Configure</button>
                       </div>
                     </div>
                     <div class="step-inner-text-wrap">
@@ -624,11 +377,11 @@
                         <li>Finally it can do magic.</li>
                       </ul>
                     </div>
-                    <!--<div class="visitor-count-wrapper">
+                    <div class="visitor-count-wrapper" [class.active]="showBusiness">
                       <div class="visitor-count-wrap">
                         <h3>Pro Active Mode</h3>
                         <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
-                        <div class="close-visitor-count">
+                        <div class="close-visitor-count" (click)="showBusiness = false">
                           <span><i class="fa fa-close" aria-hidden="true"></i></span>
                         </div>
                         <div class="visiters-count-inner-wrap">
@@ -637,36 +390,32 @@
                                                         <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                                         <b class="">This opens the chat bot	window automatically and immediately.</b>
                                                     </span>
-                            <div class="on-off-btn toggle-btn-on-off">
-                              <span class="rounded-on-off-btn"></span>
-                              <span class="on-off-text">Off</span>
-                            </div>
+                            <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
+                            </mat-slide-toggle>
                           </div>
                           <div class="full-panel">
                                                     <span>Pro Active Mode Mobile
                                                         <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                                         <b class="">This opens the chat bot	window automatically and immediately.</b>
                                                     </span>
-                            <div class="on-off-btn toggle-btn-on-off">
-                              <span class="rounded-on-off-btn"></span>
-                              <span class="on-off-text">Off</span>
-                            </div>
+                            <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
+                            </mat-slide-toggle>
                           </div>
                           <div class="full-panel">
                             <span>Pro Active Level</span>
                             <div class="progress-bar-wrap">
-                              <div id="progress-bar"></div>
-                              <span id="progress0"><strong>0</strong> <i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress1"><strong>1</strong><i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress2"><strong>2</strong><i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress3"><strong>3</strong><i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress4"><strong>4</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <div id="progress-bar" class="progress-level{{progress}}"></div>
+                              <span id="progress0" (click)="progress = 0"><strong>0</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress1" (click)="progress = 1"><strong>1</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress2" (click)="progress = 2"><strong>2</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress3" (click)="progress = 3"><strong>3</strong><i>Lorem Ipsum Shit Amet</i></span>
+                              <span id="progress4" (click)="progress = 4"><strong>4</strong><i>Lorem Ipsum Shit Amet</i></span>
                             </div>
                           </div>
                         </div>
-                        <button class="blue-btn close-slide-btn">Done</button>
+                        <button class="blue-btn close-slide-btn" (click)="showBusiness = false">Done</button>
                       </div>
-                    </div>-->
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-3">
@@ -682,18 +431,13 @@
                 <div class="col-lg-9">
                   <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
                     <div class="custom-timing-btn-wrap"*ngIf="proHide">
-                      <button (click)="this.showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                      <button (click)="showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
                     </div>
                     <div class="step-inner-title">
                       <h3>Live Chat <span>Pro</span></h3>
                       <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text" [(ngModel)]="bot.liveChat" color="primary" style="float:left">
-                       <!-- {{bot.liveChat ? 'On' : 'Off'}}-->
                       </mat-slide-toggle>
-                      <!--<div class="on-off-btn toggle-btn-on-off toggle-configure-on-off">
-                        <span class="rounded-on-off-btn"></span>
-                        <span class="on-off-text"></span>
-                      </div>-->
-                      <div class="configure-btn">
+                      <div class="configure-btn" [class.active]="bot.liveChat" (click)="showLiveChat = true">
                         <button class="white-btn visitor-content-toggle">Configure</button>
                       </div>
                     </div>
@@ -706,28 +450,26 @@
                         <li>Finally it can do magic.</li>
                       </ul>
                     </div>
-                    <!--<div class="visitor-count-wrapper">
+                    <div class="visitor-count-wrapper" [class.active]="showLiveChat">
                       <div class="visitor-count-wrap">
                         <h3>Live Chat</h3>
                         <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
-                        <div class="close-visitor-count">
+                        <div class="close-visitor-count" (click)="showLiveChat = false">
                           <span><i class="fa fa-close" aria-hidden="true"></i></span>
                         </div>
                         <div class="visiters-count-inner-wrap">
                           <div class="full-panel">
                                                         <span>Open Chat Bot Window By	Default
-                                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                            <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                                            <sup><i (mouseover)="showOpenChat = true" (mouseout)="showOpenChat = false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                            <b [class.show]="showOpenChat">This opens the chat bot	window automatically and immediately.</b>
                                                         </span>
-                            <div class="on-off-btn toggle-btn-on-off">
-                              <span class="rounded-on-off-btn"></span>
-                              <span class="on-off-text"></span>
-                            </div>
+                            <mat-slide-toggle type="text" color="primary" style="float:right; margin:0">
+                            </mat-slide-toggle>
                           </div>
                           <div class="full-width-input-fields full-width-input-fields-step4">
                             <p>Time to	Open Chat Window Automatically (Dwell time)
-                              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                              <b>The	amount of seconds it takes to open the chatbot window.</b>
+                              <sup><i (mouseover)="showChatWindow = true" (mouseout)="showChatWindow = false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                              <b [class.show]="showChatWindow">The	amount of seconds it takes to open the chatbot window.</b>
                             </p>
                             <div class="login-form-elements">
                               <label>Enter seconds to trigger chatbot open.</label>
@@ -735,9 +477,9 @@
                             </div>
                           </div>
                         </div>
-                        <button class="blue-btn close-slide-btn">Done</button>
+                        <button class="blue-btn close-slide-btn" (click)="showLiveChat = false">Done</button>
                       </div>
-                    </div>-->
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-3">
@@ -754,7 +496,7 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a data-toggle="pill" href="#message" (click)="next()" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -775,8 +517,8 @@
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <p>Project Name
-                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b> The Project name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
+                    <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showProject"> The Project name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
                   </p>
                   <div class="login-form-elements">
                     <label> Enter Project Name</label>

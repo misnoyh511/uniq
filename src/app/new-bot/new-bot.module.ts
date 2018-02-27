@@ -6,8 +6,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import {NewBotComponent, JazzDialog, PizzaPartyComponent} from './new-bot.component';
 import { NewBotRoutes} from './new-bot.routing';
-import {SharedModule} from "../shared/shared.module";
-import {FormsModule} from "@angular/forms";
+import {SharedModule} from '../shared/shared.module';
+import {FormsModule} from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     imports: [
@@ -15,9 +16,10 @@ import {FormsModule} from "@angular/forms";
         SharedModule,
         CommonModule,
         FormsModule,
+        MatTooltipModule
     ],
-    declarations: [NewBotComponent, JazzDialog,PizzaPartyComponent],
-    entryComponents: [JazzDialog,PizzaPartyComponent],
+    declarations: [NewBotComponent, JazzDialog, PizzaPartyComponent],
+    entryComponents: [JazzDialog, PizzaPartyComponent],
 })
 
 export class NewBotModule {

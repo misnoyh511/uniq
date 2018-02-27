@@ -43,7 +43,6 @@ export class NewBotComponent implements OnInit {
   proActiveShowHide: boolean;
   liveChat: boolean;
   showDialog = false;
-  faqTopic: string;
   bot: any = {};
   proActive: boolean;
   liveChatShowHide: boolean;
@@ -51,20 +50,36 @@ export class NewBotComponent implements OnInit {
   snackBars = false;
   snackbarsOne = false;
   color: string;
-  beginConversation: boolean;
-  chatBotWindow: boolean;
-  chatWindow: boolean;
   file: any[];
+  files: any = [];
   imageUrl: any;
   selectedFileObj: any = [];
   selectedFiles: any = [];
   photos: any = [];
-  imageFile: string;
-  imageRole: any = {};
   myInputVariable: any;
   data: any;
-  faq = false;
   showDiv = false;
+  showNlp = true;
+  showLook = false;
+  showModules = false;
+  showTooltip = false;
+  showBotName = false;
+  showChatName = false;
+  showWelcome = false;
+  showTitle = false;
+  showWaiting = false;
+  showAvatar = false;
+  showCover = false;
+  showBackClr = false;
+  showFontClr = false;
+  showProject = false;
+  showFeature = false;
+  showBusiness = false;
+  progress: number;
+  showLiveChat = false;
+  showOpenChat = false;
+  showChatWindow = false;
+  imagePreview: any;
 
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
@@ -90,11 +105,11 @@ export class NewBotComponent implements OnInit {
     console.log('reached==========', this.bot);
   }
 
-  fileChangeEvent(fileInput: any) {
+  /*fileChangeEvent(fileInput: any) {
     this.file = fileInput.target.files;
     this.imageUrl = this.file[0].name;
     this.uploadFile();
-  }
+  }*/
 
   uploadFile() {
     if (this.file) {
@@ -195,22 +210,44 @@ export class NewBotComponent implements OnInit {
           duration: 3000,
         });
       }
-      this.proHide = true;
+      this.proHide = false;
     });
   }
- /* addFaqTopic() {
-    this.bot.name = this.bot.faqTopic;
-      this.Service.addFaq({topics: [this.bot]}).subscribe((data) => {
-        // console.log("typeof=------------------",typeof([this.bot]));
-       /!* for (let i = 0; i < this.bot.length; i++) {
-          console.log("lengthis===========",this.bot.length);*!/
-        console.log('dataaa', data);
-        // console.log("\zxcvbnm,./zxcvbnm,./", this.bot);
-        // this.router.navigate(['/home']);
+  addFaqTopic() {
+    if (this.bot.faqTopic) {
+      this.bot.name = this.bot.faqTopic;
+      this.Service.addFaq({topics: [{name: this.bot.name}]}).subscribe((data) => {
       }, (err) => {
         console.log(err);
       });
-    }*/
+    } else {
+      console.log('please add faq topic');
+    }
+    }
+
+  fileChangeEvent(fileInput: any) {
+    console.log('fileInput', fileInput);
+    this.file = fileInput.target.files;
+    for (const i in fileInput.target.files) {
+      this.files.push(this.file[i].name);
+    }
+    // this.imageUrl = this.file[0].name;
+    this.getBase64(this.file);
+  }
+  getBase64(files) {
+    const reader = new FileReader();
+    for (const i in files) {
+      reader.readAsDataURL(files[i]);
+      reader.onload = () => {
+
+        this.imagePreview = reader.result;
+      };
+    }
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+
 }
 
 @Component({

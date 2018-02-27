@@ -17,7 +17,7 @@ export class NewBotService {
    // this.broadcastToken.next(x)
   }
 
-   /*addFaq(que) {
+   addFaq(que) {
     const myHeaders = new Headers();
     const token = this.localStorageService.getSessionToken();
     myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
@@ -28,13 +28,12 @@ export class NewBotService {
     const options = new RequestOptions({ headers: myHeaders});
     return this.http.post(AppConfig.API_ENDPOINT + '/topics', que, options)
         .map(response => {
-          // console.log("response===================",response);
         return response.json();
         })
         .catch((err: Response) => {
           return Observable.of(err);
         });
-  } */
+  }
 
   getBot() {
     const myHeaders = new Headers();
