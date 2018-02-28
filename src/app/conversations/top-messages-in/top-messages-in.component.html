@@ -42,7 +42,9 @@
               </thead>
               <tbody>
               <tr *ngFor="let msg of topMessagesIn; let i = index;">
-                <td *ngIf="i<10" class="w-40">{{msg.text}}</td>
+                <td *ngIf="i<10" class="w-40" matTooltip={{msg.text}}>
+                  {{msg.text.length > 150 ? msg.text.substring(0, 150)+ '...' : msg.text}}
+                </td>
                 <td *ngIf="i<10">
                   <div class="messages-percentage-bar">
                     <div  ngClass={{colorClass[i%5]}} [style.width.%]="((msg.count/totalCount)* 100).toFixed(2)"></div>
@@ -55,7 +57,7 @@
               </tr>
               </tbody>
             </table>
-            <h4>Messages</h4>
+            <h4 style="margin-top: 20px">Messages</h4>
             <table class="table table-bordered table-striped">
               <thead>
               <tr>
@@ -65,7 +67,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let msg of topMessagesIn">
-                <td>{{msg.text}}</td>
+                <td matTooltip={{msg.text}}>{{msg.text.length > 150 ? msg.text.substring(0, 150)+ '...' : msg.text}}</td>
                 <td>{{msg.count}}</td>
               </tr>
               </tbody>

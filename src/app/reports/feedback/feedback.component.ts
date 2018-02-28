@@ -1,6 +1,5 @@
 import {Component, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck} from '@angular/core';
 import {ReportsService} from '../reports.service';
-import {Broadcaster} from '../../broadcaster';
 import {AppConfig} from '../../app.config';
 
 @Component({
@@ -14,22 +13,26 @@ export class FeedbackComponent implements OnInit, DoCheck {
     selectedValue = 'all';
     feedback_type: string;
     feedbackDiffer: KeyValueDiffer<string, any>;
-    constructor(private broadcaster: Broadcaster, private reportsService: ReportsService, private differs: KeyValueDiffers) {
+    analytics_token: string;
+    tokenDiffer: KeyValueDiffer<string, any>;
+    constructor(private reportsService: ReportsService, private differs: KeyValueDiffers) {
     }
 
     ngOnInit() {
-      this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
-      this.feedbackDiffer = this.differs.find(AppConfig.FEEDBACK_TYPE).create();
-      this.registerStringBroadcast();
+      this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
+      this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
+      this.reportsService.registerStringBroadcast();
+      this.getSession();
     }
 
   feedbackChanged(changes: KeyValueChanges<string, any>) {
     this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
+    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
     this.getSession();
   }
 
   ngDoCheck(): void {
-    const changes = this.feedbackDiffer.diff(AppConfig.FEEDBACK_TYPE);
+    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
     if (changes) {
       this.feedbackChanged(changes);
     }
@@ -113,15 +116,7 @@ export class FeedbackComponent implements OnInit, DoCheck {
       }
     }
 
-  registerStringBroadcast() {
-    this.broadcaster.on<string>('BotChanged')
-      .subscribe(message => {
-        this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
-      });
-  }
-
   compressArray(original) {
-
     const compressed = [];
     // make a copy of the input array
     const copy = original.slice(0);

@@ -58,6 +58,7 @@ export class SidebarComponent implements OnInit {
       localStorage.setItem('ANALYTICS_TOKEN', this.data.analytics_token);
       localStorage.setItem('FEEDBACK_TYPE', this.data.feedback_type);
       AppConfig.FEEDBACK_TYPE['type'] = this.data.feedback_type;
+      AppConfig.TOKEN['type'] = this.data.analytics_token;
     }
     this.broadcaster.broadcast('BotChanged', 'some message');
     if (getUrl.split('/')[2]) {

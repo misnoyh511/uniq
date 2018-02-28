@@ -7,4 +7,5 @@ export class AppConfig {
     public static API_ENDPOINT = 'https://stagingapi.uniq.ai';
     public static MODULE_NAME = ['knowledge-center', 'conversation', 'reports'];
     public static FEEDBACK_TYPE = {};
+    public static TOKEN = {};
 }

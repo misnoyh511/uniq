@@ -5,16 +5,25 @@ import {NotificationService} from '../toastr/toastr.service';
 import {AppConfig} from '../app.config';
 import {Http, Response, Headers} from '@angular/http';
 import {InterceptorService} from '../interceptor/interceptor.service';
-import {LocalStorageService} from "../local-storage/local-storage.service";
+import {LocalStorageService} from '../local-storage/local-storage.service';
+import {Broadcaster} from '../broadcaster';
 
 @Injectable()
 export class ConversationsService {
-    analyticsId = 'PkS4FDkQ9xlaX76nAxHWJDRX7oztEPrGWBpoTtjL';
-  constructor(private http: Http, private httpClient: InterceptorService, private localStorageService: LocalStorageService) {
+    analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
+  constructor(private broadcaster: Broadcaster, private http: Http, private httpClient: InterceptorService,
+              private localStorageService: LocalStorageService) {
   }
+
+  registerStringBroadcast() {
+    this.broadcaster.on<string>('BotChanged')
+      .subscribe(message => {
+        this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
+      });
+  }
+
   getTopMessagesIn() {
-      const analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_in/' + analytics_token)
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_in/' + this.analytics_token)
       .map(response => {
         return response.json();
       }).catch((err: Response) => {
@@ -23,7 +32,7 @@ export class ConversationsService {
   }
 
   getTranscripts() {
-      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'transcript/' + this.analyticsId + '?start=2018-02-06&end=2018-02-06')
+      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'transcript/' + this.analytics_token + '?start=2018-01-01&end=2018-02-28')
           .map(response => {
               return response.json();
           }).catch((err: Response) => {
@@ -32,8 +41,7 @@ export class ConversationsService {
   }
 
   getTopMessagesOut() {
-      const analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_out/' + analytics_token)
+      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_out/' + this.analytics_token)
           .map(response => {
               return response.json();
           }).catch((err: Response) => {
