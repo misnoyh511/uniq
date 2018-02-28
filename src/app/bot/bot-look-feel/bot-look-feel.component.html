@@ -50,9 +50,8 @@
                                <!-- <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                 <b class=""></b> -->
                             </span>
-            <div class="on-off-btn toggle-btn-on-off active">
-              <span class="rounded-on-off-btn"></span>
-              <span class="on-off-text">On</span>
+            <div class="on-off-btn toggle-btn-on-off">
+              <mat-slide-toggle [(ngModel)]="latteralTab" name="latteralTab" type="text" color="primary"></mat-slide-toggle>
             </div>
           </div>
           <div class="full-panel chat-style-floating-icon">
@@ -61,8 +60,7 @@
                                 <b class=""></b> -->
                             </span>
             <div class="on-off-btn toggle-btn-on-off">
-              <span class="rounded-on-off-btn"></span>
-              <span class="on-off-text">Off</span>
+              <mat-slide-toggle class="toggle" type="text" color="primary"></mat-slide-toggle>
             </div>
           </div>
         </div>

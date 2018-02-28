@@ -10,9 +10,9 @@
       <div class="getting-started-video-wrapper notification-wrap">
         <app-sub-nav [navType]="'home'"></app-sub-nav>
         <div class="on-off-btn toggle-btn-on-off bot-title-on-off">
-          <span class="rounded-on-off-btn"></span>
-          <span class="on-off-text">Off</span>
+          <mat-slide-toggle type="text" color="primary"></mat-slide-toggle>
         </div>
+
         <h3>My Bot 1</h3>
         <div class="mybot-blocks-wrapper">
           <div class="row">
@@ -54,10 +54,10 @@
                   <i class="fa fa-exclamation" aria-hidden="true"></i>
                 </div>
                 <div class="block-icon block-icon-knwldge">
-                  <a [routerLink]="(['/setup-ai-questions'])"><img src="../assets/images/mybot-block-icon3.png" alt=""></a>
+                  <a [routerLink]="(['/knowledge-center/setup-ai-questions'])"><img src="../assets/images/mybot-block-icon3.png" alt=""></a>
                 </div>
                 <div class="block-desc">
-                  <a [routerLink]="(['/setup-ai-questions'])"><h4>Knowledge Center</h4></a>
+                  <a [routerLink]="(['/knowledge-center/setup-ai-questions'])"><h4>Knowledge Center</h4></a>
                   <p>Lorem ipsum is just a dummy text to prevent the space for original content.</p>
                 </div>
               </div>
@@ -69,10 +69,10 @@
                   <i class="fa fa-exclamation" aria-hidden="true"></i>
                 </div>
                 <div class="block-icon block-icon-improve">
-                  <a [routerLink]="(['/setup-ai'])"><img src="../assets/images/mybot-block-icon4.png" alt=""></a>
+                  <a [routerLink]="(['/knowledge-center/setup-ai'])"><img src="../assets/images/mybot-block-icon4.png" alt=""></a>
                 </div>
                 <div class="block-desc">
-                  <a [routerLink]="(['/setup-ai'])"><h4>Improvements</h4></a>
+                  <a [routerLink]="(['/knowledge-center/setup-ai'])"><h4>Improvements</h4></a>
                   <p>Lorem ipsum is just a dummy text to prevent the space for original content.</p>
                 </div>
               </div>

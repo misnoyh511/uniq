@@ -18,21 +18,34 @@
           <li><a (click)="showStarted = true; showKnowledge = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
             <span>Getting Started</span></a></li>
         </ul>
-        <div id="mybot-menu-wrap">
+
+        <div class="mybot-menu-wrap active">
+          <a class="bot-name-link" [routerLink]="(['/bot-home'])"><b>{{currentBot}}</b></a>
+          <i class="fa fa-caret-down mybot-menu-tgl" (click)="showList = !showList" aria-hidden="true"></i>
+          <!--<span><a href="configuration.html"><i class="fa fa-cog" aria-hidden="true"></i></a></span>	-->
+          <div class="clearfix"></div>
+          <div class="bot-list-wrap" [class.active]="showList">
+            <ul>
+              <li *ngFor="let bots of bot"><a href="javascript:void(0)" (click)="dropDown(getUrl, bots)"> {{bots.name}}</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!--<div id="mybot-menu-wrap">
           <mat-select name="data" [(ngModel)]="data" (change)="dropDown(getUrl)">
             <mat-option *ngFor="let bots of bot; let id = index" [value]="bots">{{bots.name}}
             </mat-option>
           </mat-select>
           <div class="clearfix"></div>
-        <!--  <div class="bot-list-wrap">
+        &lt;!&ndash;  <div class="bot-list-wrap">
             <ul>
               <li><a href="javascript:void(0)"> My Bot 1</a></li>
               <li><a href="javascript:void(0)"> My Bot 2</a></li>
               <li><a href="javascript:void(0)"> My Bot 3</a></li>
               <li><a href="javascript:void(0)"> My Bot 4</a></li>
             </ul>
-          </div>-->
-        </div>
+          </div>&ndash;&gt;
+        </div>-->
       <ul>
         <li><a (click)="showKnowledge = true; showConversation = showReport = showStarted = showAccount = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center</a></li>
         <li><a (click)="showConversation = true; showKnowledge = showReport = showStarted = showAccount = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></li>

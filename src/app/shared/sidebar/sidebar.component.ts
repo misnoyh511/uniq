@@ -25,6 +25,8 @@ export class SidebarComponent implements OnInit {
   showReport = false;
   showAccount = false;
   message: string;
+  showList = false;
+  currentBot: string;
   constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService) { }
 
   ngOnInit() {
@@ -48,17 +50,21 @@ export class SidebarComponent implements OnInit {
   onloaddata() {
    this.Service.getBot().subscribe((data) => {
      this.bot = data;
+     this.currentBot = this.bot[0].name;
      if (this.bot.length > 0) {
        this.data = this.bot[0];
      }
    });
   }
-  dropDown(getUrl) {
-    if (this.data) {
-      localStorage.setItem('ANALYTICS_TOKEN', this.data.analytics_token);
-      localStorage.setItem('FEEDBACK_TYPE', this.data.feedback_type);
-      AppConfig.FEEDBACK_TYPE['type'] = this.data.feedback_type;
-      AppConfig.TOKEN['type'] = this.data.analytics_token;
+  dropDown(getUrl, botData) {
+    console.log(botData);
+    if (botData) {
+      this.currentBot = botData.name;
+      localStorage.setItem('ANALYTICS_TOKEN', botData.analytics_token);
+      localStorage.setItem('FEEDBACK_TYPE', botData.feedback_type);
+      AppConfig.FEEDBACK_TYPE['type'] = botData.feedback_type;
+      AppConfig.TOKEN['type'] = botData.analytics_token;
+      this.showList = false;
     }
     this.broadcaster.broadcast('BotChanged', 'some message');
     if (getUrl.split('/')[2]) {

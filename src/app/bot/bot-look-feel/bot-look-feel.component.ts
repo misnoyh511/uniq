@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bot-look-feel.component.css']
 })
 export class botLookFeelComponent implements OnInit {
-
+  latteralTab = true;
   constructor() { }
 
   ngOnInit() {
