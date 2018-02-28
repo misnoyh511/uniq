@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bot-modules.component.css']
 })
 export class botModulesComponent implements OnInit {
-
+  faqSection = false;
+  showDiv = false;
+  proHide = true;
   constructor() { }
 
   ngOnInit() {

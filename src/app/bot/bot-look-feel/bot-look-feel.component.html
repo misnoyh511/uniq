@@ -21,8 +21,8 @@
           </div>
           <div class="full-width-input-fields full-width-input-fields-step4">
             <p>Bot Name
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <b> The name of this project. Only you	will see this.</b>
+              <sup><i (mouseover)="showBotName= true" (mouseout)="showBotName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <b [class.show]="showBotName"> The name of this project. Only you	will see this.</b>
             </p>
             <div class="login-form-elements">
               <label>Enter Your Bot Name</label>
@@ -32,8 +32,8 @@
 
           <div class="full-width-input-fields">
             <p> Chat Window Name
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <b> The Chat Window Header Title. Everyone	will see this.</b>
+              <sup><i (mouseover)="showChatName= true" (mouseout)="showChatName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <b [class.show]="showChatName"> The Chat Window Header Title. Everyone	will see this.</b>
             </p>
             <div class="login-form-elements">
               <label> Enter A Chat Window Name</label>
@@ -70,8 +70,8 @@
           </div>
           <div class="full-width-input-fields full-width-input-fields-step4">
             <p>Welcome	Message
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <b> The Chat Window Welcome Message. Everyone will see	this.</b>
+              <sup><i (mouseover)="showWelcome= true" (mouseout)="showWelcome= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <b [class.show]="showWelcome"> The Chat Window Welcome Message. Everyone will see	this.</b>
             </p>
             <div class="login-form-elements">
               <label>Enter A Welcome	Message</label>
@@ -80,8 +80,8 @@
           </div>
           <div class="full-width-input-fields full-width-input-fields-step4">
             <p>Input Title
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <b>The text that appears	in the chatbot	input text field.</b>
+              <sup><i (mouseover)="showTitle= true" (mouseout)="showTitle= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <b [class.show]="showTitle">The text that appears	in the chatbot	input text field.</b>
             </p>
             <div class="login-form-elements">
               <label> Please	Enter An Input Text</label>
@@ -90,8 +90,8 @@
           </div>
           <div class="full-width-input-fields full-width-input-fields-step4">
             <p>Input Waiting Text
-              <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <b>The	text that appears in chat window when your bot is waiting.</b>
+              <sup><i (mouseover)="showWaiting= true" (mouseout)="showWaiting= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+              <b [class.show]="showWaiting">The	text that appears in chat window when your bot is waiting.</b>
             </p>
             <div class="login-form-elements">
               <label>Please Enter A Waiting Text</label>
@@ -106,18 +106,18 @@
           </div>
           <div class="full-panel full-panel-step2">
                             <span>Upload Your Avatar Image
-                                <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                <b> Upload	a PNG or JPEG file</b>
-                            </span>
+                                            <sup><i (mouseover)="showAvatar= true" (mouseout)="showAvatar= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
+                                        </span>
             <div class="right-side-form">
               <input type="file" id="files" class="uploadfiles" name="files[]" multiple />
             </div>
           </div>
           <div class="full-panel full-panel-step2">
                             <span>Upload Your	Cover Image
-                                <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                <b>Upload a PNG or JPEG file</b>
-                            </span>
+                                            <sup><i (mouseover)="showCover= true" (mouseout)="showCover= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showCover">Upload a PNG or JPEG file</b>
+                                        </span>
             <div class="right-side-form">
               <form>
                 <input type="file" id="uploadfiles" class="uploadfiles" name="files[]" multiple />
@@ -126,8 +126,8 @@
           </div>
           <div class="full-panel full-panel-step2">
                             <span> Choose the background color of chat tab/icon
-                                <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                <b>The tab/icon background	color seen by users</b>
+                                <sup><i (mouseover)="showBackClr= true" (mouseout)="showBackClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                             </span>
             <div class="right-side-form">
               <!--<div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
@@ -136,9 +136,9 @@
           </div>
           <div class="full-panel full-panel-step2">
                             <span>Choose the font color ofthe	tab/icon.
-                                <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                <b>The tab/icon color seen by users</b>
-                            </span>
+                                            <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showFontClr">The tab/icon color seen by users</b>
+                                        </span>
             <div class="right-side-form">
               <!-- <div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
               <input class="jscolor" value="ab2567">

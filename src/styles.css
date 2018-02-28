@@ -260,6 +260,9 @@ p{margin:0 0 20px 0; }
 .login-form-elements button[type=submit]:hover, .login-form-elements button[type=submit]:focus {background-color: #12a1ff;}
 .login-form-elements input:hover , .login-form-elements input:focus {border:2px solid #008bd5;}
 
+.login-form-elements select {background-color: #fff;border: 2px solid #eceff0;border-radius: 5px;padding: 10px 8px 10px; width:100%; color:#555; appearance:none; -moz-appearance:none; -webkit-appearance:none;}
+.login-form-elements select:hover, .login-form-elements select:focus {border:2px solid #008bd5;}
+
 .login-form-elements a {float: right;font-size: 12px; color:#aaa; margin:5px 0 0 0; position:relative;z-index:99;}
 
 .login-btn-highlights {position:absolute; top:-20px; left:-56%; opacity:0.5;}
@@ -835,7 +838,7 @@ p{margin:0 0 20px 0; }
 .pixel-install-section a.white-btn {color:rgba(43,57,80,0.7) !important;    box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.1);}
 .pixel-install-section a.white-btn:hover {color: #0095f7 !important;box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.15);}
 
-.right-side-form .jscolor {padding:6px 20px; border:none;box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.15); border-radius:4px; position:relative;
+.right-side-form .jscolor {padding:6px 20px; border:none;box-shadow: 0 2px 6px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.15); border-radius:4px; position:relative; background: #ab2567; color: #fff;
   top:-6px;}
 .right-side-form .jscolor:before {content:'#'; height:25px; width:25px; background:#eee; color:#333; border-radius:4px; position:absolute; top:0; left:0;}
 

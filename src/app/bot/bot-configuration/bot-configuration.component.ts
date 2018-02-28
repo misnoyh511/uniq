@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class botConfigurationComponent implements OnInit {
 
+  showNlp = false;
+  showConfig = false;
+  showDelete = false;
+  showEditPass = false;
   constructor() { }
 
   ngOnInit() {

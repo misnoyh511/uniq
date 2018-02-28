@@ -7,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class botLookFeelComponent implements OnInit {
   latteralTab = true;
+  showBotName = false;
+  showChatName = false;
+  showWelcome = false;
+  showTitle = false;
+  showWaiting = false;
+  showAvatar = false;
+  showCover = false;
+  showBackClr = false;
+  showFontClr = false;
   constructor() { }
 
   ngOnInit() {

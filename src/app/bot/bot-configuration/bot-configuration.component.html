@@ -32,8 +32,8 @@
           <form>
             <div class="full-width-input-fields">
               <p>Enter Your NLP Server Token
-                <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                <b class="">Enter Your NLP Server Token</b>
+                <sup><i (mouseover)="showNlp= true" (mouseout)="showNlp= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                <b [class.show]="showNlp">Enter Your NLP Server Token</b>
               </p>
             </div>
             <div class="login-form-elements transate-left">
@@ -53,7 +53,7 @@
                   <h5>Bot Settings</h5>
                 </div>
                 <div class="col-md-5">
-                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig">
+                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" (click)="showConfig = true">
                     <i class="fa fa-share" aria-hidden="true"></i>
                     <span>Share Settings</span>
                   </a>
@@ -66,7 +66,7 @@
                   <h5>Bot Knowledge Center</h5>
                 </div>
                 <div class="col-md-5">
-                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig">
+                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" (click)="showConfig = true">
                     <i class="fa fa-share" aria-hidden="true"></i>
                     <span>Share Knowledge Center</span>
                   </a>
@@ -79,7 +79,7 @@
                   <h5>Bot Conversations</h5>
                 </div>
                 <div class="col-md-5">
-                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig">
+                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" (click)="showConfig = true">
                     <i class="fa fa-share" aria-hidden="true"></i>
                     <span>Share Conversations</span>
                   </a>
@@ -92,12 +92,90 @@
                   <h5>Bot Reports</h5>
                 </div>
                 <div class="col-md-5">
-                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig">
+                  <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" (click)="showConfig = true">
                     <i class="fa fa-share" aria-hidden="true"></i>
                     <span>Share Reports</span>
                   </a>
                 </div>
               </div>
+            </div>
+            <div class="visitor-count-wrapper" [class.active]="showConfig">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Share Configuration</h5>
+                    <div class="close-visitor-count" (click)="showConfig = false">
+                      <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                  <div class="modal-body">
+                    <div class="db-form-elements">
+                      <label>To:</label>
+                      <input type="text" class="modal-btns share-modal-text" placeholder="xxx@xxxx.com" >
+                    </div>
+                    <div class="db-form-elements share-modal-textarea">
+         	<textarea class="modal-btns" disabled> I am sharing following link with you..
+
+https://www.shareanalyticslink.com/sdasdsdasdsdmnlmnlmslnxjcnxc/sadsadnssad.html</textarea>
+                    </div>
+                    <div class="share-link-wrap">
+                      <textarea id="selectable3" class="modal-btns">https://www.shareanalyticslink.com/sdasdsdasdsdmnlmnlmslnxjcnxc/sadsadnssad.html</textarea>
+                      <button id="selectVal3" class="modal-btns">
+                        <i class="fa fa-copy" aria-hidden="true"></i>
+                        Copy Link
+                      </button>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="blue-btn modal-btns share-modal-btn" data-dismiss="modal" (click)="showConfig = !showConfig">Share</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 config-form-wrapper">
+          <div class="step-inner-title">
+            <h3>Send Automated Reports to Email</h3>
+            <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
+              <mat-slide-toggle type="text" color="primary" style="float:left">
+              </mat-slide-toggle>
+            </div>
+          </div>
+          <div class="visitor-count-wrap visitor-count-wrap1">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <p>Your Name</p>
+                  <div class="login-form-elements">
+                    <label>Enter your name</label>
+                    <input type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <p>Your Email</p>
+                  <div class="login-form-elements">
+                    <label>Enter your email</label>
+                    <input type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <p>Select the duration of report</p>
+                  <div class="login-form-elements">
+                    <select>
+                      <option>--Select duration--</option>
+                      <option>Last 24 Hours</option>
+                      <option>Last 7 Days</option>
+                      <option>Last 30 Days</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!--<div class="col-md-12">
+                  <div class="login-form-elements">
+                      <button class="blue-btn" type="submit"><i class="fa fa-paper-plane"></i><span>Send</span> </button>
+                  </div>
+              </div>-->
             </div>
           </div>
         </div>
@@ -106,9 +184,53 @@
             <h3>Delete Bot</h3>
           </div>
           <div class="delete-bot-text">
-            <p>Lorem ipsum dummy text. <a data-toggle="modal" data-target="#editEmail" href="javascript:void(0)">Click here </a>  to delete this bot.</p>
+            <p>Lorem ipsum dummy text. <a (click)="showDelete = true" href="javascript:void(0)">Click here </a>  to delete this bot.</p>
           </div>
         </div>
+        <div class="visitor-count-wrapper" [class.active]="showDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Bot Deletion</h5>
+                <div class="close-visitor-count" (click)="showDelete = false">
+                  <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="db-form-elements">
+                  <label>What is the #1 thing you wish Proof did better?</label>
+                  <input type="text" class="modal-btns" placeholder="Please be as specific as possible">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="white-btn modal-btns" (click)="showDelete = false">Go Back</button>
+                <button type="button" class="blue-btn modal-btns send-feedback-btn" (click)="showDelete = false; showEditPass = true;">Send Feedback</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="visitor-count-wrapper" [class.active]="showEditPass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Bot Deletion</h5>
+                  <div class="close-visitor-count" (click)="showEditPass = false">
+                    <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <div class="db-form-elements">
+                    <label>Please type your email address to confirm you want to delete your bot: <span>agodoy@gmail.com</span></label>
+                    <input type="text" class="modal-btns" >
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="white-btn modal-btns" (click)="showEditPass = false">Delete My Bot</button>
+                  <button type="button" class="white-btn modal-btns" (click)="showEditPass = false">Go Back</button>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
       <div class="next-button-wrap">
         <div class="row">
@@ -125,5 +247,6 @@
       </div>
     </div>
   </div>
-
 </div>
+
+

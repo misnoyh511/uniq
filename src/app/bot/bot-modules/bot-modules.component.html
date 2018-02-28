@@ -1,5 +1,5 @@
 
-<div class="dashboard-container">
+<!--<div class="dashboard-container">
 
   <div class="dashboard-inner-container">
     <div class="dashboard-getting-stared-wrapper">
@@ -14,7 +14,7 @@
           <div class="row">
             <div class="col-sm-8">
 
-              <!--<a href="new.html" class="blue-btn"><i class="fa fa-edit" aria-hidden="true"></i><span>Edit Bot</span></a> -->
+              &lt;!&ndash;<a href="new.html" class="blue-btn"><i class="fa fa-edit" aria-hidden="true"></i><span>Edit Bot</span></a> &ndash;&gt;
             </div>
           </div>
         </div>
@@ -23,6 +23,9 @@
             <h3>FAQ	Section<span>Pro</span></h3>
             <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
               <mat-slide-toggle type="text" color="primary"></mat-slide-toggle>
+            </div>
+            <div class="configure-btn">
+              <button class="white-btn visitor-content-toggle">Configure</button>
             </div>
           </div>
           <div class="visitor-count-wrap visitor-count-wrap2">
@@ -145,6 +148,235 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>-->
+<div class="dashboard-container">
+
+  <div class="dashboard-inner-container">
+    <div class="dashboard-getting-stared-wrapper">
+      <app-sub-nav [navType]="'modules'"></app-sub-nav>
+      <!--<div class="sub-nav-list">
+        <ul>
+          <li><a [routerLink]="(['/bot-home'])"><i class="fa fa-home" aria-hidden="true"></i><span>Home</span></a> </li>
+          <li><a [routerLink]="(['/bot-configuration'])"><i class="fa fa-cog" aria-hidden="true"></i><span>Configuration</span></a></li>
+          <li><a [routerLink]="(['/bot-installation'])"><i class="fa fa-wrench" aria-hidden="true"></i><span>Installation</span></a></li>
+          <li><a [routerLink]="(['/bot-look-feel'])"><i class="fa fa-eye" aria-hidden="true"></i><span>Look & Feel</span></a></li>
+          <li><a [routerLink]="(['/bot-modules'])"><i class="fa fa-cog" aria-hidden="true"></i><span>Modules</span></a></li>
+        </ul>
+
+      </div>-->
+      <h1>Modules</h1>
+      <p>Lorem ipsum dummy texts.</p>
+      <div class="pro-mode-active-label pro-mode-active-label-modules">
+        <span>Congratulations! You have successfully upgraded to pro mode.</span>
+      </div>
+      <div class="getting-started-wrap-wrapper modules-page">
+        <div class="slide-top-btns">
+          <div class="row">
+            <div class="col-sm-8">
+
+              <!--<a href="new.html" class="blue-btn"><i class="fa fa-edit" aria-hidden="true"></i><span>Edit Bot</span></a> -->
+            </div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper full-panel-wrap">
+          <div class="step-inner-title">
+            <h3>FAQ	Section<span>Pro</span></h3>
+            <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
+              <mat-slide-toggle   name="faqSection" type="text" [(ngModel)]="faqSection" color="primary"></mat-slide-toggle>
+            </div>
+            <div class="configure-btn" [class.active]="faqSection">
+              <button class="white-btn visitor-content-toggle" (click)="showDiv= true">Configure</button>
+            </div>
+          </div>
+          <div class="step-inner-text-wrap">
+            <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+          </div>
+          <div class="visitor-count-wrapper" [class.active]="showDiv">
+            <div class="visitor-count-wrap">
+              <h3>Add FAQs</h3>
+              <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+              <div class="close-visitor-count">
+                <span><i class="fa fa-close" aria-hidden="true"></i></span>
+              </div>
+              <div class="visiters-count-inner-wrap">
+                <div class="full-panel">
+                                        <span>Enable or Disable Feature
+                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b class="">This initiates a chatbot conversation with a FAQ.</b>
+                                        </span>
+                  <div class="on-off-btn toggle-btn-on-off">
+                    <span class="rounded-on-off-btn"></span>
+                    <span class="on-off-text">Off</span>
+                  </div>
+                </div>
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <!--<p> Add a FAQ	topic
+                      <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                      <b>A General Topic for which you have FAQ</b>
+                  </p>-->
+                  <div class="login-form-elements">
+                    <!--<label>Enter a FAQ	Topic</label>-->
+                    <input id="faq_top" type="text" placeholder="Add FAQ Topic">
+                  </div>
+                </div>
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <div class="login-form-elements btn-right-aligned">
+                    <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+                  </div>
+                </div>
+                <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res">
+
+
+                </div>
+
+              </div>
+              <button class="blue-btn close-slide-btn">Done</button>
+            </div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+          <div class="custom-timing-btn-wrap" *ngIf="proHide">
+            <button class="blue-btn toggle-custom-timing-section" (click)="showDialog = true">Activiate Pro Active Mode</button>
+          </div>
+          <div class="step-inner-title">
+            <h3>Pro-Active	Mode<span>Business</span></h3>
+            <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
+              <mat-slide-toggle type="text" color="primary"></mat-slide-toggle>
+            </div>
+            <div class="configure-btn">
+              <button class="white-btn visitor-content-toggle">Configure</button>
+            </div>
+          </div>
+          <div class="step-inner-text-wrap">
+            <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+          </div>
+          <div class="visitor-count-wrapper">
+            <div class="visitor-count-wrap">
+              <h3>Pro Active Mode</h3>
+              <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+              <div class="close-visitor-count">
+                <span><i class="fa fa-close" aria-hidden="true"></i></span>
+              </div>
+              <div class="visiters-count-inner-wrap">
+                <div class="full-panel">
+                                        <span>Pro Active Mode Desktop
+                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                        </span>
+                  <div class="on-off-btn toggle-btn-on-off">
+                    <span class="rounded-on-off-btn"></span>
+                    <span class="on-off-text">Off</span>
+                  </div>
+                </div>
+                <div class="full-panel">
+                                        <span>Pro Active Mode Mobile
+                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                        </span>
+                  <div class="on-off-btn toggle-btn-on-off">
+                    <span class="rounded-on-off-btn"></span>
+                    <span class="on-off-text">Off</span>
+                  </div>
+                </div>
+                <div class="full-panel">
+                  <span>Pro Active Level</span>
+                  <div class="progress-bar-wrap">
+                    <div id="progress-bar"></div>
+                    <span id="progress0"><strong>0</strong> <i>Lorem Ipsum Shit Amet</i></span>
+                    <span id="progress1"><strong>1</strong><i>Lorem Ipsum Shit Amet</i></span>
+                    <span id="progress2"><strong>2</strong><i>Lorem Ipsum Shit Amet</i></span>
+                    <span id="progress3"><strong>3</strong><i>Lorem Ipsum Shit Amet</i></span>
+                    <span id="progress4"><strong>4</strong><i>Lorem Ipsum Shit Amet</i></span>
+                  </div>
+                </div>
+              </div>
+              <button class="blue-btn close-slide-btn">Done</button>
+            </div>
+          </div>
+        </div>
+        <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+          <div class="custom-timing-btn-wrap">
+            <button class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+          </div>
+          <div class="step-inner-title">
+            <h3>Live Chat <span>Pro</span></h3>
+            <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count3">
+              <mat-slide-toggle type="text" color="primary"></mat-slide-toggle>
+            </div>
+            <div class="configure-btn">
+              <button class="white-btn visitor-content-toggle">Configure</button>
+            </div>
+          </div>
+          <div class="step-inner-text-wrap">
+            <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+          </div>
+          <div class="visitor-count-wrapper">
+            <div class="visitor-count-wrap">
+              <h3>Live Chat</h3>
+              <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+              <div class="close-visitor-count">
+                <span><i class="fa fa-close" aria-hidden="true"></i></span>
+              </div>
+              <div class="visiters-count-inner-wrap">
+                <div class="full-panel">
+                                        <span>Open Chat Bot Window By	Default
+                                            <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                        </span>
+                  <div class="on-off-btn toggle-btn-on-off">
+                    <span class="rounded-on-off-btn"></span>
+                    <span class="on-off-text">Off</span>
+                  </div>
+                </div>
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <p>Time to	Open Chat Window Automatically (Dwell time)
+                    <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b>The	amount of seconds it takes to open the chatbot window.</b>
+                  </p>
+                  <div class="login-form-elements">
+                    <label>Enter seconds to trigger chatbot open.</label>
+                    <input type="text">
+                  </div>
+                </div>
+              </div>
+              <button class="blue-btn close-slide-btn">Done</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="next-button-wrap">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="blank-wrap"></div>
+          </div>
+          <div class="col-sm-6">
+            <button class="btnNext">
+              Save
+
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  id="timing"  class="custom-timing-section" [class.active]="showDialog">
+    <div class="custom-timing-container">
+      <a href="javascript:void(0)" mat-mini-fab color="primary" (click)= "showDialog= false">x</a>
+      <h2>Pro Active Mode</h2>
+      <p>Sometimes notifications popup faster or slower than you'd prefer. With custom timing, you can speed them up, slow them down, or hold them on screen longer.</p>
+      <p><strong>Upgrade to the BUSINESS plan for $129/mo to unlock Custom Timing, plus:</strong></p>
+      <ul>
+        <li>Priority Support</li>
+        <li>50,000 Unique Monthly Visitors</li>
+        <li>Unlimited Domains</li>
+
+      </ul>
+      <button (click)="openModal()" class="unlock-timing-toggle">
+        <i class="fa fa-unlock" aria-hidden="true"></i>
+        Activate Pro Active Mode
+      </button>
     </div>
   </div>
 </div>
