@@ -4,7 +4,7 @@ import { botHomeComponent } from './bot-home/bot-home.component';
 import { botConfigurationComponent } from './bot-configuration/bot-configuration.component';
 import { botInstallationComponent } from './bot-installation/bot-installation.component';
 import { botLookFeelComponent } from './bot-look-feel/bot-look-feel.component';
-import { botModulesComponent } from './bot-modules/bot-modules.component';
+import { botModulesComponent, JazzDialog, PizzaPartyComponent } from './bot-modules/bot-modules.component';
 import {botRoutes} from './bot.routing';
 import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
@@ -15,7 +15,9 @@ import { SubNavComponent } from './sub-nav/sub-nav.component';
     RouterModule.forChild(botRoutes),
     SharedModule
   ],
-  declarations: [botHomeComponent, botConfigurationComponent, botInstallationComponent, botLookFeelComponent, botModulesComponent, SubNavComponent]
+  declarations: [botHomeComponent, botConfigurationComponent, botInstallationComponent, botLookFeelComponent,
+    botModulesComponent, SubNavComponent, JazzDialog, PizzaPartyComponent],
+  entryComponents: [JazzDialog, PizzaPartyComponent]
 })
 
 export class botModule {

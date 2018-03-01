@@ -91,6 +91,7 @@ export class AnalyticsComponent implements OnInit, DoCheck {
   }
 
   onLoadData(startDate, endDate) {
+    this.options = this.options1 = this.options2 = {};
     this.reportsService.getAllSession(startDate, endDate).subscribe((response) => {
       this.sessions = response.data;
       if (response.data && response.data.length) {
@@ -99,61 +100,61 @@ export class AnalyticsComponent implements OnInit, DoCheck {
             return +new Date(item.date);
           });
         const countArray = [];
-        for (const i in response.data) {
-          response.data[i].date = new Date(response.data[i].date);
-          countArray.push(parseInt(response.data[i].count));
-        }
-        this.options = {
-          title: {
-            text: ''
-          },
-
-          subtitle: {
-            text: ''
-          },
-
-          xAxis: {
-            type: 'datetime'
-          },
-
-          yAxis: {
-            title: {
-              text: 'Count'
-            }
-          },
-
-          plotOptions: {
-            series: {
-              label: {
-                connectorAllowed: false
-              },
-              pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
-                response.data[0].date.getDate()),
-              pointInterval: 24 * 3600 * 1000
-            }
-          },
-
-          series: [{
-            name: 'Session Count',
-            data: countArray
-          }],
-
-          responsive: {
-            rules: [{
-              condition: {
-                maxWidth: 500
-              },
-              chartOptions: {
-                legend: {
-                  layout: 'horizontal',
-                  align: 'center',
-                  verticalAlign: 'bottom'
-                }
-              }
-            }]
+          for (const i in response.data) {
+            response.data[i].date = new Date(response.data[i].date);
+            countArray.push(parseInt(response.data[i].count));
           }
-        };
-      }
+          this.options = {
+            title: {
+              text: ''
+            },
+
+            subtitle: {
+              text: ''
+            },
+
+            xAxis: {
+              type: 'datetime'
+            },
+
+            yAxis: {
+              title: {
+                text: 'Count'
+              }
+            },
+
+            plotOptions: {
+              series: {
+                label: {
+                  connectorAllowed: false
+                },
+                pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
+                  response.data[0].date.getDate()),
+                pointInterval: 24 * 3600 * 1000
+              }
+            },
+
+            series: [{
+              name: 'Session Count',
+              data: countArray
+            }],
+
+            responsive: {
+              rules: [{
+                condition: {
+                  maxWidth: 500
+                },
+                chartOptions: {
+                  legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                  }
+                }
+              }]
+            }
+          };
+        }
     }, (err) => {
       console.log(err);
     });
@@ -230,11 +231,11 @@ export class AnalyticsComponent implements OnInit, DoCheck {
       if (response.data && response.data.length) {
         response.data = _.sortBy(response.data,
           (item) => {
-            return +new Date(item.date_trunc);
+            return +new Date(item.date);
           });
         const countArray = [];
         for (const i in response.data) {
-          response.data[i].date_trunc = new Date(response.data[i].date_trunc);
+          response.data[i].date = new Date(response.data[i].date);
           countArray.push(parseInt(response.data[i].count));
         }
         this.options2 = {
@@ -261,8 +262,8 @@ export class AnalyticsComponent implements OnInit, DoCheck {
               label: {
                 connectorAllowed: false
               },
-              pointStart: Date.UTC(response.data[0].date_trunc.getFullYear(), response.data[0].date_trunc.getMonth(),
-                response.data[0].date_trunc.getDate()),
+              pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
+                response.data[0].date.getDate()),
               pointInterval: 24 * 3600 * 1000
             }
           },

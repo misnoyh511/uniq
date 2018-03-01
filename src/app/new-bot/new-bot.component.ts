@@ -83,6 +83,8 @@ export class NewBotComponent implements OnInit {
   dialogFlow = true;
   comingSoon1 = false;
   comingSoon2 = false;
+  showDesktop = false;
+  showMobile = false;
 
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,

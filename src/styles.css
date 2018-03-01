@@ -1751,7 +1751,7 @@ a.mat-mini-fab.mat-primary {
 .visitor-count-wrapper.active .visitor-count-wrap h3 {font-size:24px; font-weight:800; text-transform:none; margin:0; padding:0 0 20px;}
 .visitor-count-wrapper.active .visitor-count-wrap p {padding:0 0 20px; margin:0;}
 
-.close-visitor-count { width:35px; height:35px; border-radius:50%; color:#fff; background:#0095f7; display:inline-block; text-align:center; line-height:32px; position:absolute; top:20px; right:20px; cursor:pointer;}
+.close-visitor-count { width:35px; height:35px; border-radius:50%; color:#fff; background:#0095f7; display:inline-block; text-align:center; line-height:35px; position:absolute; top:20px; right:20px; cursor:pointer;}
 
 .visiters-count-inner-wrap {border-radius:4px; box-shadow:0 0 0 1px #d9e4ee, 0 2px 4px rgba(217,228,238,0.5);}
 .visiters-count-inner-wrap .full-panel {border-bottom:2px solid #ddd}
@@ -1776,4 +1776,9 @@ a.mat-mini-fab.mat-primary {
   padding: 3px 0 0;
   position: absolute;
   right: 20px;
+}
+
+.feature-toggle {
+  float: right!important;
+  margin-top: 0!important;
 }

@@ -57,7 +57,6 @@ export class SidebarComponent implements OnInit {
    });
   }
   dropDown(getUrl, botData) {
-    console.log(botData);
     if (botData) {
       this.currentBot = botData.name;
       localStorage.setItem('ANALYTICS_TOKEN', botData.analytics_token);

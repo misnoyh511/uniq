@@ -387,16 +387,16 @@
                         <div class="visiters-count-inner-wrap">
                           <div class="full-panel">
                                                     <span>Pro Active Mode Desktop
-                                                        <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                        <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                                        <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                        <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
                                                     </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                             </mat-slide-toggle>
                           </div>
                           <div class="full-panel">
                                                     <span>Pro Active Mode Mobile
-                                                        <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                        <b class="">This opens the chat bot	window automatically and immediately.</b>
+                                                        <sup><i (mouseover)="showMobile= true" (mouseout)="showMobile= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                        <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
                                                     </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                             </mat-slide-toggle>
@@ -430,7 +430,7 @@
               <div class="row main-modules-wrap">
                 <div class="col-lg-9">
                   <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                    <div class="custom-timing-btn-wrap"*ngIf="proHide">
+                    <div class="custom-timing-btn-wrap" *ngIf="proHide">
                       <button (click)="showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
                     </div>
                     <div class="step-inner-title">
