@@ -85,6 +85,12 @@ export class NewBotComponent implements OnInit {
   comingSoon2 = false;
   showDesktop = false;
   showMobile = false;
+  showTopics = false;
+  topics: any = [];
+  questions: any = [];
+  showTopic = false;
+  topicName: string;
+  topic : any = {};
 
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
@@ -104,6 +110,7 @@ export class NewBotComponent implements OnInit {
     this.proActiveShowHide = false;
     this.liveChatShowHide = false;
     this.liveChat = false;
+    this.getTopicsWithQues();
   }
 
   next() {
@@ -222,16 +229,54 @@ export class NewBotComponent implements OnInit {
     if (this.bot.faqTopic) {
       this.bot.name = this.bot.faqTopic;
       this.Service.addFaq({topics: [{name: this.bot.name}]}).subscribe((data) => {
+        this.topics.push(data.topics[0]);
+        this.showTopics = true;
+        this.bot.faqTopic = '';
       }, (err) => {
         console.log(err);
       });
     } else {
-      console.log('please add faq topic');
-    }
+        console.log('please add faq topic');
+      }
     }
 
+    addFaqQuestion(topicId) {
+      if (this.bot.faqQuestion) {
+        this.bot.question = this.bot.faqQuestion;
+        this.Service.addFaqQuestion({questions: [{name: this.bot.question}], topicId : topicId}).subscribe((data) => {
+          this.questions.push(data.questions[0]);
+          this.bot.faqQuestion = '';
+        }, (err) => {
+          console.log(err);
+        });
+      }
+    }
+
+  getTopicsWithQues() {
+    this.Service.getTopicsWithQues().subscribe((data) => {
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  editTopic(topic) {
+    if (!this.showTopic) {
+      if (this.topic.name) {
+        this.bot.name = this.topic.name;
+        this.Service.editFaq({topics: [{name: this.bot.name}]}, topic.id).subscribe((data) => {
+          this.topic = data.topics[0];
+          this.showTopics = true;
+          this.bot.faqTopic = '';
+        }, (err) => {
+          console.log(err);
+        });
+      } else {
+        console.log('please add faq topic');
+      }
+    }
+  }
+
   fileChangeEvent(fileInput: any) {
-    console.log('fileInput', fileInput);
     this.file = fileInput.target.files;
     for (const i in fileInput.target.files) {
       this.files.push(this.file[i].name);

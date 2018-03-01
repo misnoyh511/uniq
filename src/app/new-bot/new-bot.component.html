@@ -71,7 +71,7 @@
             </div>
             <div class="col-lg-3">
               <div class="step-video-wrapper">
-                <video class="video" loop autoplay>
+                <video class="video" loop>
                   <source src="assets/video/SampleVideo.mp4" type="video/mp4">
                   Your browser does not support HTML5 video.
                 </video>
@@ -330,8 +330,38 @@
                               <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
                             </div>
                           </div>
-                          <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res">
+                          <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res" *ngFor="let topic of topics">
 
+                              <div class="ui-state-default display-contetnt-box">
+                                <h2>{{topic.name}}</h2>
+                                <input class="faq-top-edit-text-box" [class.active]="showTopic" [(ngModel)]="topic.name" name="topicName" type="text" value={{topic.name}}>
+                                <div class="topic-actions-wrap">
+                                  <span class="edit_topic1" (click)="showTopic = !showTopic; editTopic(topic)"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                                  <span class="del_topic1"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="faq-question-wrap faq-question-wrap1">
+                                  <h4 *ngFor="let question of questions"><b>{{question.name}}</b>
+                                    <input class="faq-que-edit-text-box" type="text" value={{question.name}}>
+                                    <div class="faq-question-actions"><span class="edit_question3">
+                                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </span>
+                                      <span class="del_question2">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                      </span>
+                                    </div>
+                                  </h4>
+                                </div>
+                                <div class="full-width-input-fields full-width-input-fields-step4">
+                                  <div class="login-form-elements">
+                                    <input id="faq_que1" type="text" placeholder="Enter a FAQ" [(ngModel)]="bot.faqQuestion" name="faqQuestion">
+                                  </div>
+                                </div>
+                                <div class="login-form-elements btn-right-aligned">
+                                  <button id="" class="blue-btn add-faq-que1" (click)="addFaqQuestion(topic.id)">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Add Question
+                                  </button>
+                                </div>
+                              </div>
                           </div>
 
                         </div>
@@ -342,7 +372,7 @@
                 </div>
                 <div class="col-lg-3">
                   <div class="step-video-wrapper">
-                    <video class="video" loop autoplay>
+                    <video class="video" loop>
                       <source src="assets/video/SampleVideo.mp4" type="video/mp4">
                       Your browser does not support HTML5 video.
                     </video>
@@ -420,7 +450,7 @@
                 </div>
                 <div class="col-lg-3">
                   <div class="step-video-wrapper">
-                    <video class="video" loop autoplay>
+                    <video class="video" loop>
                       <source src="assets/video/SampleVideo.mp4" type="video/mp4">
                       Your browser does not support HTML5 video.
                     </video>
@@ -484,7 +514,7 @@
                 </div>
                 <div class="col-lg-3">
                   <div class="step-video-wrapper">
-                    <video class="video" loop autoplay>
+                    <video class="video" loop>
                       <source src="assets/video/SampleVideo.mp4" type="video/mp4">
                       Your browser does not support HTML5 video.
                     </video>

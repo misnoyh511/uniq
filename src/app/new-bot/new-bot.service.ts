@@ -29,7 +29,6 @@ export class NewBotService {
     const options = new RequestOptions({ headers: myHeaders});
     return this.http.post(AppConfig.API_ENDPOINT + '/topics', que, options)
         .map(response => {
-          console.log('response', response);
         return response.json();
         })
         .catch((err: Response) => {
@@ -50,6 +49,7 @@ export class NewBotService {
         return Observable.throw(err);
       });
   }
+
   broadcastToken(botData) {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
@@ -59,7 +59,6 @@ export class NewBotService {
     botData.analytics_id = '';
     for (var i = 0; i < 8; i++)
       botData.analytics_id += possible.charAt(Math.floor(Math.random() * possible.length));
-    console.log('botData', botData);
     return this.http.post(AppConfig.API_ENDPOINT , botData, options)
       .map(response => {
         return response.json();
@@ -82,5 +81,56 @@ export class NewBotService {
       const details = err.json();
       return Observable.throw(details);
     });
+  }
+
+  addFaqQuestion(ques) {
+    const myHeaders = new Headers();
+    const token = this.localStorageService.getSessionToken();
+    myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
+    myHeaders.append('X-HopIn-Application-Id', '2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
+    myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3Xcw' +
+      'AT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
+    myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
+    myHeaders.append('X-HopIn-Session-Token', token);
+    const options = new RequestOptions({ headers: myHeaders});
+    return this.http.post(AppConfig.API_ENDPOINT + '/topics/' + ques.topicId + '/questions', ques , options)
+      .map(response => {
+        return response.json();
+      })
+      .catch((err: Response) => {
+        return Observable.of(err);
+      });
+  }
+
+  getTopicsWithQues() {
+    const myHeaders = new Headers();
+    this.httpClient.createAuthorizationHeader(myHeaders);
+    const options = new RequestOptions({ headers: myHeaders});
+
+    return this.http.get(AppConfig.API_ENDPOINT + '/topics?include=questions', options)
+      .map(response => {
+        return response.json();
+      }).catch((err: Response) => {
+        return Observable.throw(err);
+      });
+  }
+
+  editFaq(topics, topicId) {
+    const myHeaders = new Headers();
+    const token = this.localStorageService.getSessionToken();
+    myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
+    myHeaders.append('X-HopIn-Application-Id', '2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
+    myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3Xcw' +
+      'AT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
+    myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
+    myHeaders.append('X-HopIn-Session-Token', token);
+    const options = new RequestOptions({ headers: myHeaders});
+    return this.http.post(AppConfig.API_ENDPOINT + '/topics/' + topicId, topics, options)
+      .map(response => {
+        return response.json();
+      })
+      .catch((err: Response) => {
+        return Observable.of(err);
+      });
   }
 }
