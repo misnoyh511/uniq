@@ -24,9 +24,9 @@
           </div>
           <div class="webhook-list">
             <ul>
-              <li class="active"><a href="javascript:void(0)"><img src="../assets/images/dialogflow-logo.png" alt=""></a></li>
-              <li><a href="javascript:void(0)"><img src="../assets/images/witai-logo.png" alt=""><span>Coming Soon</span></a></li>
-              <li><a href="javascript:void(0)"><img src="../assets/images/luisai-logo.png" alt=""><span>Coming Soon</span></a></li>
+              <li (click)="dialogFlow = true; comingSoon1 = comingSoon2 = false;" [class.active]="dialogFlow"><a href="javascript:void(0)"><img src="assets/images/dialogflow-logo.png" alt=""></a></li>
+              <li (click)="comingSoon1 = true; dialogFlow = comingSoon2 = false" [class.active]="comingSoon1"><a href="javascript:void(0)"><img src="assets/images/witai-logo.png" alt=""><span>Coming Soon</span></a></li>
+              <li (click)="dialogFlow = comingSoon1 = false; comingSoon2 = true;" [class.active]="comingSoon2"><a href="javascript:void(0)"><img src="assets/images/luisai-logo.png" alt=""><span>Coming Soon</span></a></li>
             </ul>
           </div>
           <form>

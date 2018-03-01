@@ -80,6 +80,9 @@ export class NewBotComponent implements OnInit {
   showOpenChat = false;
   showChatWindow = false;
   imagePreview: any;
+  dialogFlow = true;
+  comingSoon1 = false;
+  comingSoon2 = false;
 
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,

@@ -11,6 +11,10 @@ export class botConfigurationComponent implements OnInit {
   showConfig = false;
   showDelete = false;
   showEditPass = false;
+  dialogFlow = true;
+  comingSoon1 = false;
+  comingSoon2 = false;
+
   constructor() { }
 
   ngOnInit() {
