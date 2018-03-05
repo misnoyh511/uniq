@@ -1,37 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import {SidebarService} from "../../shared/sidebar/sidebar.service";
+import {Component, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, OnInit, DoCheck} from '@angular/core';
+import {SidebarService} from '../../shared/sidebar/sidebar.service';
+import {ConversationsService} from '../../conversations/conversations.service';
+import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-bot-home',
   templateUrl: './bot-home.component.html',
   styleUrls: ['./bot-home.component.css'],
-  providers: [SidebarService],
+  providers: [SidebarService, ConversationsService],
 })
-export class botHomeComponent implements OnInit {
+export class botHomeComponent implements OnInit, DoCheck {
   bot: any[];
   data: any;
-  currentBot: string;
-  tokenArr = {};
-
-  constructor(private Service: SidebarService) { }
+  botData: any = {};
+  analytics_token: string;
+  tokenDiffer: KeyValueDiffer<string, any>;
+  constructor(private differs: KeyValueDiffers, public conversationsService: ConversationsService) { }
 
   ngOnInit() {
-    this.onloaddata();
+    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
+    this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
+    this.conversationsService.registerStringBroadcast();
+    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
   }
-  onloaddata() {
-    this.Service.getBot().subscribe((data) => {
-      this.bot = data;
-      const tokens= {};
-      this.currentBot = this.bot[0].name;
-      if (this.bot.length > 0) {
-        this.data = this.bot[0];
-       /* data.forEach( function(item){
-          const key = item['analytics_token']; // take the first key from every object in the array
-          tokens[ key ] = item;  // assign the key and value to output obj
-        });*/
-        this.tokenArr = tokens[localStorage.getItem('ANALYTICS_TOKEN')];
-       // console.log("===================", this.tokenArr);
-      }
-    });
+
+  tokenChanged(changes: KeyValueChanges<string, any>) {
+    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
+    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+  }
+
+  ngDoCheck(): void {
+    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
+    if (changes) {
+      this.tokenChanged(changes);
+    }
   }
 }

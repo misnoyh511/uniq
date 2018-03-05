@@ -1,13 +1,16 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck } from '@angular/core';
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {ConversationsService} from '../../conversations/conversations.service';
 import {DOCUMENT} from '@angular/platform-browser';
+import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-bot-modules',
   templateUrl: 'bot-modules.component.html',
-  styleUrls: ['./bot-modules.component.css']
+  styleUrls: ['./bot-modules.component.css'],
+  providers: [ConversationsService]
 })
-export class botModulesComponent implements OnInit {
+export class botModulesComponent implements OnInit, DoCheck {
   faqSection = false;
   showDiv = false;
   proHide = true;
@@ -26,7 +29,9 @@ export class botModulesComponent implements OnInit {
   showChatWindow = false;
   bot: any = {};
   dialogRef: MatDialogRef<JazzDialog>;
-
+  analytics_token: string;
+  tokenDiffer: KeyValueDiffer<string, any>;
+  botData: any = {};
   config: MatDialogConfig = {
     disableClose: false,
     hasBackdrop: true,
@@ -43,7 +48,8 @@ export class botModulesComponent implements OnInit {
       message: 'Jazzy jazz jazz'
     }
   };
-  constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar,
+              private differs: KeyValueDiffers, public conversationsService: ConversationsService) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
@@ -52,6 +58,22 @@ export class botModulesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
+    this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
+    this.conversationsService.registerStringBroadcast();
+    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+  }
+
+  tokenChanged(changes: KeyValueChanges<string, any>) {
+    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
+    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+  }
+
+  ngDoCheck(): void {
+    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
+    if (changes) {
+      this.tokenChanged(changes);
+    }
   }
 
   clearSearch() {

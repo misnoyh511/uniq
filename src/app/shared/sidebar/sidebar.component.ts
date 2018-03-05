@@ -55,17 +55,17 @@ export class SidebarComponent implements OnInit {
      this.currentBot = this.bot[0].name;
      if (this.bot.length > 0) {
        this.data = this.bot[0];
-       //console.log("===================",this.data.token);
+       // console.log("===================",this.data.token);
      }
    });
   }
   dropDown(getUrl, botData) {
     if (botData) {
+      console.log('botData', botData);
       this.currentBot = botData.name;
       localStorage.setItem('ANALYTICS_TOKEN', botData.analytics_token);
       localStorage.setItem('FEEDBACK_TYPE', botData.feedback_type);
-      this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
-      //console.log("1234567890",localStorage.getItem('CURRENT_BOT'));
+      localStorage.setItem('CURRENT_BOT', JSON.stringify(botData));
       AppConfig.FEEDBACK_TYPE['type'] = botData.feedback_type;
       AppConfig.TOKEN['type'] = botData.analytics_token;
       this.showList = false;

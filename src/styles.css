@@ -414,8 +414,7 @@ p{margin:0 0 20px 0; }
 .dashboard-navigation label a.active, .dashboard-navigation label a:hover {background: #26303B; color: #fff;}
 .dashboard-navigation label a i {opacity:0.5; margin-right:5px; }
 .dashboard-navigation ul {list-style:none; padding:0;}
-.dashboard-navigation ul li {margin-bottom:5px;}
-.dashboard-navigation ul li a {padding:8px 20px 8px 15px; color:#A2B0C4;font-size: 14px;border-radius:5px;font-family:"Roboto Condensed",helvetica,arial,sans-serif; display:block;}
+.dashboard-navigation ul li a {padding:5px 20px 0 15px; color:#A2B0C4;font-size: 14px;border-radius:5px;font-family:"Roboto Condensed",helvetica,arial,sans-serif; display:block;}
 .dashboard-navigation ul li a i {opacity:0.5; width:15px; margin-right:12px;}
 .dashboard-navigation ul li a:hover, .dashboard-navigation ul li a.active {background:rgba(0,0,0,0.1);}
 .dashboard-navigation ul li a strong {    background-color: #0bdc60;color: white; border-radius:5px; padding:2px 5px; font-size:12px; margin:0 0 0 5px;font-family:"Roboto Condensed",helvetica,arial,sans-serif;}

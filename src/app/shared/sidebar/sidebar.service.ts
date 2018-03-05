@@ -19,7 +19,7 @@ export class SidebarService {
                localStorage.setItem('ANALYTICS_TOKEN', response.json()[0].analytics_token);
                localStorage.setItem('FEEDBACK_TYPE', response.json()[0].feedback_type);
             const botData =  response.json();
-            const currentBot= {};
+            const currentBot = {};
             botData.forEach( function(item){
                 const key = item['analytics_token']; // take the first key from every object in the array
                 botData[ key ] = item;  // assign the key and value to output obj
