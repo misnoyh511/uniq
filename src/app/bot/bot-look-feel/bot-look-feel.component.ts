@@ -1,6 +1,8 @@
 import { Component, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck } from '@angular/core';
 import {AppConfig} from '../../app.config';
 import {ConversationsService} from '../../conversations/conversations.service';
+import {BotService} from '../bot.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-bot-look-feel',
@@ -22,7 +24,7 @@ export class botLookFeelComponent implements OnInit, DoCheck {
   botData: any = {};
   analytics_token: string;
   tokenDiffer: KeyValueDiffer<string, any>;
-  constructor(private differs: KeyValueDiffers, public conversationsService: ConversationsService) { }
+  constructor(private router: Router, private differs: KeyValueDiffers, public conversationsService: ConversationsService, private botService: BotService ) { }
 
   ngOnInit() {
     this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
@@ -41,6 +43,15 @@ export class botLookFeelComponent implements OnInit, DoCheck {
     if (changes) {
       this.tokenChanged(changes);
     }
+  }
+
+  editBot() {
+    this.botService.editBot(this.botData).subscribe((data) => {
+      console.log('data', data);
+      this.router.navigate(['/bot-home']);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }

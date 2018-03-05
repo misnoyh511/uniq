@@ -193,6 +193,7 @@ export class NewBotComponent implements OnInit {
         if (this.bot.length > 0) {
           this.data = this.bot[0].analytics_token;
         }
+        this.router.navigate(['/bot-home']);
       });
     }, (err) => {
       console.log(err);
