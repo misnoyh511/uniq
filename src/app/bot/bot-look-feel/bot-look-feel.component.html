@@ -26,7 +26,7 @@
             </p>
             <div class="login-form-elements">
               <label>Enter Your Bot Name</label>
-              <input type="text">
+              <input type="text" name="name" [(ngModel)]="botData.name">
             </div>
           </div>
 
@@ -37,7 +37,7 @@
             </p>
             <div class="login-form-elements">
               <label> Enter A Chat Window Name</label>
-              <input type="text">
+              <input type="text" name="chat_window_name" [(ngModel)]="botData.chat_window_name">
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@
                                 <b class=""></b> -->
                             </span>
             <div class="on-off-btn toggle-btn-on-off">
-              <mat-slide-toggle [(ngModel)]="latteralTab" name="latteralTab" type="text" color="primary"></mat-slide-toggle>
+              <mat-slide-toggle [(ngModel)]="botData.latteralTab" name="latteralTab" type="text" color="primary"></mat-slide-toggle>
             </div>
           </div>
           <div class="full-panel chat-style-floating-icon">
@@ -60,7 +60,7 @@
                                 <b class=""></b> -->
                             </span>
             <div class="on-off-btn toggle-btn-on-off">
-              <mat-slide-toggle class="toggle" type="text" color="primary"></mat-slide-toggle>
+              <mat-slide-toggle name="floatingIcon" [(ngModel)]="botData.floatingIcon" class="toggle" type="text" color="primary"></mat-slide-toggle>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
             </p>
             <div class="login-form-elements">
               <label>Enter A Welcome	Message</label>
-              <input type="text">
+              <input type="text" name="initial_greeting" [(ngModel)]="botData.initial_greeting">
             </div>
           </div>
           <div class="full-width-input-fields full-width-input-fields-step4">
@@ -85,7 +85,7 @@
             </p>
             <div class="login-form-elements">
               <label> Please	Enter An Input Text</label>
-              <input type="text">
+              <input type="text" name="input_title" [(ngModel)]="botData.input_title">
             </div>
           </div>
           <div class="full-width-input-fields full-width-input-fields-step4">
@@ -95,7 +95,7 @@
             </p>
             <div class="login-form-elements">
               <label>Please Enter A Waiting Text</label>
-              <input type="text">
+              <input type="text" name="waiting_msg" [(ngModel)]="botData.waiting_msg">
             </div>
           </div>
         </div>

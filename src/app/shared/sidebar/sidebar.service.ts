@@ -18,6 +18,14 @@ export class SidebarService {
         .map(response => {
                localStorage.setItem('ANALYTICS_TOKEN', response.json()[0].analytics_token);
                localStorage.setItem('FEEDBACK_TYPE', response.json()[0].feedback_type);
+            const botData =  response.json();
+            const currentBot= {};
+            botData.forEach( function(item){
+                const key = item['analytics_token']; // take the first key from every object in the array
+                botData[ key ] = item;  // assign the key and value to output obj
+            });
+            localStorage.setItem('CURRENT_BOT', JSON.stringify(botData[localStorage.getItem('ANALYTICS_TOKEN')]));
+
             return response.json();
         }).catch((err: Response) => {
           return Observable.throw(err);

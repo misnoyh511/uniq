@@ -16,9 +16,11 @@ export class botLookFeelComponent implements OnInit {
   showCover = false;
   showBackClr = false;
   showFontClr = false;
+  botData: any = {};
   constructor() { }
 
   ngOnInit() {
+    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
   }
 
 }

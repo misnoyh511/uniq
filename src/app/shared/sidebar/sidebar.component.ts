@@ -9,7 +9,7 @@ import {AppConfig} from '../../app.config';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
-  providers: [SidebarService ],
+  providers: [SidebarService],
 })
 export class SidebarComponent implements OnInit {
   @Input() navType;
@@ -27,6 +27,8 @@ export class SidebarComponent implements OnInit {
   message: string;
   showList = false;
   currentBot: string;
+  botData: any = {};
+
   constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService) { }
 
   ngOnInit() {
@@ -53,6 +55,7 @@ export class SidebarComponent implements OnInit {
      this.currentBot = this.bot[0].name;
      if (this.bot.length > 0) {
        this.data = this.bot[0];
+       //console.log("===================",this.data.token);
      }
    });
   }
@@ -61,6 +64,8 @@ export class SidebarComponent implements OnInit {
       this.currentBot = botData.name;
       localStorage.setItem('ANALYTICS_TOKEN', botData.analytics_token);
       localStorage.setItem('FEEDBACK_TYPE', botData.feedback_type);
+      this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+      //console.log("1234567890",localStorage.getItem('CURRENT_BOT'));
       AppConfig.FEEDBACK_TYPE['type'] = botData.feedback_type;
       AppConfig.TOKEN['type'] = botData.analytics_token;
       this.showList = false;
