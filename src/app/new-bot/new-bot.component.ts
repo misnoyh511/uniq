@@ -88,9 +88,10 @@ export class NewBotComponent implements OnInit {
   showTopics = false;
   topics: any = [];
   questions: any = [];
-  showTopic = false;
-  topicName: string;
-  topic : any = {};
+  showTopic: any = [];
+  quesArr: any = {};
+  showQues: any = {};
+  faqQuestion: any = [];
 
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
@@ -110,7 +111,6 @@ export class NewBotComponent implements OnInit {
     this.proActiveShowHide = false;
     this.liveChatShowHide = false;
     this.liveChat = false;
-    this.getTopicsWithQues();
   }
 
   next() {
@@ -188,21 +188,15 @@ export class NewBotComponent implements OnInit {
   }
   save() {
     this.Service.broadcastToken(this.bot).subscribe((x) => {
-      console.log(x);
       this.Service.getBot().subscribe((data) => {
         this.bot = data;
         if (this.bot.length > 0) {
           this.data = this.bot[0].analytics_token;
         }
       });
-      // this.toasterService.pop('success', 'new bot created successful', '');
     }, (err) => {
       console.log(err);
     });
-    /* this.Service[.broadcastToken(this.bot);*/
-    /*} else {
-     console.log("erroe ==============");
-     }*/
   }
 
   clearSearch() {
@@ -240,12 +234,12 @@ export class NewBotComponent implements OnInit {
       }
     }
 
-    addFaqQuestion(topicId) {
-      if (this.bot.faqQuestion) {
-        this.bot.question = this.bot.faqQuestion;
-        this.Service.addFaqQuestion({questions: [{name: this.bot.question}], topicId : topicId}).subscribe((data) => {
-          this.questions.push(data.questions[0]);
-          this.bot.faqQuestion = '';
+    addFaqQuestion(topicId, index) {
+      if (this.faqQuestion[index]) {
+        this.bot.question = this.faqQuestion[index];
+        this.Service.addFaqQuestion({questions: [{name: this.faqQuestion[index]}], topicId : topicId}).subscribe((data) => {
+          this.getTopicsWithQues();
+          this.faqQuestion[index] = '';
         }, (err) => {
           console.log(err);
         });
@@ -253,26 +247,48 @@ export class NewBotComponent implements OnInit {
     }
 
   getTopicsWithQues() {
+    this.topics = [];
     this.Service.getTopicsWithQues().subscribe((data) => {
+      this.topics = data.topics;
+      const questions = {};
+      data.questions.forEach( function(item){
+        const key = item['id']; // take the first key from every object in the array
+        questions[ key ] = item;  // assign the key and value to output obj
+      });
+      this.quesArr = questions;
     }, (err) => {
       console.log(err);
     });
   }
 
-  editTopic(topic) {
-    if (!this.showTopic) {
-      if (this.topic.name) {
-        this.bot.name = this.topic.name;
-        this.Service.editFaq({topics: [{name: this.bot.name}]}, topic.id).subscribe((data) => {
-          this.topic = data.topics[0];
-          this.showTopics = true;
-          this.bot.faqTopic = '';
+    editTopic(topic, index) {
+    if (!this.showTopic[index]) {
+      if (topic.name) {
+        this.Service.editFaq({topics: [{name: topic.name}]}, topic.id).subscribe((data) => {
+          this.getTopicsWithQues();
         }, (err) => {
           console.log(err);
         });
       } else {
         console.log('please add faq topic');
       }
+    }
+  }
+
+  deleteFaqTopic(topicId, topicName) {
+    if (confirm('This will delete the topic ' + topicName + '. You sure?')) {
+      this.Service.deleteFaqTopic(topicId).subscribe((data) => {
+        this.getTopicsWithQues();
+      }, (err) => {
+        console.log(err);
+      });
+    }
+  }
+
+  editQues(quesName, quesId) {
+    if (!this.showQues[quesId]) {
+      this.Service.editFaqQues({questions: [{name: quesName}]}, quesId).subscribe((data) => {
+      });
     }
   }
 

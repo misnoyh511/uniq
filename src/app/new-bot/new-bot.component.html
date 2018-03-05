@@ -283,16 +283,20 @@
                 <div class="col-lg-9">
                   <div class="step-inner-wrapper full-panel-wrap">
                     <div class="step-inner-title">
-                      <h3>FAQ	Section<span>Pro</span></h3>
-                      <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text" [(ngModel)]="bot.faqSection" color="primary" style="float:left">
+                      <h3>FAQ Section<span>Pro</span></h3>
+                      <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text"
+                                        [(ngModel)]="bot.faqSection" color="primary" style="float:left">
                       </mat-slide-toggle>
                       <div class="configure-btn" [class.active]="bot.faqSection">
-                        <button class="white-btn visitor-content-toggle" (click)="showDiv= true">Configure</button>
+                        <button class="white-btn visitor-content-toggle" (click)="showDiv= true; getTopicsWithQues();">
+                          Configure
+                        </button>
                       </div>
                     </div>
                     <div class="step-inner-text-wrap">
                       <h4>Provide an easy to use FAQ menu</h4>
-                      <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                      <p>It has been established truth that the reader will read anything written on the canvas as its
+                        in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
                       <ul>
                         <li>This is one super cool feature.</li>
                         <li>It can also do impressive things.</li>
@@ -302,14 +306,18 @@
                     <div class="visitor-count-wrapper" [class.active]="showDiv">
                       <div class="visitor-count-wrap">
                         <h3>Add FAQs</h3>
-                        <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                        <p>It has been established truth that the reader will read anything written on the canvas as its
+                          in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
                         <div class="close-visitor-count" (click)="showDiv = false">
                           <span><i class="fa fa-close" aria-hidden="true"></i></span>
                         </div>
                         <div class="visiters-count-inner-wrap">
                           <div class="full-panel">
                                                         <span>Enable or Disable Feature
-                                                            <sup><i (mouseover)="showFeature= true" (mouseout)="showFeature= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                            <sup><i (mouseover)="showFeature= true"
+                                                                    (mouseout)="showFeature= false"
+                                                                    class="fa fa-question-circle"
+                                                                    aria-hidden="true"></i></sup>
                                                             <b [class.show]="showFeature">This initiates a chatbot conversation with a FAQ.</b>
                                                         </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
@@ -322,50 +330,63 @@
                             </p>-->
                             <div class="login-form-elements">
                               <!--<label>Enter a FAQ	Topic</label> -->
-                              <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text" placeholder="Enter a FAQ Topic">
+                              <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text"
+                                     placeholder="Enter a FAQ Topic">
                             </div>
                           </div>
                           <div class="full-width-input-fields full-width-input-fields-step4">
                             <div class="login-form-elements btn-right-aligned" (click)="addFaqTopic()">
-                              <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+                              <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add
+                              </button>
                             </div>
                           </div>
-                          <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res" *ngFor="let topic of topics">
 
-                              <div class="ui-state-default display-contetnt-box">
-                                <h2>{{topic.name}}</h2>
-                                <input class="faq-top-edit-text-box" [class.active]="showTopic" [(ngModel)]="topic.name" name="topicName" type="text" value={{topic.name}}>
-                                <div class="topic-actions-wrap">
-                                  <span class="edit_topic1" (click)="showTopic = !showTopic; editTopic(topic)"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                                  <span class="del_topic1"><i class="fa fa-trash" aria-hidden="true"></i></span>
-                                </div>
-                                <div class="faq-question-wrap faq-question-wrap1">
-                                  <h4 *ngFor="let question of questions"><b>{{question.name}}</b>
-                                    <input class="faq-que-edit-text-box" type="text" value={{question.name}}>
-                                    <div class="faq-question-actions"><span class="edit_question3">
-                                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </span>
-                                      <span class="del_question2">
+                          <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res"
+                               *ngFor="let topic of topics; let i = index">
+
+                            <div class="ui-state-default display-contetnt-box">
+                              <h2>{{topic.name}}</h2>
+                              <input class="faq-top-edit-text-box" [class.active]="showTopic[i]"
+                                     [(ngModel)]="topic.name"
+                                     name="name" type="text" value={{topic.name}}>
+                              <div class="topic-actions-wrap">
+                                <span class="edit_topic{{i}}"
+                                      (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"><i
+                                  class="fa fa-pencil" aria-hidden="true"></i></span>
+                                <span class="del_topic{{i}}" (click)="deleteFaqTopic(topic.id, topic.name)"><i
+                                  class="fa fa-trash" aria-hidden="true"></i></span>
+                              </div>
+                              <div class="faq-question-wrap faq-question-wrap1">
+                                <h4 *ngFor="let quesId of topic.links.questions"><b>{{quesArr[quesId].name}}</b>
+                                  <input class="faq-que-edit-text-box" [class.active]="showQues[quesId]"
+                                         type="text"[(ngModel)]="quesArr[quesId].name" value={{quesArr[quesId].name}}>
+                                  <div class="faq-question-actions">
+                                      <span class="edit_question3"
+                                            (click)="showQues[quesId] = !showQues[quesId]; editQues(quesArr[quesId].name, quesId)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                      </span>
+                                    <span class="del_question2">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                       </span>
-                                    </div>
-                                  </h4>
-                                </div>
-                                <div class="full-width-input-fields full-width-input-fields-step4">
-                                  <div class="login-form-elements">
-                                    <input id="faq_que1" type="text" placeholder="Enter a FAQ" [(ngModel)]="bot.faqQuestion" name="faqQuestion">
                                   </div>
-                                </div>
-                                <div class="login-form-elements btn-right-aligned">
-                                  <button id="" class="blue-btn add-faq-que1" (click)="addFaqQuestion(topic.id)">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Add Question
-                                  </button>
+                                </h4>
+                              </div>
+                              <div class="full-width-input-fields full-width-input-fields-step4">
+                                <div class="login-form-elements">
+                                  <input id="faq_que1" type="text" placeholder="Enter a FAQ"
+                                         [(ngModel)]="faqQuestion[i]" name="faqQuestion">
                                 </div>
                               </div>
+                              <div class="login-form-elements btn-right-aligned">
+                                <button id="" class="blue-btn add-faq-que1" (click)="addFaqQuestion(topic.id, i)">
+                                  <i class="fa fa-plus" aria-hidden="true"></i> Add Question
+                                </button>
+                              </div>
+                            </div>
                           </div>
 
                         </div>
-                        <button class="blue-btn close-slide-btn">Done</button>
+                        <button class="blue-btn close-slide-btn" (click)="showDiv = false">Done</button>
                       </div>
                     </div>
                   </div>
@@ -378,17 +399,19 @@
                     </video>
                   </div>
                 </div>
-              </div>
-              <div class="row main-modules-wrap">
+
                 <div class="col-lg-9">
                   <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
                     <div class="custom-timing-btn-wrap" *ngIf="proHide">
-                      <button (click)="showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
+                      <button (click)="showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro
+                        Active Mode
+                      </button>
                     </div>
                     <div class="step-inner-title">
-                      <h3>Pro-Active	Mode<span>Business</span></h3>
-                      <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text" [(ngModel)]="bot.proActive" color="primary" style="float:left">
-                      <!--  {{bot.proActive ? 'On' : 'Off'}}-->
+                      <h3>Pro-Active Mode<span>Business</span></h3>
+                      <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text"
+                                        [(ngModel)]="bot.proActive" color="primary" style="float:left">
+                        <!--  {{bot.proActive ? 'On' : 'Off'}}-->
                       </mat-slide-toggle>
                       <!--<div class="on-off-btn toggle-btn-on-off toggle-configure-on-off">
                         <span class="rounded-on-off-btn"></span>
@@ -400,7 +423,8 @@
                     </div>
                     <div class="step-inner-text-wrap">
                       <h4>Provide an easy to use FAQ menu</h4>
-                      <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                      <p>It has been established truth that the reader will read anything written on the canvas as its
+                        in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
                       <ul>
                         <li>This is one super cool feature.</li>
                         <li>It can also do impressive things.</li>
@@ -410,14 +434,18 @@
                     <div class="visitor-count-wrapper" [class.active]="showBusiness">
                       <div class="visitor-count-wrap">
                         <h3>Pro Active Mode</h3>
-                        <p>It has been established truth that the reader will read anything written on the canvas as its in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                        <p>It has been established truth that the reader will read anything written on the canvas as its
+                          in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
                         <div class="close-visitor-count" (click)="showBusiness = false">
                           <span><i class="fa fa-close" aria-hidden="true"></i></span>
                         </div>
                         <div class="visiters-count-inner-wrap">
                           <div class="full-panel">
                                                     <span>Pro Active Mode Desktop
-                                                        <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                        <sup><i (mouseover)="showDesktop= true"
+                                                                (mouseout)="showDesktop= false"
+                                                                class="fa fa-question-circle"
+                                                                aria-hidden="true"></i></sup>
                                                         <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
                                                     </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
@@ -425,7 +453,10 @@
                           </div>
                           <div class="full-panel">
                                                     <span>Pro Active Mode Mobile
-                                                        <sup><i (mouseover)="showMobile= true" (mouseout)="showMobile= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                        <sup><i (mouseover)="showMobile= true"
+                                                                (mouseout)="showMobile= false"
+                                                                class="fa fa-question-circle"
+                                                                aria-hidden="true"></i></sup>
                                                         <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
                                                     </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
