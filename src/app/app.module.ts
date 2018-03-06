@@ -27,7 +27,7 @@ import { AccountSettingsModule } from './account-settings/account-settings.modul
 import { botModule } from './bot/bot.module';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     AccountSettingsModule,
     botModule,
     HttpClientModule,
-    MatProgressSpinnerModule
+    NgProgressModule
   ],
   providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient],
   bootstrap: [AppComponent]

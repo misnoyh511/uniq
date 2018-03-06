@@ -51,12 +51,8 @@ export class NewBotComponent implements OnInit {
   snackbarsOne = false;
   color: string;
   file: any[];
-  files: any = [];
   imageUrl: any;
-  selectedFileObj: any = [];
-  selectedFiles: any = [];
-  photos: any = [];
-  myInputVariable: any;
+  coverUrl: any;
   data: any;
   showDiv = false;
   showNlp = true;
@@ -80,6 +76,7 @@ export class NewBotComponent implements OnInit {
   showOpenChat = false;
   showChatWindow = false;
   imagePreview: any;
+  coverPreview: any;
   dialogFlow = true;
   comingSoon1 = false;
   comingSoon2 = false;
@@ -92,7 +89,6 @@ export class NewBotComponent implements OnInit {
   quesArr: any = {};
   showQues: any = {};
   faqQuestion: any = [];
-
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
               public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar) {
@@ -117,59 +113,21 @@ export class NewBotComponent implements OnInit {
     console.log('reached==========', this.bot);
   }
 
-  /*uploadFile() {
-    if (this.file) {
-      for (let i = 0; i < this.file.length; i++) {
-        const file = this.file[i];
-        this.selectedFileObj.push(this.file[i]);
-        if (!file.$error) {
-          this.uploadImage(file);
-        }
-
-      }
-      this.imageUrl = '';
-    }
-  }*/
-
-  uploadImage() {
+  uploadImage(role) {
     const formData = new FormData();
     if (this.file) {
       for (let i = 0; i < this.file.length; i++) {
         formData.append('file', this.file[i], this.file[i].name);
       }
+      formData.append('role', role);
+
+      this.Service.upload(formData).subscribe((response) => {
+          console.log('response', response);
+        },
+        (error) => {
+          console.log('error', error);
+        });
     }
-    formData.append('role', 'avatar');
-
-    this.Service.upload(formData).subscribe((response) => {
-      console.log('response', response);
-        /*const responseData: any = response;
-        this.selectedFiles.push(responseData.file._id);
-        if (this.photos) {
-          this.photos.push(responseData.file);
-        }
-        this.myInputVariable.nativeElement.value = '';*/
-      },
-      (error) => {
-      console.log('error', error);
-        // this.toasterService.pop('error', 'File Upload failed', error.message);
-      });
-    /*const formData = new FormData();
-    formData.append('file', this.file, this.file.name);
-    formData.append('role', 'avatar');
-
-    // manually start uploading
-    this.Service.upload(formData).subscribe((response) => {
-        const responseData: any = response;
-        this.selectedFiles.push(responseData.file._id);
-        if (this.photos) {
-          this.photos.push(responseData.file);
-        }
-        this.myInputVariable.nativeElement.value = '';
-      },
-      (error) => {
-        // this.toasterService.pop('error', 'File Upload failed', error.message);
-      });*/
-
   }
 
   latteralToggle() {
@@ -313,21 +271,41 @@ export class NewBotComponent implements OnInit {
     }
   }
 
-  fileChangeEvent(fileInput: any) {
+  fileChangeEvent(fileInput: any, role) {
     this.file = fileInput.target.files;
-    this.imageUrl = this.file[0].name;
-    this.getBase64(this.file[0]);
+    if (role === 'avatar') {
+      this.imageUrl = this.file[0].name;
+    }
+    if (role === 'cover') {
+      this.coverUrl = this.file[0].name;
+    }
+    this.getBase64(this.file[0], role);
   }
 
-  getBase64(file) {
+  getBase64(file, role) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.imagePreview = reader.result;
+      if (role === 'avatar') {
+        this.imagePreview = reader.result;
+      }
+      if (role === 'cover') {
+        this.coverPreview = reader.result;
+      }
     };
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
+    this.uploadImage(role);
+  }
+
+  deleteImage(role) {
+    if (role === 'avatar') {
+      this.imageUrl = '';
+    }
+    if (role === 'cover') {
+      this.coverUrl = '';
+    }
   }
 }
 

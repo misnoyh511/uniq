@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {LocalStorageService} from '../local-storage/local-storage.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Injectable()
 export class InterceptorService {
 
-  constructor(private http: Http, private localStorageService: LocalStorageService) {
+  constructor(private http: Http, private localStorageService: LocalStorageService,  public ngProgress: NgProgress) {
   }
 
   /**
@@ -28,8 +29,12 @@ export class InterceptorService {
   get(url) {
     const getHeaders = new Headers();
     this.createAuthorizationHeader(getHeaders);
+    this.ngProgress.start();
     return this.http.get(url, {
       headers: getHeaders
+    }).map(data => {
+        this.ngProgress.done();
+        return data;
     });
   }
 

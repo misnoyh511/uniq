@@ -32,7 +32,7 @@ export class BotService {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
     const options = new RequestOptions({ headers: myHeaders});
-    return this.http.delete(AppConfig.API_ENDPOINT + '/ai/' + botId)
+    return this.http.delete(AppConfig.API_ENDPOINT + '/ai/' + botId, options)
       .map(response => {
         return response.json();
       })

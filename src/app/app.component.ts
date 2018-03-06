@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import {Broadcaster} from './broadcaster';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import {Broadcaster} from './broadcaster';
 })
 export class AppComponent {
   getUrl: any;
-  constructor(private router: Router) {
+  constructor(private router: Router, public ngProgress: NgProgress) {
     router.events.subscribe((val) => {
       this.getUrl = router.url;
       // console.log("geturl",this.getUrl);

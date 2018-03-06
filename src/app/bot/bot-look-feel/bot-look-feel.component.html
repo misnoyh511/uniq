@@ -110,19 +110,25 @@
                                             <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
                                         </span>
             <div class="right-side-form">
-              <input type="file" id="files" class="uploadfiles" name="files[]" multiple />
+              <input id="file_input_avatar" (change)="fileChangeEvent($event, 'avatar')" *ngIf="!imageUrl" type="file"/>
+              <div id="imagePreview" *ngIf="imageUrl">
+                <img class="imageThumb" src="{{imagePreview}}">
+                <span class="remove" (click)="deleteImage('avatar');"><i class="fa fa-trash-o"></i>Delete</span>
+              </div>
             </div>
-          </div>
+            </div>
           <div class="full-panel full-panel-step2">
                             <span>Upload Your	Cover Image
                                             <sup><i (mouseover)="showCover= true" (mouseout)="showCover= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                             <b [class.show]="showCover">Upload a PNG or JPEG file</b>
                                         </span>
             <div class="right-side-form">
-              <form>
-                <input type="file" id="uploadfiles" class="uploadfiles" name="files[]" multiple />
-              </form>
-            </div>
+                <input id="file_input_cover" (change)="fileChangeEvent($event, 'cover')" *ngIf="!coverUrl" type="file"/>
+                <div id="coverPreview" *ngIf="coverUrl">
+                  <img class="imageThumb" src="{{coverPreview}}">
+                  <span class="remove" (click)="deleteImage('cover');"><i class="fa fa-trash-o"></i>Delete</span>
+                </div>
+          </div>
           </div>
           <div class="full-panel full-panel-step2">
                             <span> Choose the background color of chat tab/icon
@@ -145,27 +151,6 @@
             </div>
           </div>
         </div>
-        <!--<div class="step-inner-wrapper custom-margin-bottom">
-            <div class="step-inner-title">
-                <h3>Language Settings</h3>
-            </div>
-            <div class="full-width-input-fields full-width-input-fields-step4">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="db-form-elements">
-                            <label>Translate "From"</label>
-                            <input type="text" value="from">
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="db-form-elements">
-                            <label>Translate "Someone"</label>
-                            <input type="text" value="Someone">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
       </div>
       <div class="next-button-wrap">
         <div class="row">
@@ -180,9 +165,6 @@
           </div>
         </div>
       </div>
-      <!--<div class="getting-started-video-wrapper">
-          <p>Each week we'll be rolling out new features to make selling online easier and more efficient. <a href="#"> Checkout our changelog for the latest updates.</a></p>
-      </div>-->
     </div>
   </div>
 </div>
