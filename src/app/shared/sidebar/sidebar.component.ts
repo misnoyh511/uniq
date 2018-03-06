@@ -28,6 +28,7 @@ export class SidebarComponent implements OnInit {
   showList = false;
   currentBot: string;
   botData: any = {};
+  showMenu = false;
 
   constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService) { }
 

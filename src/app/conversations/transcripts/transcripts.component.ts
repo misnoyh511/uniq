@@ -2,6 +2,7 @@ import {Component, OnInit, Pipe, PipeTransform, KeyValueChanges, KeyValueDiffer,
 import {ConversationsService} from '../conversations.service';
 import {AppConfig} from '../../app.config';
 
+
 @Component({
   selector: 'app-transcripts',
   templateUrl: 'transcripts.component.html',
@@ -44,6 +45,7 @@ export class TranscriptsComponent implements OnInit, DoCheck {
   getTranscripts() {
     this.conversationsService.getTranscripts().subscribe((response) => {
       this.transcripts = [];
+      console.log('getTranscripts', response);
       if (response.data && response.data.length) {
         this.transcripts.push({
           client: response.data[0].client,

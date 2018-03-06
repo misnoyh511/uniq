@@ -28,6 +28,19 @@ export class BotService {
       });
   }
 
+  deleteBot(botId) {
+    const myHeaders = new Headers();
+    this.httpClient.createAuthorizationHeader(myHeaders);
+    const options = new RequestOptions({ headers: myHeaders});
+    return this.http.delete(AppConfig.API_ENDPOINT + '/ai/' + botId)
+      .map(response => {
+        return response.json();
+      })
+      .catch((err: Response) => {
+        return Observable.of(err);
+      });
+  }
+
   addFaq(que) {
     const myHeaders = new Headers();
     const token = this.localStorageService.getSessionToken();

@@ -218,7 +218,13 @@
                                             <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
                                         </span>
                   <div class="right-side-form">
-                    <input type="file" id="files" class="uploadfiles" name="files[]" multiple/>
+                    <!--<input type="file" id="files" class="uploadfiles" name="files[]" multiple/>-->
+
+                    <input id="file_input_file" (change)="fileChangeEvent($event)" *ngIf="!imageUrl" type="file"/>
+                    <div id="imagePreview" *ngIf="imageUrl">
+                      <img class="imageThumb" src="{{imagePreview}}">
+                      <span class="remove"><i class="fa fa-trash-o"></i>Delete</span>
+                    </div>
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
@@ -269,7 +275,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext" data-toggle="pill" href="#customize" (click)="next(); uploadFile(); showNlp = showLook = false; showModules = true;">
+                  <button class="btnNext" data-toggle="pill" href="#customize" (click)="next(); uploadImage(); showNlp = showLook = false; showModules = true;">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>

@@ -117,13 +117,7 @@ export class NewBotComponent implements OnInit {
     console.log('reached==========', this.bot);
   }
 
-  /*fileChangeEvent(fileInput: any) {
-    this.file = fileInput.target.files;
-    this.imageUrl = this.file[0].name;
-    this.uploadFile();
-  }*/
-
-  uploadFile() {
+  /*uploadFile() {
     if (this.file) {
       for (let i = 0; i < this.file.length; i++) {
         const file = this.file[i];
@@ -135,11 +129,32 @@ export class NewBotComponent implements OnInit {
       }
       this.imageUrl = '';
     }
-  }
+  }*/
 
-  uploadImage(file) {
+  uploadImage() {
     const formData = new FormData();
-    formData.append('file', file, file.name);
+    if (this.file) {
+      for (let i = 0; i < this.file.length; i++) {
+        formData.append('file', this.file[i], this.file[i].name);
+      }
+    }
+    formData.append('role', 'avatar');
+
+    this.Service.upload(formData).subscribe((response) => {
+      console.log('response', response);
+        /*const responseData: any = response;
+        this.selectedFiles.push(responseData.file._id);
+        if (this.photos) {
+          this.photos.push(responseData.file);
+        }
+        this.myInputVariable.nativeElement.value = '';*/
+      },
+      (error) => {
+      console.log('error', error);
+        // this.toasterService.pop('error', 'File Upload failed', error.message);
+      });
+    /*const formData = new FormData();
+    formData.append('file', this.file, this.file.name);
     formData.append('role', 'avatar');
 
     // manually start uploading
@@ -153,7 +168,7 @@ export class NewBotComponent implements OnInit {
       },
       (error) => {
         // this.toasterService.pop('error', 'File Upload failed', error.message);
-      });
+      });*/
 
   }
 
@@ -172,6 +187,7 @@ export class NewBotComponent implements OnInit {
       this.faqShowHide = false;
     }
   }
+
   proActiveToggle() {
     if (this.bot.proActive) {
       this.proActiveShowHide = true;
@@ -179,6 +195,7 @@ export class NewBotComponent implements OnInit {
       this.proActiveShowHide = false;
     }
   }
+
   liveChatToggle() {
     if (this.bot.liveChat) {
       this.liveChatShowHide = true;
@@ -186,6 +203,7 @@ export class NewBotComponent implements OnInit {
       this.liveChatShowHide = false;
     }
   }
+
   save() {
     this.Service.broadcastToken(this.bot).subscribe((x) => {
       this.Service.getBot().subscribe((data) => {
@@ -207,6 +225,7 @@ export class NewBotComponent implements OnInit {
       duration: 3000,
     });
   }
+
   openModal() {
     this.dialogRef = this.dialog.open(JazzDialog, {position: {top: '15%', left: '23%'}});
     this.dialogRef.afterClosed().subscribe((result: string) => {
@@ -220,6 +239,7 @@ export class NewBotComponent implements OnInit {
       this.proHide = false;
     });
   }
+
   addFaqTopic() {
     if (this.bot.faqTopic) {
       this.bot.name = this.bot.faqTopic;
@@ -231,30 +251,30 @@ export class NewBotComponent implements OnInit {
         console.log(err);
       });
     } else {
-        console.log('please add faq topic');
-      }
+      console.log('please add faq topic');
     }
+  }
 
-    addFaqQuestion(topicId, index) {
-      if (this.faqQuestion[index]) {
-        this.bot.question = this.faqQuestion[index];
-        this.Service.addFaqQuestion({questions: [{name: this.faqQuestion[index]}], topicId : topicId}).subscribe((data) => {
-          this.getTopicsWithQues();
-          this.faqQuestion[index] = '';
-        }, (err) => {
-          console.log(err);
-        });
-      }
+  addFaqQuestion(topicId, index) {
+    if (this.faqQuestion[index]) {
+      this.bot.question = this.faqQuestion[index];
+      this.Service.addFaqQuestion({questions: [{name: this.faqQuestion[index]}], topicId: topicId}).subscribe((data) => {
+        this.getTopicsWithQues();
+        this.faqQuestion[index] = '';
+      }, (err) => {
+        console.log(err);
+      });
     }
+  }
 
   getTopicsWithQues() {
     this.topics = [];
     this.Service.getTopicsWithQues().subscribe((data) => {
       this.topics = data.topics;
       const questions = {};
-      data.questions.forEach( function(item){
+      data.questions.forEach(function (item) {
         const key = item['id']; // take the first key from every object in the array
-        questions[ key ] = item;  // assign the key and value to output obj
+        questions[key] = item;  // assign the key and value to output obj
       });
       this.quesArr = questions;
     }, (err) => {
@@ -262,7 +282,7 @@ export class NewBotComponent implements OnInit {
     });
   }
 
-    editTopic(topic, index) {
+  editTopic(topic, index) {
     if (!this.showTopic[index]) {
       if (topic.name) {
         this.Service.editFaq({topics: [{name: topic.name}]}, topic.id).subscribe((data) => {
@@ -295,26 +315,20 @@ export class NewBotComponent implements OnInit {
 
   fileChangeEvent(fileInput: any) {
     this.file = fileInput.target.files;
-    for (const i in fileInput.target.files) {
-      this.files.push(this.file[i].name);
-    }
-    // this.imageUrl = this.file[0].name;
-    this.getBase64(this.file);
+    this.imageUrl = this.file[0].name;
+    this.getBase64(this.file[0]);
   }
-  getBase64(files) {
-    const reader = new FileReader();
-    for (const i in files) {
-      reader.readAsDataURL(files[i]);
-      reader.onload = () => {
 
-        this.imagePreview = reader.result;
-      };
-    }
+  getBase64(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    };
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
   }
-
 }
 
 @Component({

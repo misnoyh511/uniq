@@ -32,7 +32,14 @@ export class ConversationsService {
   }
 
   getTranscripts() {
-      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'transcript/' + this.analytics_token + '?start=2018-01-01&end=2018-02-28')
+    const today = new Date();
+    const endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+      ('0' + (today.getDate() + 1)).slice(-2);
+    today.setDate(today.getDate() - 7);
+    const startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+      ('0' + (today.getDate() + 1)).slice(-2);
+      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'transcript/' + this.analytics_token + '?start=' +
+        startDate + '&end=' + endDate)
           .map(response => {
               return response.json();
           }).catch((err: Response) => {

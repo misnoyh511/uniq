@@ -49,10 +49,17 @@ export class botConfigurationComponent implements OnInit, DoCheck {
   }
 
   editBot() {
-      console.log('this.botData', this.botData);
     this.botService.editBot(this.botData).subscribe((data) => {
-      console.log('data', data);
       this.router.navigate(['/bot-home']);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  deleteBot() {
+    this.botService.deleteBot(this.botData.id).subscribe((data) => {
+      console.log('data', data);
+
     }, (err) => {
       console.log(err);
     });

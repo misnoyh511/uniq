@@ -69,7 +69,7 @@ export class NewBotService {
 
   }
 
-  upload(data: {}): Observable<HttpEvent<any>> {
+  upload(data) {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
     myHeaders.append('Content-Type', 'multipart/form-data; charset=utf-8;');
@@ -78,7 +78,7 @@ export class NewBotService {
       this.getData = response.json();
       return response.json();
     }).catch((err: Response) => {
-      const details = err.json();
+      const details = err;
       return Observable.throw(details);
     });
   }

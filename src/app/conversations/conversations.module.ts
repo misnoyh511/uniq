@@ -7,13 +7,15 @@ import {ConversationsRoutes} from './conversations.routing';
 import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
   imports: [
     RouterModule.forChild(ConversationsRoutes),
     SharedModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   declarations: [TopMessagesInComponent, TopMessagesOutComponent, TranscriptsComponent, SubNavComponent, ArraySortPipe]
 })

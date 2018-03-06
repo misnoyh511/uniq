@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {AngularFireModule} from 'angularfire2';
@@ -27,6 +27,7 @@ import { AccountSettingsModule } from './account-settings/account-settings.modul
 import { botModule } from './bot/bot.module';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {HttpClient} from '@angular/common/http';
     ReportsModule,
     AccountSettingsModule,
     botModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient],
   bootstrap: [AppComponent]

@@ -1,10 +1,10 @@
 <div class="dashboard-main">
-  <div class="toggle-sidebar">
+  <div class="toggle-sidebar" [class.active]="showMenu" (click)="showMenu = !showMenu">
     <span></span>
     <span></span>
     <span></span>
   </div>
-  <div class="dashboard-sidebar">
+  <div class="dashboard-sidebar" [class.dashboard-sidebar-toggled]="showMenu">
     <div class="dashboard-logo-wrap">
       <a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>
     </div>
@@ -15,41 +15,26 @@
       <div class="scrollable-wrap">
 
         <ul>
-          <li><a (click)="showStarted = true; showKnowledge = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
+          <li><a (click)="showMenu = !showMenu; showStarted = true; showKnowledge = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
             <span>Getting Started</span></a></li>
         </ul>
 
         <div class="mybot-menu-wrap active">
-          <a class="bot-name-link" [routerLink]="(['/bot-home'])"><b>{{currentBot}}</b></a>
+          <a class="bot-name-link" [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; "><b>{{currentBot}}</b></a>
           <i class="fa fa-caret-down mybot-menu-tgl" (click)="showList = !showList" aria-hidden="true"></i>
           <!--<span><a href="configuration.html"><i class="fa fa-cog" aria-hidden="true"></i></a></span>	-->
           <div class="clearfix"></div>
           <div class="bot-list-wrap" [class.active]="showList">
             <ul>
-              <li *ngFor="let bots of bot"><a href="javascript:void(0)" (click)="dropDown(getUrl, bots)"> {{bots.name}}</a></li>
+              <li *ngFor="let bots of bot"><a href="javascript:void(0)" (click)="dropDown(getUrl, bots); showMenu = !showMenu; "> {{bots.name}}</a></li>
             </ul>
           </div>
         </div>
 
-        <!--<div id="mybot-menu-wrap">
-          <mat-select name="data" [(ngModel)]="data" (change)="dropDown(getUrl)">
-            <mat-option *ngFor="let bots of bot; let id = index" [value]="bots">{{bots.name}}
-            </mat-option>
-          </mat-select>
-          <div class="clearfix"></div>
-        &lt;!&ndash;  <div class="bot-list-wrap">
-            <ul>
-              <li><a href="javascript:void(0)"> My Bot 1</a></li>
-              <li><a href="javascript:void(0)"> My Bot 2</a></li>
-              <li><a href="javascript:void(0)"> My Bot 3</a></li>
-              <li><a href="javascript:void(0)"> My Bot 4</a></li>
-            </ul>
-          </div>&ndash;&gt;
-        </div>-->
       <ul>
-        <li><a (click)="showKnowledge = true; showConversation = showReport = showStarted = showAccount = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center</a></li>
-        <li><a (click)="showConversation = true; showKnowledge = showReport = showStarted = showAccount = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></li>
-        <li><a (click)="showReport = true; showConversation = showKnowledge = showStarted = showAccount = false;" [class.active]="showReport" [routerLink]="(['reports/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i>
+        <li><a (click)="showMenu = !showMenu; showKnowledge = true; showConversation = showReport = showStarted = showAccount = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center</a></li>
+        <li><a (click)="showMenu = !showMenu; showConversation = true; showKnowledge = showReport = showStarted = showAccount = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></li>
+        <li><a (click)="showMenu = !showMenu; showReport = true; showConversation = showKnowledge = showStarted = showAccount = false;" [class.active]="showReport" [routerLink]="(['reports/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i>
           Reports</a></li>
       </ul>
       </div>
@@ -58,7 +43,7 @@
     <div class="app-version-dashboard">
 
       <ul>
-        <li><a (click)="showAccount = true; showReport = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
+        <li><a (click)="showMenu = !showMenu; showAccount = true; showReport = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
         </li>
       </ul>
       <span>Version 1.0.0</span> <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
