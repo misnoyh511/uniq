@@ -43,6 +43,7 @@ export class TranscriptsComponent implements OnInit, DoCheck {
 
   getTranscripts() {
     this.conversationsService.getTranscripts().subscribe((response) => {
+      this.transcripts = [];
       if (response.data && response.data.length) {
         this.transcripts.push({
           client: response.data[0].client,

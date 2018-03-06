@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   selector: 'app-bot-look-feel',
   templateUrl: 'bot-look-feel.component.html',
   styleUrls: ['./bot-look-feel.component.css'],
-  providers: [ConversationsService]
+  providers: [ConversationsService, BotService]
 })
 export class botLookFeelComponent implements OnInit, DoCheck {
   latteralTab = true;

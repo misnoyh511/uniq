@@ -54,6 +54,7 @@ export class TopMessagesInComponent implements OnInit, DoCheck {
   }
 
     getTopMessageIn() {
+      this.topMessagesIn = [];
       this.conversationsService.getTopMessagesIn().subscribe((response) => {
         this.topMessagesIn = response.data;
 

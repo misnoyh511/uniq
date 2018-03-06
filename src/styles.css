@@ -417,7 +417,7 @@ p{margin:0 0 20px 0; }
 .dashboard-navigation ul li {margin-bottom:5px;}
 .dashboard-navigation ul li a {padding:8px 20px 8px 15px; color:#A2B0C4;font-size: 14px;border-radius:5px;font-family:"Roboto Condensed",helvetica,arial,sans-serif; display:block;}
 .dashboard-navigation ul li a i {opacity:0.5; width:15px; margin-right:12px;}
-.dashboard-navigation ul li a:hover, .dashboard-navigation ul li a.active {background:rgba(0,0,0,0.1);}
+.dashboard-navigation ul li a:hover, .dashboard-navigation ul li a.active {background:rgba(0,0,0,0.1); color: #fff}
 .dashboard-navigation ul li a strong {    background-color: #0bdc60;color: white; border-radius:5px; padding:2px 5px; font-size:12px; margin:0 0 0 5px;font-family:"Roboto Condensed",helvetica,arial,sans-serif;}
 
 .mybot-menu-wrap {width:100%; clear:both; display:block; float:left; margin:0 0 20px; position:relative; border-radius:5px; padding:10px;}
@@ -897,7 +897,7 @@ p{margin:0 0 20px 0; }
 .step-inner-wrapper .right-side-form .remove:hover{ background:#fff; border-color:#a94442; }
 .step-inner-wrapper .right-side-form .remove i{ margin-right:5px; font-size:14px; }
 .display-add-faq-content .display-contetnt-box{ margin: 15px; border:1px dotted #d7d7d7; border-radius:5px; background: #f9f9f9;  padding: 15px; position:relative;word-wrap:break-word; }
-.display-add-faq-content .display-contetnt-box h2{ font-weight:700; margin-bottom:10px;  padding-right:100px;}
+.display-add-faq-content .display-contetnt-box h2{ font-weight:700; margin-bottom:10px;  padding-right:100px; color: rgba(34,34,34,0.75); text-transform: none;}
 .display-add-faq-content .display-contetnt-box h4{ color: rgba(34,34,34,0.5); margin-bottom:0; }
 .settings-full-panel button .fa-pencil{ color:#c1c1c1; }
 .settings-full-panel button:hover .fa-pencil{ color:#999999; }

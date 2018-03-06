@@ -187,7 +187,7 @@
               <mat-slide-toggle name="faqSection" type="text" [(ngModel)]="faqSection" color="primary"></mat-slide-toggle>
             </div>
             <div class="configure-btn" [class.active]="faqSection">
-              <button class="white-btn visitor-content-toggle" (click)="showDiv= true">Configure</button>
+              <button class="white-btn visitor-content-toggle" (click)="showDiv= true; getTopicsWithQues();">Configure</button>
             </div>
           </div>
           <div class="step-inner-text-wrap">
@@ -217,18 +217,61 @@
                       <b>A General Topic for which you have FAQ</b>
                   </p>-->
                   <div class="login-form-elements">
-                    <!--<label>Enter a FAQ	Topic</label>-->
-                    <input id="faq_top" type="text" placeholder="Add FAQ Topic">
+                    <!--<label>Enter a FAQ	Topic</label> -->
+                    <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text"
+                           placeholder="Enter a FAQ Topic">
                   </div>
                 </div>
+
                 <div class="full-width-input-fields full-width-input-fields-step4">
-                  <div class="login-form-elements btn-right-aligned">
-                    <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+                  <div class="login-form-elements btn-right-aligned" (click)="addFaqTopic()">
+                    <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </button>
                   </div>
                 </div>
-                <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res">
 
+                <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res"
+                     *ngFor="let topic of topics; let i = index">
 
+                  <div class="ui-state-default display-contetnt-box">
+                    <h2>{{topic.name}}</h2>
+                    <input class="faq-top-edit-text-box" [class.active]="showTopic[i]"
+                           [(ngModel)]="topic.name"
+                           name="name" type="text" value={{topic.name}}>
+                    <div class="topic-actions-wrap">
+                                <span class="edit_topic{{i}}"
+                                      (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"><i
+                                  class="fa fa-pencil" aria-hidden="true"></i></span>
+                      <span class="del_topic{{i}}" (click)="deleteFaqTopic(topic.id, topic.name)"><i
+                        class="fa fa-trash" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="faq-question-wrap faq-question-wrap1">
+                      <h4 *ngFor="let quesId of topic.links.questions"><b>{{quesArr[quesId].name}}</b>
+                        <input class="faq-que-edit-text-box" [class.active]="showQues[quesId]"
+                               type="text"[(ngModel)]="quesArr[quesId].name" value={{quesArr[quesId].name}}>
+                        <div class="faq-question-actions">
+                                      <span class="edit_question3"
+                                            (click)="showQues[quesId] = !showQues[quesId]; editQues(quesArr[quesId].name, quesId)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                      </span>
+                          <span class="del_question2">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                      </span>
+                        </div>
+                      </h4>
+                    </div>
+                    <div class="full-width-input-fields full-width-input-fields-step4">
+                      <div class="login-form-elements">
+                        <input id="faq_que1" type="text" placeholder="Enter a FAQ"
+                               [(ngModel)]="faqQuestion[i]" name="faqQuestion">
+                      </div>
+                    </div>
+                    <div class="login-form-elements btn-right-aligned">
+                      <button id="" class="blue-btn add-faq-que1" (click)="addFaqQuestion(topic.id, i)">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add Question
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
               </div>

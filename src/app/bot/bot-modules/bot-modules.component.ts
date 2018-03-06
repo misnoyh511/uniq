@@ -3,12 +3,13 @@ import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig, MatSnackBar} 
 import {ConversationsService} from '../../conversations/conversations.service';
 import {DOCUMENT} from '@angular/platform-browser';
 import {AppConfig} from '../../app.config';
+import {BotService} from '../bot.service';
 
 @Component({
   selector: 'app-bot-modules',
   templateUrl: 'bot-modules.component.html',
   styleUrls: ['./bot-modules.component.css'],
-  providers: [ConversationsService]
+  providers: [ConversationsService, BotService]
 })
 export class botModulesComponent implements OnInit, DoCheck {
   faqSection = false;
@@ -32,6 +33,12 @@ export class botModulesComponent implements OnInit, DoCheck {
   analytics_token: string;
   tokenDiffer: KeyValueDiffer<string, any>;
   botData: any = {};
+  topics: any = [];
+  showTopics = false;
+  faqQuestion: any = [];
+  quesArr: any = {};
+  showQues: any = {};
+  showTopic: any = [];
   config: MatDialogConfig = {
     disableClose: false,
     hasBackdrop: true,
@@ -49,7 +56,8 @@ export class botModulesComponent implements OnInit, DoCheck {
     }
   };
   constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar,
-              private differs: KeyValueDiffers, public conversationsService: ConversationsService) {
+              private differs: KeyValueDiffers, public conversationsService: ConversationsService,
+              public botService: BotService) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
@@ -96,6 +104,79 @@ export class botModulesComponent implements OnInit, DoCheck {
       }
       this.proHide = false;
     });
+  }
+
+  addFaqTopic() {
+    if (this.bot.faqTopic) {
+      this.bot.name = this.bot.faqTopic;
+      this.botService.addFaq({topics: [{name: this.bot.name}]}).subscribe((data) => {
+        this.topics.push(data.topics[0]);
+        this.showTopics = true;
+        this.bot.faqTopic = '';
+      }, (err) => {
+        console.log(err);
+      });
+    } else {
+      console.log('please add faq topic');
+    }
+  }
+
+  addFaqQuestion(topicId, index) {
+    if (this.faqQuestion[index]) {
+      this.bot.question = this.faqQuestion[index];
+      this.botService.addFaqQuestion({questions: [{name: this.faqQuestion[index]}], topicId : topicId}).subscribe((data) => {
+        this.getTopicsWithQues();
+        this.faqQuestion[index] = '';
+      }, (err) => {
+        console.log(err);
+      });
+    }
+  }
+
+  getTopicsWithQues() {
+    this.topics = [];
+    this.botService.getTopicsWithQues().subscribe((data) => {
+      this.topics = data.topics;
+      const questions = {};
+      data.questions.forEach( function(item){
+        const key = item['id']; // take the first key from every object in the array
+        questions[ key ] = item;  // assign the key and value to output obj
+      });
+      this.quesArr = questions;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  editTopic(topic, index) {
+    if (!this.showTopic[index]) {
+      if (topic.name) {
+        this.botService.editFaq({topics: [{name: topic.name}]}, topic.id).subscribe((data) => {
+          this.getTopicsWithQues();
+        }, (err) => {
+          console.log(err);
+        });
+      } else {
+        console.log('please add faq topic');
+      }
+    }
+  }
+
+  deleteFaqTopic(topicId, topicName) {
+    if (confirm('This will delete the topic ' + topicName + '. You sure?')) {
+      this.botService.deleteFaqTopic(topicId).subscribe((data) => {
+        this.getTopicsWithQues();
+      }, (err) => {
+        console.log(err);
+      });
+    }
+  }
+
+  editQues(quesName, quesId) {
+    if (!this.showQues[quesId]) {
+      this.botService.editFaqQues({questions: [{name: quesName}]}, quesId).subscribe((data) => {
+      });
+    }
   }
 
 }
