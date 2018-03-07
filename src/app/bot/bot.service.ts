@@ -10,16 +10,13 @@ export class BotService {
 
   constructor(private http: Http, private httpClient: InterceptorService, private localStorageService: LocalStorageService) { }
 
-  editBot(botData) {
+  editBot(botData, botId) {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
     myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
     const options = new RequestOptions({ headers: myHeaders});
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    botData.analytics_id = '';
-    for (var i = 0; i < 8; i++)
-      botData.analytics_id += possible.charAt(Math.floor(Math.random() * possible.length));
-    return this.http.put(AppConfig.API_ENDPOINT, botData, options)
+    console.log('botData', botData);
+    return this.http.put(AppConfig.API_ENDPOINT + '/ai/' + botId, botData, options)
       .map(response => {
         return response.json();
       })

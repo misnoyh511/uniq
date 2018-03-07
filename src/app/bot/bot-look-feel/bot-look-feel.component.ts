@@ -115,7 +115,18 @@ export class botLookFeelComponent implements OnInit, DoCheck {
     }
     /*this.botData.tab_color = this.hexToRgb(this.botData.tab_color);
     this.botData.tab_text_color = this.botData.icon_color = this.hexToRgb(this.botData.tab_text_color);*/
-    this.botService.editBot(this.botData).subscribe((data) => {
+    const bot = {
+      name: this.botData.name,
+      chat_window_name: this.botData.chat_window_name,
+      icon_tab: this.botData.icon_tab,
+      initial_greeting: this.botData.initial_greeting,
+      input_title: this.botData.input_title,
+      waiting_msg: this.botData.waiting_msg,
+      tab_color: this.botData.tab_color,
+      tab_text_color: this.botData.tab_text_color,
+      icon_color: this.botData.tab_text_color
+    }
+    this.botService.editBot(bot, this.botData.id).subscribe((data) => {
       this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);
