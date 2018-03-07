@@ -50,18 +50,19 @@
                                <!-- <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                 <b class=""></b> -->
                             </span>
-            <div class="on-off-btn toggle-btn-on-off">
-              <mat-slide-toggle [(ngModel)]="botData.latteralTab" name="latteralTab" type="text" color="primary"></mat-slide-toggle>
-            </div>
+              <mat-slide-toggle (change)="latteralToggle()" name="latteralTab" type="text" [(ngModel)]="latteralTab" color="primary" style="float:right">
+                {{latteralTab ? 'On' : 'Off'}}
+
+              </mat-slide-toggle>
           </div>
           <div class="full-panel chat-style-floating-icon">
                             <span>Floating Icon
                                 <!-- <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                 <b class=""></b> -->
                             </span>
-            <div class="on-off-btn toggle-btn-on-off">
-              <mat-slide-toggle name="floatingIcon" [(ngModel)]="botData.floatingIcon" class="toggle" type="text" color="primary"></mat-slide-toggle>
-            </div>
+              <mat-slide-toggle (change)="floatingToggle()" name="floatingIcon" type="text" [(ngModel)]="floatingIcon" color="primary" style="float: right">
+                {{floatingIcon ? 'On' : 'Off'}}
+              </mat-slide-toggle>
           </div>
         </div>
         <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
@@ -110,7 +111,7 @@
                                             <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
                                         </span>
             <div class="right-side-form">
-              <input id="file_input_avatar" (change)="fileChangeEvent($event, 'avatar')" *ngIf="!imageUrl" type="file"/>
+              <input id="file_input_avatar" (change)="avatarChangeEvent($event)" *ngIf="!imageUrl" type="file"/>
               <div id="imagePreview" *ngIf="imageUrl">
                 <img class="imageThumb" src="{{imagePreview}}">
                 <span class="remove" (click)="deleteImage('avatar');"><i class="fa fa-trash-o"></i>Delete</span>
@@ -123,11 +124,11 @@
                                             <b [class.show]="showCover">Upload a PNG or JPEG file</b>
                                         </span>
             <div class="right-side-form">
-                <input id="file_input_cover" (change)="fileChangeEvent($event, 'cover')" *ngIf="!coverUrl" type="file"/>
-                <div id="coverPreview" *ngIf="coverUrl">
-                  <img class="imageThumb" src="{{coverPreview}}">
-                  <span class="remove" (click)="deleteImage('cover');"><i class="fa fa-trash-o"></i>Delete</span>
-                </div>
+              <input id="file_input_cover" (change)="coverChangeEvent($event)" *ngIf="!coverUrl" type="file"/>
+              <div id="coverPreview" *ngIf="coverUrl">
+                <img class="imageThumb" src="{{coverPreview}}">
+                <span class="remove" (click)="deleteImage('cover');"><i class="fa fa-trash-o"></i>Delete</span>
+              </div>
           </div>
           </div>
           <div class="full-panel full-panel-step2">
@@ -135,20 +136,22 @@
                                 <sup><i (mouseover)="showBackClr= true" (mouseout)="showBackClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                 <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                             </span>
-            <div class="right-side-form">
               <!--<div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
-              <input class="jscolor" value="{{botData.tab_color}}" style="background-color: {{botData.tab_color}}">
+              <div class="right-side-form color-pick-section">
+                <input type="color" name="color" [(ngModel)]="botData.tab_color">
+                <span [ngStyle]="{'background': botData.tab_color}">{{botData.tab_color}}</span>
+              </div>
             </div>
-          </div>
           <div class="full-panel full-panel-step2">
                             <span>Choose the font color ofthe	tab/icon.
                                             <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                             <b [class.show]="showFontClr">The tab/icon color seen by users</b>
                                         </span>
-            <div class="right-side-form">
               <!-- <div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
-              <input class="jscolor" value="{{botData.tab_text_color}}" style="background-color: {{botData.tab_text_color}}">
-            </div>
+              <div class="right-side-form color-pick-section">
+                <input type="color" name="fcolor" [(ngModel)]="botData.tab_text_color">
+                <span [ngStyle]="{'background': botData.tab_text_color}">{{botData.tab_text_color}}</span>
+              </div>
           </div>
         </div>
       </div>

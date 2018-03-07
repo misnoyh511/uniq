@@ -36,21 +36,23 @@ export class NewBotComponent implements OnInit {
   input_title: String;
   waiting_msg: String;
   initial_greeting: String;
-  latteralTab: boolean;
-  floatingIcon: boolean;
+  latteralTab = true;
+  floatingIcon = false;
   faqSection: boolean;
-  faqShowHide: boolean;
-  proActiveShowHide: boolean;
-  liveChat: boolean;
+  faqShowHide = false;
+  proActiveShowHide = false;
+  liveChat= false;
   showDialog = false;
   bot: any = {};
   proActive: boolean;
-  liveChatShowHide: boolean;
+  liveChatShowHide = false;
   proHide = true;
   snackBars = false;
   snackbarsOne = false;
   color: string;
   file: any[];
+  avatarFile: any[];
+  coverFile: any[];
   imageUrl: any;
   coverUrl: any;
   data: any;
@@ -89,6 +91,7 @@ export class NewBotComponent implements OnInit {
   quesArr: any = {};
   showQues: any = {};
   faqQuestion: any = [];
+  errors: any = [];
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
               public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar) {
@@ -100,26 +103,74 @@ export class NewBotComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bot.color = '#AB2567';
-    this.bot.fcolor = '#AB2567';
-    this.bot.latteralTab = true;
-    this.faqShowHide = false;
-    this.proActiveShowHide = false;
-    this.liveChatShowHide = false;
-    this.liveChat = false;
+    this.bot = {
+      active: true,
+      tab_name: 'Asistencia Municipal',
+      operator_name: 'Felipe',
+      box_state: false,
+      complements_title: 'Preguntas Frecuentes',
+      feedback_type: 0,
+      with_login: false,
+      hybrid_mode: false,
+      dwell_time: null,
+      closed_msg: 'admin disconnected',
+      mobile_complements: false,
+      medium_ids: [],
+      hybrid_msg: 'Necesitas asistencia? puedo ayudarte',
+      hybrid_mobile: true
+    };
+    this.bot.tab_color = '#AB2567';
+    this.bot.tab_text_color = '#AB2567';
   }
 
   next() {
+    if (this.latteralTab) {
+      this.bot.icon_tab = true;
+    }
+    if (this.floatingIcon) {
+      this.bot.icon_tab = false;
+    }
+    this.bot.icon_color = this.bot.tab_text_color;
     console.log('reached==========', this.bot);
   }
 
-  uploadImage(role) {
-    const formData = new FormData();
-    if (this.file) {
-      for (let i = 0; i < this.file.length; i++) {
-        formData.append('file', this.file[i], this.file[i].name);
+  /*hexToRgb(hex) {
+    let c;
+    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+      c = hex.substring(1).split('');
+      if (c.length === 3) {
+        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
       }
-      formData.append('role', role);
+      c = '0x' + c.join('');
+      return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255] + ')';
+    }
+    throw new Error('Bad Hex');
+  }*/
+
+  uploadAvatarImage() {
+    const formData = new FormData();
+    if (this.avatarFile) {
+      for (let i = 0; i < this.avatarFile.length; i++) {
+        formData.append('file', this.avatarFile[i], this.avatarFile[i].name);
+      }
+      formData.append('role', 'avatar');
+
+      this.Service.upload(formData).subscribe((response) => {
+          console.log('response', response);
+        },
+        (error) => {
+          console.log('error', error);
+        });
+    }
+  }
+
+  uploadCoverImage() {
+    const formData = new FormData();
+    if (this.coverFile) {
+      for (let i = 0; i < this.coverFile.length; i++) {
+        formData.append('file', this.coverFile[i], this.coverFile[i].name);
+      }
+      formData.append('role', 'cover');
 
       this.Service.upload(formData).subscribe((response) => {
           console.log('response', response);
@@ -131,11 +182,11 @@ export class NewBotComponent implements OnInit {
   }
 
   latteralToggle() {
-    this.bot.floatingIcon = !this.bot.latteralTab;
+    this.floatingIcon = !this.latteralTab;
   }
 
   floatingToggle() {
-    this.bot.latteralTab = !this.bot.floatingIcon;
+    this.latteralTab = !this.floatingIcon;
   }
 
   faqSectionToggle() {
@@ -163,17 +214,24 @@ export class NewBotComponent implements OnInit {
   }
 
   save() {
-    this.Service.broadcastToken(this.bot).subscribe((x) => {
-      this.Service.getBot().subscribe((data) => {
-        this.bot = data;
-        if (this.bot.length > 0) {
-          this.data = this.bot[0].analytics_token;
-        }
-        this.router.navigate(['/bot-home']);
+    /*this.bot.tab_color = this.hexToRgb(this.bot.tab_color);
+    this.bot.tab_text_color = this.bot.icon_color = this.hexToRgb(this.bot.tab_text_color);*/
+    if (!this.bot.token) {
+      this.errors.push({message: 'token missing', value: 'showNlp'});
+      console.log('errors', this.errors);
+    } else {
+      this.Service.broadcastToken(this.bot).subscribe((x) => {
+        this.Service.getBot().subscribe((data) => {
+          this.bot = data;
+          if (this.bot.length > 0) {
+            this.data = this.bot[0].analytics_token;
+          }
+          this.router.navigate(['/bot-home']);
+        });
+      }, (err) => {
+        console.log(err);
       });
-    }, (err) => {
-      console.log(err);
-    });
+    }
   }
 
   clearSearch() {
@@ -271,32 +329,38 @@ export class NewBotComponent implements OnInit {
     }
   }
 
-  fileChangeEvent(fileInput: any, role) {
-    this.file = fileInput.target.files;
-    if (role === 'avatar') {
-      this.imageUrl = this.file[0].name;
-    }
-    if (role === 'cover') {
-      this.coverUrl = this.file[0].name;
-    }
-    this.getBase64(this.file[0], role);
+  avatarChangeEvent(fileInput: any) {
+    this.avatarFile = fileInput.target.files;
+    this.imageUrl = this.avatarFile[0].name;
+    this.getAvatarBase64(this.avatarFile[0]);
   }
 
-  getBase64(file, role) {
+  getAvatarBase64(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      if (role === 'avatar') {
-        this.imagePreview = reader.result;
-      }
-      if (role === 'cover') {
-        this.coverPreview = reader.result;
-      }
+      this.imagePreview = reader.result;
     };
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
-    this.uploadImage(role);
+  }
+
+  coverChangeEvent(fileInput: any) {
+    this.coverFile = fileInput.target.files;
+    this.coverUrl = this.coverFile[0].name;
+    this.getCoverBase64(this.coverFile[0]);
+  }
+
+  getCoverBase64(file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.coverPreview = reader.result;
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
   }
 
   deleteImage(role) {

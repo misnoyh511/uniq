@@ -420,7 +420,7 @@ p{margin:0 0 20px 0; }
 .dashboard-navigation ul li a:hover, .dashboard-navigation ul li a.active {background:rgba(0,0,0,0.1); color: #fff}
 .dashboard-navigation ul li a strong {    background-color: #0bdc60;color: white; border-radius:5px; padding:2px 5px; font-size:12px; margin:0 0 0 5px;font-family:"Roboto Condensed",helvetica,arial,sans-serif;}
 
-.mybot-menu-wrap {width:100%; clear:both; display:block; float:left; margin:0 0 20px; position:relative; border-radius:5px; padding:10px;}
+.mybot-menu-wrap {width:100%; clear:both; display:block; float:left; margin:0 0 20px; position:relative; border-radius:5px; padding:10px; text-align: left}
 .mybot-menu-wrap.active , .mybot-menu-wrap:hover {background:rgba(0,0,0,0.1);}
 .mybot-menu-wrap a {float:left; cursor:pointer; color:#fff; display:block; width:100%;}
 .mybot-menu-wrap a b {font-weight:normal;}
@@ -1786,4 +1786,23 @@ a.mat-mini-fab.mat-primary {
 .imageUrl {
   margin-top: 7px;
   float: left;
+}
+
+.bot-dropdown {
+  position: relative;
+}
+
+.bot-dropdown a.bot-name-link {
+  position: absolute;
+  top: 0;
+  left: 11px;
+  line-height: 40px;
+  color: #fff;
+  z-index: 99999;
+  cursor: pointer;
+}
+
+.bot-dropdown .mybot-menu-wrap{
+  height: 40px;
+  cursor: pointer;
 }

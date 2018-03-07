@@ -141,8 +141,8 @@
                                         <span>Latteral Tab
                                         </span>
 
-                   <mat-slide-toggle (change)="latteralToggle()" name="latteralTab" type="text" [(ngModel)]="bot.latteralTab" color="primary" style="float:right">
-                     {{bot.latteralTab ? 'On' : 'Off'}}
+                   <mat-slide-toggle (change)="latteralToggle()" name="latteralTab" type="text" [(ngModel)]="latteralTab" color="primary" style="float:right">
+                     {{latteralTab ? 'On' : 'Off'}}
 
                   </mat-slide-toggle>
                 </div>
@@ -150,8 +150,8 @@
                                         <span>Floating Icon
                                         </span>
 
-                  <mat-slide-toggle (change)="floatingToggle()" name="floatingIcon" type="text" [(ngModel)]="bot.floatingIcon" color="primary" style="float: right">
-                    {{bot.floatingIcon ? 'On' : 'Off'}}
+                  <mat-slide-toggle (change)="floatingToggle()" name="floatingIcon" type="text" [(ngModel)]="floatingIcon" color="primary" style="float: right">
+                    {{floatingIcon ? 'On' : 'Off'}}
                   </mat-slide-toggle>
                 </div>
               </div>
@@ -220,7 +220,7 @@
                   <div class="right-side-form">
                     <!--<input type="file" id="files" class="uploadfiles" name="files[]" multiple/>-->
 
-                    <input id="file_input_avatar" (change)="fileChangeEvent($event, 'avatar')" *ngIf="!imageUrl" type="file"/>
+                    <input id="file_input_avatar" (change)="avatarChangeEvent($event)" *ngIf="!imageUrl" type="file"/>
                     <div id="imagePreview" *ngIf="imageUrl">
                       <img class="imageThumb" src="{{imagePreview}}">
                       <span class="remove" (click)="deleteImage('avatar');"><i class="fa fa-trash-o"></i>Delete</span>
@@ -233,7 +233,7 @@
                                             <b [class.show]="showCover">Upload a PNG or JPEG file</b>
                                         </span>
                   <div class="right-side-form">
-                      <input id="file_input_cover" (change)="fileChangeEvent($event, 'cover')" *ngIf="!coverUrl" type="file"/>
+                      <input id="file_input_cover" (change)="coverChangeEvent($event)" *ngIf="!coverUrl" type="file"/>
                       <div id="coverPreview" *ngIf="coverUrl">
                         <img class="imageThumb" src="{{coverPreview}}">
                         <span class="remove" (click)="deleteImage('cover');"><i class="fa fa-trash-o"></i>Delete</span>
@@ -246,18 +246,18 @@
                                             <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                                         </span>
                   <div class="right-side-form color-pick-section">
-                    <input type="color" name="color" [(ngModel)]="bot.color">
-                    <span [ngStyle]="{'background': bot.color}">{{bot.color}}</span>
+                    <input type="color" name="color" [(ngModel)]="bot.tab_color">
+                    <span [ngStyle]="{'background': bot.tab_color}">{{bot.tab_color}}</span>
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
-                                        <span>Choose the font color ofthe	tab/icon.
+                                        <span>Choose the font color of the tab/icon.
                                             <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                                             <b [class.show]="showFontClr">The tab/icon color seen by users</b>
                                         </span>
                   <div class="right-side-form color-pick-section">
-                    <input type="color" name="fcolor" [(ngModel)]="bot.fcolor">
-                    <span [ngStyle]="{'background': bot.fcolor}">{{bot.fcolor}}</span>
+                    <input type="color" name="fcolor" [(ngModel)]="bot.tab_text_color">
+                    <span [ngStyle]="{'background': bot.tab_text_color}">{{bot.tab_text_color}}</span>
                   </div>
                 </div>
               </div>
@@ -278,7 +278,7 @@
                 </div>
                 <div class="col-sm-6">
                   <button class="btnNext" data-toggle="pill" href="#customize"
-                          (click)="next(); showNlp = showLook = false; showModules = true;">
+                          (click)="next(); uploadAvatarImage(); uploadCoverImage(); showNlp = showLook = false; showModules = true;">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -597,18 +597,18 @@
                 </div>
               </div>
               <div class="error-msg-wrap">
-                <div class="error-message">
-                  <span>Missing a Welcome	Message</span>
-                  <button class="launchBtnBack errorBtn errorBtnStep1">Resolve</button>
+                <div class="error-message" *ngFor="let error of errors">
+                  <span>{{error.message}}</span>
+                  <button class="launchBtnBack errorBtn errorBtnStep1" href="#customize" (click)="showNlp = true; showLook = showModules = false;">Resolve</button>
                 </div>
-                <div class="error-message">
+                <!--<div class="error-message">
                   <span>Missing a Welcome	Message</span>
                   <button class="launchBtnBack errorBtn errorBtnStep2">Resolve</button>
                 </div>
                 <div class="error-message">
                   <span>Missing a Welcome	Message</span>
                   <button class="launchBtnBack errorBtn errorBtnStep3">Resolve</button>
-                </div>
+                </div>-->
               </div>
             </div>
 

@@ -75,7 +75,6 @@ export class NewBotService {
     myHeaders.append('Content-Type', 'multipart/form-data; charset=utf-8;');
     const options = new RequestOptions({ headers: myHeaders});
     return this.http.post(AppConfig.API_ENDPOINT + '/media', data, options).map(response => {
-      this.getData = response.json();
       return response.json();
     }).catch((err: Response) => {
       const details = err;

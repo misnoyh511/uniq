@@ -15,9 +15,17 @@ export class botHomeComponent implements OnInit, DoCheck {
   botData: any = {};
   analytics_token: string;
   tokenDiffer: KeyValueDiffer<string, any>;
-  constructor(private differs: KeyValueDiffers, public conversationsService: ConversationsService) { }
+  constructor(private differs: KeyValueDiffers, public conversationsService: ConversationsService, public sbs: SidebarService) {
+
+
+  }
 
   ngOnInit() {
+    this.sbs.subject.subscribe((data) => {
+      console.log('data***********************', data);
+     // this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+    });
+
     this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
     this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
     this.conversationsService.registerStringBroadcast();

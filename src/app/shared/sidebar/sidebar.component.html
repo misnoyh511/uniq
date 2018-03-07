@@ -18,17 +18,20 @@
           <li><a (click)="showMenu = !showMenu; showStarted = true; showKnowledge = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
             <span>Getting Started</span></a></li>
         </ul>
+        <div class="bot-dropdown">
+          <a class="bot-name-link"><b [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = false;">{{currentBot}}</b></a>
 
-        <div class="mybot-menu-wrap active">
-          <a class="bot-name-link" [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; "><b>{{currentBot}}</b></a>
-          <i class="fa fa-caret-down mybot-menu-tgl" (click)="showList = !showList" aria-hidden="true"></i>
+        <div class="mybot-menu-wrap active" (click)="showList = !showList">
+
+          <i class="fa fa-caret-down mybot-menu-tgl" aria-hidden="true"></i>
           <!--<span><a href="configuration.html"><i class="fa fa-cog" aria-hidden="true"></i></a></span>	-->
           <div class="clearfix"></div>
           <div class="bot-list-wrap" [class.active]="showList">
             <ul>
-              <li *ngFor="let bots of bot"><a href="javascript:void(0)" (click)="dropDown(getUrl, bots); showMenu = !showMenu; "> {{bots.name}}</a></li>
+              <li *ngFor="let bots of bot"><a href="javascript:void(0)" (click)="dropDown(getUrl, bots); showList = !showList; "> {{bots.name}}</a></li>
             </ul>
           </div>
+        </div>
         </div>
 
       <ul>
