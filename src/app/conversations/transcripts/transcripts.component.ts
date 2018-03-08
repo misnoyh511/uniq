@@ -1,6 +1,6 @@
-import {Component, OnInit, Pipe, PipeTransform, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck} from '@angular/core';
+import {Component, OnInit, Pipe, PipeTransform, OnDestroy} from '@angular/core';
 import {ConversationsService} from '../conversations.service';
-import {AppConfig} from '../../app.config';
+import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
 
 @Component({
@@ -9,7 +9,7 @@ import {AppConfig} from '../../app.config';
   styleUrls: ['./transcripts.component.css'],
   providers: [ConversationsService]
 })
-export class TranscriptsComponent implements OnInit, DoCheck {
+export class TranscriptsComponent implements OnInit, OnDestroy {
 
   transcripts: any = [];
   date: any;
@@ -18,34 +18,33 @@ export class TranscriptsComponent implements OnInit, DoCheck {
   totalMsgs = [];
   startTime: any;
   analytics_token: string;
-  tokenDiffer: KeyValueDiffer<string, any>;
 
-  constructor(private conversationsService: ConversationsService, private differs: KeyValueDiffers) {
+  constructor(private conversationsService: ConversationsService, public sbs: SidebarService) {
   }
 
   ngOnInit() {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
-    this.conversationsService.registerStringBroadcast();
-    this.getTranscripts();
-  }
-
-  tokenChanged(changes: KeyValueChanges<string, any>) {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.getTranscripts();
-  }
-
-  ngDoCheck(): void {
-    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
-    if (changes) {
-      this.tokenChanged(changes);
+    if (this.sbs.token) {
+      this.analytics_token =  this.sbs.token;
+      this.getTranscripts();
     }
+    this.sbs.subject.subscribe((data) => {
+      this.analytics_token = data[0].analytics_token;
+      this.getTranscripts();
+    });
+
+    this.sbs.broadC.subscribe((data) => {
+      this.analytics_token = data.analytics_token;
+      this.getTranscripts();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sbs.token = this.analytics_token;
   }
 
   getTranscripts() {
-    this.conversationsService.getTranscripts().subscribe((response) => {
+    this.conversationsService.getTranscripts(this.analytics_token).subscribe((response) => {
       this.transcripts = [];
-      console.log('getTranscripts', response);
       if (response.data && response.data.length) {
         this.transcripts.push({
           client: response.data[0].client,

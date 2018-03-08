@@ -28,6 +28,7 @@ import { botModule } from './bot/bot.module';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import { NgProgressModule } from 'ngx-progressbar';
+import {SidebarService} from './shared/sidebar/sidebar.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { NgProgressModule } from 'ngx-progressbar';
     HttpClientModule,
     NgProgressModule
   ],
-  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient],
+  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient,SidebarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

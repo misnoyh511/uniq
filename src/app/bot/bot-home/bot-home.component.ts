@@ -1,46 +1,34 @@
-import {Component, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, OnInit, DoCheck} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
-import {ConversationsService} from '../../conversations/conversations.service';
-import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-bot-home',
   templateUrl: './bot-home.component.html',
   styleUrls: ['./bot-home.component.css'],
-  providers: [SidebarService, ConversationsService],
 })
-export class botHomeComponent implements OnInit, DoCheck {
+export class botHomeComponent implements OnInit, OnDestroy {
   bot: any[];
   data: any;
   botData: any = {};
   analytics_token: string;
-  tokenDiffer: KeyValueDiffer<string, any>;
-  constructor(private differs: KeyValueDiffers, public conversationsService: ConversationsService, public sbs: SidebarService) {
-
-
-  }
+  constructor(public sbs: SidebarService) {}
 
   ngOnInit() {
+    if (this.sbs.savedData) {
+      this.botData = this.sbs.savedData;
+    }
     this.sbs.subject.subscribe((data) => {
-      console.log('data***********************', data);
-     // this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+      this.botData = data[0];
     });
 
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
-    this.conversationsService.registerStringBroadcast();
-    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+    this.sbs.broadC.subscribe((data) => {
+      this.botData = data;
+    });
+
+    this.analytics_token = this.botData.analytics_token;
   }
 
-  tokenChanged(changes: KeyValueChanges<string, any>) {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
-  }
-
-  ngDoCheck(): void {
-    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
-    if (changes) {
-      this.tokenChanged(changes);
-    }
+  ngOnDestroy() {
+    this.sbs.savedData = this.botData;
   }
 }

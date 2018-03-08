@@ -3,28 +3,24 @@ import {Observable, Subject} from 'rxjs';
 import {InterceptorService} from '../../interceptor/interceptor.service';
 import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import {AppConfig} from '../../app.config';
-import {LocalStorageService} from '../../local-storage/local-storage.service';
 
 @Injectable()
 export class SidebarService {
   public subject = new Subject<any>();
-  constructor(private http: Http, private httpClient: InterceptorService, private localStorageService: LocalStorageService) { }
+  public broadC = new Subject<any>();
+  public savedData: any = {};
+  public token: string;
+  public feedback_type: string;
+
+  constructor(private http: Http, private httpClient: InterceptorService) { }
 
   getBot() {
+
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
     const options = new RequestOptions({headers: myHeaders});
     return this.http.get(AppConfig.API_ENDPOINT + '/ai', options)
       .map(response => {
-        localStorage.setItem('ANALYTICS_TOKEN', response.json()[0].analytics_token);
-        localStorage.setItem('FEEDBACK_TYPE', response.json()[0].feedback_type);
-        const botData = response.json();
-        const currentBot = {};
-        botData.forEach(function (item) {
-          const key = item['analytics_token']; // take the first key from every object in the array
-          botData[key] = item;  // assign the key and value to output obj
-        });
-        localStorage.setItem('CURRENT_BOT', JSON.stringify(botData[localStorage.getItem('ANALYTICS_TOKEN')]));
         this.dataReceived(response.json());
         return response.json();
       }).catch((err: Response) => {
@@ -34,5 +30,9 @@ export class SidebarService {
 
     dataReceived(data) {
       this.subject.next(data);
+    }
+
+    somethingHappend(data){
+     this.broadC.next(data);
     }
 }

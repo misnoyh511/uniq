@@ -1,6 +1,7 @@
-import {Component, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ReportsService} from '../reports.service';
 import {AppConfig} from '../../app.config';
+import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
 @Component({
     selector: 'app-feedback',
@@ -8,40 +9,43 @@ import {AppConfig} from '../../app.config';
     styleUrls: ['./feedback.component.css'],
     providers: [ReportsService]
 })
-export class FeedbackComponent implements OnInit, DoCheck {
+export class FeedbackComponent implements OnInit, OnDestroy {
     sessions: any = [];
     selectedValue = 'all';
     feedback_type: string;
-    feedbackDiffer: KeyValueDiffer<string, any>;
     analytics_token: string;
-    tokenDiffer: KeyValueDiffer<string, any>;
-    constructor(private reportsService: ReportsService, private differs: KeyValueDiffers) {
+    constructor(private reportsService: ReportsService, public sbs: SidebarService) {
     }
 
     ngOnInit() {
-      this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-      this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
-      this.reportsService.registerStringBroadcast();
-      this.getSession();
+      if (this.sbs.token) {
+        this.analytics_token =  this.sbs.token;
+        this.feedback_type = this.sbs.token;
+        this.getSession();
+      }
+      this.sbs.subject.subscribe((data) => {
+        this.analytics_token = data[0].analytics_token;
+        this.feedback_type = data[0].feedback_type;
+        this.getSession();
+      });
+
+      this.sbs.broadC.subscribe((data) => {
+
+        this.analytics_token = data.analytics_token;
+        this.feedback_type = data.feedback_type;
+        this.getSession();
+      });
     }
 
-  feedbackChanged(changes: KeyValueChanges<string, any>) {
-    this.feedback_type = localStorage.getItem('FEEDBACK_TYPE');
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.getSession();
-  }
-
-  ngDoCheck(): void {
-    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
-    if (changes) {
-      this.feedbackChanged(changes);
-    }
+  ngOnDestroy(): void {
+    this.sbs.token = this.analytics_token;
+    this.sbs.feedback_type = this.feedback_type;
   }
 
     getSession() {
         if (this.feedback_type === '1') {
         if (this.selectedValue === 'negative') {
-          this.reportsService.getNegativeChat().subscribe((response) => {
+          this.reportsService.getNegativeChat(this.analytics_token).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -50,7 +54,7 @@ export class FeedbackComponent implements OnInit, DoCheck {
             console.log(err);
           });
         } else if (this.selectedValue === 'positive') {
-          this.reportsService.getPositiveChat().subscribe((response) => {
+          this.reportsService.getPositiveChat(this.analytics_token).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -59,11 +63,11 @@ export class FeedbackComponent implements OnInit, DoCheck {
             console.log(err);
           });
         } else {
-          this.reportsService.getPositiveChat().subscribe((positiveRes) => {
+          this.reportsService.getPositiveChat(this.analytics_token).subscribe((positiveRes) => {
             const posValueArr = positiveRes.data.map(function(item){
               return item.text;
             });
-            this.reportsService.getNegativeChat().subscribe((negativeRes) => {
+            this.reportsService.getNegativeChat(this.analytics_token).subscribe((negativeRes) => {
               const negValueArr = negativeRes.data.map(function(item){
                 return item.text;
               });
@@ -78,7 +82,7 @@ export class FeedbackComponent implements OnInit, DoCheck {
         }
       } else {
         if (this.selectedValue === 'negative') {
-          this.reportsService.getNegativeSession().subscribe((response) => {
+          this.reportsService.getNegativeSession(this.analytics_token).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -87,7 +91,7 @@ export class FeedbackComponent implements OnInit, DoCheck {
             console.log(err);
           });
         } else if (this.selectedValue === 'positive') {
-          this.reportsService.getPositiveSession().subscribe((response) => {
+          this.reportsService.getPositiveSession(this.analytics_token).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -96,11 +100,11 @@ export class FeedbackComponent implements OnInit, DoCheck {
             console.log(err);
           });
         } else {
-          this.reportsService.getPositiveSession().subscribe((positiveRes) => {
+          this.reportsService.getPositiveSession(this.analytics_token).subscribe((positiveRes) => {
             const posValueArr = positiveRes.data.map(function(item){
               return item.text;
             });
-            this.reportsService.getNegativeSession().subscribe((negativeRes) => {
+            this.reportsService.getNegativeSession(this.analytics_token).subscribe((negativeRes) => {
               const negValueArr = negativeRes.data.map(function(item){
                 return item.text;
               });

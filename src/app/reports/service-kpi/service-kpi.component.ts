@@ -1,6 +1,6 @@
-import {Component, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ReportsService} from '../reports.service';
-import {AppConfig} from '../../app.config';
+import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
 @Component({
     selector: 'app-service-kpi',
@@ -8,7 +8,7 @@ import {AppConfig} from '../../app.config';
     styleUrls: ['./service-kpi.component.css'],
     providers: [ReportsService]
 })
-export class ServiceKpiComponent implements OnInit, DoCheck {
+export class ServiceKpiComponent implements OnInit, OnDestroy {
     botData: number;
     showUptimeTip = false;
     showConfidenceTip = false;
@@ -17,38 +17,41 @@ export class ServiceKpiComponent implements OnInit, DoCheck {
     endDate: any;
     uptime = (Math.random() * (99.92 - 99.99) + 99.99).toFixed(2);
     analytics_token: string;
-    tokenDiffer: KeyValueDiffer<string, any>;
 
-    constructor(private reportsService: ReportsService, private differs: KeyValueDiffers) {
+    constructor(private reportsService: ReportsService, public sbs: SidebarService) {
     }
 
-    ngOnInit() {
-      this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-      this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
-      this.reportsService.registerStringBroadcast();
-        this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-          ('0' + (this.today.getDate() + 1)).slice(-2);
-        this.today.setDate(this.today.getDate() - 30);
-        this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-          ('0' + (this.today.getDate() + 1)).slice(-2);
-        this.getBotTrust(this.startDate, this.endDate);
+  ngOnInit() {
+    if (this.sbs.token) {
+      this.analytics_token =  this.sbs.token;
+      this.initFun();
     }
+    this.sbs.subject.subscribe((data) => {
+      this.analytics_token = data[0].analytics_token;
+      this.initFun();
+    });
 
-  tokenChanged(changes: KeyValueChanges<string, any>) {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.uptime = (Math.random() * (99.92 - 99.99) + 99.99).toFixed(2);
+    this.sbs.broadC.subscribe((data) => {
+      this.analytics_token = data.analytics_token;
+      this.initFun();
+    });
+  }
+
+  initFun() {
+    this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
+      ('0' + (this.today.getDate())).slice(-2);
+    this.today.setDate(this.today.getDate() - 30);
+    this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
+      ('0' + (this.today.getDate())).slice(-2);
     this.getBotTrust(this.startDate, this.endDate);
   }
 
-  ngDoCheck(): void {
-    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
-    if (changes) {
-      this.tokenChanged(changes);
-    }
+  ngOnDestroy(): void {
+    this.sbs.token = this.analytics_token;
   }
 
   getBotTrust(startDate, endDate) {
-    this.reportsService.getBotTrust(startDate, endDate).subscribe((response) => {
+    this.reportsService.getBotTrust(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.botData = response.data[0].avg;
     }, (err) => {
       console.log(err);

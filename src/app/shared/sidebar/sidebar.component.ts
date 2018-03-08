@@ -1,15 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import {SidebarService} from './sidebar.service';
-import {Router, ActivatedRoute} from '@angular/router';
 import {Broadcaster} from '../../broadcaster';
-import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
-  providers: [SidebarService],
+  providers: [],
 })
 export class SidebarComponent implements OnInit {
   @Input() navType;
@@ -56,26 +54,28 @@ export class SidebarComponent implements OnInit {
      this.currentBot = this.bot[0].name;
      if (this.bot.length > 0) {
        this.data = this.bot[0];
-       // console.log("===================",this.data.token);
      }
    });
   }
   dropDown(getUrl, botData) {
     if (botData) {
-      console.log('botData', botData);
+      this.Service.somethingHappend( botData);
       this.currentBot = botData.name;
-      localStorage.setItem('ANALYTICS_TOKEN', botData.analytics_token);
-      localStorage.setItem('FEEDBACK_TYPE', botData.feedback_type);
-      localStorage.setItem('CURRENT_BOT', JSON.stringify(botData));
-      AppConfig.FEEDBACK_TYPE['type'] = botData.feedback_type;
-      AppConfig.TOKEN['type'] = botData.analytics_token;
       this.showList = false;
     }
-    this.broadcaster.broadcast('BotChanged', 'some message');
     if (getUrl.split('/')[2]) {
       this.linkUrl = '/' + this.getUrl ;
     } else {
       delete this.linkUrl;
+    }
+  }
+
+  getBotData() {
+    for (const i in this.bot) {
+      if (this.bot[i].name === this.currentBot) {
+        this.Service.savedData = this.bot[i];
+        break;
+      }
     }
   }
 }

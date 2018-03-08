@@ -1,8 +1,8 @@
-import {Component, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck} from '@angular/core';
+import {Component, OnInit, KeyValueDiffer, KeyValueDiffers, OnDestroy} from '@angular/core';
 import {ConversationsService} from '../../conversations/conversations.service';
-import {AppConfig} from '../../app.config';
 import {BotService} from '../bot.service';
 import {Router} from '@angular/router';
+import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
 
 @Component({
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
     styleUrls: ['./bot-configuration.component.css'],
     providers: [ConversationsService, BotService]
 })
-export class botConfigurationComponent implements OnInit, DoCheck {
+export class botConfigurationComponent implements OnInit, OnDestroy {
 
     showNlp = false;
     showConfig = false;
@@ -20,32 +20,30 @@ export class botConfigurationComponent implements OnInit, DoCheck {
     dialogFlow = true;
     comingSoon1 = false;
     comingSoon2 = false;
-    currentBot: string;
     token: string;
     bot: any = {};
     data: any;
     botData: any = {};
     analytics_token: string;
-    tokenDiffer: KeyValueDiffer<string, any>;
-    constructor(private router: Router, private differs: KeyValueDiffers, public conversationsService: ConversationsService, private botService: BotService ) { }
+    constructor(private router: Router, private differs: KeyValueDiffers, private botService: BotService, public sbs: SidebarService) { }
 
   ngOnInit() {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
-    this.conversationsService.registerStringBroadcast();
-    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
-  }
-
-  tokenChanged(changes: KeyValueChanges<string, any>) {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
-  }
-
-  ngDoCheck(): void {
-    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
-    if (changes) {
-      this.tokenChanged(changes);
+    if (this.sbs.savedData) {
+      this.botData = this.sbs.savedData;
     }
+    this.sbs.subject.subscribe((data) => {
+      this.botData = data[0];
+    });
+
+    this.sbs.broadC.subscribe((data) => {
+      this.botData = data;
+    });
+
+    this.analytics_token = this.botData.analytics_token;
+  }
+
+  ngOnDestroy() {
+    this.sbs.savedData = this.botData;
   }
 
   editBot() {

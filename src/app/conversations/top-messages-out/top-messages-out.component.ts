@@ -1,7 +1,6 @@
-import { Component, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ConversationsService} from '../conversations.service';
-import {Router, ActivatedRoute} from "@angular/router";
-import {AppConfig} from '../../app.config';
+import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-top-messages-out',
@@ -9,46 +8,40 @@ import {AppConfig} from '../../app.config';
   styleUrls: ['./top-messages-out.component.css'],
     providers: [ConversationsService]
 })
-export class TopMessagesOutComponent implements OnInit, DoCheck {
+export class TopMessagesOutComponent implements OnInit, OnDestroy {
 
     topMessagesOut: any = [];
     data: any = {};
     showTooltip= false;
-    botId: any;
     totalCount = 0;
     colorClass = ['green-bar', 'purple-bar', 'blue-bar', 'orange-bar', 'maron-bar'];
     analytics_token: string;
-    tokenDiffer: KeyValueDiffer<string, any>;
 
-  constructor(private conversationsService: ConversationsService, private router: Router, private route: ActivatedRoute,
-              private differs: KeyValueDiffers) { }
+  constructor(private conversationsService: ConversationsService, public sbs: SidebarService) { }
 
   ngOnInit() {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
-    this.conversationsService.registerStringBroadcast();
-    // this.conversationsService.registerStringBroadcast();
-      this.route.params.subscribe((params) => {
-          this.botId = params['id'];
-          this.getTopMessageOut();
-      });
-  }
-
-  tokenChanged(changes: KeyValueChanges<string, any>) {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.getTopMessageOut();
-  }
-
-  ngDoCheck(): void {
-    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
-    if (changes) {
-      this.tokenChanged(changes);
+    if (this.sbs.token) {
+      this.analytics_token =  this.sbs.token;
+      this.getTopMessageOut();
     }
+    this.sbs.subject.subscribe((data) => {
+      this.analytics_token = data[0].analytics_token;
+      this.getTopMessageOut();
+    });
+
+    this.sbs.broadC.subscribe((data) => {
+      this.analytics_token = data.analytics_token;
+      this.getTopMessageOut();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sbs.token = this.analytics_token;
   }
 
   getTopMessageOut() {
     this.topMessagesOut = [];
-    this.conversationsService.getTopMessagesOut().subscribe((response) => {
+    this.conversationsService.getTopMessagesOut(this.analytics_token).subscribe((response) => {
       this.topMessagesOut = response.data;
       for (const i in this.topMessagesOut) {
         this.totalCount = this.totalCount + parseInt(this.topMessagesOut[i].count);

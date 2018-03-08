@@ -19,7 +19,7 @@
             <span>Getting Started</span></a></li>
         </ul>
         <div class="bot-dropdown">
-          <a class="bot-name-link"><b [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = false;">{{currentBot}}</b></a>
+          <a class="bot-name-link"><b [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = false; getBotData();">{{currentBot}}</b></a>
 
         <div class="mybot-menu-wrap active" (click)="showList = !showList">
 

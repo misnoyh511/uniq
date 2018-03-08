@@ -1,7 +1,7 @@
-import {Component, OnInit, KeyValueChanges, KeyValueDiffer, KeyValueDiffers, DoCheck} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ReportsService} from '../reports.service';
 import * as _ from 'lodash';
-import {AppConfig} from '../../app.config';
+import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-reports',
@@ -9,7 +9,7 @@ import {AppConfig} from '../../app.config';
   styleUrls: ['./analytics.component.css'],
   providers: [ReportsService]
 })
-export class AnalyticsComponent implements OnInit, DoCheck {
+export class AnalyticsComponent implements OnInit, OnDestroy {
   sessions: string;
   users: string;
   data: any = {};
@@ -36,36 +36,40 @@ export class AnalyticsComponent implements OnInit, DoCheck {
     alwaysShowCalendars: false,
   };
   analytics_token: string;
-  tokenDiffer: KeyValueDiffer<string, any>;
 
-  constructor(private reportsService: ReportsService, private differs: KeyValueDiffers) {
+  constructor(private reportsService: ReportsService, public sbs: SidebarService) {
 
   }
 
   ngOnInit() {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
-    this.reportsService.registerStringBroadcast();
+    if (this.sbs.token) {
+      this.analytics_token =  this.sbs.token;
+      this.initFun();
+    }
+    this.sbs.subject.subscribe((data) => {
+      this.analytics_token = data[0].analytics_token;
+      this.initFun();
+    });
+
+    this.sbs.broadC.subscribe((data) => {
+      this.analytics_token = data.analytics_token;
+      this.onLoadData(this.startDate, this.endDate);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sbs.token = this.analytics_token;
+  }
+
+  initFun() {
     this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (this.today.getDate() + 1)).slice(-2);
+      ('0' + (this.today.getDate())).slice(-2);
     if (this.duration === 'Yesterday') {
       this.today.setDate(this.today.getDate() - 1);
       this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate() + 1)).slice(-2);
+        ('0' + (this.today.getDate())).slice(-2);
     }
     this.onLoadData(this.startDate, this.endDate);
-  }
-
-  tokenChanged(changes: KeyValueChanges<string, any>) {
-    this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
-    this.onLoadData(this.startDate, this.endDate);
-  }
-
-  ngDoCheck(): void {
-    const changes = this.tokenDiffer.diff(AppConfig.TOKEN);
-    if (changes) {
-      this.tokenChanged(changes);
-    }
   }
 
   selectData(data) {
@@ -73,26 +77,26 @@ export class AnalyticsComponent implements OnInit, DoCheck {
     this.openDropdown = !this.openDropdown;
     this.today = new Date();
     this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (this.today.getDate() + 1)).slice(-2);
+      ('0' + (this.today.getDate())).slice(-2);
     if (this.duration === 'Yesterday') {
       this.today.setDate(this.today.getDate() - 1);
       this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate() + 1)).slice(-2);
+        ('0' + (this.today.getDate())).slice(-2);
     } else if (this.duration === 'Last 7 Days') {
       this.today.setDate(this.today.getDate() - 7);
       this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate() + 1)).slice(-2);
+        ('0' + (this.today.getDate())).slice(-2);
     } else if (this.duration === 'Last 30 Days') {
       this.today.setDate(this.today.getDate() - 30);
       this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate() + 1)).slice(-2);
+        ('0' + (this.today.getDate())).slice(-2);
     }
     this.onLoadData(this.startDate, this.endDate);
   }
 
   onLoadData(startDate, endDate) {
     this.options = this.options1 = this.options2 = {};
-    this.reportsService.getAllSession(startDate, endDate).subscribe((response) => {
+    this.reportsService.getAllSession(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.sessions = response.data;
       if (response.data && response.data.length) {
         response.data = _.sortBy(response.data,
@@ -159,7 +163,7 @@ export class AnalyticsComponent implements OnInit, DoCheck {
       console.log(err);
     });
 
-    this.reportsService.getMessagePerSession(startDate, endDate).subscribe((response) => {
+    this.reportsService.getMessagePerSession(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.message = response.data;
       if (response.data && response.data.length) {
         response.data = _.sortBy(response.data,
@@ -226,7 +230,7 @@ export class AnalyticsComponent implements OnInit, DoCheck {
       console.log(err);
     });
 
-    this.reportsService.getTotalUsers(startDate, endDate).subscribe((response) => {
+    this.reportsService.getTotalUsers(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.users = response.data;
       if (response.data && response.data.length) {
         response.data = _.sortBy(response.data,
@@ -293,7 +297,7 @@ export class AnalyticsComponent implements OnInit, DoCheck {
       console.log(err);
     });
 
-    this.reportsService.getAvgTtime(startDate, endDate).subscribe((response) => {
+    this.reportsService.getAvgTtime(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.data = response.data;
       let sum = 0;
       for (const i in response.data) {
@@ -321,9 +325,9 @@ export class AnalyticsComponent implements OnInit, DoCheck {
   getDateRange() {
     this.openDropdown = !this.openDropdown;
     this.startDate = this.daterange.start._d.getFullYear() + '-' + ('0' + (this.daterange.start._d.getMonth() + 1)).slice(-2) +
-      '-' + ('0' + (this.daterange.start._d.getDate() + 1)).slice(-2);
+      '-' + ('0' + (this.daterange.start._d.getDate())).slice(-2);
     this.endDate = this.daterange.end._d.getFullYear() + '-' + ('0' + (this.daterange.end._d.getMonth() + 1)).slice(-2) +
-      '-' + ('0' + (this.daterange.end._d.getDate() + 1)).slice(-2);
+      '-' + ('0' + (this.daterange.end._d.getDate())).slice(-2);
     this.duration = this.startDate.replace(/-/g, '/') + ' - ' + this.endDate.replace(/-/g, '/');
     this.onLoadData(this.startDate, this.endDate);
   }
