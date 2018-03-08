@@ -92,6 +92,7 @@ export class NewBotComponent implements OnInit {
   showQues: any = {};
   faqQuestion: any = [];
   errors: any = [];
+  tokenEmpty = true;
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
               public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar) {
@@ -125,13 +126,20 @@ export class NewBotComponent implements OnInit {
 
   next() {
     if (this.latteralTab) {
-      this.bot.icon_tab = true;
+      this.bot.icon_tab = false;
     }
     if (this.floatingIcon) {
-      this.bot.icon_tab = false;
+      this.bot.icon_tab = true;
     }
     this.bot.icon_color = this.bot.tab_text_color;
     console.log('reached==========', this.bot);
+  }
+
+  checkField() {
+    console.log('token', this.bot.token);
+    if (this.bot.token) {
+      this.tokenEmpty = false;
+    }
   }
 
   /*hexToRgb(hex) {
@@ -258,8 +266,7 @@ export class NewBotComponent implements OnInit {
 
   addFaqTopic() {
     if (this.bot.faqTopic) {
-      this.bot.name = this.bot.faqTopic;
-      this.Service.addFaq({topics: [{name: this.bot.name}]}).subscribe((data) => {
+      this.Service.addFaq({topics: [{name: this.bot.faqTopic}]}).subscribe((data) => {
         this.topics.push(data.topics[0]);
         this.showTopics = true;
         this.bot.faqTopic = '';

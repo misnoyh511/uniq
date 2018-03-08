@@ -108,8 +108,7 @@ export class botModulesComponent implements OnInit, DoCheck {
 
   addFaqTopic() {
     if (this.bot.faqTopic) {
-      this.bot.name = this.bot.faqTopic;
-      this.botService.addFaq({topics: [{name: this.bot.name}]}).subscribe((data) => {
+      this.botService.addFaq({topics: [{name: this.bot.faqTopic}]}).subscribe((data) => {
         this.topics.push(data.topics[0]);
         this.showTopics = true;
         this.bot.faqTopic = '';

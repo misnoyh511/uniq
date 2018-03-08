@@ -59,9 +59,12 @@ export class botConfigurationComponent implements OnInit, DoCheck {
       waiting_msg: this.botData.waiting_msg,
       tab_color: this.botData.tab_color,
       tab_text_color: this.botData.tab_text_color,
-      icon_color: this.botData.tab_text_color
+      icon_color: this.botData.tab_text_color,
+      operator_name: this.botData.operator_name
     };
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
+      this.botData = data;
+      localStorage.setItem('CURRENT_BOT', JSON.stringify(data));
       this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);

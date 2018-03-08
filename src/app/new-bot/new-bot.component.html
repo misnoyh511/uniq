@@ -2,12 +2,12 @@
 <div class="dashboard-container">
 
   <div class="dashboard-inner-container dashboard-container-inner-new">
-    <div class="reset-form-wrapper">
+    <!--<div class="reset-form-wrapper">
       <span>Your Chat Bot has been reset</span>
     </div>
     <div class="pro-mode-active-label">
       <span>Congratulations! You have successfully upgraded to pro mode.</span>
-    </div>
+    </div>-->
     <div class="sub-nav-list">
     </div>
     <div class="dashboard-new-wrapper">
@@ -64,7 +64,7 @@
                   </div>
                   <div class="login-form-elements transate-left">
                     <label> Enter Server Token</label>
-                    <input name="token" type="text"  [(ngModel)]="bot.token">
+                    <input name="token" type="text" [(ngModel)]="bot.token" (blur)="checkField();" required>
                   </div>
                 </form>
               </div>
@@ -85,7 +85,7 @@
                   <div class="blank-wrap"></div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext"  data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;">
+                  <button class="btnNext" [class.disabled]="tokenEmpty" data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>

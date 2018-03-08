@@ -41,7 +41,6 @@ export class botLookFeelComponent implements OnInit, DoCheck {
     this.tokenDiffer = this.differs.find(AppConfig.TOKEN).create();
     this.conversationsService.registerStringBroadcast();
     this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
-    console.log('this.botData.tab_color', this.botData.tab_color);
     /*this.botData.tab_color = this.rgb2hex(this.botData.tab_color);
     this.botData.tab_text_color = this.botData.icon_color = this.rgb2hex(this.botData.tab_text_color);*/
     if (this.botData.avatar_icon) {
@@ -108,10 +107,10 @@ export class botLookFeelComponent implements OnInit, DoCheck {
 
   editBot() {
     if (this.latteralTab) {
-      this.botData.icon_tab = true;
+      this.botData.icon_tab = false;
     }
     if (this.floatingIcon) {
-      this.botData.icon_tab = false;
+      this.botData.icon_tab = true;
     }
     /*this.botData.tab_color = this.hexToRgb(this.botData.tab_color);
     this.botData.tab_text_color = this.botData.icon_color = this.hexToRgb(this.botData.tab_text_color);*/
@@ -124,9 +123,12 @@ export class botLookFeelComponent implements OnInit, DoCheck {
       waiting_msg: this.botData.waiting_msg,
       tab_color: this.botData.tab_color,
       tab_text_color: this.botData.tab_text_color,
-      icon_color: this.botData.tab_text_color
+      icon_color: this.botData.tab_text_color,
+      operator_name: this.botData.operator_name
     }
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
+      this.botData = data;
+      localStorage.setItem('CURRENT_BOT', JSON.stringify(data));
       this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);
