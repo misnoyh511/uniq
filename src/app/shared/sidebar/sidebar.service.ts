@@ -10,7 +10,7 @@ export class SidebarService {
   public broadC = new Subject<any>();
   public savedData: any = {};
   public token: string;
-  public feedback_type: string;
+  public feedback_type: number;
 
   constructor(private http: Http, private httpClient: InterceptorService) { }
 

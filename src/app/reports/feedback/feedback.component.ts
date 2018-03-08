@@ -12,7 +12,7 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
 export class FeedbackComponent implements OnInit, OnDestroy {
     sessions: any = [];
     selectedValue = 'all';
-    feedback_type: string;
+    feedback_type: number;
     analytics_token: string;
     constructor(private reportsService: ReportsService, public sbs: SidebarService) {
     }
@@ -20,7 +20,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     ngOnInit() {
       if (this.sbs.token) {
         this.analytics_token =  this.sbs.token;
-        this.feedback_type = this.sbs.token;
+        this.feedback_type = this.sbs.feedback_type;
         this.getSession();
       }
       this.sbs.subject.subscribe((data) => {
@@ -30,7 +30,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       });
 
       this.sbs.broadC.subscribe((data) => {
-
         this.analytics_token = data.analytics_token;
         this.feedback_type = data.feedback_type;
         this.getSession();
@@ -43,7 +42,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
 
     getSession() {
-        if (this.feedback_type === '1') {
+        if (this.feedback_type) {
         if (this.selectedValue === 'negative') {
           this.reportsService.getNegativeChat(this.analytics_token).subscribe((response) => {
             const valueArr = response.data.map(function(item){
