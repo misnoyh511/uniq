@@ -15,7 +15,6 @@ export class BotService {
     this.httpClient.createAuthorizationHeader(myHeaders);
     myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
     const options = new RequestOptions({ headers: myHeaders});
-    console.log('botData', botData);
     return this.http.put(AppConfig.API_ENDPOINT + '/ai/' + botId, botData, options)
       .map(response => {
         return response.json();

@@ -51,7 +51,6 @@ export class botConfigurationComponent implements OnInit, DoCheck {
   editBot() {
     const bot = {
       token: this.botData.token,
-      name: this.botData.name,
       chat_window_name: this.botData.chat_window_name,
       icon_tab: this.botData.icon_tab,
       initial_greeting: this.botData.initial_greeting,
@@ -63,8 +62,8 @@ export class botConfigurationComponent implements OnInit, DoCheck {
       operator_name: this.botData.operator_name
     };
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
-      this.botData = data;
       localStorage.setItem('CURRENT_BOT', JSON.stringify(data));
+      this.botData = data;
       this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);

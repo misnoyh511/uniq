@@ -78,6 +78,7 @@ export class botLookFeelComponent implements OnInit, DoCheck {
   tokenChanged(changes: KeyValueChanges<string, any>) {
     this.analytics_token = localStorage.getItem('ANALYTICS_TOKEN');
     this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+    console.log('bot data ================', this.botData);
     /*this.botData.tab_color = this.rgb2hex(this.botData.tab_color);
     this.botData.tab_text_color = this.botData.icon_color = this.rgb2hex(this.botData.tab_text_color);*/
     if (this.botData.avatar_icon) {
@@ -115,7 +116,6 @@ export class botLookFeelComponent implements OnInit, DoCheck {
     /*this.botData.tab_color = this.hexToRgb(this.botData.tab_color);
     this.botData.tab_text_color = this.botData.icon_color = this.hexToRgb(this.botData.tab_text_color);*/
     const bot = {
-      name: this.botData.name,
       chat_window_name: this.botData.chat_window_name,
       icon_tab: this.botData.icon_tab,
       initial_greeting: this.botData.initial_greeting,
@@ -127,8 +127,8 @@ export class botLookFeelComponent implements OnInit, DoCheck {
       operator_name: this.botData.operator_name
     }
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
-      this.botData = data;
       localStorage.setItem('CURRENT_BOT', JSON.stringify(data));
+      this.botData = data;
       this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);
