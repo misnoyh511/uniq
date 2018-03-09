@@ -5,6 +5,7 @@ import {NotificationService} from '../toastr/toastr.service';
 import {DOCUMENT} from '@angular/platform-browser';
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
 import {SnackBarService} from '../snack-bar/snack-bar.service';
+import {SidebarService} from '../shared/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-new-bot',
@@ -98,7 +99,8 @@ export class NewBotComponent implements OnInit {
   public focusedField = -1;
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
-              public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
+              public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
+              public sbs: SidebarService) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
@@ -134,7 +136,6 @@ export class NewBotComponent implements OnInit {
       this.bot.icon_tab = true;
     }
     this.bot.icon_color = this.bot.tab_text_color;
-    console.log('reached==========', this.bot);
   }
 
   uploadAvatarImage() {
@@ -146,7 +147,8 @@ export class NewBotComponent implements OnInit {
       formData.append('role', 'avatar');
 
       this.Service.upload(formData).subscribe((response) => {
-          console.log('response', response);
+          this.bot.medium_ids.push(response.media[0].id);
+          this.snackBarService.openSnackBar('Avatar Image Uploaded');
         },
         (error) => {
           console.log('error', error);
@@ -163,7 +165,8 @@ export class NewBotComponent implements OnInit {
       formData.append('role', 'cover');
 
       this.Service.upload(formData).subscribe((response) => {
-          console.log('response', response);
+          this.bot.medium_ids.push(response.media[0].id);
+          this.snackBarService.openSnackBar('Cover Image Uploaded');
         },
         (error) => {
           console.log('error', error);
@@ -204,8 +207,8 @@ export class NewBotComponent implements OnInit {
   }
 
   checkValidation() {
-    console.log('this.bot', this.bot);
     this.errors = [];
+    this.emptyField = false;
     if (!this.bot.token) {
       this.errors.push({message: 'Token Missing', value: '#capture'});
     }
@@ -261,9 +264,7 @@ export class NewBotComponent implements OnInit {
     this.Service.broadcastToken(this.bot).subscribe((x) => {
       this.Service.getBot().subscribe((data) => {
         this.bot = data;
-        if (this.bot.length > 0) {
-          this.data = this.bot[0].analytics_token;
-        }
+        this.snackBarService.openSnackBar('Bot Created');
         this.router.navigate(['/bot-home']);
       });
     }, (err) => {
@@ -381,6 +382,7 @@ export class NewBotComponent implements OnInit {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
+    this.uploadAvatarImage();
   }
 
   coverChangeEvent(fileInput: any) {
@@ -398,6 +400,7 @@ export class NewBotComponent implements OnInit {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
+    this.uploadCoverImage();
   }
 
   deleteImage(role) {
