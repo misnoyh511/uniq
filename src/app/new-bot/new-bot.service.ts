@@ -72,7 +72,7 @@ export class NewBotService {
   upload(data) {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
-    myHeaders.append('Content-Type', 'multipart/form-data; charset=utf-8;');
+    //myHeaders.append('Content-Type', 'multipart/form-data; charset=utf-8;');
     const options = new RequestOptions({ headers: myHeaders});
     return this.http.post(AppConfig.API_ENDPOINT + '/media', data, options).map(response => {
       return response.json();
