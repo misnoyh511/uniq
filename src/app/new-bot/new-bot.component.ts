@@ -3,7 +3,8 @@ import {Router} from '@angular/router';
 import {NewBotService} from './new-bot.service';
 import {NotificationService} from '../toastr/toastr.service';
 import {DOCUMENT} from '@angular/platform-browser';
-import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
+import {SnackBarService} from '../snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-new-bot',
@@ -95,7 +96,7 @@ export class NewBotComponent implements OnInit {
   tokenEmpty = true;
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
-              public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar) {
+              public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
@@ -245,9 +246,7 @@ export class NewBotComponent implements OnInit {
   clearSearch() {
     this.bot = {};
     this.snackbarsOne = true;
-    this.snackBar.openFromComponent(PizzaPartyComponent, {
-      duration: 3000,
-    });
+    this.snackBarService.openSnackBar('Your Chat Bot has been reset');
   }
 
   openModal() {
@@ -256,9 +255,7 @@ export class NewBotComponent implements OnInit {
       if (result === 'Yes!') {
         this.showDialog = false;
         this.snackBars = true;
-        this.snackBar.openFromComponent(PizzaPartyComponent, {
-          duration: 3000,
-        });
+        this.snackBarService.openSnackBar('Congratulations! You have successfully upgraded to pro mode.');
       }
       this.proHide = false;
     });
@@ -270,6 +267,7 @@ export class NewBotComponent implements OnInit {
         this.topics.push(data.topics[0]);
         this.showTopics = true;
         this.bot.faqTopic = '';
+        this.snackBarService.openSnackBar('Faq Topic Created for this Bot');
       }, (err) => {
         console.log(err);
       });
@@ -284,6 +282,7 @@ export class NewBotComponent implements OnInit {
       this.Service.addFaqQuestion({questions: [{name: this.faqQuestion[index]}], topicId: topicId}).subscribe((data) => {
         this.getTopicsWithQues();
         this.faqQuestion[index] = '';
+        this.snackBarService.openSnackBar('Faq Question Created for this Topic');
       }, (err) => {
         console.log(err);
       });
@@ -310,6 +309,7 @@ export class NewBotComponent implements OnInit {
       if (topic.name) {
         this.Service.editFaq({topics: [{name: topic.name}]}, topic.id).subscribe((data) => {
           this.getTopicsWithQues();
+          this.snackBarService.openSnackBar('Faq Topic Updated');
         }, (err) => {
           console.log(err);
         });
@@ -322,6 +322,7 @@ export class NewBotComponent implements OnInit {
   deleteFaqTopic(topicId, topicName) {
     if (confirm('This will delete the topic ' + topicName + '. You sure?')) {
       this.Service.deleteFaqTopic(topicId).subscribe((data) => {
+        this.snackBarService.openSnackBar('Faq Topic Deleted');
         this.getTopicsWithQues();
       }, (err) => {
         console.log(err);
@@ -332,6 +333,7 @@ export class NewBotComponent implements OnInit {
   editQues(quesName, quesId) {
     if (!this.showQues[quesId]) {
       this.Service.editFaqQues({questions: [{name: quesName}]}, quesId).subscribe((data) => {
+        this.snackBarService.openSnackBar('Faq Question Updated');
       });
     }
   }
@@ -394,11 +396,7 @@ export class NewBotComponent implements OnInit {
 export class JazzDialog {
   constructor(public dialogRef: MatDialogRef<JazzDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 }
-@Component({
-  selector: 'snack-bar-component-example-snack',
-  templateUrl: 'snack-bar-component-example-snack.html'
-})
-export class PizzaPartyComponent {}
+
 
 
 

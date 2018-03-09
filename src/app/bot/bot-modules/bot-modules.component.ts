@@ -3,6 +3,7 @@ import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig, MatSnackBar} 
 import {DOCUMENT} from '@angular/platform-browser';
 import {BotService} from '../bot.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+import {SnackBarService} from '../../snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-bot-modules',
@@ -54,7 +55,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     }
   };
   constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar,
-              public sbs: SidebarService, public botService: BotService) {
+              public sbs: SidebarService, public botService: BotService, public snackBarService: SnackBarService) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
@@ -73,6 +74,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     this.sbs.broadC.subscribe((data) => {
       this.botData = data;
     });
+    this.getTopicsWithQues();
   }
 
   ngOnDestroy() {
@@ -82,9 +84,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
   clearSearch() {
     this.bot = {};
     this.snackbarsOne = true;
-    this.snackBar.openFromComponent(PizzaPartyComponent, {
-      duration: 3000,
-    });
+    this.snackBarService.openSnackBar('Your Chat Bot has been reset');
   }
 
   openModal() {
@@ -93,9 +93,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
       if (result === 'Yes!') {
         this.showDialog = false;
         this.snackBars = true;
-        this.snackBar.openFromComponent(PizzaPartyComponent, {
-          duration: 3000,
-        });
+        this.snackBarService.openSnackBar('Congratulations! You have successfully upgraded to pro mode.');
       }
       this.proHide = false;
     });
@@ -131,6 +129,9 @@ export class botModulesComponent implements OnInit, OnDestroy {
     this.topics = [];
     this.botService.getTopicsWithQues().subscribe((data) => {
       this.topics = data.topics;
+      if (this.topics && this.topics.length) {
+        this.faqSection = true;
+      }
       const questions = {};
       data.questions.forEach( function(item){
         const key = item['id']; // take the first key from every object in the array

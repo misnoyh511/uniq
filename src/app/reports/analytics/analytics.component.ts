@@ -99,6 +99,26 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     this.reportsService.getAllSession(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.sessions = response.data;
       if (response.data && response.data.length) {
+        const newArr = {};
+        for (const currentDay = new Date(startDate); currentDay <= new Date(endDate); currentDay.setDate(currentDay.getDate() + 1)) {
+          const day = currentDay;
+          let flag = false;
+          response.data.forEach( x => {
+            if (x.date === currentDay.toISOString()) {
+              flag = true;
+            }
+          });
+          if (!flag) {
+            newArr[currentDay.getTime()] = '0';
+          }
+        }
+        for (let j in Object.keys(newArr)) {
+          response.data.push({
+            count: '0',
+            date: new Date(parseInt(Object.keys(newArr)[j]))
+          });
+        }
+
         response.data = _.sortBy(response.data,
           (item) => {
             return +new Date(item.date);
@@ -166,6 +186,25 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     this.reportsService.getMessagePerSession(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.message = response.data;
       if (response.data && response.data.length) {
+        const newArr = {};
+        for (const currentDay = new Date(startDate); currentDay <= new Date(endDate); currentDay.setDate(currentDay.getDate() + 1)) {
+          const day = currentDay;
+          let flag = false;
+          response.data.forEach( x => {
+            if (x.date === currentDay.toISOString()) {
+              flag = true;
+            }
+          });
+          if (!flag) {
+            newArr[currentDay.getTime()] = '0';
+          }
+        }
+        for (let j in Object.keys(newArr)) {
+          response.data.push({
+            count: '0',
+            date: new Date(parseInt(Object.keys(newArr)[j]))
+          });
+        }
         response.data = _.sortBy(response.data,
           (item) => {
             return +new Date(item.date);
@@ -233,6 +272,25 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     this.reportsService.getTotalUsers(startDate, endDate, this.analytics_token).subscribe((response) => {
       this.users = response.data;
       if (response.data && response.data.length) {
+        const newArr = {};
+        for (const currentDay = new Date(startDate); currentDay <= new Date(endDate); currentDay.setDate(currentDay.getDate() + 1)) {
+          const day = currentDay;
+          let flag = false;
+          response.data.forEach( x => {
+            if (x.date === currentDay.toISOString()) {
+              flag = true;
+            }
+          });
+          if (!flag) {
+            newArr[currentDay.getTime()] = '0';
+          }
+        }
+        for (let j in Object.keys(newArr)) {
+          response.data.push({
+            count: '0',
+            date: new Date(parseInt(Object.keys(newArr)[j]))
+          });
+        }
         response.data = _.sortBy(response.data,
           (item) => {
             return +new Date(item.date);

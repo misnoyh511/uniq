@@ -29,6 +29,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import { NgProgressModule } from 'ngx-progressbar';
 import {SidebarService} from './shared/sidebar/sidebar.service';
+import {SnackBarService} from './snack-bar/snack-bar.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import {SidebarService} from './shared/sidebar/sidebar.service';
     HttpClientModule,
     NgProgressModule
   ],
-  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient,SidebarService],
+  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient, SidebarService, SnackBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

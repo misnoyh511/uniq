@@ -3,6 +3,7 @@ import {ConversationsService} from '../../conversations/conversations.service';
 import {BotService} from '../bot.service';
 import {Router} from '@angular/router';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+import {SnackBarService} from '../../snack-bar/snack-bar.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
     data: any;
     botData: any = {};
     analytics_token: string;
-    constructor(private router: Router, private differs: KeyValueDiffers, private botService: BotService, public sbs: SidebarService) { }
+    constructor(private router: Router, private differs: KeyValueDiffers, private botService: BotService, public sbs: SidebarService,
+                public snackBarService: SnackBarService) { }
 
   ngOnInit() {
     if (this.sbs.savedData) {
@@ -62,6 +64,7 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
       localStorage.setItem('CURRENT_BOT', JSON.stringify(data));
       this.botData = data;
+      this.snackBarService.openSnackBar('Bot Updated');
       this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);
@@ -70,6 +73,7 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
 
   deleteBot() {
     this.botService.deleteBot(this.botData.id).subscribe((data) => {
+      this.snackBarService.openSnackBar('Bot Deleted');
       console.log('data', data);
 
     }, (err) => {

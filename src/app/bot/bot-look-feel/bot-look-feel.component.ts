@@ -3,6 +3,7 @@ import {BotService} from '../bot.service';
 import {Router} from '@angular/router';
 import {NewBotService} from '../../new-bot/new-bot.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+import {SnackBarService} from '../../snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-bot-look-feel',
@@ -11,7 +12,7 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
   providers: [BotService, NewBotService]
 })
 export class botLookFeelComponent implements OnInit, OnDestroy {
-  latteralTab = true;
+  latteralTab: boolean;
   showBotName = false;
   showChatName = false;
   showWelcome = false;
@@ -30,8 +31,9 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
   avatarFile: any[];
   coverFile: any[];
   analytics_token: string;
-  floatingIcon = false;
-  constructor(private router: Router, private botService: BotService, public newBotService: NewBotService, private sbs: SidebarService) { }
+  floatingIcon: boolean;
+  constructor(private router: Router, private botService: BotService, public newBotService: NewBotService,
+              private sbs: SidebarService, public snackBarService: SnackBarService) { }
 
   ngOnInit() {
     if (this.sbs.savedData) {
@@ -50,6 +52,8 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
   }
 
   getImage() {
+    this.floatingIcon = this.botData.icon_tab;
+    this.latteralTab = !this.botData.icon_tab;
     if (this.botData.avatar_icon) {
       this.imageUrl = this.botData.avatar_icon;
       this.imagePreview = this.botData.avatar_icon;
@@ -90,8 +94,10 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       icon_color: this.botData.tab_text_color,
       operator_name: this.botData.operator_name
     };
+    console.log('bot', bot);
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
       this.botData = data;
+      this.snackBarService.openSnackBar('Bot Updated');
       this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);

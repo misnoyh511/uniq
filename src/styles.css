@@ -1813,3 +1813,15 @@ a.mat-mini-fab.mat-primary {
   opacity: 0.5 !important;
   background: #ccc !important;
 }
+
+
+#cdk-overlay-0 .mat-snack-bar-container{
+  position: absolute;
+  top: 0;
+  min-width: inherit;
+  max-width: inherit;
+}
+
+#cdk-overlay-0 .mat-snack-bar-container .mat-simple-snackbar {
+  font-size: 16px;
+}
