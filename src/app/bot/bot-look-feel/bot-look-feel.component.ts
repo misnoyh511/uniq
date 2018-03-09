@@ -36,6 +36,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
               private sbs: SidebarService, public snackBarService: SnackBarService) { }
 
   ngOnInit() {
+    this.botData.medium_ids = [];
     if (this.sbs.savedData) {
       this.botData = this.sbs.savedData;
       this.getImage();
@@ -62,6 +63,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       this.coverUrl = this.botData.cover_image;
       this.coverPreview = this.botData.cover_image;
     }
+    this.botData['medium_ids'] = [];
   }
 
   ngOnDestroy() {
@@ -92,9 +94,9 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       tab_color: this.botData.tab_color,
       tab_text_color: this.botData.tab_text_color,
       icon_color: this.botData.tab_text_color,
-      operator_name: this.botData.operator_name
+      operator_name: this.botData.operator_name,
+      medium_ids: this.botData.medium_ids
     };
-    console.log('bot', bot);
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
       this.botData = data;
       this.snackBarService.openSnackBar('Bot Updated');
@@ -119,6 +121,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
+    this.uploadAvatarImage();
   }
 
   coverChangeEvent(fileInput: any) {
@@ -126,7 +129,6 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
     this.coverUrl = this.coverFile[0].name;
     this.getCoverBase64(this.coverFile[0]);
   }
-
   getCoverBase64(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -136,6 +138,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
+    this.uploadCoverImage();
   }
 
   uploadAvatarImage() {
@@ -147,7 +150,8 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       formData.append('role', 'avatar');
 
       this.newBotService.upload(formData).subscribe((response) => {
-          console.log('response', response);
+          this.botData.medium_ids.push(response.media[0].id);
+          this.snackBarService.openSnackBar('Avatar Image Uploaded');
         },
         (error) => {
           console.log('error', error);
@@ -164,7 +168,8 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       formData.append('role', 'cover');
 
       this.newBotService.upload(formData).subscribe((response) => {
-          console.log('response', response);
+          this.botData.medium_ids.push(response.media[0].id);
+          this.snackBarService.openSnackBar('Cover Image Uploaded');
         },
         (error) => {
           console.log('error', error);

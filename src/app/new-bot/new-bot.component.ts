@@ -93,7 +93,9 @@ export class NewBotComponent implements OnInit {
   showQues: any = {};
   faqQuestion: any = [];
   errors: any = [];
-  tokenEmpty = true;
+  emptyField = false;
+  operator = false;
+  public focusedField = -1;
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
               public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
@@ -108,7 +110,6 @@ export class NewBotComponent implements OnInit {
     this.bot = {
       active: true,
       tab_name: 'Asistencia Municipal',
-      operator_name: 'Felipe',
       box_state: false,
       complements_title: 'Preguntas Frecuentes',
       feedback_type: 0,
@@ -135,26 +136,6 @@ export class NewBotComponent implements OnInit {
     this.bot.icon_color = this.bot.tab_text_color;
     console.log('reached==========', this.bot);
   }
-
-  checkField() {
-    console.log('token', this.bot.token);
-    if (this.bot.token) {
-      this.tokenEmpty = false;
-    }
-  }
-
-  /*hexToRgb(hex) {
-    let c;
-    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-      c = hex.substring(1).split('');
-      if (c.length === 3) {
-        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-      }
-      c = '0x' + c.join('');
-      return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255] + ')';
-    }
-    throw new Error('Bad Hex');
-  }*/
 
   uploadAvatarImage() {
     const formData = new FormData();
@@ -222,25 +203,72 @@ export class NewBotComponent implements OnInit {
     }
   }
 
-  save() {
-    /*this.bot.tab_color = this.hexToRgb(this.bot.tab_color);
-    this.bot.tab_text_color = this.bot.icon_color = this.hexToRgb(this.bot.tab_text_color);*/
+  checkValidation() {
+    console.log('this.bot', this.bot);
+    this.errors = [];
     if (!this.bot.token) {
-      this.errors.push({message: 'token missing', value: 'showNlp'});
-      console.log('errors', this.errors);
-    } else {
-      this.Service.broadcastToken(this.bot).subscribe((x) => {
-        this.Service.getBot().subscribe((data) => {
-          this.bot = data;
-          if (this.bot.length > 0) {
-            this.data = this.bot[0].analytics_token;
-          }
-          this.router.navigate(['/bot-home']);
-        });
-      }, (err) => {
-        console.log(err);
-      });
+      this.errors.push({message: 'Token Missing', value: '#capture'});
     }
+    if (!this.bot.name || !this.bot.chat_window_name || !this.bot.initial_greeting || !this.bot.input_title || this.bot.waiting_msg) {
+      if (!this.bot.name) {
+        this.errors.push({
+          message: 'Bot Name is Missing', value: '#message'
+        });
+      }
+      if (!this.bot.chat_window_name) {
+        this.errors.push({
+          message: 'Chat Window Missing of Bot', value: '#message'
+        });
+      }
+      if (!this.bot.initial_greeting) {
+        this.errors.push({
+          message: 'Welcome Message is Missing', value: '#message'
+        });
+      }
+      if (!this.bot.input_title) {
+        this.errors.push({
+          message: 'Input Title is Missing', value: '#message'
+        });
+      }
+      if (!this.bot.waiting_msg) {
+        this.errors.push({
+          message: 'Waiting Message is Missing', value: '#message'
+        });
+      }
+    }
+
+    if (this.errors && this.errors.length) {
+      this.emptyField = true;
+    }
+  }
+
+  redirectPage(value) {
+    if (value === '#capture') {
+      this.showNlp = true;
+      this.showLook = this.showModules = false;
+    }
+    if (value === '#message') {
+      this.showLook = true;
+      this.showNlp = this.showModules = false;
+    }
+    if (value === '#customize') {
+      this.showModules = true;
+      this.showLook = this.showNlp = false;
+    }
+  }
+
+  save() {
+    this.Service.broadcastToken(this.bot).subscribe((x) => {
+      this.Service.getBot().subscribe((data) => {
+        this.bot = data;
+        if (this.bot.length > 0) {
+          this.data = this.bot[0].analytics_token;
+        }
+        this.router.navigate(['/bot-home']);
+      });
+    }, (err) => {
+      console.log(err);
+    });
   }
 
   clearSearch() {

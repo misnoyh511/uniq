@@ -64,7 +64,7 @@
                   </div>
                   <div class="login-form-elements transate-left">
                     <label> Enter Server Token</label>
-                    <input name="token" type="text" [(ngModel)]="bot.token" (change)="checkField();" required>
+                    <input name="token" type="text" [(ngModel)]="bot.token" required>
                   </div>
                 </form>
               </div>
@@ -85,7 +85,7 @@
                   <div class="blank-wrap"></div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext" [class.disabled]="tokenEmpty" data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;">
+                  <button class="btnNext" data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -570,7 +570,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button data-toggle="pill" href="#launch" class="btnNext launchBtn">
+                  <button data-toggle="pill" href="#launch" (click)="checkValidation();" class="btnNext launchBtn">
                     Save
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -586,29 +586,24 @@
                   <h3>Give this Project an internal name</h3>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Project Name
+                  <p>Operator Name
                     <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showProject"> The Project name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
+                    <b [class.show]="showProject"> The Operator name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
                   </p>
                   <div class="login-form-elements">
-                    <label> Enter Project Name</label>
-                    <input type="text">
+                    <label> Enter Operator Name</label>
+                    <input type="text" name="operatorName" (keypress)="operator = true" [(ngModel)]="bot.operator_name">
                   </div>
                 </div>
               </div>
               <div class="error-msg-wrap">
                 <div class="error-message" *ngFor="let error of errors">
                   <span>{{error.message}}</span>
-                  <button class="launchBtnBack errorBtn errorBtnStep1" href="#customize" (click)="showNlp = true; showLook = showModules = false;">Resolve</button>
+
+                  <button class="launchBtnBack errorBtn errorBtnStep1" data-toggle="pill" [attr.href]="error.value"
+                  (click)="redirectPage(error.value);">Resolve
+                  </button>
                 </div>
-                <!--<div class="error-message">
-                  <span>Missing a Welcome	Message</span>
-                  <button class="launchBtnBack errorBtn errorBtnStep2">Resolve</button>
-                </div>
-                <div class="error-message">
-                  <span>Missing a Welcome	Message</span>
-                  <button class="launchBtnBack errorBtn errorBtnStep3">Resolve</button>
-                </div>-->
               </div>
             </div>
 
@@ -621,7 +616,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button (click)="save()" class="btnNext">
+                  <button (click)="save()" class="btnNext" [class.disabled]="emptyField || (!bot.operator_name) || (!operator)">
                     Launch
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
