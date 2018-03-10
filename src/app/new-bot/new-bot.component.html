@@ -103,13 +103,13 @@
                   <h3>Give it a name</h3>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Bot Name
+                  <p>Bot Operator Name
                     <sup><i (mouseover)="showBotName= true" (mouseout)="showBotName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showBotName"> The name of this project. Only you	will see this.</b>
                   </p>
                   <div class="login-form-elements">
-                    <label>Enter Your Bot Name</label>
-                    <input name="name" type="text"  [(ngModel)]="bot.name">
+                    <label>Enter Your Operator Name</label>
+                    <input name="name" type="text"  [(ngModel)]="bot.operator_name">
                   </div>
                 </div>
 
@@ -278,7 +278,7 @@
                 </div>
                 <div class="col-sm-6">
                   <button class="btnNext" data-toggle="pill" href="#customize"
-                          (click)="next(); uploadAvatarImage(); uploadCoverImage(); showNlp = showLook = false; showModules = true;">
+                          (click)="next(); showNlp = showLook = false; showModules = true;">
                     Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
@@ -586,13 +586,13 @@
                   <h3>Give this Project an internal name</h3>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Operator Name
+                  <p>Project Name
                     <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showProject"> The Operator name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
                   </p>
                   <div class="login-form-elements">
-                    <label> Enter Operator Name</label>
-                    <input type="text" name="operatorName" (keypress)="operator = true" [(ngModel)]="bot.operator_name">
+                    <label> Enter Project Name</label>
+                    <input type="text" name="name" (keypress)="operator = true" [(ngModel)]="bot.name">
                   </div>
                 </div>
               </div>
@@ -616,7 +616,7 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button (click)="save()" class="btnNext" [class.disabled]="emptyField || (!bot.operator_name) || (!operator)">
+                  <button (click)="save()" class="btnNext" [class.disabled]="emptyField || (!bot.name) || (!operator)">
                     Launch
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>

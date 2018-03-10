@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {NewBotService} from './new-bot.service';
 import {NotificationService} from '../toastr/toastr.service';
@@ -13,7 +13,7 @@ import {SidebarService} from '../shared/sidebar/sidebar.service';
   styleUrls: ['./new-bot.component.css'],
   providers: [NewBotService ],
 })
-export class NewBotComponent implements OnInit {
+export class NewBotComponent implements OnInit, OnDestroy {
   dialogRef: MatDialogRef<JazzDialog>;
 
   config: MatDialogConfig = {
@@ -96,7 +96,6 @@ export class NewBotComponent implements OnInit {
   errors: any = [];
   emptyField = false;
   operator = false;
-  public focusedField = -1;
 
   constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
               public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
@@ -126,6 +125,10 @@ export class NewBotComponent implements OnInit {
     };
     this.bot.tab_color = '#AB2567';
     this.bot.tab_text_color = '#AB2567';
+  }
+
+  ngOnDestroy() {
+    this.sbs.savedData = this.bot;
   }
 
   next() {
@@ -212,8 +215,8 @@ export class NewBotComponent implements OnInit {
     if (!this.bot.token) {
       this.errors.push({message: 'Token Missing', value: '#capture'});
     }
-    if (!this.bot.name || !this.bot.chat_window_name || !this.bot.initial_greeting || !this.bot.input_title || this.bot.waiting_msg) {
-      if (!this.bot.name) {
+    if (!this.bot.operator_name || !this.bot.chat_window_name || !this.bot.initial_greeting || !this.bot.input_title || this.bot.waiting_msg) {
+      if (!this.bot.operator_name) {
         this.errors.push({
           message: 'Bot Name is Missing', value: '#message'
         });
@@ -261,9 +264,11 @@ export class NewBotComponent implements OnInit {
   }
 
   save() {
-    this.Service.broadcastToken(this.bot).subscribe((x) => {
-      this.Service.getBot().subscribe((data) => {
-        this.bot = data;
+    this.Service.broadcastToken(this.bot).subscribe((response) => {
+      this.bot = response;
+      this.sbs.savedData = response;
+      this.sbs.getBot().subscribe((data) => {
+        // this.bot = data;
         this.snackBarService.openSnackBar('Bot Created');
         this.router.navigate(['/bot-home']);
       });
@@ -275,6 +280,8 @@ export class NewBotComponent implements OnInit {
   clearSearch() {
     this.bot = {};
     this.snackbarsOne = true;
+    this.showNlp = true;
+    this.showModules = this.showLook = false;
     this.snackBarService.openSnackBar('Your Chat Bot has been reset');
   }
 

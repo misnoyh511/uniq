@@ -100,7 +100,6 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
       this.botData = data;
       this.snackBarService.openSnackBar('Bot Updated');
-      this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);
     });

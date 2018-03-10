@@ -15,7 +15,6 @@ export class SidebarService {
   constructor(private http: Http, private httpClient: InterceptorService) { }
 
   getBot() {
-
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
     const options = new RequestOptions({headers: myHeaders});
@@ -32,7 +31,7 @@ export class SidebarService {
       this.subject.next(data);
     }
 
-    somethingHappend(data){
+    somethingHappend(data) {
      this.broadC.next(data);
     }
 }

@@ -31,6 +31,10 @@ export class SidebarComponent implements OnInit {
   constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService) { }
 
   ngOnInit() {
+    this.Service.subject.subscribe((data) => {
+      this.bot = data;
+      this.currentBot = this.Service.savedData.name;
+    });
     this.onloaddata();
     if (!this.data) {
       this.data = 'Bot Providencia';

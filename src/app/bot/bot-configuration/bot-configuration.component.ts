@@ -62,20 +62,21 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
       operator_name: this.botData.operator_name
     };
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
-      localStorage.setItem('CURRENT_BOT', JSON.stringify(data));
       this.botData = data;
       this.snackBarService.openSnackBar('Bot Updated');
-      this.router.navigate(['/bot-home']);
     }, (err) => {
       console.log(err);
     });
   }
 
   deleteBot() {
-    this.botService.deleteBot(this.botData.id).subscribe((data) => {
-      this.snackBarService.openSnackBar('Bot Deleted');
-      console.log('data', data);
-
+    this.botService.deleteBot(this.botData.id).subscribe((response) => {
+      this.sbs.getBot().subscribe((data) => {
+        this.snackBarService.openSnackBar('Bot Deleted');
+        this.router.navigate(['/home']);
+      }, (err) => {
+        console.log(err);
+      });
     }, (err) => {
       console.log(err);
     });
