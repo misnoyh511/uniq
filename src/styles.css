@@ -1800,6 +1800,7 @@ a.mat-mini-fab.mat-primary {
   color: #fff;
   z-index: 99999;
   cursor: pointer;
+  width:80%;
 }
 
 .bot-dropdown .mybot-menu-wrap{
