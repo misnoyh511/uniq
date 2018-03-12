@@ -8,6 +8,7 @@ import {SnackBarService} from '../snack-bar/snack-bar.service';
 import {AppConfig} from '../app.config';
 import {InterceptorService} from '../interceptor/interceptor.service';
 import {Response} from '@angular/http';
+import {NgProgress} from 'ngx-progressbar';
 
 @Injectable()
 export class AuthenticationService {
@@ -16,7 +17,7 @@ export class AuthenticationService {
     users: FirebaseListObservable<any[]>;
 
     constructor(private firebaseAuth: AngularFireAuth, private router: Router, private db: AngularFireDatabase,
-                private snackBarService: SnackBarService, private httpClient: InterceptorService)  {
+                private snackBarService: SnackBarService, private httpClient: InterceptorService,  public ngProgress: NgProgress)  {
         this.user = firebaseAuth.authState;
         this.user.subscribe(
             (user) => {
@@ -79,6 +80,7 @@ export class AuthenticationService {
       })
       .catch((err: Response) => {
         this.snackBarService.openSnackBar('Incorrect Email or Password');
+        this.ngProgress.done();
         return Observable.of(err);
       });
   }

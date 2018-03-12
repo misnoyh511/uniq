@@ -22,7 +22,6 @@ export class LoginComponent {
         this.authenticationService.loginAuth(this.user.email, this.user.password).subscribe((data) => {
             this.router.navigate(['/get-started']);
         }, (err) => {
-          console.log('err', err);
             console.log(err);
         });
     }
