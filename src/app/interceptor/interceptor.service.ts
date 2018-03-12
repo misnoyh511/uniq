@@ -32,9 +32,9 @@ export class InterceptorService {
     this.ngProgress.start();
     return this.http.get(url, {
       headers: getHeaders
-    }).map(data => {
+    }).map(getData => {
         this.ngProgress.done();
-        return data;
+        return getData;
     });
   }
 
@@ -47,8 +47,12 @@ export class InterceptorService {
   post(url, data) {
     const postHeaders = new Headers();
     this.createAuthorizationHeader(postHeaders);
-    return this.http.post(url, data, {
+    this.ngProgress.start();
+    return this.http.post(url, {
       headers: postHeaders
+    }).map(postData => {
+      this.ngProgress.done();
+      return postData;
     });
   }
 
@@ -61,8 +65,12 @@ export class InterceptorService {
   put(url, data) {
     const putHeaders = new Headers();
     this.createAuthorizationHeader(putHeaders);
-    return this.http.put(url, data, {
+    this.ngProgress.start();
+    return this.http.post(url, {
       headers: putHeaders
+    }).map(putData => {
+      this.ngProgress.done();
+      return putData;
     });
   }
 
@@ -74,8 +82,12 @@ export class InterceptorService {
   delete(url) {
     const deleteHeaders = new Headers();
     this.createAuthorizationHeader(deleteHeaders);
-    return this.http.delete(url, {
+    this.ngProgress.start();
+    return this.http.post(url, {
       headers: deleteHeaders
+    }).map(deleteData => {
+      this.ngProgress.done();
+      return deleteData;
     });
   }
 }

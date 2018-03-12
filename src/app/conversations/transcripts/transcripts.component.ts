@@ -42,6 +42,10 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     this.sbs.token = this.analytics_token;
   }
 
+  reloadData() {
+    this.getTranscripts();
+  }
+
   getTranscripts() {
     this.conversationsService.getTranscripts(this.analytics_token).subscribe((response) => {
       this.transcripts = [];
