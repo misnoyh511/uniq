@@ -8,20 +8,21 @@ import {Router} from '@angular/router';
     styleUrls: ['../authentication.component.css']
 })
 export class LoginComponent {
-    user :any = {};
-    constructor(private authenticationService : AuthenticationService ,private router : Router ) {
+    user: any = {};
+    constructor(private authenticationService: AuthenticationService, private router: Router ) {
         this.authenticationService.checkAuthenticate();
     }
-    loginWithGoogle(){
-        this.authenticationService.loginWithGoogle().then((data)=>{
-            this.router.navigate(['/home']);
-        })
+    loginWithGoogle() {
+        this.authenticationService.loginWithGoogle().then((data) => {
+            this.router.navigate(['/get-started']);
+        });
     }
-    login(){
-      //this.authenticationService.login(this.user.email,this.user.password);
-        this.authenticationService.loginAuth(this.user.email,this.user.password).subscribe((data) => {
-            this.router.navigate(['/home']);
+    login() {
+      // this.authenticationService.login(this.user.email,this.user.password);
+        this.authenticationService.loginAuth(this.user.email, this.user.password).subscribe((data) => {
+            this.router.navigate(['/get-started']);
         }, (err) => {
+          console.log('err', err);
             console.log(err);
         });
     }

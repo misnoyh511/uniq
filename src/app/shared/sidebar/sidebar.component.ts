@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import {SidebarService} from './sidebar.service';
 import {Broadcaster} from '../../broadcaster';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,7 +29,7 @@ export class SidebarComponent implements OnInit {
   botData: any = {};
   showMenu = false;
 
-  constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService) { }
+  constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService, private router: Router) { }
 
   ngOnInit() {
     this.Service.subject.subscribe((data) => {
@@ -63,8 +64,15 @@ export class SidebarComponent implements OnInit {
   }
   dropDown(getUrl, botData) {
     if (botData) {
-      this.Service.somethingHappend( botData);
-      this.currentBot = botData.name;
+      if (location.pathname === '/get-started') {
+        this.router.navigate(['/bot-home']);
+        this.currentBot = botData.name;
+        this.Service.savedData = botData;
+        this.getBotData();
+      } else {
+        this.currentBot = botData.name;
+        this.Service.somethingHappend(botData);
+      }
       this.showList = false;
     }
     if (getUrl.split('/')[2]) {
@@ -77,7 +85,11 @@ export class SidebarComponent implements OnInit {
   getBotData() {
     for (const i in this.bot) {
       if (this.bot[i].name === this.currentBot) {
-        this.Service.savedData = this.bot[i];
+        if (location.pathname === '/get-started') {
+          this.Service.somethingHappend(this.bot[i]);
+        } else {
+          this.Service.savedData = this.bot[i];
+        }
         break;
       }
     }

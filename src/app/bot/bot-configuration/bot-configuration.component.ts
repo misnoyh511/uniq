@@ -73,7 +73,7 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
     this.botService.deleteBot(this.botData.id).subscribe((response) => {
       this.sbs.getBot().subscribe((data) => {
         this.snackBarService.openSnackBar('Bot Deleted');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/get-started']);
       }, (err) => {
         console.log(err);
       });

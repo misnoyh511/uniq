@@ -1816,13 +1816,15 @@ a.mat-mini-fab.mat-primary {
 }
 
 
-#cdk-overlay-0 .mat-snack-bar-container{
+.cdk-overlay-pane .mat-snack-bar-container{
   position: absolute;
   top: 0;
   min-width: inherit;
   max-width: inherit;
 }
 
-#cdk-overlay-0 .mat-snack-bar-container .mat-simple-snackbar {
+.cdk-overlay-pane .mat-snack-bar-container .mat-simple-snackbar {
   font-size: 16px;
 }
+
+.dashboard-new-steps-wrapper .nav-pills>li.active>a{ background: transparent}

@@ -28,7 +28,7 @@
           <div class="clearfix"></div>
           <div class="bot-list-wrap" [class.active]="showList">
             <ul>
-              <li *ngFor="let bots of bot"><a href="javascript:void(0)" (click)="dropDown(getUrl, bots); showList = !showList; "> {{bots.name}}</a></li>
+              <li *ngFor="let bots of bot"><a href="javascript:void(0)" [class.active]="bots.name === currentBot" (click)="dropDown(getUrl, bots); showList = !showList; "> {{bots.name}}</a></li>
             </ul>
           </div>
         </div>
