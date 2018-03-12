@@ -10,11 +10,9 @@ import {HttpEvent} from '@angular/common/http';
 @Injectable()
 export class NewBotService {
   getData: any;
- // public  broadcasterToken =  new Subject<any>();
   constructor(private http: Http, private httpClient: InterceptorService, private localStorageService: LocalStorageService) { }
 
   notifyToken(x: any) {
-   // this.broadcastToken.next(x)
   }
 
    addFaq(que) {
@@ -53,12 +51,7 @@ export class NewBotService {
   broadcastToken(botData) {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
-    // myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
     const options = new RequestOptions({ headers: myHeaders});
-    /*const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    botData.analytics_id = '';
-    for (var i = 0; i < 8; i++)
-      botData.analytics_id += possible.charAt(Math.floor(Math.random() * possible.length));*/
     return this.http.post(AppConfig.API_ENDPOINT + '/ai' , botData, options)
       .map(response => {
         return response.json();
@@ -72,7 +65,6 @@ export class NewBotService {
   upload(data) {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
-    //myHeaders.append('Content-Type', 'multipart/form-data; charset=utf-8;');
     const options = new RequestOptions({ headers: myHeaders});
     return this.http.post(AppConfig.API_ENDPOINT + '/media', data, options).map(response => {
       return response.json();

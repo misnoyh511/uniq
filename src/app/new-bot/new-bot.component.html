@@ -2,12 +2,6 @@
 <div class="dashboard-container">
 
   <div class="dashboard-inner-container dashboard-container-inner-new">
-    <!--<div class="reset-form-wrapper">
-      <span>Your Chat Bot has been reset</span>
-    </div>
-    <div class="pro-mode-active-label">
-      <span>Congratulations! You have successfully upgraded to pro mode.</span>
-    </div>-->
     <div class="sub-nav-list">
     </div>
     <div class="dashboard-new-wrapper">
@@ -213,12 +207,11 @@
                   <h3>Appearance</h3>
                 </div>
                 <div class="full-panel full-panel-step2">
-                                        <span>Upload Your Avatar Image
-                                            <sup><i (mouseover)="showAvatar= true" (mouseout)="showAvatar= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
-                                        </span>
+                  <span>Upload Your Avatar Image
+                    <sup><i (mouseover)="showAvatar= true" (mouseout)="showAvatar= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
+                  </span>
                   <div class="right-side-form">
-                    <!--<input type="file" id="files" class="uploadfiles" name="files[]" multiple/>-->
 
                     <input id="file_input_avatar" (change)="avatarChangeEvent($event)" *ngIf="!imageUrl" type="file"/>
                     <div id="imagePreview" *ngIf="imageUrl">
@@ -228,10 +221,10 @@
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
-                                        <span>Upload Your	Cover Image
-                                            <sup><i (mouseover)="showCover= true" (mouseout)="showCover= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b [class.show]="showCover">Upload a PNG or JPEG file</b>
-                                        </span>
+                  <span>Upload Your	Cover Image
+                    <sup><i (mouseover)="showCover= true" (mouseout)="showCover= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showCover">Upload a PNG or JPEG file</b>
+                  </span>
                   <div class="right-side-form">
                       <input id="file_input_cover" (change)="coverChangeEvent($event)" *ngIf="!coverUrl" type="file"/>
                       <div id="coverPreview" *ngIf="coverUrl">
@@ -241,20 +234,20 @@
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
-                                        <span> Choose the background color of chat tab/icon
-                                            <sup><i (mouseover)="showBackClr= true" (mouseout)="showBackClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
-                                        </span>
+                  <span> Choose the background color of chat tab/icon
+                    <sup><i (mouseover)="showBackClr= true" (mouseout)="showBackClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
+                  </span>
                   <div class="right-side-form color-pick-section">
                     <input type="color" name="color" [(ngModel)]="bot.tab_color">
                     <span [ngStyle]="{'background': bot.tab_color}">{{bot.tab_color}}</span>
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">
-                                        <span>Choose the font color of the tab/icon.
-                                            <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b [class.show]="showFontClr">The tab/icon color seen by users</b>
-                                        </span>
+                  <span>Choose the font color of the tab/icon.
+                    <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showFontClr">The tab/icon color seen by users</b>
+                  </span>
                   <div class="right-side-form color-pick-section">
                     <input type="color" name="fcolor" [(ngModel)]="bot.tab_text_color">
                     <span [ngStyle]="{'background': bot.tab_text_color}">{{bot.tab_text_color}}</span>
@@ -322,21 +315,17 @@
                         </div>
                         <div class="visiters-count-inner-wrap">
                           <div class="full-panel">
-                                                        <span>Enable or Disable Feature
-                                                            <sup><i (mouseover)="showFeature= true"
-                                                                    (mouseout)="showFeature= false"
-                                                                    class="fa fa-question-circle"
-                                                                    aria-hidden="true"></i></sup>
-                                                            <b [class.show]="showFeature">This initiates a chatbot conversation with a FAQ.</b>
-                                                        </span>
+                            <span>Enable or Disable Feature
+                              <sup><i (mouseover)="showFeature= true"
+                                      (mouseout)="showFeature= false"
+                                      class="fa fa-question-circle"
+                                      aria-hidden="true"></i></sup>
+                              <b [class.show]="showFeature">This initiates a chatbot conversation with a FAQ.</b>
+                            </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                             </mat-slide-toggle>
                           </div>
                           <div class="full-width-input-fields full-width-input-fields-step4">
-                            <!--<p> Add a FAQ	topic
-                                <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                <b>A General Topic for which you have FAQ</b>
-                            </p>-->
                             <div class="login-form-elements">
                               <!--<label>Enter a FAQ	Topic</label> -->
                               <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text"
@@ -420,12 +409,7 @@
                       <h3>Pro-Active Mode<span>Business</span></h3>
                       <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text"
                                         [(ngModel)]="bot.proActive" color="primary" style="float:left">
-                        <!--  {{bot.proActive ? 'On' : 'Off'}}-->
                       </mat-slide-toggle>
-                      <!--<div class="on-off-btn toggle-btn-on-off toggle-configure-on-off">
-                        <span class="rounded-on-off-btn"></span>
-                        <span class="on-off-text"></span>
-                      </div>-->
                       <div class="configure-btn" [class.active]="bot.proActive">
                         <button class="white-btn visitor-content-toggle" (click)="showBusiness= true">Configure</button>
                       </div>
@@ -450,24 +434,24 @@
                         </div>
                         <div class="visiters-count-inner-wrap">
                           <div class="full-panel">
-                                                    <span>Pro Active Mode Desktop
-                                                        <sup><i (mouseover)="showDesktop= true"
-                                                                (mouseout)="showDesktop= false"
-                                                                class="fa fa-question-circle"
-                                                                aria-hidden="true"></i></sup>
-                                                        <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
-                                                    </span>
+                            <span>Pro Active Mode Desktop
+                              <sup><i (mouseover)="showDesktop= true"
+                                      (mouseout)="showDesktop= false"
+                                      class="fa fa-question-circle"
+                                      aria-hidden="true"></i></sup>
+                              <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
+                            </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                             </mat-slide-toggle>
                           </div>
                           <div class="full-panel">
-                                                    <span>Pro Active Mode Mobile
-                                                        <sup><i (mouseover)="showMobile= true"
-                                                                (mouseout)="showMobile= false"
-                                                                class="fa fa-question-circle"
-                                                                aria-hidden="true"></i></sup>
-                                                        <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
-                                                    </span>
+                            <span>Pro Active Mode Mobile
+                              <sup><i (mouseover)="showMobile= true"
+                                      (mouseout)="showMobile= false"
+                                      class="fa fa-question-circle"
+                                      aria-hidden="true"></i></sup>
+                              <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
+                            </span>
                             <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                             </mat-slide-toggle>
                           </div>

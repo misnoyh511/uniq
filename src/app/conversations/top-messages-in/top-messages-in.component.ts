@@ -24,12 +24,13 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
         this.analytics_token =  this.sbs.token;
         this.getTopMessageIn();
       }
-      this.sbs.subject.subscribe((data) => {
+
+      this.sbs.botList.subscribe((data) => {
         this.analytics_token = data[0].analytics_token;
         this.getTopMessageIn();
       });
 
-      this.sbs.broadC.subscribe((data) => {
+      this.sbs.botData.subscribe((data) => {
         this.analytics_token = data.analytics_token;
         this.getTopMessageIn();
       });

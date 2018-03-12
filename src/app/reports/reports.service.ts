@@ -1,15 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
-import {NotificationService} from '../toastr/toastr.service';
 import {AppConfig} from '../app.config';
 import {Http, Response} from '@angular/http';
 import {InterceptorService} from '../interceptor/interceptor.service';
-import {Broadcaster} from '../broadcaster';
 
 @Injectable()
 export class ReportsService {
-  constructor(private broadcaster: Broadcaster, private http: Http, private httpClient: InterceptorService) {
+  constructor(private http: Http, private httpClient: InterceptorService) {
     const today = new Date();
     const endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
       ('0' + (today.getDate())).slice(-2);

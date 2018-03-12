@@ -41,12 +41,12 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       this.botData = this.sbs.savedData;
       this.getImage();
     }
-    this.sbs.subject.subscribe((data) => {
+    this.sbs.botList.subscribe((data) => {
       this.botData = data[0];
       this.getImage();
     });
 
-    this.sbs.broadC.subscribe((data) => {
+    this.sbs.botData.subscribe((data) => {
       this.botData = data;
       this.getImage();
     });

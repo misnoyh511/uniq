@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import {SidebarService} from './sidebar.service';
-import {Broadcaster} from '../../broadcaster';
 import {Router} from '@angular/router';
 
 @Component({
@@ -29,12 +28,16 @@ export class SidebarComponent implements OnInit {
   botData: any = {};
   showMenu = false;
 
-  constructor(private broadcaster: Broadcaster, private location: Location, private Service: SidebarService, private router: Router) { }
+  constructor(private location: Location, private Service: SidebarService, private router: Router) { }
 
   ngOnInit() {
-    this.Service.subject.subscribe((data) => {
+    this.Service.botList.subscribe((data) => {
       this.bot = data;
-      this.currentBot = this.Service.savedData.name;
+      if (this.Service.deleteMsg) {
+        this.currentBot = this.bot[0].name;
+      } else {
+        this.currentBot = this.Service.savedData.name;
+      }
     });
     this.onloaddata();
     if (!this.data) {

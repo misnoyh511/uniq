@@ -17,11 +17,11 @@ export class botHomeComponent implements OnInit, OnDestroy {
     if (this.sbs.savedData) {
       this.botData = this.sbs.savedData;
     }
-    this.sbs.subject.subscribe((data) => {
+    this.sbs.botList.subscribe((data) => {
       this.botData = data[0];
     });
 
-    this.sbs.broadC.subscribe((data) => {
+    this.sbs.botData.subscribe((data) => {
       this.botData = data;
     });
 

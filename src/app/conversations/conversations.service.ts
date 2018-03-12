@@ -3,11 +3,10 @@ import {Observable} from 'rxjs/Rx';
 import {AppConfig} from '../app.config';
 import {Http, Response, Headers} from '@angular/http';
 import {InterceptorService} from '../interceptor/interceptor.service';
-import {Broadcaster} from '../broadcaster';
 
 @Injectable()
 export class ConversationsService {
-  constructor(private broadcaster: Broadcaster, private http: Http, private httpClient: InterceptorService) {
+  constructor(private http: Http, private httpClient: InterceptorService) {
   }
 
   getTopMessagesIn(analytics_token) {

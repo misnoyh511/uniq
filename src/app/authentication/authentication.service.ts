@@ -3,8 +3,7 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import {FirebaseListObservable, AngularFireDatabase} from 'angularfire2/database-deprecated';
-import {Observable} from 'rxjs/Observable'
-import {NotificationService} from '../toastr/toastr.service';
+import {Observable} from 'rxjs/Observable';
 import {SnackBarService} from '../snack-bar/snack-bar.service';
 import {AppConfig} from '../app.config';
 import {InterceptorService} from '../interceptor/interceptor.service';

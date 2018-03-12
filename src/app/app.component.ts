@@ -1,13 +1,11 @@
 import { Component} from '@angular/core';
 import { Router } from '@angular/router';
-import {Broadcaster} from './broadcaster';
 import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [Broadcaster]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   getUrl: any;

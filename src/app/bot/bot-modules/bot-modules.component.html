@@ -13,7 +13,6 @@
           <div class="row">
             <div class="col-sm-8">
 
-              <!--<a href="new.html" class="blue-btn"><i class="fa fa-edit" aria-hidden="true"></i><span>Edit Bot</span></a> -->
             </div>
           </div>
         </div>
@@ -39,22 +38,17 @@
               </div>
               <div class="visiters-count-inner-wrap">
                 <div class="full-panel">
-                                        <span>Enable or Disable Feature
-                                            <sup><i (mouseover)="showFeature= true" (mouseout)="showFeature= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                            <b [class.show]="showFeature">This initiates a chatbot conversation with a FAQ.</b>
-                                        </span>
+                  <span>Enable or Disable Feature
+                    <sup><i (mouseover)="showFeature= true" (mouseout)="showFeature= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showFeature">This initiates a chatbot conversation with a FAQ.</b>
+                  </span>
                   <div class="on-off-btn toggle-btn-on-off feature-toggle">
                     <mat-slide-toggle type="text" color="primary" style="float:left">
                     </mat-slide-toggle>
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
-                  <!--<p> Add a FAQ	topic
-                      <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                      <b>A General Topic for which you have FAQ</b>
-                  </p>-->
                   <div class="login-form-elements">
-                    <!--<label>Enter a FAQ	Topic</label> -->
                     <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text"
                            placeholder="Enter a FAQ Topic">
                   </div>
@@ -76,9 +70,9 @@
                            [(ngModel)]="topic.name"
                            name="name" type="text" value={{topic.name}}>
                     <div class="topic-actions-wrap">
-                                <span class="edit_topic{{i}}"
-                                      (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"><i
-                                  class="fa fa-pencil" aria-hidden="true"></i></span>
+                      <span class="edit_topic{{i}}"
+                            (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"><i
+                        class="fa fa-pencil" aria-hidden="true"></i></span>
                       <span class="del_topic{{i}}" (click)="deleteFaqTopic(topic.id, topic.name)"><i
                         class="fa fa-trash" aria-hidden="true"></i></span>
                     </div>
@@ -87,13 +81,13 @@
                         <input class="faq-que-edit-text-box" [class.active]="showQues[quesId]"
                                type="text"[(ngModel)]="quesArr[quesId].name" value={{quesArr[quesId].name}}>
                         <div class="faq-question-actions">
-                                      <span class="edit_question3"
-                                            (click)="showQues[quesId] = !showQues[quesId]; editQues(quesArr[quesId].name, quesId)">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                      </span>
+                          <span class="edit_question3"
+                                (click)="showQues[quesId] = !showQues[quesId]; editQues(quesArr[quesId].name, quesId)">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                          </span>
                           <span class="del_question2">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                      </span>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                          </span>
                         </div>
                       </h4>
                     </div>
@@ -141,18 +135,18 @@
               </div>
               <div class="visiters-count-inner-wrap">
                 <div class="full-panel">
-                                                    <span>Pro Active Mode Desktop
-                                                        <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                        <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
-                                                    </span>
+                  <span>Pro Active Mode Desktop
+                    <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
+                  </span>
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                   </mat-slide-toggle>
                 </div>
                 <div class="full-panel">
-                                                    <span>Pro Active Mode Mobile
-                                                        <sup><i (mouseover)="showMobile= true" (mouseout)="showMobile= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                        <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
-                                                    </span>
+                  <span>Pro Active Mode Mobile
+                    <sup><i (mouseover)="showMobile= true" (mouseout)="showMobile= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
+                  </span>
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                   </mat-slide-toggle>
                 </div>
@@ -196,10 +190,10 @@
               </div>
               <div class="visiters-count-inner-wrap">
                 <div class="full-panel">
-                                                        <span>Open Chat Bot Window By	Default
-                                                            <sup><i (mouseover)="showOpenChat = true" (mouseout)="showOpenChat = false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                                                            <b [class.show]="showOpenChat">This opens the chat bot	window automatically and immediately.</b>
-                                                        </span>
+                  <span>Open Chat Bot Window By	Default
+                    <sup><i (mouseover)="showOpenChat = true" (mouseout)="showOpenChat = false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showOpenChat">This opens the chat bot	window automatically and immediately.</b>
+                  </span>
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0">
                   </mat-slide-toggle>
                 </div>
@@ -219,19 +213,6 @@
           </div>
         </div>
       </div>
-      <!--<div class="next-button-wrap">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="blank-wrap"></div>
-          </div>
-          <div class="col-sm-6">
-            <button class="btnNext">
-              Save
-
-            </button>
-          </div>
-        </div>
-      </div>-->
     </div>
   </div>
   <div  id="timing"  class="custom-timing-section" [class.active]="showDialog">

@@ -1,6 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ReportsService} from '../reports.service';
-import {AppConfig} from '../../app.config';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
 @Component({
@@ -23,13 +22,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.feedback_type = this.sbs.feedback_type;
         this.getSession();
       }
-      this.sbs.subject.subscribe((data) => {
+      this.sbs.botList.subscribe((data) => {
         this.analytics_token = data[0].analytics_token;
         this.feedback_type = data[0].feedback_type;
         this.getSession();
       });
 
-      this.sbs.broadC.subscribe((data) => {
+      this.sbs.botData.subscribe((data) => {
         this.analytics_token = data.analytics_token;
         this.feedback_type = data.feedback_type;
         this.getSession();

@@ -22,11 +22,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.sbs.token) {
       this.analytics_token =  this.sbs.token;
     }
-    this.sbs.subject.subscribe((data) => {
+    this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
     });
 
-    this.sbs.broadC.subscribe((data) => {
+    this.sbs.botData.subscribe((data) => {
       this.analytics_token = data.analytics_token;
     });
   }

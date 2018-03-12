@@ -46,12 +46,12 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
       this.analytics_token =  this.sbs.token;
       this.initFun();
     }
-    this.sbs.subject.subscribe((data) => {
+    this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
       this.initFun();
     });
 
-    this.sbs.broadC.subscribe((data) => {
+    this.sbs.botData.subscribe((data) => {
       this.analytics_token = data.analytics_token;
       this.onLoadData(this.startDate, this.endDate);
     });

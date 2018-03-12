@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit, OnDestroy} from '@angular/core';
-import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig, MatSnackBar} from '@angular/material';
+import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
 import {DOCUMENT} from '@angular/platform-browser';
 import {BotService} from '../bot.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
@@ -54,8 +54,8 @@ export class botModulesComponent implements OnInit, OnDestroy {
       message: 'Jazzy jazz jazz'
     }
   };
-  constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBar: MatSnackBar,
-              public sbs: SidebarService, public botService: BotService, public snackBarService: SnackBarService) {
+  constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
+              public sbs: SidebarService, public botService: BotService) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
@@ -67,11 +67,11 @@ export class botModulesComponent implements OnInit, OnDestroy {
     if (this.sbs.savedData) {
       this.botData = this.sbs.savedData;
     }
-    this.sbs.subject.subscribe((data) => {
+    this.sbs.botList.subscribe((data) => {
       this.botData = data[0];
     });
 
-    this.sbs.broadC.subscribe((data) => {
+    this.sbs.botData.subscribe((data) => {
       this.botData = data;
     });
     this.getTopicsWithQues();
@@ -190,9 +190,3 @@ export class botModulesComponent implements OnInit, OnDestroy {
 export class JazzDialog {
   constructor(public dialogRef: MatDialogRef<JazzDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 }
-@Component({
-  selector: 'snack-bar-component-example-snack',
-  templateUrl: 'snack-bar-component-example-snack.html'
-})
-export class PizzaPartyComponent {}
-

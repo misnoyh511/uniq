@@ -4,7 +4,6 @@ import {BotService} from '../bot.service';
 import {Router} from '@angular/router';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {SnackBarService} from '../../snack-bar/snack-bar.service';
-import {Location} from '@angular/common';
 
 
 @Component({
@@ -29,17 +28,17 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
     analytics_token: string;
     email = '';
     constructor(private router: Router, private botService: BotService, public sbs: SidebarService,
-                public snackBarService: SnackBarService, private location: Location) { }
+                public snackBarService: SnackBarService) { }
 
   ngOnInit() {
     if (this.sbs.savedData) {
       this.botData = this.sbs.savedData;
     }
-    this.sbs.subject.subscribe((data) => {
+    this.sbs.botList.subscribe((data) => {
       this.botData = data[0];
     });
 
-    this.sbs.broadC.subscribe((data) => {
+    this.sbs.botData.subscribe((data) => {
       this.botData = data;
     });
 
@@ -73,6 +72,7 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
 
   deleteBot() {
     this.botService.deleteBot(this.botData.id).subscribe((response) => {
+      this.sbs.deleteMsg = 'Bot Deleted';
       this.sbs.getBot().subscribe((data) => {
         this.snackBarService.openSnackBar('Bot Deleted');
         this.router.navigate(['/get-started']);

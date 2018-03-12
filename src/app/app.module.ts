@@ -15,7 +15,6 @@ import {DashboardModule} from './dashboard/dashboard.module';
 import {environment} from '../environments/environment';
 import {AuthGuard} from './auth-guard/auth-guard.middleware';
 import {ToastyModule} from 'ng2-toasty';
-import {NotificationService} from './toastr/toastr.service';
 import {PublicModule} from './public/public.module';
 import { GetStarteddModule } from './get-started/get-started.module';
 import {SharedModule} from './shared/shared.module';
@@ -58,7 +57,7 @@ import {SnackBarService} from './snack-bar/snack-bar.service';
     HttpClientModule,
     NgProgressModule
   ],
-  providers: [AuthGuard, NotificationService, InterceptorService, LocalStorageService, HttpClient, SidebarService, SnackBarService],
+  providers: [AuthGuard, InterceptorService, LocalStorageService, HttpClient, SidebarService, SnackBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

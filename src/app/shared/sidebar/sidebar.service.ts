@@ -6,11 +6,12 @@ import {AppConfig} from '../../app.config';
 
 @Injectable()
 export class SidebarService {
-  public subject = new Subject<any>();
-  public broadC = new Subject<any>();
+  public botList = new Subject<any>();
+  public botData = new Subject<any>();
   public savedData: any = {};
   public token: string;
   public feedback_type: number;
+  public deleteMsg = '';
 
   constructor(private http: Http, private httpClient: InterceptorService) { }
 
@@ -28,10 +29,10 @@ export class SidebarService {
   }
 
     dataReceived(data) {
-      this.subject.next(data);
+      this.botList.next(data);
     }
 
     somethingHappend(data) {
-     this.broadC.next(data);
+     this.botData.next(data);
     }
 }

@@ -1,7 +1,6 @@
 import {Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {NewBotService} from './new-bot.service';
-import {NotificationService} from '../toastr/toastr.service';
 import {DOCUMENT} from '@angular/platform-browser';
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
 import {SnackBarService} from '../snack-bar/snack-bar.service';
@@ -97,9 +96,8 @@ export class NewBotComponent implements OnInit, OnDestroy {
   emptyField = false;
   operator = false;
 
-  constructor(private router: Router, private Service: NewBotService, private toasterService: NotificationService,
-              public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
-              public sbs: SidebarService) {
+  constructor(private router: Router, private Service: NewBotService, public sbs: SidebarService,
+              public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
     dialog.afterOpen.subscribe(() => {
       if (!doc.body.classList.contains('no-scroll')) {
         doc.body.classList.add('no-scroll');
@@ -267,8 +265,8 @@ export class NewBotComponent implements OnInit, OnDestroy {
     this.Service.broadcastToken(this.bot).subscribe((response) => {
       this.bot = response;
       this.sbs.savedData = response;
+      this.sbs.deleteMsg = '';
       this.sbs.getBot().subscribe((data) => {
-        // this.bot = data;
         this.snackBarService.openSnackBar('Bot Created');
         this.router.navigate(['/bot-home']);
       });
