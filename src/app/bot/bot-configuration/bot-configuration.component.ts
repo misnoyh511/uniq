@@ -1,9 +1,10 @@
-import {Component, OnInit, KeyValueDiffer, KeyValueDiffers, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ConversationsService} from '../../conversations/conversations.service';
 import {BotService} from '../bot.service';
 import {Router} from '@angular/router';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {SnackBarService} from '../../snack-bar/snack-bar.service';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -26,8 +27,9 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
     data: any;
     botData: any = {};
     analytics_token: string;
-    constructor(private router: Router, private differs: KeyValueDiffers, private botService: BotService, public sbs: SidebarService,
-                public snackBarService: SnackBarService) { }
+    email = '';
+    constructor(private router: Router, private botService: BotService, public sbs: SidebarService,
+                public snackBarService: SnackBarService, private location: Location) { }
 
   ngOnInit() {
     if (this.sbs.savedData) {
