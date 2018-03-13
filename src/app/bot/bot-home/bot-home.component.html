@@ -10,7 +10,7 @@
       <div class="getting-started-video-wrapper notification-wrap">
         <app-sub-nav [navType]="'home'"></app-sub-nav>
         <div class="on-off-btn toggle-btn-on-off bot-title-on-off">
-          <mat-slide-toggle type="text" color="primary" [(ngModel)]="botData.active" name="active"></mat-slide-toggle>
+          <mat-slide-toggle type="text" color="primary" (change)="changeBotStatus()" [(ngModel)]="botData.active" name="active"></mat-slide-toggle>
         </div>
 
         <h3>{{botData.name}}</h3>

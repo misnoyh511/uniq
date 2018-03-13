@@ -101,7 +101,7 @@
             </div>
             <div class="col-sm-6">
               <div class="full-panel-buttons">
-                <button onClick="location.href='dashboard-plans.html'">
+                <button [routerLink]="(['/dashboard'])">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
               </div>
@@ -148,7 +148,7 @@
             </div>
             <div class="col-sm-6">
               <div class="full-panel-buttons">
-                <button data-toggle="modal" data-target="#editCard">
+                <button data-toggle="modal" (click)="showPayment = true;">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
               </div>
@@ -164,6 +164,41 @@
             </div>
 
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" [class.show]="showPayment" id="editCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Your Card</h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="db-form-elements">
+                <label>Card Number</label>
+                <input type="text" placeholder="XXXX-XXXX-XXXX-1234">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="db-form-elements">
+                <label>Exp. Date</label>
+                <input type="text" placeholder="MM/YY">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="db-form-elements">
+                <label>CVC</label>
+                <input type="text" placeholder="CVC">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="white-btn" data-dismiss="modal" (click)="showPayment = false">Cancel</button>
+          <button type="button" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add New Card</button>
         </div>
       </div>
     </div>

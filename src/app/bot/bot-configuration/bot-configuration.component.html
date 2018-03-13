@@ -193,12 +193,12 @@ https://www.shareanalyticslink.com/sdasdsdasdsdmnlmnlmslnxjcnxc/sadsadnssad.html
               <div class="modal-body">
                 <div class="db-form-elements">
                   <label>What is the #1 thing you wish Proof did better?</label>
-                  <input type="text" class="modal-btns" placeholder="Please be as specific as possible">
+                  <input type="text" class="modal-btns" placeholder="Please be as specific as possible" [(ngModel)]="feedback" name="feedback">
                 </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="white-btn modal-btns" (click)="showDelete = false">Go Back</button>
-                <button type="button" class="blue-btn modal-btns send-feedback-btn" (click)="showDelete = false; showEditPass = true;">Send Feedback</button>
+                <button type="button" class="blue-btn modal-btns send-feedback-btn" [class.disabled]="feedback === ''" (click)="showDelete = false; showEditPass = true;">Send Feedback</button>
               </div>
             </div>
           </div>

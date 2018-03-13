@@ -9,7 +9,7 @@
       <a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>
     </div>
     <div class="dashboard-new">
-      <a [routerLink]="(['/new-bot'])" class="cursor blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> <span>New Bot</span></a>
+      <a [routerLink]="(['/new-bot'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = false;" class="cursor blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> <span>New Bot</span></a>
     </div>
     <div class="dashboard-navigation">
       <div class="scrollable-wrap">

@@ -34,6 +34,8 @@ export class SidebarComponent implements OnInit {
     this.Service.botList.subscribe((data) => {
       this.bot = data;
       if (this.Service.deleteMsg) {
+        this.showStarted = true;
+        this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
         this.currentBot = this.bot[0].name;
       } else {
         this.currentBot = this.Service.savedData.name;

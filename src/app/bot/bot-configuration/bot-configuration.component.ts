@@ -27,6 +27,7 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
     botData: any = {};
     analytics_token: string;
     email = '';
+    feedback = '';
     constructor(private router: Router, private botService: BotService, public sbs: SidebarService,
                 public snackBarService: SnackBarService) { }
 
@@ -51,16 +52,7 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
 
   editBot() {
     const bot = {
-      token: this.botData.token,
-      chat_window_name: this.botData.chat_window_name,
-      icon_tab: this.botData.icon_tab,
-      initial_greeting: this.botData.initial_greeting,
-      input_title: this.botData.input_title,
-      waiting_msg: this.botData.waiting_msg,
-      tab_color: this.botData.tab_color,
-      tab_text_color: this.botData.tab_text_color,
-      icon_color: this.botData.tab_text_color,
-      operator_name: this.botData.operator_name
+      token: this.botData.token
     };
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
       this.botData = data;

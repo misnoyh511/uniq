@@ -8,6 +8,7 @@ import {SidebarService} from '../shared/sidebar/sidebar.service';
 })
 export class AccountSettingsComponent implements OnInit, OnDestroy {
   analytics_token: string;
+  showPayment = false;
 
   constructor(public sbs: SidebarService) { }
 

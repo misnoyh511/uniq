@@ -73,6 +73,7 @@ export class AuthenticationService {
         const resJson = response.json();
         const users = resJson.users;
         if (users && users.length > 0) {
+          this.snackBarService.openSnackBar('Login Successful');
           localStorage.setItem('USER_INFO_KEY', JSON.stringify(users[0]));
           this.router.navigate(['/get-started']);
           return users[0];
