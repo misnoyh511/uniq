@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 import {SidebarService} from './sidebar.service';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../authentication/authentication.service';
+import {AppConfig} from '../../app.config';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,7 +30,8 @@ export class SidebarComponent implements OnInit {
   botData: any = {};
   showMenu = false;
 
-  constructor(private location: Location, private Service: SidebarService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private location: Location, private Service: SidebarService,
+              private router: Router) { }
 
   ngOnInit() {
     this.Service.botList.subscribe((data) => {
@@ -98,5 +101,10 @@ export class SidebarComponent implements OnInit {
         break;
       }
     }
+  }
+
+  logout() {
+    delete localStorage[AppConfig.USER_INFO_KEY];
+    this.router.navigate(['/login']);
   }
 }

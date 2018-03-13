@@ -48,7 +48,7 @@
         <li><a (click)="showMenu = !showMenu; showAccount = true; showReport = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
         </li>
       </ul>
-      <span>Version 1.0.0</span> <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+      <span>Version 1.0.0</span> <a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
     </div>
   </div>
 </div>

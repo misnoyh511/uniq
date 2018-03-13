@@ -386,7 +386,7 @@ p{margin:0 0 20px 0; }
 .app-version-dashboard {position:fixed; text-align:center; padding:0 0 9px 0; bottom:0; min-width:250px; width:21%; max-width:350px;}
 .app-version-dashboard span {color: #A2B0C4 ;font-family:"Roboto Condensed",helvetica,arial,sans-serif; font-size:14px; font-weight:700;}
 .app-version-dashboard a {color: rgba(255,255,255,0.5); float:right; margin:0 10px;}
-.app-version-dashboard a:hover {color:#fff;}
+.app-version-dashboard a:hover {color:#fff; cursor: pointer}
 
 .app-version-dashboard label {font-size: 15px;font-weight: 400;display: block;margin: 5px 0 5px 20px; color:#fff;font-family:"Roboto Condensed",helvetica,arial,sans-serif; text-align:left;}
 .app-version-dashboard ul {list-style:none; padding:0; text-align:left; margin:10px 0 0;}
