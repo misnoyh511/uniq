@@ -9,7 +9,7 @@
         <h3>Create	A	New	Bot</h3>
         <div class="title-links">
           <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()" class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
-          <a data-toggle="pill" href="#launch" class="launch-link"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
+          <a data-toggle="pill" href="#launch" class="launch-link" (click)="checkValidation()"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
         </div>
       </div>
       <div class="dashboard-new-steps-wrapper">
@@ -290,7 +290,7 @@
                                         [(ngModel)]="bot.faqSection" color="primary" style="float:left">
                       </mat-slide-toggle>
                       <div class="configure-btn" [class.active]="bot.faqSection">
-                        <button class="white-btn visitor-content-toggle" (click)="showDiv= true; getTopicsWithQues();">
+                        <button class="white-btn visitor-content-toggle" (click)="showDiv= true;">
                           Configure
                         </button>
                       </div>

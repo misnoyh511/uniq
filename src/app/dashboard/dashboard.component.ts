@@ -13,6 +13,10 @@ import {SidebarService} from '../shared/sidebar/sidebar.service';
 export class DashboardComponent implements OnInit, OnDestroy {
   user: any;
   analytics_token: string;
+  showAccount = false;
+  feedback = '';
+  showFeedback = false;
+  email = '';
   constructor(private authenticationService: AuthenticationService, private router: Router, public sbs: SidebarService) { }
 
   ngOnInit() {

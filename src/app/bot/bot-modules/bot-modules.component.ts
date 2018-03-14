@@ -105,6 +105,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
         this.topics.push(data.topics[0]);
         this.showTopics = true;
         this.bot.faqTopic = '';
+        this.snackBarService.openSnackBar('Faq Topic Created for this Bot');
       }, (err) => {
         console.log(err);
       });
@@ -119,6 +120,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
       this.botService.addFaqQuestion({questions: [{name: this.faqQuestion[index]}], topicId : topicId}).subscribe((data) => {
         this.getTopicsWithQues();
         this.faqQuestion[index] = '';
+        this.snackBarService.openSnackBar('Faq Question Created for this Topic');
       }, (err) => {
         console.log(err);
       });
@@ -148,6 +150,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
       if (topic.name) {
         this.botService.editFaq({topics: [{name: topic.name}]}, topic.id).subscribe((data) => {
           this.getTopicsWithQues();
+          this.snackBarService.openSnackBar('Faq Topic Updated');
         }, (err) => {
           console.log(err);
         });
@@ -161,6 +164,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     if (confirm('This will delete the topic ' + topicName + '. You sure?')) {
       this.botService.deleteFaqTopic(topicId).subscribe((data) => {
         this.getTopicsWithQues();
+        this.snackBarService.openSnackBar('Faq Topic Deleted');
       }, (err) => {
         console.log(err);
       });
@@ -170,6 +174,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
   editQues(quesName, quesId) {
     if (!this.showQues[quesId]) {
       this.botService.editFaqQues({questions: [{name: quesName}]}, quesId).subscribe((data) => {
+        this.snackBarService.openSnackBar('Faq Question Updated');
       });
     }
   }

@@ -96,7 +96,9 @@ export class SidebarComponent implements OnInit {
         if (location.pathname === '/get-started') {
           this.Service.somethingHappend(this.bot[i]);
         } else {
+          console.log('***********', this.bot[i]);
           this.Service.savedData = this.bot[i];
+          console.log('***********', this.bot[i]);
         }
         break;
       }

@@ -80,7 +80,15 @@ export class AuthenticationService {
         }
       })
       .catch((err: Response) => {
-        this.snackBarService.openSnackBar('Incorrect Email or Password');
+        if (email === '' && password === '') {
+            this.snackBarService.openSnackBar('Please Enter Email and password');
+        } else if (email === '') {
+          this.snackBarService.openSnackBar('Please Enter Email Address');
+        } else if (password === '') {
+          this.snackBarService.openSnackBar('Please Enter Password');
+        } else {
+          this.snackBarService.openSnackBar('Incorrect Email or Password');
+        }
         this.ngProgress.done();
         return Observable.of(err);
       });

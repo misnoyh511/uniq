@@ -126,7 +126,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sbs.savedData = this.bot;
+    // this.sbs.savedData = this.bot;
   }
 
   next() {

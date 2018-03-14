@@ -208,7 +208,46 @@
     </div>
     <div class="dashboard-plan-footer">
       <p>Not happy with Proof? If we've fallen short, can we make things right? <a href="#">Please let us know in the chat!</a></p>
-      <a href="#" data-toggle="modal" data-target="#editEmail">Start Cancellation</a>
+      <a href="javascript:void(0)" data-toggle="modal" (click)="showAccount = true">Start Cancellation</a>
+    </div>
+  </div>
+  <div class="modal" [class.show]="showAccount" id="editEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Account Cancellation</h5>
+        </div>
+        <div class="modal-body">
+          <div class="db-form-elements">
+            <label>What is the #1 thing you wish Proof did better?</label>
+            <input type="text" placeholder="Please be as specific as possible" [(ngModel)]="feedback" name="feedback">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="white-btn" data-dismiss="modal" (click)="showAccount = false;">Go Back</button>
+          <button type="button" class="blue-btn send-feedback-btn" [class.disabled]="feedback === ''" (click)="showAccount = false; showFeedback = true;" data-toggle="modal">Send Feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" [class.show]="showFeedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Account Cancellation</h5>
+        </div>
+        <div class="modal-body">
+          <div class="db-form-elements">
+            <label>Please type your email address to confirm you want to delete your Proof account: <span>agodoy@gmail.com</span></label>
+            <input type="text" [(ngModel)]="email">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="white-btn" data-dismiss="modal" [class.disabled]="email === ''" (click)="showFeedback = false;">Delete My Account</button>
+          <button type="button" class="white-btn" (click)="showFeedback = false;">Go Back</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
