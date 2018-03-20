@@ -93,7 +93,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
     getBotData(botId) {
         this.botService.getBotData(botId).subscribe((data) => {
             this.botData = data;
-            console.log('this.botData', this.botData);
             this.topics = this.botData.topics;
             if (this.topics && this.topics.length) {
                 this.faqSection = true;
@@ -118,10 +117,8 @@ export class botModulesComponent implements OnInit, OnDestroy {
     }
 
     addFaqTopic() {
-        console.log('this.bot', this.botData);
         if (this.botData.faqTopic) {
             this.botService.addFaq({topics: [{name: this.botData.faqTopic, robot_id: this.botData.id}]}).subscribe((data) => {
-                console.log('data', data);
                 this.topics.push(data.topics[0]);
                 this.showTopics = true;
                 this.botData.faqTopic = '';
@@ -130,7 +127,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
                 console.log(err);
             });
         } else {
-            console.log('please add faq topic');
+            this.snackBarService.openSnackBar('please add faq topic');
         }
     }
 
@@ -141,7 +138,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
                 questions: [{name: this.faqQuestion[index]}],
                 topicId: topicId
             }).subscribe((data) => {
-                console.log('data', data);
                 this.getBotData(this.botData.id);
                 // this.getTopicsWithQues();
                 this.faqQuestion[index] = '';
@@ -180,7 +176,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
                     console.log(err);
                 });
             } else {
-                console.log('please add faq topic');
+                this.snackBarService.openSnackBar('Please Enter Topic');
             }
         }
     }
