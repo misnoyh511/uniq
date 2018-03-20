@@ -10,6 +10,18 @@ export class BotService {
 
   constructor(private http: Http, private httpClient: InterceptorService, private localStorageService: LocalStorageService) { }
 
+  getBotData(botId) {
+      const myHeaders = new Headers();
+      this.httpClient.createAuthorizationHeader(myHeaders);
+      const options = new RequestOptions({ headers: myHeaders});
+      return this.http.get(AppConfig.API_ENDPOINT + '/ai/' + botId, options)
+          .map(response => {
+              return response.json();
+          })
+          .catch((err: Response) => {
+              return Observable.of(err);
+          });
+  }
   editBot(botData, botId) {
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
@@ -38,17 +50,14 @@ export class BotService {
   }
 
   addFaq(que) {
-    const myHeaders = new Headers();
-    const token = this.localStorageService.getSessionToken();
-    myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
-    myHeaders.append('X-HopIn-Application-Id', '2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
-    myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3Xcw' +
-      'AT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
-    myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
-    myHeaders.append('X-HopIn-Session-Token', token);
-    const options = new RequestOptions({ headers: myHeaders});
-    return this.http.post(AppConfig.API_ENDPOINT + '/topics', que, options)
+    console.log('que', que);
+      const myHeaders = new Headers();
+      this.httpClient.createAuthorizationHeader(myHeaders);
+      /*myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');*/
+      const options = new RequestOptions({ headers: myHeaders});
+    return this.http.post(AppConfig.API_ENDPOINT + '/topics/', que, options)
       .map(response => {
+        console.log('response', response);
         return response.json();
       })
       .catch((err: Response) => {

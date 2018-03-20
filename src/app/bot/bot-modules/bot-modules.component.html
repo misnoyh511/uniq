@@ -49,7 +49,7 @@
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <div class="login-form-elements">
-                    <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text"
+                    <input id="faq_top" [(ngModel)]="botData.faqTopic" name="faqTopic" type="text"
                            placeholder="Enter a FAQ Topic">
                   </div>
                 </div>
@@ -76,13 +76,13 @@
                       <span class="del_topic{{i}}" (click)="deleteFaqTopic(topic.id, topic.name)"><i
                         class="fa fa-trash" aria-hidden="true"></i></span>
                     </div>
-                    <div class="faq-question-wrap faq-question-wrap1">
-                      <h4 *ngFor="let quesId of topic.links.questions"><b>{{quesArr[quesId].name}}</b>
-                        <input class="faq-que-edit-text-box" [class.active]="showQues[quesId]"
-                               type="text"[(ngModel)]="quesArr[quesId].name" value={{quesArr[quesId].name}}>
+                    <div class="faq-question-wrap faq-question-wrap1" *ngIf="topic.questions && topic.questions.length">
+                      <h4 *ngFor="let ques of topic.questions"><b>{{ques.name}}</b>
+                        <input class="faq-que-edit-text-box" [class.active]="showQues[ques.id]"
+                               type="text"[(ngModel)]="ques.name" value={{ques.name}}>
                         <div class="faq-question-actions">
                           <span class="edit_question3"
-                                (click)="showQues[quesId] = !showQues[quesId]; editQues(quesArr[quesId].name, quesId)">
+                                (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id)">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                           </span>
                           <span class="del_question2">
