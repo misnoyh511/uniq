@@ -9,18 +9,6 @@
 .dashboard-new-title-wrap .title-links a:hover {background:rgba(255,255,255,0.3);}
 .dashboard-new-title-wrap .title-links a img {width:20px;}
 
-.dashboard-step-list {background:#2b3950;}
-.dashboard-step-list li {width:33%; text-align:center;}
-.dashboard-step-list li a {padding:15px 10px; color:#fff !important; }
-.dashboard-step-list li a strong {height: 35px;width: 35px;margin: 0 10px 0 0;line-height: 35px; display:inline-block; background-color:#374254; border-radius:100%;
-    font-size:18px; color:#fff;}
-.dashboard-step-list li a:hover, .dashboard-step-list li a.active {background-color:rgba(0,0,0,0.08) !important;}
-.dashboard-step-list li a:hover strong {background-color: #3b475a;}
-.dashboard-step-list li a:hover span {opacity:1;}
-.dashboard-step-list li a.active span {opacity:1;}
-.dashboard-step-list li a.active strong {background-color: #0095f7;}
-.dashboard-step-list li a span {font-size:16px;opacity:0.7;}
-
 .dashboard-new-wrapper .tab-content {margin:0;}
 
 .right-side-form.color-pick-section{

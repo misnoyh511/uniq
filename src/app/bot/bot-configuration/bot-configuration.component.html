@@ -219,7 +219,7 @@ https://www.shareanalyticslink.com/sdasdsdasdsdmnlmnlmslnxjcnxc/sadsadnssad.html
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="white-btn modal-btns" [class.disabled]="email === ''" (click)="showEditPass = false; deleteBot();">Delete My Bot</button>
+                  <button type="button" class="white-btn modal-btns" [class.disabled]="email !== this.userData.email" (click)="showEditPass = false; deleteBot();">Delete My Bot</button>
                   <button type="button" class="white-btn modal-btns" (click)="showEditPass = false">Go Back</button>
                 </div>
               </div>

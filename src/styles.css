@@ -387,6 +387,9 @@ p{margin:0 0 20px 0; }
 .app-version-dashboard span {color: #A2B0C4 ;font-family:"Roboto Condensed",helvetica,arial,sans-serif; font-size:14px; font-weight:700;}
 .app-version-dashboard a {color: rgba(255,255,255,0.5); float:right; margin:0 10px;}
 .app-version-dashboard a:hover {color:#fff; cursor: pointer}
+.dashboard-logo-wrap a img {
+    max-width: 50%!important;
+}
 
 .app-version-dashboard label {font-size: 15px;font-weight: 400;display: block;margin: 5px 0 5px 20px; color:#fff;font-family:"Roboto Condensed",helvetica,arial,sans-serif; text-align:left;}
 .app-version-dashboard ul {list-style:none; padding:0; text-align:left; margin:10px 0 0;}
@@ -450,7 +453,7 @@ p{margin:0 0 20px 0; }
 .dashboard-new-title-wrap .title-links a img {width:20px;}
 
 .dashboard-step-list {background:#2b3950;}
-.dashboard-step-list li {width:33%; text-align:center;}
+.dashboard-step-list li {width:50%; text-align:center;}
 .dashboard-step-list li a {padding:15px 10px; color:#fff !important; }
 .dashboard-step-list li a strong {height: 35px;width: 35px;margin: 0 10px 0 0;line-height: 35px; display:inline-block; background-color:#374254; border-radius:100%;
   font-size:18px; color:#fff;}
@@ -1819,3 +1822,7 @@ a.mat-mini-fab.mat-primary {
 }
 
 .dashboard-new-steps-wrapper .nav-pills>li.active>a{ background: transparent}
+
+.nav-pills>li+li {
+     margin-left: 0!important;
+}

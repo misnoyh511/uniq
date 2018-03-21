@@ -9,7 +9,7 @@
         <h3>Create	A	New	Bot</h3>
         <div class="title-links">
           <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()" class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
-          <a data-toggle="pill" href="#launch" class="launch-link" (click)="checkValidation()"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>
+          <!--<a data-toggle="pill" href="#launch" class="launch-link" (click)="checkValidation()"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>-->
         </div>
       </div>
       <div class="dashboard-new-steps-wrapper">
@@ -26,12 +26,12 @@
               <span>Look &amp; Feel</span>
             </a>
           </li>
-          <li class="nav-item step-links">
+          <!--<li class="nav-item step-links">
             <a class="nav-link" id="new-step4" (click)="showModules = true; showLook = showNlp = false;" [class.active]="showModules" data-toggle="pill" href="#customize" role="tab" aria-controls="customize" aria-selected="true">
               <strong>3</strong>
               <span>Modules</span>
             </a>
-          </li>
+          </li>-->
         </ul>
         <div class="tab-content">
           <div class="tab-pane active" id="capture" role="tabpanel" aria-labelledby="new-step1">
@@ -88,7 +88,7 @@
             </div>
           </div>
 
-          <div  class="tab-pane" id="message" role="tabpanel" aria-labelledby="new-step3">
+          <div  class="tab-pane" id="message" role="tabpanel" aria-labelledby="new-step3" [class.active]="showLook">
             <div class="tab-content-wrap message-wrapper">
               <div class="row">
                 <div class="col-lg-9">
@@ -96,6 +96,18 @@
                 <div class="step-inner-title">
                   <h3>Give it a name</h3>
                 </div>
+
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <p>Project Name
+                    <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showProject"> The Operator name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
+                  </p>
+                  <div class="login-form-elements">
+                    <label> Enter Project Name</label>
+                    <input type="text" name="name" (keypress)="operator = true" [(ngModel)]="bot.name">
+                  </div>
+                </div>
+
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <p>Bot Operator Name
                     <sup><i (mouseover)="showBotName= true" (mouseout)="showBotName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
@@ -261,25 +273,35 @@
                   </div>
                 </div>
               </div>
+              <div class="error-msg-wrap">
+                <div class="error-message" *ngFor="let error of errors">
+                  <span>{{error.message}}</span>
+
+                  <button class="launchBtnBack errorBtn errorBtnStep1" data-toggle="pill" [attr.href]="error.value"
+                          (click)="redirectPage(error.value);">Resolve
+                  </button>
+                </div>
+              </div>
             </div>
+
             <div class="next-button-wrap">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="blank-wrap">
-                    <a data-toggle="pill" href="#capture"  (click)="next();  showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
+                    <a data-toggle="pill" href="#capture"  (click)="showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button class="btnNext" data-toggle="pill" href="#customize"
-                          (click)="next(); showNlp = showLook = false; showModules = true;">
-                    Next
+                  <button class="btnNext" data-toggle="pill" (click)="checkValidation();">
+                    Save & Next
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4">
+
+          <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4" [class.active]="showModules">
             <div class="tab-content-wrap modules-page">
               <div class="row main-modules-wrap">
                 <div class="col-lg-9">
@@ -355,12 +377,12 @@
                                   class="fa fa-trash" aria-hidden="true"></i></span>
                               </div>
                               <div class="faq-question-wrap faq-question-wrap1">
-                                <h4 *ngFor="let quesId of topic.links.questions"><b>{{quesArr[quesId].name}}</b>
-                                  <input class="faq-que-edit-text-box" [class.active]="showQues[quesId]"
-                                         type="text"[(ngModel)]="quesArr[quesId].name" value={{quesArr[quesId].name}}>
+                                <h4 *ngFor="let ques of topic.questions"><b>{{ques.name}}</b>
+                                  <input class="faq-que-edit-text-box" [class.active]="showQues[ques.id]"
+                                         type="text"[(ngModel)]="ques.name" value={{ques.name}}>
                                   <div class="faq-question-actions">
                                       <span class="edit_question3"
-                                            (click)="showQues[quesId] = !showQues[quesId]; editQues(quesArr[quesId].name, quesId)">
+                                            (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id)">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                       </span>
                                     <span class="del_question2">
@@ -554,8 +576,8 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <button data-toggle="pill" href="#launch" (click)="checkValidation();" class="btnNext launchBtn">
-                    Save
+                  <button data-toggle="pill" href="#launch" (click)="editBot()" class="btnNext launchBtn">
+                    Launch
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                   </button>
                 </div>
@@ -563,13 +585,13 @@
             </div>
           </div>
 
-          <div class="tab-pane" id="launch" role="tabpanel" aria-labelledby="new-step5">
+          <!--<div class="tab-pane" id="launch" role="tabpanel" aria-labelledby="new-step5">
             <div class="tab-content-wrap">
               <div class="step-inner-wrapper">
                 <div class="step-inner-title">
                   <h3>Give this Project an internal name</h3>
                 </div>
-                <div class="full-width-input-fields full-width-input-fields-step4">
+                &lt;!&ndash;<div class="full-width-input-fields full-width-input-fields-step4">
                   <p>Project Name
                     <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showProject"> The Operator name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
@@ -579,18 +601,7 @@
                     <input type="text" name="name" (keypress)="operator = true" [(ngModel)]="bot.name">
                   </div>
                 </div>
-              </div>
-              <div class="error-msg-wrap">
-                <div class="error-message" *ngFor="let error of errors">
-                  <span>{{error.message}}</span>
-
-                  <button class="launchBtnBack errorBtn errorBtnStep1" data-toggle="pill" [attr.href]="error.value"
-                  (click)="redirectPage(error.value);">Resolve
-                  </button>
-                </div>
-              </div>
-            </div>
-
+              </div>&ndash;&gt;
 
             <div class="next-button-wrap">
               <div class="row">
@@ -609,7 +620,7 @@
             </div>
           </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </div>
 

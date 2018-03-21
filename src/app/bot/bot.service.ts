@@ -45,19 +45,17 @@ export class BotService {
         return response.json();
       })
       .catch((err: Response) => {
-        return Observable.of(err);
+        return Observable.of(err.json());
       });
   }
 
   addFaq(que) {
-    console.log('que', que);
       const myHeaders = new Headers();
       this.httpClient.createAuthorizationHeader(myHeaders);
       /*myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');*/
       const options = new RequestOptions({ headers: myHeaders});
     return this.http.post(AppConfig.API_ENDPOINT + '/topics/', que, options)
       .map(response => {
-        console.log('response', response);
         return response.json();
       })
       .catch((err: Response) => {

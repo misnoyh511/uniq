@@ -15,7 +15,7 @@ export class NewBotService {
   notifyToken(x: any) {
   }
 
-   addFaq(que) {
+   /*addFaq(que) {
     const myHeaders = new Headers();
     const token = this.localStorageService.getSessionToken();
     myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
@@ -32,7 +32,7 @@ export class NewBotService {
         .catch((err: Response) => {
           return Observable.of(err);
         });
-  }
+  }*/
 
   getBot() {
     const myHeaders = new Headers();
@@ -57,7 +57,7 @@ export class NewBotService {
         return response.json();
       })
       .catch((err: Response) => {
-        return Observable.of(err);
+        return Observable.of(err.json());
       });
 
   }
@@ -74,7 +74,7 @@ export class NewBotService {
     });
   }
 
-  addFaqQuestion(ques) {
+  /*addFaqQuestion(ques) {
     const myHeaders = new Headers();
     const token = this.localStorageService.getSessionToken();
     myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
@@ -155,5 +155,5 @@ export class NewBotService {
       .catch((err: Response) => {
         return Observable.of(err);
       });
-  }
+  }*/
 }
