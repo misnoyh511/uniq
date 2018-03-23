@@ -214,12 +214,12 @@ https://www.shareanalyticslink.com/sdasdsdasdsdmnlmnlmslnxjcnxc/sadsadnssad.html
                 </div>
                 <div class="modal-body">
                   <div class="db-form-elements">
-                    <label>Please type your email address to confirm you want to delete your bot: <span>agodoy@gmail.com</span></label>
+                    <label>Please type your email address to confirm you want to delete your bot: <span>{{userData.email}}</span></label>
                     <input type="text" class="modal-btns" [(ngModel)]="email">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="white-btn modal-btns" [class.disabled]="email !== this.userData.email" (click)="showEditPass = false; deleteBot();">Delete My Bot</button>
+                  <button type="button" class="white-btn modal-btns" [class.disabled]="email !== userData.email" (click)="showEditPass = false; deleteBot();">Delete My Bot</button>
                   <button type="button" class="white-btn modal-btns" (click)="showEditPass = false">Go Back</button>
                 </div>
               </div>
