@@ -7,7 +7,7 @@
   <div class="dashboard-sidebar" [class.dashboard-sidebar-toggled]="showMenu">
     <div class="dashboard-logo-wrap">
       <!--<a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>-->
-      <a [routerLink]="(['/'])"><img src="../assets/images/new-un-logo.png" alt=""></a>
+      <img src="../assets/images/new-un-logo.png" alt="">
     </div>
     <div class="dashboard-new">
       <a [routerLink]="(['/new-bot'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = false;" class="cursor blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> <span>New Bot</span></a>
