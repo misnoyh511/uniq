@@ -454,7 +454,7 @@ p{margin:0 0 20px 0; }
 .dashboard-new-title-wrap .title-links a img {width:20px;}
 
 .dashboard-step-list {background:#2b3950;}
-.dashboard-step-list li {width:50%; text-align:center;}
+.dashboard-step-list li {width:33%; text-align:center;}
 .dashboard-step-list li a {padding:15px 10px; color:#fff !important; }
 .dashboard-step-list li a strong {height: 35px;width: 35px;margin: 0 10px 0 0;line-height: 35px; display:inline-block; background-color:#374254; border-radius:100%;
   font-size:18px; color:#fff;}
@@ -1826,4 +1826,8 @@ a.mat-mini-fab.mat-primary {
 
 .nav-pills>li+li {
      margin-left: 0!important;
+}
+
+.nav-link.disabled {
+    background: none!important;
 }
