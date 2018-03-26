@@ -4,6 +4,15 @@
   .dashboard-automate-container .row {margin:0;}
   .app-version-dashboard {min-width:0; max-width:none; width:15%;}
   .sub-nav-list {width:85%;}
+  .main-navigation ul li a {padding: 25px 10px;}
+  .main-navigation {
+    text-align: center;
+    width: auto;
+  }
+  .navbar-nav {
+    float: right;
+    margin: 0;
+  }
 }
 @media only screen and (min-width: 1367px) and (max-width: 1919px) {
   .dashboard-sidebar {max-width:317px;}
@@ -46,7 +55,7 @@
 @media only screen and (min-width:1025px) and (max-width:1200px)
 {
   .header-main {width:100%;}
-  .main-navigation {width:592px;}
+  .main-navigation {width:auto;}
   .login-form-wrap {width:100%;}
   .signup-sidebar {width:300px;}
   .signup-main .col-md-9 {width: calc(100% - 300px);}
@@ -67,6 +76,12 @@
   .sub-nav-list ul {width:100%;}
   .automate-content-wrapper .sub-nav-list ul {width:auto;}
   .header-share-btn {top:90px;}
+
+  .navbar-nav {
+    float: right;
+    margin: 0;
+  }
+
 }
 @media only screen and (min-width: 1025px)
 {
