@@ -34,7 +34,7 @@
         </div>
         </div>
 
-      <ul>
+      <ul class="sideMenu">
         <li><a (click)="showMenu = !showMenu; showKnowledge = true; showConversation = showReport = showStarted = showAccount = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])"><i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center</a></li>
         <li><a (click)="showMenu = !showMenu; showConversation = true; showKnowledge = showReport = showStarted = showAccount = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])"><i class="fa fa-comments" aria-hidden="true"></i> Conversations</a></li>
         <li><a (click)="showMenu = !showMenu; showReport = true; showConversation = showKnowledge = showStarted = showAccount = false;" [class.active]="showReport" [routerLink]="(['reports/analytics'])"><i class="fa fa-line-chart" aria-hidden="true"></i>
