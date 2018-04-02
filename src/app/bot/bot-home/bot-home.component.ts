@@ -27,8 +27,6 @@ export class botHomeComponent implements OnInit, OnDestroy {
     this.sbs.botData.subscribe((data) => {
       this.botData = data;
     });
-
-    this.analytics_token = this.botData.analytics_token;
   }
 
   ngOnDestroy() {

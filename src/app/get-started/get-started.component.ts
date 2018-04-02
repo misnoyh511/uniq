@@ -22,6 +22,7 @@ export class GetStartedComponent implements OnInit, OnDestroy {
     });
 
     this.sbs.botData.subscribe((data) => {
+      this.sbs.savedData = data;
       this.analytics_token = data.analytics_token;
     });
   }
