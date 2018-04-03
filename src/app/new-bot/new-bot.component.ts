@@ -269,6 +269,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
         this.Service.broadcastToken(this.bot).subscribe((response) => {
             this.bot = response;
             this.sbs.savedData = response;
+            this.sbs.token = response.analytics_token;
             this.sbs.deleteMsg = '';
             this.sbs.getBot().subscribe((data) => {
                 this.snackBarService.openSnackBar('Bot Created');

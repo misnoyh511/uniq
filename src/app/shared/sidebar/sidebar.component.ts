@@ -76,6 +76,7 @@ export class SidebarComponent implements OnInit {
         this.router.navigate(['/bot-home']);
         this.currentBot = botData.name;
         this.Service.savedData = botData;
+        this.Service.token = botData.analytics_token;
         this.getBotData();
       } else {
         this.currentBot = botData.name;
@@ -93,6 +94,7 @@ export class SidebarComponent implements OnInit {
   getBotData() {
     for (const i in this.bot) {
       if (this.bot[i].name === this.currentBot) {
+        this.Service.token = this.bot[i].analytics_token;
         if (location.pathname === '/get-started') {
           this.Service.somethingHappend(this.bot[i]);
         } else {
