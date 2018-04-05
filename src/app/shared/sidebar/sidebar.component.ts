@@ -30,8 +30,7 @@ export class SidebarComponent implements OnInit {
   botData: any = {};
   showMenu = false;
 
-  constructor(private authenticationService: AuthenticationService, private location: Location, private Service: SidebarService,
-              private router: Router) { }
+  constructor(private Service: SidebarService, private router: Router) { }
 
   ngOnInit() {
     this.Service.botList.subscribe((data) => {
@@ -40,6 +39,7 @@ export class SidebarComponent implements OnInit {
         this.showStarted = true;
         this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
         this.currentBot = this.bot[0].name;
+        this.Service.token = this.bot[0].analytics_token;
       } else {
         this.currentBot = this.Service.savedData.name;
       }
