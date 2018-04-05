@@ -4,14 +4,13 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
-import { Observable } from 'rxjs/Observable';
-import {AppConfig} from "../app.config";
+import {AppConfig} from '../app.config';
 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router,private afAuth : AngularFireAuth) {
+    constructor(private router: Router, private afAuth: AngularFireAuth) {
     }
 
     /**
@@ -21,10 +20,17 @@ export class AuthGuard implements CanActivate {
      * @returns {boolean}
      */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if(localStorage[AppConfig.USER_INFO_KEY]){
-            let user = JSON.parse(localStorage[AppConfig.USER_INFO_KEY]);
-            return (user.session_token)? true : false;
+        if (localStorage[AppConfig.USER_INFO_KEY]) {
+            const user = JSON.parse(localStorage[AppConfig.USER_INFO_KEY]);
+             if (user.session_token) {
+                 return true;
+             } else {
+                 this.router.navigate(['login']);
+                 return false;
+             }
+        } else {
+            this.router.navigate(['login']);
+            return false;
         }
-        return false;
     }
 }

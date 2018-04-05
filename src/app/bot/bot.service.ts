@@ -146,4 +146,18 @@ export class BotService {
       });
   }
 
+    deleteFaqQuestion(quesId) {
+        const myHeaders = new Headers();
+        this.httpClient.createAuthorizationHeader(myHeaders);
+        const options = new RequestOptions({ headers: myHeaders});
+
+        return this.http.delete(AppConfig.API_ENDPOINT + '/questions/' + quesId, options)
+            .map(response => {
+                return response.json();
+            }).catch((err: Response) => {
+                return Observable.throw(err);
+            });
+    }
+
+
 }
