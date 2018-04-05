@@ -200,6 +200,17 @@ export class botModulesComponent implements OnInit, OnDestroy {
         }
     }
 
+    deleteFaqQuestion(quesId) {
+        if (confirm('This will delete this question. You sure?')) {
+            this.botService.deleteFaqQuestion(quesId).subscribe((data) => {
+                this.getBotData(this.botData.id);
+                this.snackBarService.openSnackBar('Faq Question Deleted');
+            }, (err) => {
+                console.log(err);
+            });
+        }
+    }
+
 }
 
 @Component({
