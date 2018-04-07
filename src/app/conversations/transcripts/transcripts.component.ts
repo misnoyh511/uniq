@@ -18,6 +18,11 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
   totalMsgs = [];
   startTime: any;
   analytics_token: string;
+  itemPerPage = 10;
+  itemsPerPage: any = [];
+  items: any = [];
+  pageNo = 0;
+  totalPages: number;
 
   constructor(private conversationsService: ConversationsService, public sbs: SidebarService) {
   }
@@ -97,6 +102,9 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
             }
           }
         }
+          this.itemsPerPage = this.getItemPerPage(this.transcripts.length);
+          this.totalPages = Math.ceil(this.transcripts.length / this.itemPerPage);
+          this.getPaginatedData();
       }
 
     }, (err) => {
@@ -117,6 +125,44 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     this.totalMsgs = transcript.totalMsgs;
     this.startTime = transcript.created_at;
   }
+
+    getItemPerPage(count) {
+        if (count <= 10) {
+            return [];
+        } else if (count <= 25) {
+            return [10, 25];
+        } else if (count <= 50) {
+            return [10, 25, 50];
+        } else {
+            return [10, 25, 50, 100];
+        }
+    }
+
+    goBack() {
+        this.pageNo = this.pageNo - 1;
+        this.getPaginatedData();
+    }
+
+    goAhead() {
+      this.pageNo = this.pageNo + 1;
+        this.getPaginatedData();
+    }
+
+    getItemCount() {
+    this.pageNo = 0;
+    this.totalPages = Math.ceil(this.transcripts.length / this.itemPerPage);
+    this.getPaginatedData();
+    }
+
+    getPaginatedData() {
+        this.items = [];
+      for (let j = (this.pageNo * this.itemPerPage); j < (this.itemPerPage * (this.pageNo + 1)); j++) {
+        this.items.push(this.transcripts[j]);
+        if (j === this.transcripts.length - 1) {
+          break;
+        }
+      }
+    }
 
 }
 

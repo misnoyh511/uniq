@@ -13,6 +13,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     selectedValue = 'all';
     feedback_type: number;
     analytics_token: string;
+    itemPerPage = 10;
+    itemsPerPage: any = [];
+    items: any = [];
+    pageNo = 0;
+    totalPages: number;
     constructor(private reportsService: ReportsService, public sbs: SidebarService) {
     }
 
@@ -48,6 +53,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               return item.text;
             });
             this.sessions = this.compressArray(valueArr);
+              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+              this.getPaginatedData();
           }, (err) => {
             console.log(err);
           });
@@ -57,6 +65,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               return item.text;
             });
             this.sessions = this.compressArray(valueArr);
+              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+              this.getPaginatedData();
           }, (err) => {
             console.log(err);
           });
@@ -71,6 +82,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               });
               const valueArr = posValueArr.concat(negValueArr);
               this.sessions = this.compressArray(valueArr);
+                this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                this.getPaginatedData();
             }, (err) => {
               console.log(err);
             });
@@ -85,6 +99,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               return item.text;
             });
             this.sessions = this.compressArray(valueArr);
+              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+              this.getPaginatedData();
           }, (err) => {
             console.log(err);
           });
@@ -94,6 +111,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               return item.text;
             });
             this.sessions = this.compressArray(valueArr);
+              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+              this.getPaginatedData();
           }, (err) => {
             console.log(err);
           });
@@ -108,6 +128,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               });
               const valueArr = posValueArr.concat(negValueArr);
               this.sessions = this.compressArray(valueArr);
+                this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                this.getPaginatedData();
             }, (err) => {
               console.log(err);
             });
@@ -147,5 +170,43 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
     return compressed;
   }
+
+    getItemPerPage(count) {
+        if (count <= 10) {
+            return [];
+        } else if (count <= 25) {
+            return [10, 25];
+        } else if (count <= 50) {
+            return [10, 25, 50];
+        } else {
+            return [10, 25, 50, 100];
+        }
+    }
+
+    goBack() {
+        this.pageNo = this.pageNo - 1;
+        this.getPaginatedData();
+    }
+
+    goAhead() {
+        this.pageNo = this.pageNo + 1;
+        this.getPaginatedData();
+    }
+
+    getItemCount() {
+        this.pageNo = 0;
+        this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+        this.getPaginatedData();
+    }
+
+    getPaginatedData() {
+        this.items = [];
+        for (let j = (this.pageNo * this.itemPerPage); j < (this.itemPerPage * (this.pageNo + 1)); j++) {
+            this.items.push(this.sessions[j]);
+            if (j === this.sessions.length - 1) {
+                break;
+            }
+        }
+    }
 
 }

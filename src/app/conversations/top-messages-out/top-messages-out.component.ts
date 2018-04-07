@@ -16,6 +16,11 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
     totalCount = 0;
     colorClass = ['green-bar', 'purple-bar', 'blue-bar', 'orange-bar', 'maron-bar'];
     analytics_token: string;
+    itemPerPage = 10;
+    itemsPerPage: any = [];
+    items: any = [];
+    pageNo = 0;
+    totalPages: number;
 
   constructor(private conversationsService: ConversationsService, public sbs: SidebarService) { }
 
@@ -46,9 +51,50 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
       for (const i in this.topMessagesOut) {
         this.totalCount = this.totalCount + parseInt(this.topMessagesOut[i].count);
       }
+        this.itemsPerPage = this.getItemPerPage(this.topMessagesOut.length);
+        this.totalPages = Math.ceil(this.topMessagesOut.length / this.itemPerPage);
+        this.getPaginatedData();
     }, (err) => {
       console.log(err);
     });
   }
+
+    getItemPerPage(count) {
+        if (count <= 10) {
+            return [];
+        } else if (count <= 25) {
+            return [10, 25];
+        } else if (count <= 50) {
+            return [10, 25, 50];
+        } else {
+            return [10, 25, 50, 100];
+        }
+    }
+
+    goBack() {
+        this.pageNo = this.pageNo - 1;
+        this.getPaginatedData();
+    }
+
+    goAhead() {
+        this.pageNo = this.pageNo + 1;
+        this.getPaginatedData();
+    }
+
+    getItemCount() {
+        this.pageNo = 0;
+        this.totalPages = Math.ceil(this.topMessagesOut.length / this.itemPerPage);
+        this.getPaginatedData();
+    }
+
+    getPaginatedData() {
+        this.items = [];
+        for (let j = (this.pageNo * this.itemPerPage); j < (this.itemPerPage * (this.pageNo + 1)); j++) {
+            this.items.push(this.topMessagesOut[j]);
+            if (j === this.topMessagesOut.length - 1) {
+                break;
+            }
+        }
+    }
 
 }

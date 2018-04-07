@@ -41,7 +41,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let transcript of transcripts">
+              <tr *ngFor="let transcript of items">
                 <td><a class="toggle-chat-wrap" href="#">{{transcript.created_at | date : 'MMM d, y h:mm:ss'}}</a></td>
                 <td><i class="fa fa-user" aria-hidden="true"></i> {{transcript.session_id}}</td>
                 <td>{{(transcript.totalMsgs.length <=2) ? 'less then 15 seconds' : (transcript.totalMsgs.length <= 10) ? '15 seconds to one min' : 'more then 1 min'}}</td>
@@ -51,6 +51,35 @@
               </tr>
               </tbody>
             </table>
+
+            <div class="pagination-export-wrapper">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="export-btn-wrap pagination-export-wrap">
+                    <button class="blue-btn">Export CSV</button>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="pagination-wrap hide-prev pagination-export-wrap">
+                    <ul>
+                      <!--<li><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>-->
+                      <li (click)="goBack()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a></li>
+                      <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="number-of-items-wrap pagination-export-wrap">
+                    <form>
+                      <label>Number of Items</label>
+                      <select [(ngModel)]="itemPerPage" name="itemPerPage" (change)="getItemCount()">
+                        <option *ngFor="let page of itemsPerPage">{{page}}</option>
+                      </select>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
