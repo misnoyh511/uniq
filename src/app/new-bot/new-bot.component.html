@@ -251,8 +251,10 @@
                     <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                   </span>
                   <div class="right-side-form color-pick-section">
-                    <input type="color" name="color" [(ngModel)]="bot.tab_color">
+                    <input type="color" class="color-picker-input" maxlength="6" size="6" id="colorpickerField1"
+                           value="00ff00" data-input-id="appearance3" name="color" [(ngModel)]="bot.tab_color" />
                     <span [ngStyle]="{'background': bot.tab_color}">{{bot.tab_color}}</span>
+
                   </div>
                 </div>
                 <div class="full-panel full-panel-step2">

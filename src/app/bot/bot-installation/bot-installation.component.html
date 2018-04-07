@@ -26,21 +26,8 @@
                 most cases this will be every page of your site)</p>
             </div>
             <div class="pixel-install-script">
-              <textarea id="selectable">
-                <script id=proof-script>!function () {
-                  function b() {
-                    var a = (new Date).getTime(), b = document.createElement('script');
-                    b.type = 'text/javascript', b.async = !0, b.src = 'https://cdn.getmoreproof.com/embed/latest/proof.js?' + a;
-                    var c = document.getElementsByTagName('script')[0];
-                    c.parentNode.insertBefore(b, c)
-                  }
-
-                  var a = window;
-                  a.attachEvent ? a.attachEvent('onload', b) : a.addEventListener('load', b, !1), window.proof_config = {
-                    acc: 'gazs86kGKuZ2DG5jvNhDx8s4VgB3',
-                    v: '1.1'
-                  }
-                }()</script>
+              <textarea id=".pixel-install-script textarea">
+                <script type="text/javascript" data-app-id="{{botData.id}}" src="http://service.allegra.ai/bot-script/bot.js" id=proof-script></script>
               </textarea>
               <button id="selectVal">
                 <i class="fa fa-copy" aria-hidden="true"></i>
