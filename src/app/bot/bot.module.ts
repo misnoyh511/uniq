@@ -8,12 +8,13 @@ import { botModulesComponent, JazzDialog } from './bot-modules/bot-modules.compo
 import {botRoutes} from './bot.routing';
 import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
-
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   imports: [
     RouterModule.forChild(botRoutes),
-    SharedModule
+    SharedModule,
+    ClipboardModule
   ],
   declarations: [botHomeComponent, botConfigurationComponent, botInstallationComponent, botLookFeelComponent,
     botModulesComponent, SubNavComponent, JazzDialog],

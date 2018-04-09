@@ -48,12 +48,14 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
     this.topMessagesOut = [];
     this.conversationsService.getTopMessagesOut(this.analytics_token).subscribe((response) => {
       this.topMessagesOut = response.data;
-      for (const i in this.topMessagesOut) {
-        this.totalCount = this.totalCount + parseInt(this.topMessagesOut[i].count);
-      }
-        this.itemsPerPage = this.getItemPerPage(this.topMessagesOut.length);
-        this.totalPages = Math.ceil(this.topMessagesOut.length / this.itemPerPage);
-        this.getPaginatedData();
+        if (this.topMessagesOut && this.topMessagesOut.length) {
+            for (const i in this.topMessagesOut) {
+                this.totalCount = this.totalCount + parseInt(this.topMessagesOut[i].count);
+            }
+            this.itemsPerPage = this.getItemPerPage(this.topMessagesOut.length);
+            this.totalPages = Math.ceil(this.topMessagesOut.length / this.itemPerPage);
+            this.getPaginatedData();
+        }
     }, (err) => {
       console.log(err);
     });

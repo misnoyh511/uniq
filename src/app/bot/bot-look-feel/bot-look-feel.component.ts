@@ -18,6 +18,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
   showWelcome = false;
   showTitle = false;
   showWaiting = false;
+    showTab = false;
   showAvatar = false;
   showCover = false;
   showBackClr = false;
@@ -36,7 +37,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
               private sbs: SidebarService, public snackBarService: SnackBarService) { }
 
   ngOnInit() {
-    this.botData.medium_ids = [];
+    this.botData.medium_ids = [null, null];
     if (this.sbs.savedData) {
       this.botData = this.sbs.savedData;
       this.getImage();
@@ -53,6 +54,10 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
   }
 
   getImage() {
+      this.imageUrl = '';
+      this.coverUrl = '';
+      this.imagePreview = '';
+      this.coverPreview = '';
     this.floatingIcon = this.botData.icon_tab;
     this.latteralTab = !this.botData.icon_tab;
     if (this.botData.avatar_icon) {
@@ -63,7 +68,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       this.coverUrl = this.botData.cover_image;
       this.coverPreview = this.botData.cover_image;
     }
-    this.botData['medium_ids'] = [];
+    this.botData['medium_ids'] = [null, null];
   }
 
   ngOnDestroy() {
@@ -95,7 +100,8 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       tab_text_color: this.botData.tab_text_color,
       icon_color: this.botData.tab_text_color,
       operator_name: this.botData.operator_name,
-      medium_ids: this.botData.medium_ids
+      medium_ids: this.botData.medium_ids,
+        tab_name: this.botData.tab_name
     };
     this.botService.editBot(bot, this.botData.id).subscribe((data) => {
       this.botData = data;
@@ -149,7 +155,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       formData.append('role', 'avatar');
 
       this.newBotService.upload(formData).subscribe((response) => {
-          this.botData.medium_ids.push(response.media[0].id);
+          this.botData.medium_ids[0] = response.media[0].id;
           this.snackBarService.openSnackBar('Avatar Image Uploaded');
         },
         (error) => {
@@ -167,7 +173,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       formData.append('role', 'cover');
 
       this.newBotService.upload(formData).subscribe((response) => {
-          this.botData.medium_ids.push(response.media[0].id);
+              this.botData.medium_ids[1] = response.media[0].id;
           this.snackBarService.openSnackBar('Cover Image Uploaded');
         },
         (error) => {

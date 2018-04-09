@@ -26,14 +26,16 @@
                 most cases this will be every page of your site)</p>
             </div>
             <div class="pixel-install-script">
-              <textarea id=".pixel-install-script textarea">
+              <textarea id=".pixel-install-script textarea" #inputTarget>
                 <script type="text/javascript" data-app-id="{{botData.id}}" src="http://service.allegra.ai/bot-script/bot.js" id=proof-script></script>
               </textarea>
-              <button id="selectVal">
-                <i class="fa fa-copy" aria-hidden="true"></i>
-                Copy To Clipboard
+              <button id="selectVal" [class.btn-info]= "isCopied" type="button" [ngxClipboard]="inputTarget" (cbOnSuccess)="isCopied = true">
+                <span *ngIf="!isCopied"><i class="fa fa-copy" aria-hidden="true"></i>
+                Copy To Clipboard</span>
+                <span *ngIf="isCopied" style="color: white">Copied</span>
               </button>
             </div>
+            {{isCopied}}
             <div class="install-success-wrap">
               <p>Congrats! Your pixel is sending data!</p>
               <span>Last pageview was tracked <strong>22 minutes ago</strong></span>

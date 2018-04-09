@@ -204,6 +204,16 @@
                     <input name="waitingMsg" type="text" [(ngModel)]="bot.waiting_msg">
                   </div>
                 </div>
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <p>Tab Name
+                    <sup><i (mouseover)="showTab= true" (mouseout)="showTab= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showTab">The text that appears in the chatbot tab name field.</b>
+                  </p>
+                  <div class="login-form-elements">
+                    <label> Please	Enter A Tab Name</label>
+                    <input name="inputTitle" type="text" [(ngModel)]="bot.tab_name">
+                  </div>
+                </div>
               </div>
                 </div>
                 <div class="col-lg-3">

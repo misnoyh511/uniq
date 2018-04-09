@@ -8,6 +8,7 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
 })
 export class botInstallationComponent implements OnInit {
     botData: any = {};
+    isCopied = false;
   constructor(public sbs: SidebarService) { }
 
   ngOnInit() {

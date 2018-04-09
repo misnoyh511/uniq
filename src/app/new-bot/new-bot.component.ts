@@ -68,6 +68,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     showWelcome = false;
     showTitle = false;
     showWaiting = false;
+    showTab = false;
     showAvatar = false;
     showCover = false;
     showBackClr = false;
@@ -109,7 +110,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.bot = {
             active: false,
-            tab_name: 'Asistencia Municipal',
             box_state: false,
             complements_title: 'Preguntas Frecuentes',
             feedback_type: 0,
@@ -118,7 +118,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
             dwell_time: null,
             closed_msg: 'admin disconnected',
             mobile_complements: false,
-            medium_ids: [],
+            medium_ids: [null, null],
             hybrid_msg: 'Necesitas asistencia? puedo ayudarte',
             hybrid_mobile: true
         };
@@ -149,7 +149,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
             formData.append('role', 'avatar');
 
             this.Service.upload(formData).subscribe((response) => {
-                    this.bot.medium_ids.push(response.media[0].id);
+                    this.bot.medium_ids[0] = response.media[0].id;
                     this.snackBarService.openSnackBar('Avatar Image Uploaded');
                 },
                 (error) => {
@@ -167,7 +167,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
             formData.append('role', 'cover');
 
             this.Service.upload(formData).subscribe((response) => {
-                    this.bot.medium_ids.push(response.media[0].id);
+                    this.bot.medium_ids[1] = response.media[0].id;
                     this.snackBarService.openSnackBar('Cover Image Uploaded');
                 },
                 (error) => {
@@ -215,7 +215,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
             this.errors.push({message: 'Token Missing', value: '#capture'});
         }
         if (!this.bot.operator_name || !this.bot.chat_window_name || !this.bot.initial_greeting ||
-            !this.bot.input_title || this.bot.waiting_msg) {
+            !this.bot.input_title || this.bot.waiting_msg || this.bot.tab_name) {
             if (!this.bot.operator_name) {
                 this.errors.push({
                     message: 'Bot Name is Missing', value: '#message'
@@ -239,6 +239,11 @@ export class NewBotComponent implements OnInit, OnDestroy {
             if (!this.bot.waiting_msg) {
                 this.errors.push({
                     message: 'Waiting Message is Missing', value: '#message'
+                });
+            }
+            if (!this.bot.tab_name) {
+                this.errors.push({
+                    message: 'Tab Name is Missing', value: '#message'
                 });
             }
         }
