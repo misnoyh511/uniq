@@ -12,8 +12,7 @@ export class AppComponent {
   constructor(private router: Router, public ngProgress: NgProgress) {
     router.events.subscribe((val) => {
       this.getUrl = router.url;
-      // console.log("geturl",this.getUrl);
-      if (router.url === '/home' || router.url.indexOf('features') > -1 || router.url.indexOf('integrations') > -1 ||
+      if (router.url === '/home' || router.url.indexOf('bot-preview') > -1 || router.url.indexOf('features') > -1 || router.url.indexOf('integrations') > -1 ||
         router.url.indexOf('pricing') > -1 || router.url.indexOf('login') > -1 || router.url.indexOf('sign-up') > -1) {
         this.hideSideBar = false;
       } else {

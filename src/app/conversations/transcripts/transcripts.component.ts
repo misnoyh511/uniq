@@ -23,6 +23,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
   items: any = [];
   pageNo = 0;
   totalPages: number;
+  botName: '';
 
   constructor(private conversationsService: ConversationsService, public sbs: SidebarService) {
   }
@@ -34,11 +35,13 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     }
     this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
+      this.botName = data[0].name;
       this.getTranscripts();
     });
 
     this.sbs.botData.subscribe((data) => {
       this.analytics_token = data.analytics_token;
+        this.botName = data.name;
       this.getTranscripts();
     });
   }
@@ -102,9 +105,10 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
             }
           }
         }
-          this.itemsPerPage = this.getItemPerPage(this.transcripts.length);
-          this.totalPages = Math.ceil(this.transcripts.length / this.itemPerPage);
-          this.getPaginatedData();
+        this.transcripts.reverse();
+        this.itemsPerPage = this.getItemPerPage(this.transcripts.length);
+        this.totalPages = Math.ceil(this.transcripts.length / this.itemPerPage);
+        this.getPaginatedData();
       }
 
     }, (err) => {
@@ -162,6 +166,11 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
           break;
         }
       }
+    }
+
+    moveToFirstPage() {
+    this.pageNo = 0;
+    this.getPaginatedData();
     }
 
 }

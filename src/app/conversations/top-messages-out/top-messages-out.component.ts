@@ -99,4 +99,9 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
         }
     }
 
+    moveToFirstPage() {
+        this.pageNo = 0;
+        this.getPaginatedData();
+    }
+
 }

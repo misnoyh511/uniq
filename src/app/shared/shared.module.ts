@@ -4,8 +4,8 @@ import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { CommonModule } from '@angular/common';
 import {SidebarComponent } from './sidebar/sidebar.component';
-import {MaterialComponentsModule} from "../material-components.module";
-import {FormsModule} from "@angular/forms";
+import {MaterialComponentsModule} from '../material-components.module';
+import {FormsModule} from '@angular/forms';
 
 
 declare var require: any;

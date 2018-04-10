@@ -78,7 +78,7 @@
                 <div class="col-md-4">
                   <div class="pagination-wrap hide-prev pagination-export-wrap">
                     <ul>
-                      <!--<li><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>-->
+                      <li (click)="moveToFirstPage()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>
                       <li (click)="goBack()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a></li>
                       <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
                     </ul>

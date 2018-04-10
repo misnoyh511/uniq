@@ -1848,7 +1848,22 @@ a.mat-mini-fab.mat-primary {
 
 .number-of-items-wrap {text-align:right;}
 .number-of-items-wrap label {font-size: 13px;color: #626597; margin-right:10px}
-.number-of-items-wrap select {-moz-appearance:none; -webkit-appearance:none; appearance:none; border:2px solid #6078ff; padding:5px 15px 5px 5px;border-radius:4px; color:#6078ff; background-image:url(./assets/images/select-icon.png); background-repeat:no-repeat; background-position:right;}
+.number-of-items-wrap select {
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    appearance:none;
+    border:2px solid #6078ff;
+    padding:5px 15px 5px 5px;
+    border-radius:4px; color:#6078ff;
+    background-image:url(./assets/images/select-icon.png);
+    background-repeat:no-repeat;
+    background-position: 32px;
+    width: 50px;
+}
+
+.nav>li>a:focus{
+    background-color: inherit;
+}
 
 
 @media only screen and (max-width: 767px) {

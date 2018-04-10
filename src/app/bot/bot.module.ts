@@ -9,6 +9,7 @@ import {botRoutes} from './bot.routing';
 import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { BotPreviewComponent } from './bot-preview/bot-preview.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     ClipboardModule
   ],
   declarations: [botHomeComponent, botConfigurationComponent, botInstallationComponent, botLookFeelComponent,
-    botModulesComponent, SubNavComponent, JazzDialog],
+    botModulesComponent, SubNavComponent, JazzDialog, BotPreviewComponent],
   entryComponents: [JazzDialog]
 })
 

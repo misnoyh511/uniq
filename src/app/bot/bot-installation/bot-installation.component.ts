@@ -9,7 +9,8 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
 export class botInstallationComponent implements OnInit {
     botData: any = {};
     isCopied = false;
-  constructor(public sbs: SidebarService) { }
+  constructor(public sbs: SidebarService) {
+  }
 
   ngOnInit() {
       if (this.sbs.savedData) {
@@ -23,5 +24,12 @@ export class botInstallationComponent implements OnInit {
           this.botData = data;
       });
   }
+    copyToClipboard() {
+    if (this.isCopied) {
+        setTimeout(() => {
+            this.isCopied = false;
+        }, 5000);
+    }
+}
 
 }

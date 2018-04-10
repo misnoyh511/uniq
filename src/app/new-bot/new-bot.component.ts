@@ -97,6 +97,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     errors: any = [];
     emptyField = false;
     operator = false;
+    dataSaved = false;
 
     constructor(private router: Router, private Service: NewBotService, public sbs: SidebarService, public botService: BotService,
                 public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
@@ -271,19 +272,24 @@ export class NewBotComponent implements OnInit, OnDestroy {
     }
 
     save() {
-        this.Service.broadcastToken(this.bot).subscribe((response) => {
-            this.bot = response;
-            this.sbs.savedData = response;
-            this.sbs.token = response.analytics_token;
-            this.sbs.deleteMsg = '';
-            this.sbs.getBot().subscribe((data) => {
-                this.snackBarService.openSnackBar('Bot Created');
-                this.showNlp = this.showLook = false;
-                this.showModules = true;
+        if (this.dataSaved) {
+            this.editBot();
+        } else {
+            this.Service.broadcastToken(this.bot).subscribe((response) => {
+                this.bot = response;
+                this.sbs.savedData = response;
+                this.sbs.token = response.analytics_token;
+                this.sbs.deleteMsg = '';
+                this.sbs.getBot().subscribe((data) => {
+                    this.snackBarService.openSnackBar('Bot Created');
+                    this.showNlp = this.showLook = false;
+                    this.showModules = true;
+                    this.dataSaved = true;
+                });
+            }, (err) => {
+                console.log(err);
             });
-        }, (err) => {
-            console.log(err);
-        });
+        }
     }
 
     editBot() {

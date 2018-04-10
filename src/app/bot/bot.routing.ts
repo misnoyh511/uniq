@@ -4,9 +4,10 @@ import { botConfigurationComponent } from './bot-configuration/bot-configuration
 import { botInstallationComponent } from './bot-installation/bot-installation.component';
 import { botLookFeelComponent } from './bot-look-feel/bot-look-feel.component';
 import { botModulesComponent } from './bot-modules/bot-modules.component';
-import {AuthGuard} from "../auth-guard/auth-guard.middleware";
+import {BotPreviewComponent} from './bot-preview/bot-preview.component';
+import {AuthGuard} from '../auth-guard/auth-guard.middleware';
 
-export const botRoutes:Routes = [
+export const botRoutes: Routes = [
   {
     path: 'bot-home',
     component: botHomeComponent,
@@ -31,5 +32,10 @@ export const botRoutes:Routes = [
     path: 'bot-modules',
     component: botModulesComponent,
     canActivate: [AuthGuard]
-  }
+  },
+    {
+        path: 'bot-preview/:id',
+        component: BotPreviewComponent,
+        canActivate: [AuthGuard]
+    }
 ];
