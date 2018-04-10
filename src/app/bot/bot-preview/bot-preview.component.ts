@@ -15,7 +15,6 @@ export class BotPreviewComponent implements OnInit {
   ngOnInit() {
       this.route.params.subscribe(params => {
               // Defaults to 0 if no query param provided.
-              console.log('params', params);
               if (params && params.id) {
                   this.callScript(params.id);
               }
