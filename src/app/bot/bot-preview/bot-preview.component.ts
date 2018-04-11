@@ -34,7 +34,7 @@ export class BotPreviewComponent implements OnInit {
               botScript.src = this.id as string;
               botScript.id = 'proof-script';
               botScript.onload = resolve;
-              this._renderer2.appendChild(this._document.body, botScript);
+              this._renderer2.appendChild(this._document.head, botScript);
           });
       }
   }
