@@ -29,6 +29,12 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
       this.analytics_token =  this.sbs.token;
       this.getTopMessageOut();
     }
+
+      if (this.sbs.savedData) {
+          this.analytics_token = this.sbs.savedData.analytics_token;
+          this.getTopMessageOut();
+      }
+
     this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
       this.getTopMessageOut();

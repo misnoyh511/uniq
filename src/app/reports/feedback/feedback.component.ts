@@ -47,6 +47,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
     getSession() {
         this.items = [];
+        this.sessions = [];
         if (this.feedback_type) {
         if (this.selectedValue === 'negative') {
           this.reportsService.getNegativeChat(this.analytics_token).subscribe((response) => {

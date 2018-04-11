@@ -36,6 +36,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     if (this.sbs.savedData) {
         this.botName = this.sbs.savedData.name;
         this.analytics_token = this.sbs.savedData.analytics_token;
+        this.getTranscripts();
     }
     this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
