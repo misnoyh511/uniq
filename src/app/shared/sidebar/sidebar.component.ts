@@ -72,7 +72,7 @@ export class SidebarComponent implements OnInit {
   }
   dropDown(getUrl, botData) {
     if (botData) {
-      if (location.pathname === '/get-started') {
+        if (location.pathname === '/get-started' || location.pathname === '/new-bot') {
         this.router.navigate(['/bot-home']);
         this.currentBot = botData.name;
         this.Service.savedData = botData;

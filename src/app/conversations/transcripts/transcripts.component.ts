@@ -33,6 +33,10 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
       this.analytics_token =  this.sbs.token;
       this.getTranscripts();
     }
+    if (this.sbs.savedData) {
+        this.botName = this.sbs.savedData.name;
+        this.analytics_token = this.sbs.savedData.analytics_token;
+    }
     this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
       this.botName = data[0].name;
@@ -55,8 +59,9 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
   }
 
   getTranscripts() {
-    this.conversationsService.getTranscripts(this.analytics_token).subscribe((response) => {
       this.transcripts = [];
+      this.items = [];
+    this.conversationsService.getTranscripts(this.analytics_token).subscribe((response) => {
       if (response.data && response.data.length) {
         this.transcripts.push({
           client: response.data[0].client,

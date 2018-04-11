@@ -277,6 +277,13 @@ export class NewBotComponent implements OnInit, OnDestroy {
         } else {
             this.Service.broadcastToken(this.bot).subscribe((response) => {
                 this.bot = response;
+                this.bot.medium_ids = [null, null];
+                if (this.bot.avatar_icon) {
+                    this.bot.medium_ids[0] = this.bot.avatar_icon.split('/')[4];
+                }
+                if (this.bot.cover_image) {
+                    this.bot.medium_ids[1] = this.bot.cover_image.split('/')[4];
+                }
                 this.sbs.savedData = response;
                 this.sbs.token = response.analytics_token;
                 this.sbs.deleteMsg = '';
@@ -294,10 +301,22 @@ export class NewBotComponent implements OnInit, OnDestroy {
 
     editBot() {
         const bot = {
+            chat_window_name: this.bot.chat_window_name,
+            icon_tab: this.bot.icon_tab,
+            initial_greeting: this.bot.initial_greeting,
+            input_title: this.bot.input_title,
+            waiting_msg: this.bot.waiting_msg,
+            tab_color: this.bot.tab_color,
+            tab_text_color: this.bot.tab_text_color,
+            icon_color: this.bot.tab_text_color,
+            operator_name: this.bot.operator_name,
+            medium_ids: this.bot.medium_ids,
+            tab_name: this.bot.tab_name,
             active: true
         };
         this.botService.editBot(bot, this.bot.id).subscribe((data) => {
             this.bot = data;
+            this.sbs.savedData = this.bot;
             this.snackBarService.openSnackBar('Bot Updated');
             this.router.navigate(['/bot-home']);
         }, (err) => {
@@ -458,9 +477,11 @@ export class NewBotComponent implements OnInit, OnDestroy {
     deleteImage(role) {
         if (role === 'avatar') {
             this.imageUrl = '';
+            this.bot.medium_ids[0] = null;
         }
         if (role === 'cover') {
             this.coverUrl = '';
+            this.bot.medium_ids[1] = null;
         }
     }
 }

@@ -46,6 +46,7 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
 
   getTopMessageOut() {
     this.topMessagesOut = [];
+      this.items = [];
     this.conversationsService.getTopMessagesOut(this.analytics_token).subscribe((response) => {
       this.topMessagesOut = response.data;
         if (this.topMessagesOut && this.topMessagesOut.length) {
