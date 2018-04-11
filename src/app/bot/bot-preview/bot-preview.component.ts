@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Renderer2 } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT, SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -9,8 +9,10 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class BotPreviewComponent implements OnInit {
     botData: any = {};
+    id: any ;
+    url: SafeResourceUrl;
   constructor(private _renderer2: Renderer2, @Inject(DOCUMENT) private _document,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
       this.route.params.subscribe(params => {
@@ -24,13 +26,15 @@ export class BotPreviewComponent implements OnInit {
   callScript(botId) {
       if (botId) {
           return new Promise((resolve, reject) => {
+              this.id = this.sanitizer.bypassSecurityTrustResourceUrl('http://service.allegra.ai/bot-script/bot.js');
+              console.log('this.id', this.id);
               const botScript = this._renderer2.createElement('script');
               botScript.type = 'text/javascript';
               botScript.setAttribute('data-app-id', botId);
-              botScript.src = 'http://service.allegra.ai/bot-script/bot.js';
+              botScript.src = this.id as string;
               botScript.id = 'proof-script';
               botScript.onload = resolve;
-              this._renderer2.appendChild(this._document.head, botScript);
+              this._renderer2.appendChild(this._document.body, botScript);
           });
       }
   }
