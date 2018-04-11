@@ -31,7 +31,7 @@ export class BotPreviewComponent implements OnInit {
               const botScript = this._renderer2.createElement('script');
               botScript.type = 'text/javascript';
               botScript.setAttribute('data-app-id', botId);
-              botScript.src = this.id as string;
+              botScript.src = 'http://service.allegra.ai/bot-script/bot.js';
               botScript.id = 'proof-script';
               botScript.onload = resolve;
               this._renderer2.appendChild(this._document.head, botScript);
