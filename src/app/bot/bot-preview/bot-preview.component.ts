@@ -33,7 +33,6 @@ export class BotPreviewComponent implements OnInit {
               botScript.src = 'http://service.allegra.ai/bot-script/bot.js';
               botScript.id = 'proof-script';
               botScript.onload = resolve;
-              document.getElementsByTagName("head")[0].innerHTML = "";
               this._renderer2.appendChild(this._document.head, botScript);
           });
       }
