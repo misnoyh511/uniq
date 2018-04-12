@@ -5,5 +5,6 @@ export class AppConfig {
     public static ANALYTICS_TOKEN = environment.ANALYTICS_TOKEN;
     public static ANALYTICS_API_ENDPOINT = environment.ANALYTICS_API_ENDPOINT;
     public static API_ENDPOINT = environment.API_ENDPOINT;
+    public static PREVIEW_BOT = environment.PREVIEW_BOT;
     public static MODULE_NAME = ['knowledge-center', 'conversation', 'reports'];
 }
