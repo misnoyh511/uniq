@@ -65,7 +65,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        if (this.sbs.savedData) {
+        if (Object.keys(this.sbs.savedData).length) {
             this.botData = this.sbs.savedData;
             this.getBotData(this.botData.id);
         }

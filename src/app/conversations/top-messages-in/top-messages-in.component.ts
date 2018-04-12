@@ -30,7 +30,7 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
         this.getTopMessageIn();
       }
 
-        if (this.sbs.savedData) {
+        if (Object.keys(this.sbs.savedData).length) {
             this.analytics_token = this.sbs.savedData.analytics_token;
             this.getTopMessageIn();
         }

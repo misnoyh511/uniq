@@ -30,7 +30,7 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
       this.getTopMessageOut();
     }
 
-      if (this.sbs.savedData) {
+      if (Object.keys(this.sbs.savedData).length) {
           this.analytics_token = this.sbs.savedData.analytics_token;
           this.getTopMessageOut();
       }
@@ -46,7 +46,7 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.sbs.token = this.analytics_token;
   }
 

@@ -35,7 +35,7 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.userData = JSON.parse(localStorage.getItem('USER_INFO_KEY'));
-        if (this.sbs.savedData) {
+        if (Object.keys(this.sbs.savedData).length) {
             this.botData = this.sbs.savedData;
         }
         this.sbs.botList.subscribe((data) => {

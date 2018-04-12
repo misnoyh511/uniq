@@ -36,7 +36,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
     name: String;
     chat_window_name: String;
     input_title: String;
-    waiting_msg: String;
     initial_greeting: String;
     latteralTab = true;
     floatingIcon = false;
@@ -67,7 +66,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
     showChatName = false;
     showWelcome = false;
     showTitle = false;
-    showWaiting = false;
     showTab = false;
     showAvatar = false;
     showCover = false;
@@ -216,7 +214,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
             this.errors.push({message: 'Token Missing', value: '#capture'});
         }
         if (!this.bot.operator_name || !this.bot.chat_window_name || !this.bot.initial_greeting ||
-            !this.bot.input_title || this.bot.waiting_msg || this.bot.tab_name) {
+            !this.bot.input_title || this.bot.tab_name) {
             if (!this.bot.operator_name) {
                 this.errors.push({
                     message: 'Bot Name is Missing', value: '#message'
@@ -237,11 +235,11 @@ export class NewBotComponent implements OnInit, OnDestroy {
                     message: 'Input Title is Missing', value: '#message'
                 });
             }
-            if (!this.bot.waiting_msg) {
+            /*if (!this.bot.waiting_msg) {
                 this.errors.push({
                     message: 'Waiting Message is Missing', value: '#message'
                 });
-            }
+            }*/
             if (!this.bot.tab_name) {
                 this.errors.push({
                     message: 'Tab Name is Missing', value: '#message'
@@ -305,7 +303,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
             icon_tab: this.bot.icon_tab,
             initial_greeting: this.bot.initial_greeting,
             input_title: this.bot.input_title,
-            waiting_msg: this.bot.waiting_msg,
             tab_color: this.bot.tab_color,
             tab_text_color: this.bot.tab_text_color,
             icon_color: this.bot.tab_text_color,

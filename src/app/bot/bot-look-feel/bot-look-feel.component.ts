@@ -17,7 +17,6 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
   showChatName = false;
   showWelcome = false;
   showTitle = false;
-  showWaiting = false;
     showTab = false;
   showAvatar = false;
   showCover = false;
@@ -38,7 +37,7 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.botData.medium_ids = [null, null];
-    if (this.sbs.savedData) {
+    if (Object.keys(this.sbs.savedData).length) {
       this.botData = this.sbs.savedData;
       this.getImage();
     }
@@ -95,7 +94,6 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
       icon_tab: this.botData.icon_tab,
       initial_greeting: this.botData.initial_greeting,
       input_title: this.botData.input_title,
-      waiting_msg: this.botData.waiting_msg,
       tab_color: this.botData.tab_color,
       tab_text_color: this.botData.tab_text_color,
       icon_color: this.botData.tab_text_color,

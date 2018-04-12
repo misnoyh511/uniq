@@ -33,7 +33,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
       this.analytics_token =  this.sbs.token;
       this.getTranscripts();
     }
-    if (this.sbs.savedData) {
+    if (Object.keys(this.sbs.savedData).length) {
         this.botName = this.sbs.savedData.name;
         this.analytics_token = this.sbs.savedData.analytics_token;
         this.getTranscripts();
@@ -51,7 +51,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.sbs.token = this.analytics_token;
   }
 

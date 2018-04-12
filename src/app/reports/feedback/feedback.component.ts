@@ -27,6 +27,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.feedback_type = this.sbs.feedback_type;
         this.getSession();
       }
+        if (Object.keys(this.sbs.savedData).length) {
+            this.analytics_token = this.sbs.savedData.analytics_token;
+            this.feedback_type = this.sbs.savedData.feedback_type;
+            this.getSession();
+        }
       this.sbs.botList.subscribe((data) => {
         this.analytics_token = data[0].analytics_token;
         this.feedback_type = data[0].feedback_type;

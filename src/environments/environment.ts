@@ -6,12 +6,16 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyB5wvO8LCF5xMzXvQqrFenJRDX5TORNm-8",
-    authDomain: "shilpa-vyas.firebaseapp.com",
-    databaseURL: "https://shilpa-vyas.firebaseio.com",
-    projectId: "shilpa-vyas",
-    storageBucket: "",
-    messagingSenderId: "662627196845",
-    appName:"[DEFAULT]"
-  }
+    apiKey: 'AIzaSyB5wvO8LCF5xMzXvQqrFenJRDX5TORNm-8',
+    authDomain: 'shilpa-vyas.firebaseapp.com',
+    databaseURL: 'https://shilpa-vyas.firebaseio.com',
+    projectId: 'shilpa-vyas',
+    storageBucket: '',
+    messagingSenderId: '662627196845',
+    appName: '[DEFAULT]'
+  },
+    USER_INFO_KEY: 'USER_INFO_KEY',
+    ANALYTICS_TOKEN: 'ANALYTICS_TOKEN',
+    ANALYTICS_API_ENDPOINT: 'https://botdex.allegra.ai/api/',
+    API_ENDPOINT: 'https://stagingapi.uniq.ai'
 };
