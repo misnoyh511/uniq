@@ -26,13 +26,15 @@ export class BotPreviewComponent implements OnInit {
   callScript(botId) {
       if (botId) {
           return new Promise((resolve, reject) => {
-              // this.id = this.sanitizer.bypassSecurityTrustResourceUrl('https://service.allegra.ai/bot-script/bot.js');
+              this.id = this.sanitizer.bypassSecurityTrustResourceUrl('http://service.allegra.ai/bot-script/bot.js');
+              console.log('this.id', this.id);
               const botScript = this._renderer2.createElement('script');
               botScript.type = 'text/javascript';
               botScript.setAttribute('data-app-id', botId);
-              botScript.src = 'https://service.allegra.ai/bot-script/bot.js';
+              botScript.src = this.id as string;
+              botScript.id = 'proof-script';
               botScript.onload = resolve;
-              this._renderer2.appendChild(this._document.body, botScript);
+              this._renderer2.appendChild(this._document.head, botScript);
           });
       }
   }
