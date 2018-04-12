@@ -8,5 +8,10 @@ export const environment = {
     storageBucket: 'uniq-ec575.appspot.com',
     messagingSenderId: '108302917615',
     appName: '[DEFAULT]'
-  }
+  },
+  USER_INFO_KEY: 'USER_INFO_KEY',
+  ANALYTICS_TOKEN: 'ANALYTICS_TOKEN',
+  ANALYTICS_API_ENDPOINT: 'https://botdex.allegra.ai/api/',
+  API_ENDPOINT: 'https://stagingapi.uniq.ai',
+  PREVIEW_BOT: 'http://localhost:8080/'
 };
