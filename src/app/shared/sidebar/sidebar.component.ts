@@ -80,6 +80,8 @@ export class SidebarComponent implements OnInit {
         this.getBotData();
       } else {
         this.currentBot = botData.name;
+        this.Service.savedData = botData;
+        this.Service.token = botData.analytics_token;
         this.Service.somethingHappend(botData);
       }
       this.showList = false;
