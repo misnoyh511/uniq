@@ -24,7 +24,7 @@ export const AppRoutes: Routes = [
   ...botRoutes,
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/get-started',
     pathMatch: 'full'
   }
 ];

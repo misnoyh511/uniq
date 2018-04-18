@@ -49,9 +49,19 @@ export class NewBotService {
   }
 
   broadcastToken(botData) {
+      function makeToken() {
+          let text = '';
+          const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+          for (let i = 0; i < 40; i++)
+              text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+          return text;
+      }
     const myHeaders = new Headers();
     this.httpClient.createAuthorizationHeader(myHeaders);
     const options = new RequestOptions({ headers: myHeaders});
+      botData.analytics_token = makeToken();
     return this.http.post(AppConfig.API_ENDPOINT + '/ai' , botData, options)
       .map(response => {
         return response.json();
