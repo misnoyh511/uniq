@@ -55,7 +55,10 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
 
     editBot() {
         const bot = {
-            token: this.botData.token
+            token: this.botData.token,
+            report: this.botData.report,
+            report_name: this.botData.report_name,
+            report_email: this.botData.report_email
         };
         this.botService.editBot(bot, this.botData.id).subscribe((data) => {
             this.botData = data;

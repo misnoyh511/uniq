@@ -137,7 +137,7 @@ https://www.shareanalyticslink.com/sdasdsdasdsdmnlmnlmslnxjcnxc/sadsadnssad.html
           <div class="step-inner-title">
             <h3>Send Automated Reports to Email</h3>
             <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
-              <mat-slide-toggle type="text" color="primary" style="float:left">
+              <mat-slide-toggle type="text" color="primary" style="float:left" [(ngModel)]="botData.report" name="report">
               </mat-slide-toggle>
             </div>
           </div>
@@ -148,14 +148,14 @@ https://www.shareanalyticslink.com/sdasdsdasdsdmnlmnlmslnxjcnxc/sadsadnssad.html
                   <p>Your Name</p>
                   <div class="login-form-elements">
                     <label>Enter your name</label>
-                    <input type="text">
+                    <input type="text" [(ngModel)]="botData.report_name" name="report_name">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <p>Your Email</p>
                   <div class="login-form-elements">
                     <label>Enter your email</label>
-                    <input type="text">
+                    <input type="text" [(ngModel)]="botData.report_email" name="report_email">
                   </div>
                 </div>
                 <div class="col-md-6">
