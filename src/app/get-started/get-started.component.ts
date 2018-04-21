@@ -18,12 +18,16 @@ export class GetStartedComponent implements OnInit, OnDestroy {
       this.analytics_token =  this.sbs.token;
     }
     this.sbs.botList.subscribe((data) => {
-      this.analytics_token = data[0].analytics_token;
+      if (data && data.length) {
+          this.analytics_token = data[0].analytics_token;
+      }
     });
 
     this.sbs.botData.subscribe((data) => {
-      this.sbs.savedData = data;
-      this.analytics_token = data.analytics_token;
+      if (data) {
+          this.sbs.savedData = data;
+          this.analytics_token = data.analytics_token;
+      }
     });
   }
 

@@ -63,10 +63,12 @@ export class SidebarComponent implements OnInit {
 
   onloaddata() {
    this.Service.getBot().subscribe((data) => {
-     this.bot = data;
-     this.currentBot = this.bot[0].name;
-     if (this.bot.length > 0) {
-       this.data = this.bot[0];
+     if (data && data.length) {
+         this.bot = data;
+         this.currentBot = this.bot[0].name;
+         if (this.bot.length > 0) {
+             this.data = this.bot[0];
+         }
      }
    });
   }

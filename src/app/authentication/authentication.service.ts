@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {SnackBarService} from '../snack-bar/snack-bar.service';
 import {AppConfig} from '../app.config';
 import {InterceptorService} from '../interceptor/interceptor.service';
-import {Response} from '@angular/http';
+import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {NgProgress} from 'ngx-progressbar';
 
 @Injectable()
@@ -17,7 +17,8 @@ export class AuthenticationService {
     users: FirebaseListObservable<any[]>;
 
     constructor(private firebaseAuth: AngularFireAuth, private router: Router, private db: AngularFireDatabase,
-                private snackBarService: SnackBarService, private httpClient: InterceptorService,  public ngProgress: NgProgress)  {
+                private snackBarService: SnackBarService, private httpClient: InterceptorService,  public ngProgress: NgProgress,
+                private http: Http)  {
         this.user = firebaseAuth.authState;
         this.user.subscribe(
             (user) => {
@@ -126,5 +127,48 @@ export class AuthenticationService {
         if ((this.router.url === '/login' || this.router.url === '/sign-up') && localStorage[AppConfig.USER_INFO_KEY]) {
             this.router.navigate(['/home']);
         }
+    }
+
+    signupAuth(user) {
+        let userInfo = [];
+        userInfo = [{
+            credentials: {
+                default: {
+                    username: user.name,
+                    email: user.email,
+                    password: user.password,
+                    type: 'sdk'
+                }
+            }
+        }];
+
+        let userData = {};
+        userData = {
+            users: userInfo
+        };
+
+        const myHeaders = new Headers();
+        this.httpClient.createAuthorizationHeader(myHeaders);
+        // myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
+        const options = new RequestOptions({headers: myHeaders});
+        return this.http.post(AppConfig.API_ENDPOINT + '/users', userData, options)
+            .map(response => {
+                return response.json();
+            })
+            .catch((err: Response) => {
+                if (user.name === '' && user.email === '' && user.password === '') {
+                    this.snackBarService.openSnackBar('Please Enter Email and password');
+                } else if (user.name === '') {
+                    this.snackBarService.openSnackBar('Please Enter User Name');
+                } else if (user.email === '') {
+                    this.snackBarService.openSnackBar('Please Enter Email Address');
+                } else if (user.password === '') {
+                    this.snackBarService.openSnackBar('Please Enter Password');
+                } else {
+                    this.snackBarService.openSnackBar('Incorrect Email or Password');
+                }
+                this.ngProgress.done();
+                return Observable.of(err);
+            });
     }
 }
