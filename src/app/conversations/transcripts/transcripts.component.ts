@@ -2,6 +2,7 @@ import {Component, OnInit, Pipe, PipeTransform, OnDestroy} from '@angular/core';
 import {ConversationsService} from '../conversations.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 
+declare var that: any;
 
 @Component({
   selector: 'app-transcripts',
@@ -10,7 +11,6 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
   providers: [ConversationsService]
 })
 export class TranscriptsComponent implements OnInit, OnDestroy {
-
   transcripts: any = [];
   date: any;
   showDialog = false;
@@ -24,11 +24,19 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
   pageNo = 0;
   totalPages: number;
   botName: '';
+  startDate: any;
+  endDate: any;
 
   constructor(private conversationsService: ConversationsService, public sbs: SidebarService) {
   }
 
   ngOnInit() {
+      const today = new Date();
+      this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+          ('0' + (today.getDate())).slice(-2);
+      today.setDate(today.getDate() - 30);
+      this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+          ('0' + (today.getDate())).slice(-2);
     if (this.sbs.token) {
       this.analytics_token =  this.sbs.token;
       this.getTranscripts();
@@ -62,7 +70,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
   getTranscripts() {
       this.transcripts = [];
       this.items = [];
-    this.conversationsService.getTranscripts(this.analytics_token).subscribe((response) => {
+    this.conversationsService.getTranscripts(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
       if (response.data && response.data.length) {
         this.transcripts.push({
           client: response.data[0].client,
@@ -179,6 +187,17 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     this.getPaginatedData();
     }
 
+    onDateChange(event: any) {
+        if (event.start && event.end) {
+            const startDate = new Date(event.start);
+            const endDate = new Date(event.end);
+            this.startDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (startDate.getDate())).slice(-2);
+            this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (endDate.getDate())).slice(-2);
+            this.getTranscripts();
+        }
+    }
 }
 
 @Pipe({

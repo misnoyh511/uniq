@@ -6,14 +6,15 @@ import { CommonModule } from '@angular/common';
 import {SidebarComponent } from './sidebar/sidebar.component';
 import {MaterialComponentsModule} from '../material-components.module';
 import {FormsModule} from '@angular/forms';
+import {DatePickerDirective} from '../date-picker.directive';
 
 
 declare var require: any;
 
 @NgModule({
   imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule],
-  declarations: [SidebarComponent],
-  exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule],
+  declarations: [SidebarComponent, DatePickerDirective],
+  exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule, DatePickerDirective],
   providers: [
     {
       provide: HighchartsStatic,

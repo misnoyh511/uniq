@@ -1174,7 +1174,8 @@ p{margin:0 0 20px 0; }
 
 .dashboard-getting-stared-wrapper .pro-mode-active-label.active {transform: translateY(60px);}
 .dashboard-getting-stared-wrapper .knowledge-msg-wrap {margin:20px 0;}
-.dashboard-getting-stared-wrapper .export-btn{margin:0 0 20px;}
+.dashboard-getting-stared-wrapper .export-btn{margin:0 15px 20px;
+    float: right;}
 
 .analytics-page-container .dashboard-inner-container {max-width:100%;}
 
@@ -1863,6 +1864,14 @@ a.mat-mini-fab.mat-primary {
 
 .nav>li>a:focus{
     background-color: inherit;
+}
+
+.daterange .dr-input .dr-dates .dr-date, .daterange .dr-selections .dr-preset-list {
+    font-size: 16px;
+}
+
+.daterange .dr-selections .dr-list-item .dr-item-aside {
+    font-size: 12px;
 }
 
 

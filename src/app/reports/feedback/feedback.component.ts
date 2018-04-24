@@ -18,10 +18,18 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     items: any = [];
     pageNo = 0;
     totalPages: number;
+    startDate: any;
+    endDate: any;
     constructor(private reportsService: ReportsService, public sbs: SidebarService) {
     }
 
     ngOnInit() {
+        const today = new Date();
+        this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + (today.getDate())).slice(-2);
+        today.setDate(today.getDate() - 30);
+        this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + (today.getDate())).slice(-2);
       if (this.sbs.token) {
         this.analytics_token =  this.sbs.token;
         this.feedback_type = this.sbs.feedback_type;
@@ -55,7 +63,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.sessions = [];
         if (this.feedback_type) {
         if (this.selectedValue === 'negative') {
-          this.reportsService.getNegativeChat(this.analytics_token).subscribe((response) => {
+          this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -67,7 +75,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             console.log(err);
           });
         } else if (this.selectedValue === 'positive') {
-          this.reportsService.getPositiveChat(this.analytics_token).subscribe((response) => {
+          this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -79,11 +87,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             console.log(err);
           });
         } else {
-          this.reportsService.getPositiveChat(this.analytics_token).subscribe((positiveRes) => {
+          this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
             const posValueArr = positiveRes.data.map(function(item){
               return item.text;
             });
-            this.reportsService.getNegativeChat(this.analytics_token).subscribe((negativeRes) => {
+            this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
               const negValueArr = negativeRes.data.map(function(item){
                 return item.text;
               });
@@ -101,7 +109,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         }
       } else {
         if (this.selectedValue === 'negative') {
-          this.reportsService.getNegativeSession(this.analytics_token).subscribe((response) => {
+          this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -113,7 +121,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             console.log(err);
           });
         } else if (this.selectedValue === 'positive') {
-          this.reportsService.getPositiveSession(this.analytics_token).subscribe((response) => {
+          this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
               return item.text;
             });
@@ -125,11 +133,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             console.log(err);
           });
         } else {
-          this.reportsService.getPositiveSession(this.analytics_token).subscribe((positiveRes) => {
+          this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
             const posValueArr = positiveRes.data.map(function(item){
               return item.text;
             });
-            this.reportsService.getNegativeSession(this.analytics_token).subscribe((negativeRes) => {
+            this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
               const negValueArr = negativeRes.data.map(function(item){
                 return item.text;
               });
@@ -219,6 +227,18 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     moveToFirstPage() {
         this.pageNo = 0;
         this.getPaginatedData();
+    }
+
+    onDateChange(event: any) {
+        if (event.start && event.end) {
+            const startDate = new Date(event.start);
+            const endDate = new Date(event.end);
+            this.startDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (startDate.getDate())).slice(-2);
+            this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (endDate.getDate())).slice(-2);
+            this.getSession();
+        }
     }
 
 }

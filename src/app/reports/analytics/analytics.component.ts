@@ -21,9 +21,6 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   showUsertip = false;
   showMsgtip = false;
   showSessiontip = false;
-  selectValue1 = false;
-  selectValue2 = false;
-  selectValue3 = false;
   avg_time = 0;
   duration = 'Yesterday';
   today = new Date();
@@ -42,17 +39,23 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+      const today = new Date();
+      this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+          ('0' + (today.getDate())).slice(-2);
+      today.setDate(today.getDate() - 30);
+      this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+          ('0' + (today.getDate())).slice(-2);
     if (this.sbs.token) {
       this.analytics_token =  this.sbs.token;
-      this.initFun();
+        this.onLoadData(this.startDate, this.endDate);
     }
       if (Object.keys(this.sbs.savedData).length) {
           this.analytics_token = this.sbs.savedData.analytics_token;
-          this.initFun();
+          this.onLoadData(this.startDate, this.endDate);
       }
     this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
-      this.initFun();
+        this.onLoadData(this.startDate, this.endDate);
     });
 
     this.sbs.botData.subscribe((data) => {
@@ -63,39 +66,6 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sbs.token = this.analytics_token;
-  }
-
-  initFun() {
-    this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (this.today.getDate())).slice(-2);
-    if (this.duration === 'Yesterday') {
-      this.today.setDate(this.today.getDate() - 1);
-      this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate())).slice(-2);
-    }
-    this.onLoadData(this.startDate, this.endDate);
-  }
-
-  selectData(data) {
-    this.duration = data;
-    this.openDropdown = !this.openDropdown;
-    this.today = new Date();
-    this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (this.today.getDate())).slice(-2);
-    if (this.duration === 'Yesterday') {
-      this.today.setDate(this.today.getDate() - 1);
-      this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate())).slice(-2);
-    } else if (this.duration === 'Last 7 Days') {
-      this.today.setDate(this.today.getDate() - 7);
-      this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate())).slice(-2);
-    } else if (this.duration === 'Last 30 Days') {
-      this.today.setDate(this.today.getDate() - 30);
-      this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-        ('0' + (this.today.getDate())).slice(-2);
-    }
-    this.onLoadData(this.startDate, this.endDate);
   }
 
   onLoadData(startDate, endDate) {
@@ -393,5 +363,17 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     this.duration = this.startDate.replace(/-/g, '/') + ' - ' + this.endDate.replace(/-/g, '/');
     this.onLoadData(this.startDate, this.endDate);
   }
+
+    onDateChange(event: any) {
+        if (event.start && event.end) {
+            const startDate = new Date(event.start);
+            const endDate = new Date(event.end);
+            this.startDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (startDate.getDate())).slice(-2);
+            this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (endDate.getDate())).slice(-2);
+            this.onLoadData(this.startDate, this.endDate);
+        }
+    }
 
 }

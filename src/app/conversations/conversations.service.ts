@@ -9,8 +9,9 @@ export class ConversationsService {
   constructor(private http: Http, private httpClient: InterceptorService) {
   }
 
-  getTopMessagesIn(analytics_token) {
-    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_in/' + analytics_token)
+  getTopMessagesIn(analytics_token, startDate, endDate) {
+    return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_in/' + analytics_token + '?start=' +
+        startDate + '&end=' + endDate)
       .map(response => {
         return response.json();
       }).catch((err: Response) => {
@@ -18,13 +19,7 @@ export class ConversationsService {
       });
   }
 
-  getTranscripts(analytics_token) {
-    const today = new Date();
-    const endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (today.getDate())).slice(-2);
-    today.setDate(today.getDate() - 7);
-    const startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (today.getDate())).slice(-2);
+  getTranscripts(analytics_token, startDate, endDate) {
       return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'transcript/' + analytics_token + '?start=' +
         startDate + '&end=' + endDate)
           .map(response => {
@@ -34,8 +29,9 @@ export class ConversationsService {
           });
   }
 
-  getTopMessagesOut(analytics_token) {
-      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_out/' + analytics_token)
+  getTopMessagesOut(analytics_token, startDate, endDate) {
+      return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'top_out/' + analytics_token + '?start=' +
+          startDate + '&end=' + endDate)
           .map(response => {
               return response.json();
           }).catch((err: Response) => {

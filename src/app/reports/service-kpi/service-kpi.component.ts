@@ -22,28 +22,24 @@ export class ServiceKpiComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
+      this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
+          ('0' + (this.today.getDate())).slice(-2);
+      this.today.setDate(this.today.getDate() - 30);
+      this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
+          ('0' + (this.today.getDate())).slice(-2);
     if (this.sbs.token) {
       this.analytics_token =  this.sbs.token;
-      this.initFun();
+        this.getBotTrust(this.startDate, this.endDate);
     }
     this.sbs.botList.subscribe((data) => {
       this.analytics_token = data[0].analytics_token;
-      this.initFun();
+        this.getBotTrust(this.startDate, this.endDate);
     });
 
     this.sbs.botData.subscribe((data) => {
       this.analytics_token = data.analytics_token;
-      this.initFun();
+        this.getBotTrust(this.startDate, this.endDate);
     });
-  }
-
-  initFun() {
-    this.endDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (this.today.getDate())).slice(-2);
-    this.today.setDate(this.today.getDate() - 30);
-    this.startDate = this.today.getFullYear() + '-' + ('0' + (this.today.getMonth() + 1)).slice(-2) + '-' +
-      ('0' + (this.today.getDate())).slice(-2);
-    this.getBotTrust(this.startDate, this.endDate);
   }
 
   ngOnDestroy(): void {
@@ -57,5 +53,17 @@ export class ServiceKpiComponent implements OnInit, OnDestroy {
       console.log(err);
     });
   }
+
+    onDateChange(event: any) {
+        if (event.start && event.end) {
+            const startDate = new Date(event.start);
+            const endDate = new Date(event.end);
+            this.startDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (startDate.getDate())).slice(-2);
+            this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (endDate.getDate())).slice(-2);
+            this.getBotTrust(this.startDate, this.endDate);
+        }
+    }
 
 }

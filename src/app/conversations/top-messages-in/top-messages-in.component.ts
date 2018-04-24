@@ -19,12 +19,20 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
     items: any = [];
     pageNo = 0;
     totalPages: number;
+    startDate: any;
+    endDate: any;
 
     constructor(public conversationsService: ConversationsService, public sbs: SidebarService) {
 
     }
 
     ngOnInit() {
+        const today = new Date();
+        this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + (today.getDate())).slice(-2);
+        today.setDate(today.getDate() - 30);
+        this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+            ('0' + (today.getDate())).slice(-2);
       if (this.sbs.token) {
         this.analytics_token =  this.sbs.token;
         this.getTopMessageIn();
@@ -53,7 +61,7 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
     getTopMessageIn() {
       this.topMessagesIn = [];
         this.items = [];
-      this.conversationsService.getTopMessagesIn(this.analytics_token).subscribe((response) => {
+      this.conversationsService.getTopMessagesIn(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
         this.topMessagesIn = response.data;
         if (this.topMessagesIn && this.topMessagesIn.length) {
             for (const i in this.topMessagesIn) {
@@ -109,6 +117,18 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
     moveToFirstPage() {
         this.pageNo = 0;
         this.getPaginatedData();
+    }
+
+    onDateChange(event: any) {
+        if (event.start && event.end) {
+            const startDate = new Date(event.start);
+            const endDate = new Date(event.end);
+            this.startDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (startDate.getDate())).slice(-2);
+            this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (endDate.getDate())).slice(-2);
+            this.getTopMessageIn();
+        }
     }
 
 }

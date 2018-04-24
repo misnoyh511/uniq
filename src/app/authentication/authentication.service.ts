@@ -165,7 +165,7 @@ export class AuthenticationService {
                 } else if (user.password === '') {
                     this.snackBarService.openSnackBar('Please Enter Password');
                 } else {
-                    this.snackBarService.openSnackBar('Incorrect Email or Password');
+                    this.snackBarService.openSnackBar('Invalid Data');
                 }
                 this.ngProgress.done();
                 return Observable.of(err);

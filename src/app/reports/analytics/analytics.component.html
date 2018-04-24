@@ -2,37 +2,38 @@
   <div class="dashboard-inner-container">
     <div class="dashboard-getting-stared-wrapper">
       <app-sub-nav [navType]="'analytics'"></app-sub-nav>
-      <h1>Analytics</h1>
-      <p></p>
-      <div class="getting-started-wrap-wrapper">
-        <div class="export-datepicker-wrapper">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="row">
-                <div class="col-sm-6">
-                  <a class="select-duration-btn" href="javascript:void(0)" (click)="openDropdown = !openDropdown">
-                    <span>{{duration}}</span>
-                  </a>
-                  <div class="duration-wrap" [class.active]="openDropdown">
-                    <span [class.selected]="selectValue1" (click)="selectData('Yesterday'); selectValue1 = true; selectValue2 = false; selectValue3 = false">Yesterday</span>
-                    <span [class.selected]="selectValue2" (click)="selectData('Last 7 Days'); selectValue1 = false; selectValue2 = true; selectValue3 = false">Last 7 Days</span>
-                    <span [class.selected]="selectValue3" (click)="selectData('Last 30 Days'); selectValue1 = false; selectValue2 = false; selectValue3 = true">Last 30 Days</span>
-                    <div class="transcript-date-picker">
-                      <i class="fa fa-calendar" aria-hidden="true"></i>
-                      <input type="text" name="daterangeInput" daterangepicker [options]="dateOptions" (selected)="selectedDate($event, daterange)" />
-                      <a href="javascript:void(0)" id="update-date" class="blue-btn" (click)="getDateRange()">Update</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 no-padding">
-                  <div class="export-btn">
-                    <a href="#" class="blue-btn"><i class="fa fa-share" aria-hidden="true"></i><span>Export All</span></a>
-                    <a href="#" class="blue-btn"><i class="fa fa-share" aria-hidden="true"></i><span>Export Summery</span></a>
-                  </div>
+      <div class="page-title-filter-wrap">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="page-title-wrapper">
+              <h1>Analytics</h1>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-sm-4">
+                <!--<span class="data-update-text">Updated an hour ago</span>-->
+              </div>
+              <div class="col-sm-8">
+                <div class="date-picker-filter-wrap">
+                  <div class="daterange daterange--double date-range-picker" (onDateChange) ="onDateChange($event)" appDatePicker></div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="export-btn" style="float:right;">
+                <a href="#" class="blue-btn"><i class="fa fa-share" aria-hidden="true"></i><span>Export All</span></a>
+                <a href="#" class="blue-btn"><i class="fa fa-share" aria-hidden="true"></i><span>Export Summery</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="getting-started-wrap-wrapper">
+        <div class="export-datepicker-wrapper">
+
         </div>
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
@@ -44,7 +45,7 @@
             </h3>
           </div>
           <div class="analytics-inner-wrap">
-            <h4>Session {{duration}}</h4>
+            <h4>Session</h4>
             <chart [options]="options"></chart>
             <div id="container_1"></div>
           </div>
@@ -59,7 +60,7 @@
             </h3>
           </div>
           <div class="analytics-inner-wrap">
-            <h4>Queries per session {{duration}}</h4>
+            <h4>Queries per session</h4>
             <chart [options]="options1"></chart>
             <div id="container_2"></div>
           </div>

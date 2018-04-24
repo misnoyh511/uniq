@@ -4,15 +4,28 @@
   <div class="dashboard-inner-container">
     <div class="dashboard-getting-stared-wrapper">
       <app-sub-nav [navType]="'topMessageOut'"></app-sub-nav>
-      <h1>Top Message Out</h1>
-      <p></p>
-      <div class="getting-started-wrap-wrapper">
-        <div class="slide-top-btns">
-          <div class="row">
-            <div class="col-sm-8">
+      <div class="page-title-filter-wrap">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="page-title-wrapper">
+              <h1>Top Message Out</h1>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-sm-4">
+                <!--<span class="data-update-text">Updated an hour ago</span>-->
+              </div>
+              <div class="col-sm-8">
+                <div class="date-picker-filter-wrap">
+                  <div class="daterange daterange--double date-range-picker" (onDateChange) ="onDateChange($event)" appDatePicker></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="getting-started-wrap-wrapper">
         <div class="step-inner-wrapper analytics-inner-sections">
           <div class="step-inner-title analytics-inner-titles">
             <h3>Top Messages
