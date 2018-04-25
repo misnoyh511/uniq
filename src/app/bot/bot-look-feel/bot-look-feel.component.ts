@@ -189,4 +189,12 @@ export class botLookFeelComponent implements OnInit, OnDestroy {
     }
   }
 
+    onTabColor(event) {
+        this.botData.tab_color = event;
+    }
+
+    onTextColor(event) {
+        this.botData.tab_text_color = event;
+    }
+
 }

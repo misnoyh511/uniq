@@ -143,19 +143,19 @@
               <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
             </span>
             <div class="right-side-form color-pick-section">
-              <input type="color" name="color" [(ngModel)]="botData.tab_color">
-              <span [ngStyle]="{'background': botData.tab_color}">{{botData.tab_color}}</span>
+              <input type="text" class="color-picker-input" [(ngModel)]="botData.tab_color" maxlength="6" size="6"
+                     id="colorpickerTab" appColorPicker [ngStyle]="{'background': botData.tab_color}" (onGetColor)="onTabColor($event)" value="00ff00" />
             </div>
           </div>
           <div class="full-panel full-panel-step2">
-            <span>Choose the font color ofthe	tab/icon.
+            <span>Choose the font color of the tab/icon.
               <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false"
                       class="fa fa-question-circle" aria-hidden="true"></i></sup>
               <b [class.show]="showFontClr">The tab/icon color seen by users</b>
             </span>
             <div class="right-side-form color-pick-section">
-              <input type="color" name="fcolor" [(ngModel)]="botData.tab_text_color">
-              <span [ngStyle]="{'background': botData.tab_text_color}">{{botData.tab_text_color}}</span>
+              <input type="text" class="color-picker-input" [(ngModel)]="botData.tab_text_color" maxlength="6" size="6"
+                     id="colorpickerText" appColorPicker [ngStyle]="{'background': botData.tab_text_color}" (onGetColor)="onTextColor($event)" [value]="botData.tab_text_color" />
             </div>
           </div>
         </div>

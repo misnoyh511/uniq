@@ -121,8 +121,8 @@ export class NewBotComponent implements OnInit, OnDestroy {
             hybrid_msg: 'Necesitas asistencia? puedo ayudarte',
             hybrid_mobile: true
         };
-        this.bot.tab_color = '#AB2567';
-        this.bot.tab_text_color = '#AB2567';
+        this.bot.tab_color = '#00FF00';
+        this.bot.tab_text_color = '#00FF00';
     }
 
     ngOnDestroy() {
@@ -480,6 +480,14 @@ export class NewBotComponent implements OnInit, OnDestroy {
             this.coverUrl = '';
             this.bot.medium_ids[1] = null;
         }
+    }
+
+    onTabColor(event) {
+        this.bot.tab_color = event;
+    }
+
+    onTextColor(event) {
+        this.bot.tab_text_color = event;
     }
 }
 

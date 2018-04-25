@@ -261,9 +261,11 @@
                     <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                   </span>
                   <div class="right-side-form color-pick-section">
-                    <input type="color" class="color-picker-input" maxlength="6" size="6" id="colorpickerField1"
+                    <!--<input type="color" class="color-picker-input" maxlength="6" size="6" id="colorpickerField1"
                            value="00ff00" data-input-id="appearance3" name="color" [(ngModel)]="bot.tab_color" />
-                    <span [ngStyle]="{'background': bot.tab_color}">{{bot.tab_color}}</span>
+                    <span [ngStyle]="{'background': bot.tab_color}">{{bot.tab_color}}</span>-->
+                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_color" maxlength="6" size="6"
+                           id="colorpickerNewTab" appColorPicker [ngStyle]="{'background': bot.tab_color}" (onGetColor)="onTabColor($event)" value={{bot.tab_color}} />
 
                   </div>
                 </div>
@@ -273,8 +275,10 @@
                     <b [class.show]="showFontClr">The tab/icon color seen by users</b>
                   </span>
                   <div class="right-side-form color-pick-section">
-                    <input type="color" name="fcolor" [(ngModel)]="bot.tab_text_color">
-                    <span [ngStyle]="{'background': bot.tab_text_color}">{{bot.tab_text_color}}</span>
+                    <!--<input type="color" name="fcolor" [(ngModel)]="bot.tab_text_color">
+                    <span [ngStyle]="{'background': bot.tab_text_color}">{{bot.tab_text_color}}</span>-->
+                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_text_color" maxlength="6" size="6"
+                           id="colorpickerNewText" appColorPicker [ngStyle]="{'background': bot.tab_text_color}" (onGetColor)="onTextColor($event)" value={{bot.tab_text_color}} />
                   </div>
                 </div>
               </div>

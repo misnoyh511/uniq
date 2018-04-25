@@ -24,11 +24,15 @@
         "assets/css/animate.css",
         "styles.css",
         "assets/css/responsive.css",
-        "assets/css/font-awesome.css"
+        "assets/css/font-awesome.css",
+        "assets/css/date-picker.css",
+        "assets/css/colorpicker.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "assets/js/Calendar.js",
+        "assets/js/colorpicker.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

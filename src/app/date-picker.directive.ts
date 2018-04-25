@@ -1,5 +1,5 @@
 
-import {Directive, ElementRef, AfterViewInit, Input, EventEmitter, Output} from '@angular/core';
+import {Directive, ElementRef, AfterViewInit, EventEmitter, Output} from '@angular/core';
 declare var $: any;
 declare var Calendar: any;
 declare var moment: any;
