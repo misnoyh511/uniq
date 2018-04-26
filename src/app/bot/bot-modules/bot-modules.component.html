@@ -168,8 +168,9 @@
           </div>
           <div class="step-inner-title">
             <h3>Live Chat <span>Pro</span></h3>
-            <mat-slide-toggle name="liveChat" type="text" [(ngModel)]="liveChat" color="primary" style="float:left">
-            </mat-slide-toggle>
+              <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
+                  <mat-slide-toggle type="text" color="primary" [(ngModel)]="liveChat" name="liveChat"></mat-slide-toggle>
+              </div>
             <div class="configure-btn" [class.active]="liveChat" (click)="showLiveChat = true">
               <button class="white-btn visitor-content-toggle">Configure</button>
             </div>
