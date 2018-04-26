@@ -1,5 +1,7 @@
 
 import {Directive, ElementRef, AfterViewInit, EventEmitter, Output} from '@angular/core';
+import {SidebarService} from './shared/sidebar/sidebar.service';
+
 declare var $: any;
 declare var Calendar: any;
 declare var moment: any;
@@ -7,7 +9,7 @@ declare var moment: any;
     selector: '[appDatePicker]'
 })
 export class DatePickerDirective implements AfterViewInit {
-    constructor(private elRef: ElementRef) {
+    constructor(private elRef: ElementRef, private sbs: SidebarService) {
     }
     @Output() onDateChange = new EventEmitter();
     ngAfterViewInit(): void {
@@ -17,8 +19,8 @@ export class DatePickerDirective implements AfterViewInit {
           format: { input: 'MMM D, YYYY'},
           earliest_date: '2000-01-01',
           latest_date: moment(),
-          start_date: moment().subtract(29, 'days'),
-          end_date: moment(),
+          start_date: this.sbs.dateObj.start || moment().subtract(29, 'days'),
+          end_date: this.sbs.dateObj.end || moment(),
           that : that,
           presets: [{
               label: 'Last 7 Days',

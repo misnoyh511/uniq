@@ -27,12 +27,17 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
   constructor(private conversationsService: ConversationsService, public sbs: SidebarService) { }
 
   ngOnInit() {
-      const today = new Date();
-      this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-          ('0' + (today.getDate())).slice(-2);
-      today.setDate(today.getDate() - 30);
-      this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-          ('0' + (today.getDate())).slice(-2);
+      if (Object.keys(this.sbs.dateObj).length) {
+          this.startDate = this.sbs.dateObj.start;
+          this.endDate = this.sbs.dateObj.end;
+      } else {
+          const today = new Date();
+          this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+              ('0' + (today.getDate())).slice(-2);
+          today.setDate(today.getDate() - 30);
+          this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
+              ('0' + (today.getDate())).slice(-2);
+      }
     if (this.sbs.token) {
       this.analytics_token =  this.sbs.token;
       this.getTopMessageOut();
@@ -127,6 +132,10 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
                 ('0' + (startDate.getDate())).slice(-2);
             this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
                 ('0' + (endDate.getDate())).slice(-2);
+            this.sbs.dateObj = {
+                start: this.startDate,
+                end: this.endDate
+            };
             this.getTopMessageOut();
         }
     }

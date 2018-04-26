@@ -4,6 +4,7 @@ import {DOCUMENT} from '@angular/platform-browser';
 import {BotService} from '../bot.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {SnackBarService} from '../../snack-bar/snack-bar.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-bot-modules',
@@ -38,6 +39,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     quesArr: any = {};
     showQues: any = {};
     showTopic: any = [];
+    oldTitle = '';
     config: MatDialogConfig = {
         disableClose: false,
         hasBackdrop: true,
@@ -94,6 +96,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
         this.botService.getBotData(botId).subscribe((data) => {
             this.botData = data;
             this.topics = this.botData.topics;
+            this.oldTitle = _.cloneDeep(this.botData.complements_title);
             if (this.topics && this.topics.length) {
                 this.faqSection = true;
             } else {
@@ -205,6 +208,19 @@ export class botModulesComponent implements OnInit, OnDestroy {
             this.botService.deleteFaqQuestion(quesId).subscribe((data) => {
                 this.getBotData(this.botData.id);
                 this.snackBarService.openSnackBar('Faq Question Deleted');
+            }, (err) => {
+                console.log(err);
+            });
+        }
+    }
+
+    changeTitle() {
+        if (this.oldTitle !== this.botData.complements_title) {
+            const bot = {
+                complements_title: this.botData.complements_title
+            };
+            this.botService.editBot(bot, this.botData.id).subscribe((data) => {
+                this.snackBarService.openSnackBar('Bot Updated');
             }, (err) => {
                 console.log(err);
             });

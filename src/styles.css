@@ -113,7 +113,12 @@ p{margin:0 0 20px 0; }
 .feature-content h3 {margin-bottom: 20px;color: #3a3f52;font-size: 40px;line-height: 50px; font-weight:700; text-transform:none;}
 .feature-content p {color: #8da2b5;font-size: 20px;line-height: 30px;}
 
-
+.daterange .dr-selections .dr-list-item .dr-item-aside {
+   font-size: 12px !important;
+    margin-left: 7px !important;
+    top: 0px !important;
+    display: inline-block;
+}
 .platform-section {background:#f7f9ff;}
 .platform-container {padding:120px 0; text-align:center;}
 .platform-container h2 {color: #343350;font-size: 40px;line-height: 50px;font-weight: 700; text-transform:none; margin-bottom:10px;}
@@ -1892,9 +1897,19 @@ a.mat-mini-fab.mat-primary {
     font-size:11px !important;
 }
 .daterange .dr-selections .dr-calendar .dr-day-list .dr-day{
-    padding:5px 0 !important;
+    padding:10px 0 !important;
 }
 
+.colorpicker input {
+    top: 4px !important;
+    right: 11px !important;
+    padding: 0px 2px !important;
+    height: auto !important;
+}
+.colorpicker_hex input{
+    right:5px !important;
+    top:3.5px !important;
+}
 .daterange .dr-selections .dr-list-item {
     padding: 1rem !important;
 }

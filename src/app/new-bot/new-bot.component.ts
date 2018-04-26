@@ -110,7 +110,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
         this.bot = {
             active: false,
             box_state: false,
-            complements_title: 'Preguntas Frecuentes',
             feedback_type: 0,
             with_login: false,
             hybrid_mode: false,
@@ -309,6 +308,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
             operator_name: this.bot.operator_name,
             medium_ids: this.bot.medium_ids,
             tab_name: this.bot.tab_name,
+            complements_title: this.bot.complements_title,
             active: true
         };
         this.botService.editBot(bot, this.bot.id).subscribe((data) => {

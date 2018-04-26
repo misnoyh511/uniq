@@ -37,14 +37,10 @@
                 <span><i class="fa fa-close" aria-hidden="true" (click)="showDiv = false"></i></span>
               </div>
               <div class="visiters-count-inner-wrap">
-                <div class="full-panel">
-                  <span>Enable or Disable Feature
-                    <sup><i (mouseover)="showFeature= true" (mouseout)="showFeature= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showFeature">This initiates a chatbot conversation with a FAQ.</b>
-                  </span>
-                  <div class="on-off-btn toggle-btn-on-off feature-toggle">
-                    <mat-slide-toggle type="text" color="primary" style="float:left">
-                    </mat-slide-toggle>
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <div class="login-form-elements">
+                    <input [(ngModel)]="botData.complements_title" name="complements_title" type="text"
+                           placeholder="Enter a Complement Title" (blur)="changeTitle()">
                   </div>
                 </div>
                 <div class="full-width-input-fields full-width-input-fields-step4">
