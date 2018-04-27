@@ -325,9 +325,9 @@
                     <div class="step-inner-title">
                       <h3>FAQ Section<span>Pro</span></h3>
                       <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text"
-                                        [(ngModel)]="bot.faqSection" color="primary" style="float:left">
+                                        [(ngModel)]="faqSection" color="primary" style="float:left">
                       </mat-slide-toggle>
-                      <div class="configure-btn" [class.active]="bot.faqSection">
+                      <div class="configure-btn" [class.active]="faqSection">
                         <button class="white-btn visitor-content-toggle" (click)="showDiv= true;">
                           Configure
                         </button>
@@ -442,9 +442,9 @@
                     <div class="step-inner-title">
                       <h3>Pro-Active Mode<span>Business</span></h3>
                       <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text"
-                                        [(ngModel)]="bot.proActive" color="primary" style="float:left">
+                                        [(ngModel)]="proActive" color="primary" style="float:left">
                       </mat-slide-toggle>
-                      <div class="configure-btn" [class.active]="bot.proActive">
+                      <div class="configure-btn" [class.active]="proActive">
                         <button class="white-btn visitor-content-toggle" (click)="showBusiness= true">Configure</button>
                       </div>
                     </div>
@@ -523,9 +523,9 @@
                     </div>
                     <div class="step-inner-title">
                       <h3>Live Chat <span>Pro</span></h3>
-                      <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text" [(ngModel)]="bot.liveChat" color="primary" style="float:left">
+                      <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text" [(ngModel)]="liveChat" color="primary" style="float:left">
                       </mat-slide-toggle>
-                      <div class="configure-btn" [class.active]="bot.liveChat" (click)="showLiveChat = true">
+                      <div class="configure-btn" [class.active]="liveChat" (click)="showLiveChat = true">
                         <button class="white-btn visitor-content-toggle">Configure</button>
                       </div>
                     </div>

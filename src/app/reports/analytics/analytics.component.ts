@@ -224,7 +224,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
           },
 
           series: [{
-            name: 'Session Count',
+            name: 'Messages per Session',
             data: countArray
           }],
 

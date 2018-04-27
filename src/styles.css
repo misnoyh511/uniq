@@ -266,6 +266,7 @@ p{margin:0 0 20px 0; }
 .login-form-elements input:hover , .login-form-elements input:focus {border:2px solid #008bd5;}
 
 .login-form-elements select {background-color: #fff;border: 2px solid #eceff0;border-radius: 5px;padding: 10px 8px 10px; width:100%; color:#555; appearance:none; -moz-appearance:none; -webkit-appearance:none;}
+.login-form-elements select {background:url(./assets/images/select-icon1.png) no-repeat right;}
 .login-form-elements select:hover, .login-form-elements select:focus {border:2px solid #008bd5;}
 
 .login-form-elements a {float: right;font-size: 12px; color:#aaa; margin:5px 0 0 0; position:relative;z-index:99;}
@@ -694,9 +695,9 @@ p{margin:0 0 20px 0; }
 .install-proof-desc p {color:#888d9c;}
 
 .pixel-install-script {padding:0 20px; margin:20px 0; position:relative;}
-.pixel-install-script textarea {width:100%; min-height:70px; border:none; padding:15px;background-color: #f4f3f8; font-size:14px; color:#666; border-radius:8px;
+.pixel-install-script textarea {width:100%; min-height:80px; border:none; padding:20px 30px 0 30px;background-color: #f4f3f8; font-size:14px; color:#666; border-radius:8px;
   box-shadow: 0 0px 15px rgba(0,0,0,0.2);}
-.pixel-install-script button {text-align: center;font-size: 15px;padding: 13px 25px;box-shadow: 0 2px 7px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.1);
+.pixel-install-script button {text-align: center;font-size: 15px;padding: 13px 15px;box-shadow: 0 2px 7px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.1);
   cursor: pointer; border-radius:4px;color: rgba(43,57,80,0.7);background-color: #fff; font-weight:800; width:210px; border:none; position:absolute; top:20px; right:40px;
   visibility:hidden; opacity:0; transition:0.2s ease-in-out;}
 
@@ -1042,8 +1043,11 @@ p{margin:0 0 20px 0; }
 .transcript-chat-title p {margin:0; color:#999; font-size:13px;}
 .right-text {text-align:right;}
 
-.chat-block-wrap {width:100%; display:inline-block; position:relative; margin-bottom: 20px;}
+.chat-block-wrap {width:70%; display:inline-block; position:relative; margin-bottom: 20px;}
 .chat-block-wrap p {display:inline-block; padding:10px 20px; font-size:14px; color:#666; border-radius:20px; margin:0; background:#eee;}
+.chat-block-wrap-right {
+    float: right;
+}
 .chat-block-wrap p span {font-size:12px; color:#999; position:absolute; bottom:-20px; left:20px; right: 20px}
 .chat-block-wrap-right p {background:#0095f7; color:#fff; float:right;}
 .chat-block-wrap-right p span{ text-align: right;}
@@ -1517,8 +1521,8 @@ span.multiselect-native-select select {
 
 /********************* Submenu Style *****************************/
 
-.sub-nav-list {position:fixed; top:0; right:0; width:82%; float:right; z-index:100; background:#fff; padding:10px 15px;box-shadow: 0 3px 3px rgba(57, 63, 72, 0.1);}
-.sub-nav-list ul {list-style:none; padding:0 15px;  width:850px; margin:0 auto;}
+.sub-nav-list {position:fixed; top:0; right:0; width:82%; float:right; z-index:100; background:#fff; padding:10px 15px;}
+.sub-nav-list ul {list-style:none; padding:0 15px;  width:850px; margin-left: 35px;}
 .sub-nav-list li {display:inline-block; margin-right:10px;}
 .sub-nav-list li a {color: #666;font-size: 14px; text-transform:uppercase;  background:#fff; display:inline-block; border-radius:5px;box-shadow: 0 0 0 2px rgba(0,0,0,0.0); padding:11px 15px; border:none; font-weight:700;text-transform:none;letter-spacing: .05em;}
 .sub-nav-list li a i {opacity:0.8; margin-right:5px;}
@@ -1543,7 +1547,7 @@ span.multiselect-native-select select {
 .page-main-title-section a.blue-btn i {opacity:0.5; margin-right:5px;}
 .page-main-title-section p {color: #888d9c; font-size: 18px;}
 
-.bot-title-on-off {float:right; margin:17px 20px 0;}
+.bot-title-on-off {float:right; margin:13px 20px 0;}
 .bot-title-on-off .on-off-text {position: absolute;top: -2px;right: 100%;margin-right: 8px; color:#ccc;}
 .bot-title-on-off.active .on-off-text {color:#333;}
 
@@ -1916,6 +1920,14 @@ a.mat-mini-fab.mat-primary {
 
 .color-picker-input {width:200px !important; background:#00ff00; opacity: 1 !important; z-index: 0!important;}
 
+.example-margin {
+    width: 90%;
+    margin: auto;
+}
+
+.mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb {
+    background-color: #0095f7;
+}
 
 @media only screen and (max-width: 767px) {
     .pagination-export-wrap {

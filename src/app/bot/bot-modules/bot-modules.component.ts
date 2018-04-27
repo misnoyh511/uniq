@@ -17,7 +17,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
     showDiv = false;
     proHide = true;
     showDialog = false;
-    showFeature = false;
     snackBars = false;
     snackbarsOne = false;
     proActive = false;
@@ -29,6 +28,8 @@ export class botModulesComponent implements OnInit, OnDestroy {
     liveChat = false;
     showOpenChat = false;
     showChatWindow = false;
+    showChatBot = false;
+    chatBot = false;
     bot: any = {};
     dialogRef: MatDialogRef<JazzDialog>;
     analytics_token: string;
@@ -220,11 +221,33 @@ export class botModulesComponent implements OnInit, OnDestroy {
                 complements_title: this.botData.complements_title
             };
             this.botService.editBot(bot, this.botData.id).subscribe((data) => {
-                this.snackBarService.openSnackBar('Bot Updated');
+                if (data && data.id) {
+                    this.sbs.savedData = data;
+                    this.snackBarService.openSnackBar('Bot Updated');
+                } else {
+                    console.log(data);
+                }
             }, (err) => {
                 console.log(err);
             });
         }
+    }
+
+    changeFeedbackType() {
+        const bot = {
+            feedback_type: this.botData.feedback_type
+        };
+        this.botService.editBot(bot, this.botData.id).subscribe((data) => {
+            if (data && data.id) {
+                this.sbs.feedback_type = data.feedback_type;
+                this.sbs.savedData = data;
+                this.snackBarService.openSnackBar('Bot Updated');
+            } else {
+                console.log(data);
+            }
+        }, (err) => {
+            console.log(err);
+        });
     }
 
 }

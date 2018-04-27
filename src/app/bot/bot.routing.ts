@@ -29,7 +29,7 @@ export const botRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'bot-modules',
+    path: 'modules',
     component: botModulesComponent,
     canActivate: [AuthGuard]
   },

@@ -24,6 +24,7 @@ export class SidebarComponent implements OnInit {
   showConversation = false;
   showReport = false;
   showAccount = false;
+  showModules = false;
   message: string;
   showList = false;
   currentBot: string;

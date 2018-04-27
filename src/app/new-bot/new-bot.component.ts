@@ -39,13 +39,13 @@ export class NewBotComponent implements OnInit, OnDestroy {
     initial_greeting: String;
     latteralTab = true;
     floatingIcon = false;
-    faqSection: boolean;
+    faqSection = true;
     faqShowHide = false;
     proActiveShowHide = false;
-    liveChat = false;
+    liveChat = true;
     showDialog = false;
     bot: any = {};
-    proActive: boolean;
+    proActive = true;
     liveChatShowHide = false;
     proHide = true;
     snackBars = false;
@@ -183,7 +183,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     }
 
     faqSectionToggle() {
-        if (this.bot.faqSection) {
+        if (this.faqSection) {
             this.faqShowHide = true;
         } else {
             this.faqShowHide = false;
@@ -191,7 +191,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     }
 
     proActiveToggle() {
-        if (this.bot.proActive) {
+        if (this.proActive) {
             this.proActiveShowHide = true;
         } else {
             this.proActiveShowHide = false;
@@ -199,7 +199,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     }
 
     liveChatToggle() {
-        if (this.bot.liveChat) {
+        if (this.liveChat) {
             this.liveChatShowHide = true;
         } else {
             this.liveChatShowHide = false;

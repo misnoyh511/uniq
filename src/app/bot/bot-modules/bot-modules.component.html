@@ -106,6 +106,49 @@
             </div>
           </div>
         </div>
+        <div class="step-inner-wrapper full-panel-wrap">
+          <div class="step-inner-title">
+            <h3>Chatbot Feedback KPI</h3>
+            <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
+              <mat-slide-toggle name="chatBot" type="text" [(ngModel)]="chatBot" color="primary"></mat-slide-toggle>
+            </div>
+            <div class="configure-btn" [class.active]="chatBot">
+              <button class="white-btn visitor-content-toggle" (click)="showChatBot= true;">Configure</button>
+            </div>
+          </div>
+          <div class="step-inner-text-wrap">
+            <p>Feedback KPI Configuration</p>
+          </div>
+          <div class="visitor-count-wrapper" [class.active]="showChatBot">
+            <div class="visitor-count-wrap">
+              <h3>Feedback KPI Configuration</h3>
+              <p>It has been established truth that the reader will read anything written on the canvas as its in it nature.
+                So lorem ipsum is used as a dummy text due to lack of original content.</p>
+              <div class="close-visitor-count">
+                <span><i class="fa fa-close" aria-hidden="true" (click)="showChatBot = false"></i></span>
+              </div>
+              <div class="visiters-count-inner-wrap">
+                <div class="full-width-input-fields full-width-input-fields-step4">
+                  <div class="faq-topic-input-wrap">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="full-width-input-fields full-width-input-fields-step4">
+                          <div class="login-form-elements">
+                            <select [(ngModel)]="botData.feedback_type" name="feedback_type" (change)="changeFeedbackType()">
+                              <option value="0">Feedback by session</option>
+                              <option value="1">Feedback by message</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="blue-btn close-slide-btn" (click)="showChatBot = false">Done</button>
+            </div>
+          </div>
+        </div>
         <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
           <div class="custom-timing-btn-wrap" *ngIf="proHide">
             <button class="blue-btn toggle-custom-timing-section" (click)="showDialog = true">Activate Pro Active Mode</button>
@@ -130,23 +173,38 @@
                 <span><i class="fa fa-close" aria-hidden="true"></i></span>
               </div>
               <div class="visiters-count-inner-wrap">
+                <div class="full-width-input-fields full-width-input-fields-step4 full-panel">
+                  <span>What message would you like to show on your notification?</span>
+                  <div class="login-form-elements">
+                    <!--<label>Enter a FAQ	Topic</label> -->
+                    <input type="text" placeholder="Enter a Message">
+                  </div>
+                </div>
                 <div class="full-panel">
-                  <span>Pro Active Mode Desktop
+                  <span>Add Mouse Out On Desktop
                     <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
+                    <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
                   </span>
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                   </mat-slide-toggle>
                 </div>
                 <div class="full-panel">
-                  <span>Pro Active Mode Mobile
-                    <sup><i (mouseover)="showMobile= true" (mouseout)="showMobile= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
+                  <span>Add Dwell Time On Desktop
+                    <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
                   </span>
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
                   </mat-slide-toggle>
                 </div>
                 <div class="full-panel">
+                  <span>Add Dwell Time On Mobile
+                    <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
+                  </span>
+                  <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
+                  </mat-slide-toggle>
+                </div>
+                <!--<div class="full-panel">
                   <span>Pro Active Level</span>
                   <div class="progress-bar-wrap">
                     <div id="progress-bar" class="progress-level{{progress}}"></div>
@@ -155,6 +213,18 @@
                     <span id="progress2" (click)="progress = 2"><strong>2</strong><i>Lorem Ipsum Shit Amet</i></span>
                     <span id="progress3" (click)="progress = 3"><strong>3</strong><i>Lorem Ipsum Shit Amet</i></span>
                     <span id="progress4" (click)="progress = 4"><strong>4</strong><i>Lorem Ipsum Shit Amet</i></span>
+                  </div>
+                </div>-->
+                <div class="full-panel">
+                  <span>Set the time in second Dwell time</span>
+
+                  <div class="row range-slider">
+                    <div class="col-sm-5">
+                      <input type="text" id="amount" value={{botData.dwell_time}}>
+                    </div>
+                    <div class="col-sm-7">
+                      <mat-slider class="example-margin mat-info" [max]="30" [min]="0" [step]="1" [(ngModel)]="botData.dwell_time"></mat-slider>
+                    </div>
                   </div>
                 </div>
               </div>

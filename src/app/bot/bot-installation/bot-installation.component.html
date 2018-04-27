@@ -26,8 +26,7 @@
                 most cases this will be every page of your site)</p>
             </div>
             <div class="pixel-install-script">
-              <textarea id=".pixel-install-script textarea" #inputTarget>
-                <script type="text/javascript" data-app-id="{{botData.id}}" src="https://service.allegra.ai/bot-script/bot.js"></script>
+              <textarea id=".pixel-install-script textarea" #inputTarget><script type="text/javascript" data-app-id="{{botData.id}}" src="https://service.allegra.ai/bot-script/bot.js"></script>
               </textarea>
               <button id="selectVal" [class.btn-info]= "isCopied" type="button" (click)="copyToClipboard()" [ngxClipboard]="inputTarget" (cbOnSuccess)="isCopied = true">
                 <span *ngIf="!isCopied"><i class="fa fa-copy" aria-hidden="true"></i>
