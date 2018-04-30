@@ -6,6 +6,8 @@ import { NgProgress } from 'ngx-progressbar';
 @Injectable()
 export class InterceptorService {
 
+  flag = 0;
+
   constructor(private http: Http, private localStorageService: LocalStorageService,  public ngProgress: NgProgress) {
   }
 
@@ -29,11 +31,17 @@ export class InterceptorService {
   get(url) {
     const getHeaders = new Headers();
     this.createAuthorizationHeader(getHeaders);
-    this.ngProgress.start();
+    if (this.flag === 0) {
+        this.ngProgress.start();
+    }
+    this.flag = this.flag + 1;
     return this.http.get(url, {
       headers: getHeaders
     }).map(getData => {
-        this.ngProgress.done();
+      this.flag = this.flag - 1;
+        if (this.flag === 0) {
+            this.ngProgress.done();
+        }
         return getData;
     });
   }

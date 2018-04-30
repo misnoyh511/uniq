@@ -220,16 +220,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
             const bot = {
                 complements_title: this.botData.complements_title
             };
-            this.botService.editBot(bot, this.botData.id).subscribe((data) => {
-                if (data && data.id) {
-                    this.sbs.savedData = data;
-                    this.snackBarService.openSnackBar('Bot Updated');
-                } else {
-                    console.log(data);
-                }
-            }, (err) => {
-                console.log(err);
-            });
+            this.editBotData(bot, this.botData.id);
         }
     }
 
@@ -237,7 +228,21 @@ export class botModulesComponent implements OnInit, OnDestroy {
         const bot = {
             feedback_type: this.botData.feedback_type
         };
-        this.botService.editBot(bot, this.botData.id).subscribe((data) => {
+        this.editBotData(bot, this.botData.id);
+    }
+
+    editBotWithProActive() {
+        const bot = {
+            hybrid_msg: this.botData.hybrid_msg,
+            hybrid_mode: this.botData.hybrid_mode,
+            hybrid_desktop: this.botData.hybrid_desktop,
+            hybrid_mobile: this.botData.hybrid_mobile
+        };
+        this.editBotData(bot, this.botData.id);
+    }
+
+    editBotData(botData, botId) {
+        this.botService.editBot(botData, botId).subscribe((data) => {
             if (data && data.id) {
                 this.sbs.feedback_type = data.feedback_type;
                 this.sbs.savedData = data;

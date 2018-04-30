@@ -64,6 +64,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
 
     getSession() {
+        console.log('get session');
         this.items = [];
         this.sessions = [];
         if (this.feedback_type) {
@@ -109,7 +110,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               console.log(err);
             });
           }, (err) => {
-            console.log(err);
+              console.log(err);
           });
         }
       } else {
