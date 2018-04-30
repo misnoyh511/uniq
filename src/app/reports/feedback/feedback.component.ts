@@ -64,7 +64,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
 
     getSession() {
-        console.log('get session');
         this.items = [];
         this.sessions = [];
         if (this.feedback_type) {

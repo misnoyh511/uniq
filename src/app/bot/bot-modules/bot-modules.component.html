@@ -177,7 +177,7 @@
                   <span>What message would you like to show on your notification?</span>
                   <div class="login-form-elements">
                     <!--<label>Enter a FAQ	Topic</label> -->
-                    <input type="text" placeholder="Enter a Message">
+                    <input type="text" placeholder="Enter a Message" name="hybrid_msg" [(ngModel)]="botData.hybrid_msg">
                   </div>
                 </div>
                 <div class="full-panel">
@@ -185,7 +185,7 @@
                     <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
                   </span>
-                  <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
+                  <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_mode" [(ngModel)]="botData.hybrid_mode">
                   </mat-slide-toggle>
                 </div>
                 <div class="full-panel">
@@ -193,7 +193,7 @@
                     <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
                   </span>
-                  <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
+                  <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_desktop" [(ngModel)]="botData.hybrid_desktop">
                   </mat-slide-toggle>
                 </div>
                 <div class="full-panel">
@@ -201,7 +201,7 @@
                     <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
                   </span>
-                  <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
+                  <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_mobile" [(ngModel)]="botData.hybrid_mobile">
                   </mat-slide-toggle>
                 </div>
                 <!--<div class="full-panel">
@@ -220,7 +220,7 @@
 
                   <div class="row range-slider">
                     <div class="col-sm-5">
-                      <input type="text" id="amount" value={{botData.dwell_time}}>
+                      <input type="text" value={{botData.dwell_time}}>
                     </div>
                     <div class="col-sm-7">
                       <mat-slider class="example-margin mat-info" [max]="30" [min]="0" [step]="1" [(ngModel)]="botData.dwell_time"></mat-slider>
@@ -228,7 +228,7 @@
                   </div>
                 </div>
               </div>
-              <button class="blue-btn close-slide-btn" (click)="showBusiness = false">Done</button>
+              <button class="blue-btn close-slide-btn" (click)="showBusiness = false; editBotWithProActive()">Done</button>
             </div>
           </div>
         </div>
