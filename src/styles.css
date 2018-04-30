@@ -1,5 +1,6 @@
 @charset "utf-8";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~nouislider/distribute/nouislider.min.css';
 /* CSS Document */
 
 /* comman style
@@ -1927,6 +1928,18 @@ a.mat-mini-fab.mat-primary {
 
 .mat-accent .mat-slider-track-fill, .mat-accent .mat-slider-thumb {
     background-color: #0095f7;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 15px !important;
+    height: 25px !important;
+    border: none !important;
+    background: #0095f7 !important;
+    box-shadow: none;
+}
+
+.noUi-horizontal .noUi-handle:before, .noUi-horizontal .noUi-handle:after {
+    display: none;
 }
 
 @media only screen and (max-width: 767px) {

@@ -9,16 +9,16 @@ import {MaterialComponentsModule} from '../material-components.module';
 import '../../assets/js/colorpicker.js';
 import {DatePickerDirective} from '../date-picker.directive';
 import {ColorPickerDirective} from '../color-picker.directive';
-import {MatSliderModule} from '@angular/material/slider';
+import { NouisliderModule} from 'ng2-nouislider';
 
 
 declare var require: any;
 
 @NgModule({
-  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, MatSliderModule],
+  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, NouisliderModule],
   declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective],
   exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule,
-      DatePickerDirective, ColorPickerDirective, MatSliderModule],
+      DatePickerDirective, ColorPickerDirective, NouisliderModule],
   providers: [
     {
       provide: HighchartsStatic,

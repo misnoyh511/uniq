@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, OnDestroy} from '@angular/core';
+import {Component, Inject, OnInit, OnDestroy,  ViewEncapsulation} from '@angular/core';
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
 import {DOCUMENT} from '@angular/platform-browser';
 import {BotService} from '../bot.service';
@@ -10,7 +10,9 @@ import * as _ from 'lodash';
     selector: 'app-bot-modules',
     templateUrl: 'bot-modules.component.html',
     styleUrls: ['./bot-modules.component.css'],
-    providers: [BotService]
+    providers: [BotService],
+    encapsulation: ViewEncapsulation.None,
+    preserveWhitespaces: false
 })
 export class botModulesComponent implements OnInit, OnDestroy {
     faqSection = false;
@@ -41,6 +43,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     showQues: any = {};
     showTopic: any = [];
     oldTitle = '';
+    dwell_time = 0;
     config: MatDialogConfig = {
         disableClose: false,
         hasBackdrop: true,
@@ -96,7 +99,10 @@ export class botModulesComponent implements OnInit, OnDestroy {
     getBotData(botId) {
         this.botService.getBotData(botId).subscribe((data) => {
             this.botData = data;
+            this.dwell_time = this.botData.dwell_time;
             this.topics = this.botData.topics;
+
+
             this.oldTitle = _.cloneDeep(this.botData.complements_title);
             if (this.topics && this.topics.length) {
                 this.faqSection = true;
@@ -236,7 +242,8 @@ export class botModulesComponent implements OnInit, OnDestroy {
             hybrid_msg: this.botData.hybrid_msg,
             hybrid_mode: this.botData.hybrid_mode,
             hybrid_desktop: this.botData.hybrid_desktop,
-            hybrid_mobile: this.botData.hybrid_mobile
+            hybrid_mobile: this.botData.hybrid_mobile,
+            dwell_time: this.dwell_time
         };
         this.editBotData(bot, this.botData.id);
     }
