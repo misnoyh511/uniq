@@ -1948,3 +1948,8 @@ a.mat-mini-fab.mat-primary {
         margin: 0 0 20px;
     }
 }
+
+html[xmlns*=""]:root .sub-nav-list ul  {
+    padding: 0 15px 0 0 !important;
+    margin-left: 20px !important;
+}
