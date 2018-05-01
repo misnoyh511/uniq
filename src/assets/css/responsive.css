@@ -3,7 +3,10 @@
   .dashboard-container {min-width:0; max-width:none; width:85%;}
   .dashboard-automate-container .row {margin:0;}
   .app-version-dashboard {min-width:0; max-width:none; width:15%;}
-  .sub-nav-list {width:85%;}
+  .sub-nav-list {
+    width: calc(100% - 15%);
+    padding-left: 35px;
+  }
   .main-navigation ul li a {padding: 25px 10px;}
   .main-navigation {
     text-align: center;
@@ -23,7 +26,10 @@
   .app-version-dashboard {min-width:0; max-width:none; width:15%;}
   .default-bot-config ul li {display:block; margin-bottom:5px;}
 
-  .sub-nav-list {width:85%;}
+  .sub-nav-list {
+    width: calc(100% - 15%);
+    padding-left: 35px;
+  }
 }
 @media only screen and (min-width: 1366px) and (max-width: 1500px) {
   .dashboard-plans-wrapper .col-md-3 {padding:0 10px;}
@@ -38,10 +44,9 @@
   .knowledge-section-container {width:calc(100% - 21%);}
 
   .default-bot-config ul li {width:100%; margin-bottom:10px;}
-  .dashboard-container {width:78%;}
+
 
   .ai-exim-buttons button {margin:0 3px 10px 0;}
-  .automate-content-wrapper .sub-nav-list ul {width:auto; margin:0 0 0 50px;}
 
 }
 @media only screen and (min-width: 1201px) and (max-width: 1365px) {
@@ -49,8 +54,12 @@
   .automate-sidebar .sub-nav-list li a {display:block; margin:0 0 10px; width:100%;}
   .ai-exim-buttons button {margin:0 3px 10px 0;}
   .automate-content-wrapper .sub-nav-list ul {width:auto;}
-  .sub-nav-list {width:79%;}
+  .sub-nav-list {
+    width: calc(100% - 250px);
+    padding-left: 35px;
+  }
   .header-share-btn {top:90px;}
+
 }
 @media only screen and (min-width:1025px) and (max-width:1200px)
 {
@@ -72,7 +81,10 @@
   .automate-sidebar .sub-nav-list li a {display:block; margin:0 0 10px; width:100%;}
 
 
-  .sub-nav-list {width:79%; padding-left:50px;}
+  .sub-nav-list {
+    width: calc(100% - 250px);
+    padding-left: 35px;
+  }
   .sub-nav-list ul {width:100%;}
   .automate-content-wrapper .sub-nav-list ul {width:auto;}
   .header-share-btn {top:90px;}
