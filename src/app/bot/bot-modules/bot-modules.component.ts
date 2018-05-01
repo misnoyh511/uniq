@@ -17,15 +17,10 @@ import * as _ from 'lodash';
 export class botModulesComponent implements OnInit, OnDestroy {
     faqSection = false;
     showDiv = false;
-    proHide = true;
-    showDialog = false;
-    snackBars = false;
     snackbarsOne = false;
-    proActive = false;
+    proActive: boolean;
     showBusiness = false;
-    progress: number;
     showDesktop = false;
-    showMobile = false;
     showLiveChat = false;
     liveChat = false;
     showOpenChat = false;
@@ -44,6 +39,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     showTopic: any = [];
     oldTitle = '';
     dwell_time = 0;
+    showPage = false;
     config: MatDialogConfig = {
         disableClose: false,
         hasBackdrop: true,
@@ -71,6 +67,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.proActive = false;
         if (Object.keys(this.sbs.savedData).length) {
             this.botData = this.sbs.savedData;
             this.getBotData(this.botData.id);
@@ -98,11 +95,12 @@ export class botModulesComponent implements OnInit, OnDestroy {
 
     getBotData(botId) {
         this.botService.getBotData(botId).subscribe((data) => {
+            this.showPage = true;
             this.botData = data;
             this.dwell_time = this.botData.dwell_time;
+            this.proActive = !!(this.botData.hybrid_msg || this.botData.hybrid_desktop || this.botData.hybrid_mobile
+                || this.botData.hybrid_mode || this.botData.dwell_time);
             this.topics = this.botData.topics;
-
-
             this.oldTitle = _.cloneDeep(this.botData.complements_title);
             if (this.topics && this.topics.length) {
                 this.faqSection = true;
@@ -111,18 +109,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
             }
         }, (err) => {
             console.log(err);
-        });
-    }
-
-    openModal() {
-        this.dialogRef = this.dialog.open(JazzDialog, {position: {top: '15%', left: '23%'}});
-        this.dialogRef.afterClosed().subscribe((result: string) => {
-            if (result === 'Yes!') {
-                this.showDialog = false;
-                this.snackBars = true;
-                this.snackBarService.openSnackBar('Congratulations! You have successfully upgraded to pro mode.');
-            }
-            this.proHide = false;
         });
     }
 
@@ -245,6 +231,8 @@ export class botModulesComponent implements OnInit, OnDestroy {
             hybrid_mobile: this.botData.hybrid_mobile,
             dwell_time: this.dwell_time
         };
+
+        console.log('bot', bot);
         this.editBotData(bot, this.botData.id);
     }
 
