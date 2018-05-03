@@ -67,6 +67,7 @@ export class SidebarComponent implements OnInit {
      if (data && data.length) {
          this.bot = data;
          this.currentBot = this.bot[0].name;
+         this.Service.savedData = data[0];
          if (this.bot.length > 0) {
              this.data = this.bot[0];
          }

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 import {Router} from '@angular/router';
+import {SnackBarService} from '../../snack-bar/snack-bar.service';
 
 @Component({
     selector: 'app-sign-up',
@@ -9,13 +10,29 @@ import {Router} from '@angular/router';
 })
 export class SignUpComponent {
     user: any = {};
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    constructor(private authenticationService: AuthenticationService, private router: Router,
+                private snackBarService: SnackBarService) {
         this.authenticationService.checkAuthenticate();
     }
     signUp() {
         this.user.type = 'sdk';
         this.authenticationService.signupAuth(this.user).subscribe((data) => {
-            this.router.navigate(['/']);
+            if (data.status === 400) {
+                if (this.user.name === '' && this.user.email === '' && this.user.password === '') {
+                    this.snackBarService.openSnackBar('Please Enter Email and password');
+                } else if (this.user.name === '') {
+                    this.snackBarService.openSnackBar('Please Enter User Name');
+                } else if (this.user.email === '') {
+                    this.snackBarService.openSnackBar('Please Enter Email Address');
+                } else if (this.user.password === '') {
+                    this.snackBarService.openSnackBar('Please Enter Password');
+                } else {
+                    this.snackBarService.openSnackBar(data.message);
+                }
+            } else {
+                this.snackBarService.openSnackBar('Sign up Successful');
+                this.router.navigate(['/']);
+            }
         });
     }
     googleSignIn() {

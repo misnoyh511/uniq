@@ -148,27 +148,19 @@ export class AuthenticationService {
         };
 
         const myHeaders = new Headers();
-        this.httpClient.createAuthorizationHeader(myHeaders);
-        // myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
+        // this.httpClient.createAuthorizationHeader(myHeaders);
+        myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
+        myHeaders.append('X-HopIn-Application-Id', '2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
+        myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
+        myHeaders.append('Content-Type', 'text/plain; charset=utf-8s');
         const options = new RequestOptions({headers: myHeaders});
         return this.http.post(AppConfig.API_ENDPOINT + '/users', userData, options)
             .map(response => {
                 return response.json();
             })
             .catch((err: Response) => {
-                if (user.name === '' && user.email === '' && user.password === '') {
-                    this.snackBarService.openSnackBar('Please Enter Email and password');
-                } else if (user.name === '') {
-                    this.snackBarService.openSnackBar('Please Enter User Name');
-                } else if (user.email === '') {
-                    this.snackBarService.openSnackBar('Please Enter Email Address');
-                } else if (user.password === '') {
-                    this.snackBarService.openSnackBar('Please Enter Password');
-                } else {
-                    this.snackBarService.openSnackBar('Invalid Data');
-                }
                 this.ngProgress.done();
-                return Observable.of(err);
+                return Observable.of(err.json().errors[0]);
             });
     }
 }
