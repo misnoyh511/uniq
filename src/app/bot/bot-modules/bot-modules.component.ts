@@ -21,6 +21,8 @@ export class botModulesComponent implements OnInit, OnDestroy {
     proActive: boolean;
     showBusiness = false;
     showDesktop = false;
+    showDeskDwell = false;
+    showMobDwell = false;
     showLiveChat = false;
     liveChat = false;
     showOpenChat = false;

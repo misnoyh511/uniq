@@ -187,16 +187,16 @@
                 </div>
                 <div class="full-panel">
                   <span>Add Dwell Time On Desktop
-                    <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
+                    <sup><i (mouseover)="showDeskDwell= true" (mouseout)="showDeskDwell= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showDeskDwell">This opens the chat bot window automatically and immediately.</b>
                   </span>
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_desktop" [(ngModel)]="botData.hybrid_desktop">
                   </mat-slide-toggle>
                 </div>
                 <div class="full-panel">
                   <span>Add Dwell Time On Mobile
-                    <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
+                    <sup><i (mouseover)="showMobDwell= true" (mouseout)="showMobDwell= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showMobDwell">This opens the chat bot window automatically and immediately.</b>
                   </span>
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_mobile" [(ngModel)]="botData.hybrid_mobile">
                   </mat-slide-toggle>

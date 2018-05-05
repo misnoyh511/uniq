@@ -261,10 +261,7 @@
                     <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                   </span>
                   <div class="right-side-form color-pick-section">
-                    <!--<input type="color" class="color-picker-input" maxlength="6" size="6" id="colorpickerField1"
-                           value="00ff00" data-input-id="appearance3" name="color" [(ngModel)]="bot.tab_color" />
-                    <span [ngStyle]="{'background': bot.tab_color}">{{bot.tab_color}}</span>-->
-                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_color" maxlength="6" size="6"
+                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_color" maxlength="7" size="7"
                            id="colorpickerNewTab" appColorPicker [ngStyle]="{'background': bot.tab_color}" (onGetColor)="onTabColor($event)" value={{bot.tab_color}} />
 
                   </div>
@@ -275,9 +272,7 @@
                     <b [class.show]="showFontClr">The tab/icon color seen by users</b>
                   </span>
                   <div class="right-side-form color-pick-section">
-                    <!--<input type="color" name="fcolor" [(ngModel)]="bot.tab_text_color">
-                    <span [ngStyle]="{'background': bot.tab_text_color}">{{bot.tab_text_color}}</span>-->
-                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_text_color" maxlength="6" size="6"
+                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_text_color" maxlength="7" size="7"
                            id="colorpickerNewText" appColorPicker [ngStyle]="{'background': bot.tab_text_color}" (onGetColor)="onTextColor($event)" value={{bot.tab_text_color}} />
                   </div>
                 </div>
@@ -596,43 +591,6 @@
               </div>
             </div>
           </div>
-
-          <!--<div class="tab-pane" id="launch" role="tabpanel" aria-labelledby="new-step5">
-            <div class="tab-content-wrap">
-              <div class="step-inner-wrapper">
-                <div class="step-inner-title">
-                  <h3>Give this Project an internal name</h3>
-                </div>
-                &lt;!&ndash;<div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Project Name
-                    <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showProject"> The Operator name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label> Enter Project Name</label>
-                    <input type="text" name="name" (keypress)="operator = true" [(ngModel)]="bot.name">
-                  </div>
-                </div>
-              </div>&ndash;&gt;
-
-            <div class="next-button-wrap">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="blank-wrap">
-                    <a data-toggle="pill" href="#customize" class="btnPrev launchBtnBack">Back</a>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <button (click)="save()" class="btnNext" [class.disabled]="emptyField || (!bot.name) || (!operator)">
-                    Launch
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>-->
   </div>
 </div>
 

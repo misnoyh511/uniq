@@ -143,7 +143,7 @@
               <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
             </span>
             <div class="right-side-form color-pick-section">
-              <input type="text" class="color-picker-input" [(ngModel)]="botData.tab_color" maxlength="6" size="6"
+              <input type="text" class="color-picker-input" [(ngModel)]="botData.tab_color" maxlength="7" size="7"
                      id="colorpickerTab" appColorPicker [ngStyle]="{'background': botData.tab_color}" (onGetColor)="onTabColor($event)" value="00ff00" />
             </div>
           </div>
@@ -154,7 +154,7 @@
               <b [class.show]="showFontClr">The tab/icon color seen by users</b>
             </span>
             <div class="right-side-form color-pick-section">
-              <input type="text" class="color-picker-input" [(ngModel)]="botData.tab_text_color" maxlength="6" size="6"
+              <input type="text" class="color-picker-input" [(ngModel)]="botData.tab_text_color" maxlength="7" size="7"
                      id="colorpickerText" appColorPicker [ngStyle]="{'background': botData.tab_text_color}" (onGetColor)="onTextColor($event)" [value]="botData.tab_text_color" />
             </div>
           </div>
