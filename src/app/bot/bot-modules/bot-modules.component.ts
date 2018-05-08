@@ -99,16 +99,13 @@ export class botModulesComponent implements OnInit, OnDestroy {
     }
 
     onDrag(args) {
-        console.log('args', args);
         const [e, el] = args;
         this.indexDrag = this.getElementIndex(e);
-        console.log('indexDrag', this.indexDrag);
     }
 
     onDrop(args) {
         const [e, el] = args;
         this.indexDrop = this.getElementIndex(e);
-        console.log('indexDrop', this.indexDrop);
         this.move();
     }
 
@@ -119,7 +116,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
 
         const target = this.topics[this.indexDrag];
         const increment = this.indexDrop < this.indexDrag ? -1 : 1;
-        console.log('target ==============', target);
         for (let k = this.indexDrag; k !== this.indexDrop; k += increment) {
             this.topics[k] = this.topics[k + increment];
         }
@@ -127,7 +123,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
     }
 
     getElementIndex(el: any) {
-        console.log('el', el);
         return [].slice.call(el.parentElement.children).indexOf(el);
     }
 
@@ -276,7 +271,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
             dwell_time: this.dwell_time
         };
 
-        console.log('bot', bot);
         this.editBotData(bot, this.botData.id);
     }
 
