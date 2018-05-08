@@ -114,7 +114,7 @@
       </div>
     </div>
     <div class="chatSection">
-      <div *ngFor="let info of totalMsgs | sort: 'created_at'">
+      <div *ngFor="let info of totalMsgs">
         <div class="chat-block-wrap chat-block-wrap-right" *ngIf="info.type === 'outgoing'">
           <p>{{info.msg}}
             <span>{{info.created_at | date: 'EEEE MMM dd, yyyy hh:mm a'}}</span>

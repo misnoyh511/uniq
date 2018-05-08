@@ -1,12 +1,13 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy } from '@angular/core';
 import {ReportsService} from '../reports.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+import {ArraySortPipe} from '../../directives/sort.directive';
 
 @Component({
     selector: 'app-feedback',
     templateUrl: './feedback.component.html',
     styleUrls: ['./feedback.component.css'],
-    providers: [ReportsService]
+    providers: [ReportsService, ArraySortPipe]
 })
 export class FeedbackComponent implements OnInit, OnDestroy {
     sessions: any = [];
@@ -20,7 +21,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     totalPages: number;
     startDate: any;
     endDate: any;
-    constructor(private reportsService: ReportsService, public sbs: SidebarService) {
+    constructor(private reportsService: ReportsService, public sbs: SidebarService, private sort: ArraySortPipe) {
     }
 
     ngOnInit() {
@@ -70,7 +71,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         if (this.selectedValue === 'negative') {
           this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
-              return item.text;
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'negative',
+                    created_at: item.created_at
+                };
+                return data;
             });
             this.sessions = this.compressArray(valueArr);
               this.itemsPerPage = this.getItemPerPage(this.sessions.length);
@@ -82,7 +89,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         } else if (this.selectedValue === 'positive') {
           this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
-              return item.text;
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+                return data;
             });
             this.sessions = this.compressArray(valueArr);
               this.itemsPerPage = this.getItemPerPage(this.sessions.length);
@@ -94,11 +107,23 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         } else {
           this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
             const posValueArr = positiveRes.data.map(function(item){
-              return item.text;
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+                return data;
             });
             this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
               const negValueArr = negativeRes.data.map(function(item){
-                return item.text;
+                  let data = {};
+                  data = {
+                      text: item.text,
+                      status: 'negative',
+                      created_at: item.created_at
+                  };
+                  return data;
               });
               const valueArr = posValueArr.concat(negValueArr);
               this.sessions = this.compressArray(valueArr);
@@ -116,7 +141,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         if (this.selectedValue === 'negative') {
           this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
-              return item.text;
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'negative',
+                    created_at: item.created_at
+                };
+                return data;
             });
             this.sessions = this.compressArray(valueArr);
               this.itemsPerPage = this.getItemPerPage(this.sessions.length);
@@ -128,7 +159,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         } else if (this.selectedValue === 'positive') {
           this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             const valueArr = response.data.map(function(item){
-              return item.text;
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+                return data;
             });
             this.sessions = this.compressArray(valueArr);
               this.itemsPerPage = this.getItemPerPage(this.sessions.length);
@@ -139,12 +176,24 @@ export class FeedbackComponent implements OnInit, OnDestroy {
           });
         } else {
           this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
-            const posValueArr = positiveRes.data.map(function(item){
-              return item.text;
+              const posValueArr = positiveRes.data.map(function(item){
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+              return data;
             });
             this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
-              const negValueArr = negativeRes.data.map(function(item){
-                return item.text;
+                const negValueArr = negativeRes.data.map(function(item){
+                  let data = {};
+                  data = {
+                      text: item.text,
+                      status: 'negative',
+                      created_at: item.created_at
+                  };
+                  return data;
               });
               const valueArr = posValueArr.concat(negValueArr);
               this.sessions = this.compressArray(valueArr);
@@ -167,22 +216,25 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     const copy = original.slice(0);
 
     // first loop goes over every element
-    for (let i = 0; i < original.length; i++) {
+      for (let i = 0; i < original.length; i++) {
 
       let myCount = 0;
       // loop over every element in the copy and see if it's the same
       for (let w = 0; w < copy.length; w++) {
-        if (original[i] === copy[w]) {
-          // increase amount of times duplicate is found
-          myCount++;
-          // sets item to undefined
-          delete copy[w];
-        }
+          if (copy[w] && copy[w].text) {
+              if (original[i].text === copy[w].text) {
+                  // increase amount of times duplicate is found
+                  myCount++;
+                  // sets item to undefined
+                  delete copy[w];
+              }
+          }
       }
-
       if (myCount > 0) {
         const a = new Object();
-        a['msg'] = original[i];
+        a['msg'] = original[i].text;
+        a['status'] = original[i].status;
+        a['created_at'] = original[i].created_at;
         a['count'] = myCount;
         compressed.push(a);
       }
@@ -221,6 +273,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
     getPaginatedData() {
         this.items = [];
+        this.sessions = this.sort.transform(this.sessions, 'created_at');
         for (let j = (this.pageNo * this.itemPerPage); j < (this.itemPerPage * (this.pageNo + 1)); j++) {
             this.items.push(this.sessions[j]);
             if (j === this.sessions.length - 1) {
@@ -249,5 +302,4 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             this.getSession();
         }
     }
-
 }

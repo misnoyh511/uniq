@@ -1073,7 +1073,7 @@ p{margin:0 0 20px 0; }
 }
 .analytics-feedback-filters select {background-color: #F8F8F8;border-radius: 3px;border: 1px solid #dadbdc; border-bottom-color: #cacccd;
   box-shadow: 0 1px 1px -1px rgba(0,0,0,0.12), 0px 1px 0 rgba(255,255,255,0.72) inset;color: #545D63;display: inline-block;font-size: 1.3rem;font-weight: 800;
-  margin: 0;height: 36px;line-height: 34px;padding: 0 1.24rem;position: relative;text-align: center;text-decoration: none;text-transform: capitalize; appearance:none; -webkit-appearance:none; -moz-appearance:none; cursor:pointer; background-image:url(./assets/images/select-icon.png); background-repeat:no-repeat; background-position:right;
+  margin: 0;height: 36px;line-height: 34px;padding: 0 1.24rem;position: relative;text-align: center;text-decoration: none;text-transform: capitalize; appearance:none; -webkit-appearance:none; -moz-appearance:none; cursor:pointer; background-image:url(./assets/images/select-icon.png); background-repeat:no-repeat; background-position:98%;
   width:100%; }
 .analytics-feedback-filters select:before {content:url(./assets/images/select-icon.png); position:absolute; top:0; right:0; z-index:99;}
 
@@ -1951,6 +1951,22 @@ a.mat-mini-fab.mat-primary {
 
 .bot-list-config-wrap a {
     width: 270px;
+}
+
+.positiveColor {
+    color: #00c853;
+    background-color: #e8f5e9 !important;
+}
+
+.negativeColor {
+    color: #ef5350;
+    background-color: #fff3f5 !important;
+}
+
+.dragRow{
+    float: left;
+    width: 100%;
+    cursor: move;
 }
 
 @media only screen and (max-width: 767px) {

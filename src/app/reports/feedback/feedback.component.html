@@ -57,8 +57,8 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let session of items">
-                <td matTooltip={{session.msg}}>{{session.msg.length > 100 ? session.msg.substring(0, 100)+ '...' : session.msg}}</td>
+              <tr *ngFor="let session of items"[class]="session.status + 'Color'">
+                <td matTooltip={{session.msg}}>{{session.msg.length > 90 ? session.msg.substring(0, 90)+ '...' : session.msg}}</td>
                 <td>{{session.count}}</td>
               </tr>
               </tbody>

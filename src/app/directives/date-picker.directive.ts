@@ -1,6 +1,6 @@
 
 import {Directive, ElementRef, AfterViewInit, EventEmitter, Output} from '@angular/core';
-import {SidebarService} from './shared/sidebar/sidebar.service';
+import {SidebarService} from '../shared/sidebar/sidebar.service';
 
 declare var $: any;
 declare var Calendar: any;

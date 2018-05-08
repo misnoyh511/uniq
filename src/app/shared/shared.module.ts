@@ -7,18 +7,19 @@ import {FormsModule} from '@angular/forms';
 import {SidebarComponent } from './sidebar/sidebar.component';
 import {MaterialComponentsModule} from '../material-components.module';
 import '../../assets/js/colorpicker.js';
-import {DatePickerDirective} from '../date-picker.directive';
-import {ColorPickerDirective} from '../color-picker.directive';
+import {DatePickerDirective} from '../directives/date-picker.directive';
+import {ColorPickerDirective} from '../directives/color-picker.directive';
 import { NouisliderModule} from 'ng2-nouislider';
+import {ArraySortPipe} from '../directives/sort.directive';
 
 
 declare var require: any;
 
 @NgModule({
   imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, NouisliderModule],
-  declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective],
+  declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe],
   exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule,
-      DatePickerDirective, ColorPickerDirective, NouisliderModule],
+      DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe],
   providers: [
     {
       provide: HighchartsStatic,

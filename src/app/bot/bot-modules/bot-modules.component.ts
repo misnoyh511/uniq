@@ -4,6 +4,7 @@ import {DOCUMENT} from '@angular/platform-browser';
 import {BotService} from '../bot.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {SnackBarService} from '../../snack-bar/snack-bar.service';
+import { DragulaService } from 'ng2-dragula';
 import * as _ from 'lodash';
 
 @Component({
@@ -42,6 +43,8 @@ export class botModulesComponent implements OnInit, OnDestroy {
     oldTitle = '';
     dwell_time = 0;
     showPage = false;
+    indexDrag: number;
+    indexDrop: number;
     config: MatDialogConfig = {
         disableClose: false,
         hasBackdrop: true,
@@ -60,11 +63,17 @@ export class botModulesComponent implements OnInit, OnDestroy {
     };
 
     constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
-                public sbs: SidebarService, public botService: BotService) {
+                public sbs: SidebarService, public botService: BotService, private dragulaService: DragulaService) {
         dialog.afterOpen.subscribe(() => {
             if (!doc.body.classList.contains('no-scroll')) {
                 doc.body.classList.add('no-scroll');
             }
+        });
+        dragulaService.drag.subscribe((value) => {
+            this.onDrag(value.slice(1));
+        });
+        dragulaService.drop.subscribe((value) => {
+            this.onDrop(value.slice(1));
         });
     }
 
@@ -87,6 +96,39 @@ export class botModulesComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.sbs.savedData = this.botData;
+    }
+
+    onDrag(args) {
+        console.log('args', args);
+        const [e, el] = args;
+        this.indexDrag = this.getElementIndex(e);
+        console.log('indexDrag', this.indexDrag);
+    }
+
+    onDrop(args) {
+        const [e, el] = args;
+        this.indexDrop = this.getElementIndex(e);
+        console.log('indexDrop', this.indexDrop);
+        this.move();
+    }
+
+    move() {
+        if (this.indexDrop === this.indexDrag) {
+            return this.topics;
+        }
+
+        const target = this.topics[this.indexDrag];
+        const increment = this.indexDrop < this.indexDrag ? -1 : 1;
+        console.log('target ==============', target);
+        for (let k = this.indexDrag; k !== this.indexDrop; k += increment) {
+            this.topics[k] = this.topics[k + increment];
+        }
+        this.topics[this.indexDrop] = target;
+    }
+
+    getElementIndex(el: any) {
+        console.log('el', el);
+        return [].slice.call(el.parentElement.children).indexOf(el);
     }
 
     clearSearch() {

@@ -1,6 +1,7 @@
-import {Component, OnInit, Pipe, PipeTransform, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ConversationsService} from '../conversations.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+import {ArraySortPipe} from '../../directives/sort.directive';
 
 declare var that: any;
 
@@ -8,7 +9,7 @@ declare var that: any;
   selector: 'app-transcripts',
   templateUrl: 'transcripts.component.html',
   styleUrls: ['./transcripts.component.css'],
-  providers: [ConversationsService]
+  providers: [ConversationsService, ArraySortPipe]
 })
 export class TranscriptsComponent implements OnInit, OnDestroy {
   transcripts: any = [];
@@ -27,7 +28,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
   startDate: any;
   endDate: any;
 
-  constructor(private conversationsService: ConversationsService, public sbs: SidebarService) {
+  constructor(private conversationsService: ConversationsService, public sbs: SidebarService, private sort: ArraySortPipe) {
   }
 
   ngOnInit() {
@@ -179,6 +180,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
 
     getPaginatedData() {
         this.items = [];
+        this.transcripts = this.sort.transform(this.transcripts, 'created_at');
       for (let j = (this.pageNo * this.itemPerPage); j < (this.itemPerPage * (this.pageNo + 1)); j++) {
         this.items.push(this.transcripts[j]);
         if (j === this.transcripts.length - 1) {
@@ -207,22 +209,4 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
             this.getTranscripts();
         }
     }
-}
-
-@Pipe({
-  name: 'sort'
-})
-export class ArraySortPipe  implements PipeTransform {
-  transform(array: any[], field: string): any[] {
-    array.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
-        return -1;
-      } else if (a[field] > b[field]) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    return array;
-  }
 }

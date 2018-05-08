@@ -21,6 +21,7 @@
       "styles": [
         "../node_modules/ng2-toasty/style-bootstrap.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/dragula/dist/dragula.css",
         "assets/css/animate.css",
         "styles.css",
         "assets/css/responsive.css",
