@@ -94,7 +94,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         for (let j in Object.keys(newArr)) {
           response.data.push({
             count: '0',
-            date: new Date(parseInt(Object.keys(newArr)[j]))
+            date: new Date(parseInt(Object.keys(newArr)[j], 10))
           });
         }
 
@@ -105,7 +105,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         const countArray = [];
           for (const i in response.data) {
             response.data[i].date = new Date(response.data[i].date);
-            countArray.push(parseInt(response.data[i].count));
+            countArray.push(parseInt(response.data[i].count, 10));
           }
           this.options = {
             title: {
@@ -178,10 +178,10 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             newArr[currentDay.getTime()] = '0';
           }
         }
-        for (let j in Object.keys(newArr)) {
+        for (const j in Object.keys(newArr)) {
           response.data.push({
             count: '0',
-            date: new Date(parseInt(Object.keys(newArr)[j]))
+            date: new Date(parseInt(Object.keys(newArr)[j], 10))
           });
         }
         response.data = _.sortBy(response.data,
@@ -191,7 +191,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         const countArray = [];
         for (const i in response.data) {
           response.data[i].date = new Date(response.data[i].date);
-          countArray.push(parseInt(response.data[i].count));
+          countArray.push(parseInt(response.data[i].count, 10));
         }
         this.options1 = {
           title: {
@@ -267,7 +267,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         for (let j in Object.keys(newArr)) {
           response.data.push({
             count: '0',
-            date: new Date(parseInt(Object.keys(newArr)[j]))
+            date: new Date(parseInt(Object.keys(newArr)[j], 10))
           });
         }
         response.data = _.sortBy(response.data,
@@ -277,7 +277,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         const countArray = [];
         for (const i in response.data) {
           response.data[i].date = new Date(response.data[i].date);
-          countArray.push(parseInt(response.data[i].count));
+          countArray.push(parseInt(response.data[i].count, 10));
         }
         this.options2 = {
           title: {

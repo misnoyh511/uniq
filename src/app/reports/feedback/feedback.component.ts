@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy } from '@angular/core';
 import {ReportsService} from '../reports.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {ArraySortPipe} from '../../directives/sort.directive';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-feedback',
@@ -21,6 +22,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     totalPages: number;
     startDate: any;
     endDate: any;
+    options: any = {};
     constructor(private reportsService: ReportsService, public sbs: SidebarService, private sort: ArraySortPipe) {
     }
 
@@ -176,6 +178,30 @@ export class FeedbackComponent implements OnInit, OnDestroy {
           });
         } else {
           this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
+              const newPosArr = {};
+              for (const currentDay = new Date(this.startDate); currentDay <= new Date(this.endDate); currentDay.setDate(currentDay.getDate() + 1)) {
+                  // let day;
+                  let flag = false;
+                  positiveRes.data.forEach( x => {
+                      x.created_at = new Date(x.created_at);
+                      x.created_at = x.created_at.getFullYear() + '-' + ('0' + (x.created_at.getMonth() + 1)).slice(-2) + '-' +
+                          ('0' + (x.created_at.getDate())).slice(-2);
+                      const day = currentDay.getFullYear() + '-' + ('0' + (currentDay.getMonth() + 1)).slice(-2) + '-' +
+                          ('0' + (currentDay.getDate())).slice(-2);
+                      if (x.created_at === day) {
+                          flag = true;
+                      }
+                  });
+                  if (!flag) {
+                      newPosArr[currentDay.getTime()] = '0';
+                  }
+              }
+              for (let j in Object.keys(newPosArr)) {
+                  positiveRes.data.push({
+                      text: '',
+                      created_at: new Date(parseInt(Object.keys(newPosArr)[j], 10))
+                  });
+              }
               const posValueArr = positiveRes.data.map(function(item){
                 let data = {};
                 data = {
@@ -186,6 +212,26 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               return data;
             });
             this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
+                const newNegArr = {};
+                for (const currentDay = new Date(this.startDate); currentDay <= new Date(this.endDate); currentDay.setDate(currentDay.getDate() + 1)) {
+                    const day = currentDay;
+                    let flag = false;
+                    negativeRes.data.forEach( x => {
+                        if (x.created_at === currentDay.toISOString()) {
+                            flag = true;
+                        }
+                    });
+                    if (!flag) {
+                        newNegArr[currentDay.getTime()] = '0';
+                    }
+                }
+                for (let j in Object.keys(newNegArr)) {
+                    negativeRes.data.push({
+                        text: '',
+                        created_at: new Date(parseInt(Object.keys(newNegArr)[j], 10))
+                    });
+                }
+
                 const negValueArr = negativeRes.data.map(function(item){
                   let data = {};
                   data = {
@@ -197,6 +243,102 @@ export class FeedbackComponent implements OnInit, OnDestroy {
               });
               const valueArr = posValueArr.concat(negValueArr);
               this.sessions = this.compressArray(valueArr);
+                for (const i in valueArr) {
+                    const date = new Date(valueArr[i].created_at);
+                    valueArr[i].created_at = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                        ('0' + (date.getDate())).slice(-2);
+                }
+                const graphData = _.groupBy(valueArr, 'created_at');
+                let finalData = [];
+                _.map(graphData, function(data) {
+                   finalData.push(_.groupBy(data, 'status'));
+                });
+                const countArray = [];
+                for (const i in finalData) {
+                    finalData[i].created_at = finalData[i].positive[0].created_at;
+                    if (finalData[i].positive.length <= 1) {
+                        if (finalData[i].positive[0].text === '') {
+                            finalData[i].positive_count = 0;
+                        } else {
+                            finalData[i].positive_count = finalData[i].positive.length;
+                        }
+                    } else {
+                        finalData[i].positive_count = finalData[i].positive.length;
+                    }
+                    if (finalData[i].negative.length <= 1) {
+                        if (finalData[i].negative[0].text === '') {
+                            finalData[i].negative_count = 0;
+                        } else {
+                            finalData[i].negative_count = finalData[i].negative.length;
+                        }
+                    } else {
+                        finalData[i].negative_count = finalData[i].negative.length;
+                    }
+                    if (finalData[i].positive_count === 0 && finalData[i].negative_count === 0) {
+                        finalData[i].positiveAvg = 0;
+                    } else {
+                        finalData[i].positiveAvg = finalData[i].positive_count * 100 / (finalData[i].positive_count + finalData[i].negative_count)
+                    }
+                    finalData[i] = _.omit(finalData[i], ['positive', 'negative', 'positive_count', 'negative_count']);
+                }
+                finalData = _.sortBy(finalData,
+                    (item) => {
+                        return +new Date(item.created_at);
+                    });
+                for (const i in finalData) {
+                    countArray.push(finalData[i].positiveAvg);
+                }
+                this.options = {
+                    title: {
+                        text: ''
+                    },
+
+                    subtitle: {
+                        text: ''
+                    },
+
+                    xAxis: {
+                        type: 'datetime'
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'Percentage of Positive Feedback'
+                        }
+                    },
+
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            },
+                            pointStart: Date.UTC((new Date(finalData[0].created_at)).getFullYear(),
+                                (new Date(finalData[0].created_at)).getMonth(),
+                                (new Date(finalData[0].created_at)).getDate()),
+                            pointInterval: 24 * 3600 * 1000
+                        }
+                    },
+
+                    series: [{
+                        name: 'Positive Feedback',
+                        data: countArray
+                    }],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 700
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    }
+                };
                 this.itemsPerPage = this.getItemPerPage(this.sessions.length);
                 this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
                 this.getPaginatedData();

@@ -48,6 +48,9 @@
                 </div>
               </div>
             </form>
+            <div class="analytics-inner-wrap">
+              <chart [options]="options"></chart>
+            </div>
 
             <table class="table table-bordered table-striped feedback_table" *ngIf="sessions && sessions.length">
               <thead>
@@ -81,7 +84,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" *ngIf="itemsPerPage.length">
                   <div class="number-of-items-wrap pagination-export-wrap">
                     <form>
                       <label>Number of Items</label>

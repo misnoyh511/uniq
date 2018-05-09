@@ -33,7 +33,7 @@ export class ReportsService {
     return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'total_sessions/' + analytics_token +
       '?start=' + startDate + '&end=' + endDate)
       .map(response => {
-        return response.json();
+          return response.json();
       }).catch((err: Response) => {
         return Observable.throw(err);
       });
