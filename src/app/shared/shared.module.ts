@@ -11,15 +11,16 @@ import {DatePickerDirective} from '../directives/date-picker.directive';
 import {ColorPickerDirective} from '../directives/color-picker.directive';
 import { NouisliderModule} from 'ng2-nouislider';
 import {ArraySortPipe} from '../directives/sort.directive';
+import { TagCloudModule } from 'angular-tag-cloud-module';
 
 
 declare var require: any;
 
 @NgModule({
-  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, NouisliderModule],
+  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, NouisliderModule, TagCloudModule],
   declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe],
   exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule,
-      DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe],
+      DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe, TagCloudModule],
   providers: [
     {
       provide: HighchartsStatic,

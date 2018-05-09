@@ -70,7 +70,7 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
         this.topMessagesIn = response.data;
         if (this.topMessagesIn && this.topMessagesIn.length) {
             for (const i in this.topMessagesIn) {
-                this.totalCount = this.totalCount + parseInt(this.topMessagesIn[i].count);
+                this.totalCount = this.totalCount + parseInt(this.topMessagesIn[i].count, 10);
             }
             this.itemsPerPage = this.getItemPerPage(this.topMessagesIn.length);
             this.totalPages = Math.ceil(this.topMessagesIn.length / this.itemPerPage);

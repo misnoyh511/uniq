@@ -8,6 +8,7 @@ import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { TopicCloudComponent } from './topic-cloud/topic-cloud.component';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatProgressSpinnerModule
   ],
-  declarations: [TopMessagesInComponent, TopMessagesOutComponent, TranscriptsComponent, SubNavComponent]
+  declarations: [TopMessagesInComponent, TopMessagesOutComponent, TranscriptsComponent, SubNavComponent, TopicCloudComponent]
 })
 
 export class ConversationsModule {

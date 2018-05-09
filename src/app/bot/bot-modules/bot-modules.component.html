@@ -4,18 +4,10 @@
     <div class="dashboard-getting-stared-wrapper">
       <app-sub-nav [navType]="'modules'"></app-sub-nav>
       <h1>Modules</h1>
-      <p></p>
       <div class="pro-mode-active-label pro-mode-active-label-modules">
         <span>Congratulations! You have successfully upgraded to pro mode.</span>
       </div>
       <div class="getting-started-wrap-wrapper modules-page">
-        <div class="slide-top-btns">
-          <div class="row">
-            <div class="col-sm-8">
-
-            </div>
-          </div>
-        </div>
         <div class="step-inner-wrapper full-panel-wrap">
           <div class="step-inner-title">
             <h3>FAQ	Section<span>Pro</span></h3>
@@ -52,8 +44,7 @@
 
                 <div class="full-width-input-fields full-width-input-fields-step4">
                   <div class="login-form-elements btn-right-aligned" (click)="addFaqTopic()">
-                    <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add
-                    </button>
+                    <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
                   </div>
                 </div>
                 <div [dragula]='"topic-bag"' class="dragRow">
@@ -62,26 +53,30 @@
 
                     <div class="ui-state-default display-contetnt-box">
                       <h2>{{topic.name}}</h2>
-                      <input class="faq-top-edit-text-box" [class.active]="showTopic[i]"
-                             [(ngModel)]="topic.name"
+                      <input class="faq-top-edit-text-box" [class.active]="showTopic[i]" [(ngModel)]="topic.name"
                              name="name" type="text" value={{topic.name}}>
                       <div class="topic-actions-wrap">
-                      <span class="edit_topic{{i}}"
-                            (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"><i
-                              class="fa fa-pencil" aria-hidden="true"></i></span>
-                        <span class="del_topic{{i}}" (click)="deleteFaqTopic(topic.id, topic.name)"><i
-                                class="fa fa-trash" aria-hidden="true"></i></span>
+                        <span class="edit_topic{{i}}" (click)="showTopic[i] = !showTopic[i];" *ngIf="!showTopic[i]">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </span>
+                        <span class="edit_topic{{i}}" (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)" *ngIf="showTopic[i]">
+                            <i class="fa fa-save" aria-hidden="true"></i>
+                        </span>
+                        <span class="del_topic{{i}}" (click)="deleteFaqTopic(topic.id, topic.name)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </span>
                       </div>
-                      <div class="faq-question-wrap faq-question-wrap1"
-                           *ngIf="topic.questions && topic.questions.length">
+                      <div class="faq-question-wrap faq-question-wrap1" *ngIf="topic.questions && topic.questions.length">
                         <h4 *ngFor="let ques of topic.questions; let j = index;"><b>{{ques.name}}</b>
                           <input class="faq-que-edit-text-box" [class.active]="showQues[ques.id]"
                                  type="text" [(ngModel)]="ques.name" value={{ques.name}}>
                           <div class="faq-question-actions">
-                          <span class="edit_question3"
-                                (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id)">
+                          <span class="edit_question3" (click)="showQues[ques.id] = !showQues[ques.id];" *ngIf="!showQues[ques.id]">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                           </span>
+                            <span (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id)" *ngIf="showQues[ques.id]">
+                              <i class="fa fa-save" aria-hidden="true"></i>
+                            </span>
                             <span class="del_question{{i + '-' + j}}" (click)="deleteFaqQuestion(ques.id)">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                           </span>
@@ -90,8 +85,7 @@
                       </div>
                       <div class="full-width-input-fields full-width-input-fields-step4">
                         <div class="login-form-elements">
-                          <input id="faq_que1" type="text" placeholder="Enter a FAQ"
-                                 [(ngModel)]="faqQuestion[i]" name="faqQuestion">
+                          <input id="faq_que1" type="text" placeholder="Enter a FAQ" [(ngModel)]="faqQuestion[i]" name="faqQuestion">
                         </div>
                       </div>
                       <div class="login-form-elements btn-right-aligned">
@@ -102,7 +96,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
               <button class="blue-btn close-slide-btn" (click)="showDiv = false">Done</button>
             </div>

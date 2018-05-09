@@ -2,9 +2,11 @@
   <ul>
     <li><a [ngClass]="{'active': navType ==='transcripts'}" [routerLink]="(['/conversation/transcripts'])">
       <span>Transcripts</span></a></li>
+    <li><a [ngClass]="{'active': navType ==='topicCloud'}" [routerLink]="(['/conversation/topic-cloud'])">
+      <span>Topic Cloud</span></a></li>
     <li><a [ngClass]="{'active': navType ==='topMessageIn'}" [routerLink]="(['/conversation/top-messages-in'])">
       <span>Top Messages In</span></a></li>
-        <li><a [ngClass]="{'active': navType ==='topMessageOut'}" [routerLink]="(['/conversation/top-messages-out'])">
+    <li><a [ngClass]="{'active': navType ==='topMessageOut'}" [routerLink]="(['/conversation/top-messages-out'])">
       <span>Top Messages Out</span></a>
     </li>
   </ul>
