@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ReportsService} from '../reports.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {ArraySortPipe} from '../../directives/sort.directive';
@@ -23,6 +23,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     startDate: any;
     endDate: any;
     options: any = {};
+
     constructor(private reportsService: ReportsService, public sbs: SidebarService, private sort: ArraySortPipe) {
     }
 
@@ -38,352 +39,219 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
                 ('0' + (today.getDate())).slice(-2);
         }
-      if (this.sbs.token) {
-        this.analytics_token =  this.sbs.token;
-        this.feedback_type = this.sbs.feedback_type;
-        this.getSession();
-      }
+        if (this.sbs.token) {
+            this.analytics_token = this.sbs.token;
+            this.feedback_type = this.sbs.feedback_type;
+            this.getSession();
+        }
         if (Object.keys(this.sbs.savedData).length) {
             this.analytics_token = this.sbs.savedData.analytics_token;
             this.feedback_type = this.sbs.savedData.feedback_type;
             this.getSession();
         }
-      this.sbs.botList.subscribe((data) => {
-        this.analytics_token = data[0].analytics_token;
-        this.feedback_type = data[0].feedback_type;
-        this.getSession();
-      });
+        this.sbs.botList.subscribe((data) => {
+            this.analytics_token = data[0].analytics_token;
+            this.feedback_type = data[0].feedback_type;
+            this.getSession();
+        });
 
-      this.sbs.botData.subscribe((data) => {
-        this.analytics_token = data.analytics_token;
-        this.feedback_type = data.feedback_type;
-        this.getSession();
-      });
+        this.sbs.botData.subscribe((data) => {
+            this.analytics_token = data.analytics_token;
+            this.feedback_type = data.feedback_type;
+            this.getSession();
+        });
     }
 
-  ngOnDestroy(): void {
-    this.sbs.token = this.analytics_token;
-    this.sbs.feedback_type = this.feedback_type;
-  }
+    ngOnDestroy(): void {
+        this.sbs.token = this.analytics_token;
+        this.sbs.feedback_type = this.feedback_type;
+    }
 
     getSession() {
         this.items = [];
         this.sessions = [];
         if (this.feedback_type) {
-        if (this.selectedValue === 'negative') {
-          this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-            const valueArr = response.data.map(function(item){
-                let data = {};
-                data = {
-                    text: item.text,
-                    status: 'negative',
-                    created_at: item.created_at
-                };
-                return data;
-            });
-            this.sessions = this.compressArray(valueArr);
-              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-              this.getPaginatedData();
-          }, (err) => {
-            console.log(err);
-          });
-        } else if (this.selectedValue === 'positive') {
-          this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-            const valueArr = response.data.map(function(item){
-                let data = {};
-                data = {
-                    text: item.text,
-                    status: 'positive',
-                    created_at: item.created_at
-                };
-                return data;
-            });
-            this.sessions = this.compressArray(valueArr);
-              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-              this.getPaginatedData();
-          }, (err) => {
-            console.log(err);
-          });
-        } else {
-          this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
-            const posValueArr = positiveRes.data.map(function(item){
-                let data = {};
-                data = {
-                    text: item.text,
-                    status: 'positive',
-                    created_at: item.created_at
-                };
-                return data;
-            });
-            this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
-              const negValueArr = negativeRes.data.map(function(item){
-                  let data = {};
-                  data = {
-                      text: item.text,
-                      status: 'negative',
-                      created_at: item.created_at
-                  };
-                  return data;
-              });
-              const valueArr = posValueArr.concat(negValueArr);
-              this.sessions = this.compressArray(valueArr);
-                this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                this.getPaginatedData();
-            }, (err) => {
-              console.log(err);
-            });
-          }, (err) => {
-              console.log(err);
-          });
-        }
-      } else {
-        if (this.selectedValue === 'negative') {
-          this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-            const valueArr = response.data.map(function(item){
-                let data = {};
-                data = {
-                    text: item.text,
-                    status: 'negative',
-                    created_at: item.created_at
-                };
-                return data;
-            });
-            this.sessions = this.compressArray(valueArr);
-              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-              this.getPaginatedData();
-          }, (err) => {
-            console.log(err);
-          });
-        } else if (this.selectedValue === 'positive') {
-          this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-            const valueArr = response.data.map(function(item){
-                let data = {};
-                data = {
-                    text: item.text,
-                    status: 'positive',
-                    created_at: item.created_at
-                };
-                return data;
-            });
-            this.sessions = this.compressArray(valueArr);
-              this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-              this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-              this.getPaginatedData();
-          }, (err) => {
-            console.log(err);
-          });
-        } else {
-          this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
-              const newPosArr = {};
-              for (const currentDay = new Date(this.startDate); currentDay <= new Date(this.endDate); currentDay.setDate(currentDay.getDate() + 1)) {
-                  // let day;
-                  let flag = false;
-                  positiveRes.data.forEach( x => {
-                      x.created_at = new Date(x.created_at);
-                      x.created_at = x.created_at.getFullYear() + '-' + ('0' + (x.created_at.getMonth() + 1)).slice(-2) + '-' +
-                          ('0' + (x.created_at.getDate())).slice(-2);
-                      const day = currentDay.getFullYear() + '-' + ('0' + (currentDay.getMonth() + 1)).slice(-2) + '-' +
-                          ('0' + (currentDay.getDate())).slice(-2);
-                      if (x.created_at === day) {
-                          flag = true;
-                      }
-                  });
-                  if (!flag) {
-                      newPosArr[currentDay.getTime()] = '0';
-                  }
-              }
-              for (let j in Object.keys(newPosArr)) {
-                  positiveRes.data.push({
-                      text: '',
-                      created_at: new Date(parseInt(Object.keys(newPosArr)[j], 10))
-                  });
-              }
-              const posValueArr = positiveRes.data.map(function(item){
-                let data = {};
-                data = {
-                    text: item.text,
-                    status: 'positive',
-                    created_at: item.created_at
-                };
-              return data;
-            });
-            this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
-                const newNegArr = {};
-                for (const currentDay = new Date(this.startDate); currentDay <= new Date(this.endDate); currentDay.setDate(currentDay.getDate() + 1)) {
-                    const day = currentDay;
-                    let flag = false;
-                    negativeRes.data.forEach( x => {
-                        if (x.created_at === currentDay.toISOString()) {
-                            flag = true;
-                        }
+            if (this.selectedValue === 'negative') {
+                this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+                    const valueArr = response.data.map(function (item) {
+                        let data = {};
+                        data = {
+                            text: item.text,
+                            status: 'negative',
+                            created_at: item.created_at
+                        };
+                        return data;
                     });
-                    if (!flag) {
-                        newNegArr[currentDay.getTime()] = '0';
-                    }
-                }
-                for (let j in Object.keys(newNegArr)) {
-                    negativeRes.data.push({
-                        text: '',
-                        created_at: new Date(parseInt(Object.keys(newNegArr)[j], 10))
-                    });
-                }
-
-                const negValueArr = negativeRes.data.map(function(item){
-                  let data = {};
-                  data = {
-                      text: item.text,
-                      status: 'negative',
-                      created_at: item.created_at
-                  };
-                  return data;
-              });
-              const valueArr = posValueArr.concat(negValueArr);
-              this.sessions = this.compressArray(valueArr);
-                for (const i in valueArr) {
-                    const date = new Date(valueArr[i].created_at);
-                    valueArr[i].created_at = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-                        ('0' + (date.getDate())).slice(-2);
-                }
-                const graphData = _.groupBy(valueArr, 'created_at');
-                let finalData = [];
-                _.map(graphData, function(data) {
-                   finalData.push(_.groupBy(data, 'status'));
+                    this.sessions = this.compressArray(valueArr);
+                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                    this.getPaginatedData();
+                }, (err) => {
+                    console.log(err);
                 });
-                const countArray = [];
-                for (const i in finalData) {
-                    finalData[i].created_at = finalData[i].positive[0].created_at;
-                    if (finalData[i].positive.length <= 1) {
-                        if (finalData[i].positive[0].text === '') {
-                            finalData[i].positive_count = 0;
-                        } else {
-                            finalData[i].positive_count = finalData[i].positive.length;
-                        }
-                    } else {
-                        finalData[i].positive_count = finalData[i].positive.length;
-                    }
-                    if (finalData[i].negative.length <= 1) {
-                        if (finalData[i].negative[0].text === '') {
-                            finalData[i].negative_count = 0;
-                        } else {
-                            finalData[i].negative_count = finalData[i].negative.length;
-                        }
-                    } else {
-                        finalData[i].negative_count = finalData[i].negative.length;
-                    }
-                    if (finalData[i].positive_count === 0 && finalData[i].negative_count === 0) {
-                        finalData[i].positiveAvg = 0;
-                    } else {
-                        finalData[i].positiveAvg = finalData[i].positive_count * 100 / (finalData[i].positive_count + finalData[i].negative_count)
-                    }
-                    finalData[i] = _.omit(finalData[i], ['positive', 'negative', 'positive_count', 'negative_count']);
-                }
-                finalData = _.sortBy(finalData,
-                    (item) => {
-                        return +new Date(item.created_at);
+            } else if (this.selectedValue === 'positive') {
+                this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+                    const valueArr = response.data.map(function (item) {
+                        let data = {};
+                        data = {
+                            text: item.text,
+                            status: 'positive',
+                            created_at: item.created_at
+                        };
+                        return data;
                     });
-                for (const i in finalData) {
-                    countArray.push(finalData[i].positiveAvg);
-                }
-                this.options = {
-                    title: {
-                        text: ''
-                    },
+                    this.sessions = this.compressArray(valueArr);
+                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                    this.getPaginatedData();
+                }, (err) => {
+                    console.log(err);
+                });
+            } else {
+                this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
+                    const posData = this.insertDates(positiveRes.data);
+                    const posValueArr = posData.map(function (item) {
+                        let data = {};
+                        data = {
+                            text: item.text,
+                            status: 'positive',
+                            created_at: item.created_at
+                        };
+                        return data;
+                    });
+                    this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
+                        const negData = this.insertDates(negativeRes.data);
+                        const negValueArr = negData.map(function (item) {
+                            let data = {};
+                            data = {
+                                text: item.text,
+                                status: 'negative',
+                                created_at: item.created_at
+                            };
+                            return data;
+                        });
+                        const valueArr = posValueArr.concat(negValueArr);
+                        this.sessions = this.compressArray(valueArr);
+                        this.generateGraph(valueArr);
+                        this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                        this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                        this.getPaginatedData();
+                    }, (err) => {
+                        console.log(err);
+                    });
+                }, (err) => {
+                    console.log(err);
+                });
+            }
+        } else {
+            if (this.selectedValue === 'negative') {
+                this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+                    const valueArr = response.data.map(function (item) {
+                        let data = {};
+                        data = {
+                            text: item.text,
+                            status: 'negative',
+                            created_at: item.created_at
+                        };
+                        return data;
+                    });
+                    this.sessions = this.compressArray(valueArr);
+                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                    this.getPaginatedData();
+                }, (err) => {
+                    console.log(err);
+                });
+            } else if (this.selectedValue === 'positive') {
+                this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+                    const valueArr = response.data.map(function (item) {
+                        let data = {};
+                        data = {
+                            text: item.text,
+                            status: 'positive',
+                            created_at: item.created_at
+                        };
+                        return data;
+                    });
+                    this.sessions = this.compressArray(valueArr);
+                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                    this.getPaginatedData();
+                }, (err) => {
+                    console.log(err);
+                });
+            } else {
+                this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
 
-                    subtitle: {
-                        text: ''
-                    },
-
-                    xAxis: {
-                        type: 'datetime'
-                    },
-
-                    yAxis: {
-                        title: {
-                            text: 'Percentage of Positive Feedback'
-                        }
-                    },
-
-                    plotOptions: {
-                        series: {
-                            label: {
-                                connectorAllowed: false
-                            },
-                            pointStart: Date.UTC((new Date(finalData[0].created_at)).getFullYear(),
-                                (new Date(finalData[0].created_at)).getMonth(),
-                                (new Date(finalData[0].created_at)).getDate()),
-                            pointInterval: 24 * 3600 * 1000
-                        }
-                    },
-
-                    series: [{
-                        name: 'Positive Feedback',
-                        data: countArray
-                    }],
-
-                    responsive: {
-                        rules: [{
-                            condition: {
-                                maxWidth: 700
-                            },
-                            chartOptions: {
-                                legend: {
-                                    layout: 'horizontal',
-                                    align: 'center',
-                                    verticalAlign: 'bottom'
-                                }
-                            }
-                        }]
-                    }
-                };
-                this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                this.getPaginatedData();
-            }, (err) => {
-              console.log(err);
-            });
-          }, (err) => {
-            console.log(err);
-          });
+                    const posData = this.insertDates(positiveRes.data);
+                    const posValueArr = posData.map(function (item) {
+                        let data = {};
+                        data = {
+                            text: item.text,
+                            status: 'positive',
+                            created_at: item.created_at
+                        };
+                        return data;
+                    });
+                    this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
+                        const negData = this.insertDates(negativeRes.data);
+                        const negValueArr = negData.map(function (item) {
+                            let data = {};
+                            data = {
+                                text: item.text,
+                                status: 'negative',
+                                created_at: item.created_at
+                            };
+                            return data;
+                        });
+                        const valueArr = posValueArr.concat(negValueArr);
+                        this.sessions = this.compressArray(valueArr);
+                        this.generateGraph(valueArr);
+                        this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                        this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                        this.getPaginatedData();
+                    }, (err) => {
+                        console.log(err);
+                    });
+                }, (err) => {
+                    console.log(err);
+                });
+            }
         }
-      }
     }
 
-  compressArray(original) {
-    const compressed = [];
-    // make a copy of the input array
-    const copy = original.slice(0);
+    compressArray(original) {
+        const compressed = [];
+        // make a copy of the input array
+        const copy = original.slice(0);
 
-    // first loop goes over every element
-      for (let i = 0; i < original.length; i++) {
+        // first loop goes over every element
+        for (let i = 0; i < original.length; i++) {
 
-      let myCount = 0;
-      // loop over every element in the copy and see if it's the same
-      for (let w = 0; w < copy.length; w++) {
-          if (copy[w] && copy[w].text) {
-              if (original[i].text === copy[w].text) {
-                  // increase amount of times duplicate is found
-                  myCount++;
-                  // sets item to undefined
-                  delete copy[w];
-              }
-          }
-      }
-      if (myCount > 0) {
-        const a = new Object();
-        a['msg'] = original[i].text;
-        a['status'] = original[i].status;
-        a['created_at'] = original[i].created_at;
-        a['count'] = myCount;
-        compressed.push(a);
-      }
+            let myCount = 0;
+            // loop over every element in the copy and see if it's the same
+            for (let w = 0; w < copy.length; w++) {
+                if (copy[w] && copy[w].text) {
+                    if (original[i].text === copy[w].text) {
+                        // increase amount of times duplicate is found
+                        myCount++;
+                        // sets item to undefined
+                        delete copy[w];
+                    }
+                }
+            }
+            if (myCount > 0) {
+                const a = new Object();
+                a['msg'] = original[i].text;
+                a['status'] = original[i].status;
+                a['created_at'] = original[i].created_at;
+                a['count'] = myCount;
+                compressed.push(a);
+            }
+        }
+
+        return compressed;
     }
-
-    return compressed;
-  }
 
     getItemPerPage(count) {
         if (count <= 10) {
@@ -443,5 +311,132 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             };
             this.getSession();
         }
+    }
+
+    insertDates(resData) {
+        const newPosArr = {};
+        for (const currentDay = new Date(this.startDate); currentDay <= new Date(this.endDate); currentDay.setDate(currentDay.getDate() + 1)) {
+            // let day;
+            let flag = false;
+            resData.forEach(x => {
+                x.created_at = new Date(x.created_at);
+                x.created_at = x.created_at.getFullYear() + '-' + ('0' + (x.created_at.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + (x.created_at.getDate())).slice(-2);
+                const day = currentDay.getFullYear() + '-' + ('0' + (currentDay.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + (currentDay.getDate())).slice(-2);
+                if (x.created_at === day) {
+                    flag = true;
+                }
+            });
+            if (!flag) {
+                newPosArr[currentDay.getTime()] = '0';
+            }
+        }
+        for (const j in Object.keys(newPosArr)) {
+            resData.push({
+                text: '',
+                created_at: new Date(parseInt(Object.keys(newPosArr)[j], 10))
+            });
+        }
+        return resData;
+    }
+
+    generateGraph(valueArr) {
+        for (const i in valueArr) {
+            const date = new Date(valueArr[i].created_at);
+            valueArr[i].created_at = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + (date.getDate())).slice(-2);
+        }
+        const graphData = _.groupBy(valueArr, 'created_at');
+        let finalData = [];
+        _.map(graphData, function (data) {
+            finalData.push(_.groupBy(data, 'status'));
+        });
+        const countArray = [];
+        for (const i in finalData) {
+            finalData[i].created_at = finalData[i].positive[0].created_at;
+            if (finalData[i].positive.length <= 1) {
+                if (finalData[i].positive[0].text === '') {
+                    finalData[i].positive_count = 0;
+                } else {
+                    finalData[i].positive_count = finalData[i].positive.length;
+                }
+            } else {
+                finalData[i].positive_count = finalData[i].positive.length;
+            }
+            if (finalData[i].negative.length <= 1) {
+                if (finalData[i].negative[0].text === '') {
+                    finalData[i].negative_count = 0;
+                } else {
+                    finalData[i].negative_count = finalData[i].negative.length;
+                }
+            } else {
+                finalData[i].negative_count = finalData[i].negative.length;
+            }
+            if (finalData[i].positive_count === 0 && finalData[i].negative_count === 0) {
+                finalData[i].positiveAvg = 0;
+            } else {
+                finalData[i].positiveAvg = finalData[i].positive_count * 100 / (finalData[i].positive_count + finalData[i].negative_count)
+            }
+            finalData[i] = _.omit(finalData[i], ['positive', 'negative', 'positive_count', 'negative_count']);
+        }
+        finalData = _.sortBy(finalData,
+            (item) => {
+                return +new Date(item.created_at);
+            });
+        for (const i in finalData) {
+            countArray.push(finalData[i].positiveAvg);
+        }
+        this.options = {
+            title: {
+                text: ''
+            },
+
+            subtitle: {
+                text: ''
+            },
+
+            xAxis: {
+                type: 'datetime'
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Percentage of Positive Feedback'
+                }
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: Date.UTC((new Date(finalData[0].created_at)).getFullYear(),
+                        (new Date(finalData[0].created_at)).getMonth(),
+                        (new Date(finalData[0].created_at)).getDate()),
+                    pointInterval: 24 * 3600 * 1000
+                }
+            },
+
+            series: [{
+                name: 'Positive Feedback',
+                data: countArray
+            }],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 700
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        };
     }
 }
