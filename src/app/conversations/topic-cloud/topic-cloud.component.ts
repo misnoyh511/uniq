@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { CloudData, CloudOptions } from 'angular-tag-cloud-module';
 import {ConversationsService} from '../conversations.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
@@ -9,7 +9,7 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
     styleUrls: ['./topic-cloud.component.css'],
     providers: [ConversationsService]
 })
-export class TopicCloudComponent implements OnInit {
+export class TopicCloudComponent implements OnInit, OnDestroy {
     colorCodes = ['#25b6b8', '#a48cd0', '#469ce5', '#f18242', '#ce636d'];
     weight = [6, 8, 10, 9, 7];
     rotate = [-10, 0, 10, 0];
@@ -17,7 +17,6 @@ export class TopicCloudComponent implements OnInit {
     endDate: any;
     analytics_token: string;
     topMessagesIn: any = [];
-    items: any = [];
     options: CloudOptions = {
         // if width is between 0 and 1 it will be set to the size of the upper element multiplied by the value
         width : 1000,
@@ -63,9 +62,13 @@ export class TopicCloudComponent implements OnInit {
         });
     }
 
+    ngOnDestroy() {
+        this.sbs.token = this.analytics_token;
+    }
+
     getTopMessageIn() {
         this.topMessagesIn = [];
-        this.items = [];
+        this.data = [];
         this.conversationsService.getTopMessagesIn(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             this.topMessagesIn = response.data;
             if (this.topMessagesIn && this.topMessagesIn.length) {

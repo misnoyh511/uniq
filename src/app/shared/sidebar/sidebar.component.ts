@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Location } from '@angular/common';
 import {SidebarService} from './sidebar.service';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../../authentication/authentication.service';
 import {AppConfig} from '../../app.config';
 
 @Component({
