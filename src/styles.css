@@ -1969,6 +1969,17 @@ a.mat-mini-fab.mat-primary {
     cursor: move;
 }
 
+.version-css {
+    margin-left: 22%;
+    float: left;
+}
+
+.sign-out-css {
+    width: 40%;
+    float: left !important;
+    margin: 0 !important;
+}
+
 @media only screen and (max-width: 767px) {
     .pagination-export-wrap {
         text-align: center;
