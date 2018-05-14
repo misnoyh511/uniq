@@ -97,6 +97,9 @@ export class NewBotComponent implements OnInit, OnDestroy {
     operator = false;
     dataSaved = false;
     dwell_time = 0;
+    chatBot = false;
+    showDeskDwell = false;
+    showMobDwell = false;
 
     constructor(private router: Router, private Service: NewBotService, public sbs: SidebarService, public botService: BotService,
                 public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
