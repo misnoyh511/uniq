@@ -1,615 +1,806 @@
-
 <div class="dashboard-container">
 
-  <div class="dashboard-inner-container dashboard-container-inner-new">
-    <div class="sub-nav-list">
-    </div>
-    <div class="dashboard-new-wrapper">
-      <div class="dashboard-new-title-wrap">
-        <h3>Create	A	New	Bot</h3>
-        <div class="title-links">
-          <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()" class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
-          <!--<a data-toggle="pill" href="#launch" class="launch-link" (click)="checkValidation()"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>-->
+    <div class="dashboard-inner-container dashboard-container-inner-new">
+        <div class="sub-nav-list">
         </div>
-      </div>
-      <div class="dashboard-new-steps-wrapper">
-        <ul class="nav nav-pills dashboard-step-list" id="pills-tab" role="tablist">
-          <li class="nav-item" xyz="abc">
-            <a class="nav-link step-links" (click)="showNlp = true; showLook = showModules = false;" [class.active]="showNlp" id="new-step1" data-toggle="pill" href="#capture" role="tab" aria-controls="capture" aria-selected="true">
-              <strong>1</strong>
-              <span>Your NLP</span>
-            </a>
-          </li>
-          <li class="nav-item step-links">
-            <a class="nav-link" id="new-step3" (click)="showLook = true; showNlp = showModules = false;" [class.active]="showLook" data-toggle="pill" href="#message" role="tab" aria-controls="message" aria-selected="true">
-              <strong>2</strong>
-              <span>Look &amp; Feel</span>
-            </a>
-          </li>
-          <li class="nav-item step-links">
-            <a href="javascript:void(0);" class="nav-link" [class.active]="showModules">
-              <strong>3</strong>
-              <span>Modules</span>
-            </a>
-          </li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane active" id="capture" role="tabpanel" aria-labelledby="new-step1">
-            <div class="tab-content-wrap">
-              <div class="row">
-                <div class="col-lg-9">
-              <div class="step-inner-wrapper">
-                <div class="step-inner-title">
-                  <h3>Tap On Your NLP Provider of Choice</h3>
+        <div class="dashboard-new-wrapper">
+            <div class="dashboard-new-title-wrap">
+                <h3>Create A New Bot</h3>
+                <div class="title-links">
+                    <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()"
+                       class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
+                    <!--<a data-toggle="pill" href="#launch" class="launch-link" (click)="checkValidation()"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>-->
                 </div>
-                <div class="webhook-list">
-                  <ul>
-                    <li (click)="dialogFlow = true; comingSoon1 = comingSoon2 = false;" [class.active]="dialogFlow"><a href="javascript:void(0)"><img src="assets/images/dialogflow-logo.png" alt=""></a></li>
-                    <li (click)="comingSoon1 = true; dialogFlow = comingSoon2 = false" [class.active]="comingSoon1"><a href="javascript:void(0)"><img src="assets/images/witai-logo.png" alt=""><span>Coming Soon</span></a></li>
-                    <li (click)="dialogFlow = comingSoon1 = false; comingSoon2 = true;" [class.active]="comingSoon2"><a href="javascript:void(0)"><img src="assets/images/luisai-logo.png" alt=""><span>Coming Soon</span></a></li>
-                  </ul>
-                </div>
-                <form>
-                  <div class="full-width-input-fields">
-                    <p>Enter Your NLP Server Token
-                      <sup><i (mouseover)="showTooltip= true" (mouseout)="showTooltip= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                      <b [class.show] = 'showTooltip'>Enter Your NLP Server Token</b>
-                    </p>
-                  </div>
-                  <div class="login-form-elements transate-left">
-                    <label> Enter Server Token</label>
-                    <input name="token" type="text" [(ngModel)]="bot.token" required>
-                  </div>
-                </form>
-              </div>
             </div>
-            <div class="col-lg-3">
-              <div class="step-video-wrapper">
-                <video class="video" loop>
-                  <source src="assets/video/SampleVideo.mp4" type="video/mp4">
-                  Your browser does not support HTML5 video.
-                </video>
-              </div>
-              </div>
-              </div>
-            </div>
-            <div class="next-button-wrap">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="blank-wrap"></div>
-                </div>
-                <div class="col-sm-6">
-                  <button class="btnNext" data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;">
-                    Next
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+            <div class="dashboard-new-steps-wrapper">
+                <ul class="nav nav-pills dashboard-step-list" id="pills-tab" role="tablist">
+                    <li class="nav-item" xyz="abc">
+                        <a class="nav-link step-links" (click)="showNlp = true; showLook = showModules = false;"
+                           [class.active]="showNlp" id="new-step1" data-toggle="pill" href="#capture" role="tab"
+                           aria-controls="capture" aria-selected="true">
+                            <strong>1</strong>
+                            <span>Your NLP</span>
+                        </a>
+                    </li>
+                    <li class="nav-item step-links">
+                        <a class="nav-link" id="new-step3" (click)="showLook = true; showNlp = showModules = false;"
+                           [class.active]="showLook" data-toggle="pill" href="#message" role="tab"
+                           aria-controls="message" aria-selected="true">
+                            <strong>2</strong>
+                            <span>Look &amp; Feel</span>
+                        </a>
+                    </li>
+                    <li class="nav-item step-links">
+                        <a href="javascript:void(0);" class="nav-link" [class.active]="showModules">
+                            <strong>3</strong>
+                            <span>Modules</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="capture" role="tabpanel" aria-labelledby="new-step1">
+                        <div class="tab-content-wrap">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper">
+                                        <div class="step-inner-title">
+                                            <h3>Tap On Your NLP Provider of Choice</h3>
+                                        </div>
+                                        <div class="webhook-list">
+                                            <ul>
+                                                <li (click)="dialogFlow = true; comingSoon1 = comingSoon2 = false;"
+                                                    [class.active]="dialogFlow"><a href="javascript:void(0)"><img
+                                                        src="assets/images/dialogflow-logo.png" alt=""></a></li>
+                                                <li (click)="comingSoon1 = true; dialogFlow = comingSoon2 = false"
+                                                    [class.active]="comingSoon1"><a href="javascript:void(0)"><img
+                                                        src="assets/images/witai-logo.png"
+                                                        alt=""><span>Coming Soon</span></a></li>
+                                                <li (click)="dialogFlow = comingSoon1 = false; comingSoon2 = true;"
+                                                    [class.active]="comingSoon2"><a href="javascript:void(0)"><img
+                                                        src="assets/images/luisai-logo.png"
+                                                        alt=""><span>Coming Soon</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <form>
+                                            <div class="full-width-input-fields">
+                                                <p>Enter Your NLP Server Token
+                                                    <sup><i (mouseover)="showTooltip= true"
+                                                            (mouseout)="showTooltip= false"
+                                                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                    <b [class.show]='showTooltip'>Enter Your NLP Server Token</b>
+                                                </p>
+                                            </div>
+                                            <div class="login-form-elements transate-left">
+                                                <label> Enter Server Token</label>
+                                                <input name="token" type="text" [(ngModel)]="bot.token" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-video-wrapper">
+                                        <video class="video" loop>
+                                            <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="next-button-wrap">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="blank-wrap"></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btnNext" data-toggle="pill" href="#message"
+                                            (click)="next(); showNlp = showModules = false; showLook = true;">
+                                        Next
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-          <div  class="tab-pane" id="message" role="tabpanel" aria-labelledby="new-step3" [class.active]="showLook">
-            <div class="tab-content-wrap message-wrapper">
-              <div class="row">
-                <div class="col-lg-9">
-              <div class="step-inner-wrapper custom-margin-bottom">
-                <div class="step-inner-title">
-                  <h3>Give it a name</h3>
-                </div>
+                    <div class="tab-pane" id="message" role="tabpanel" aria-labelledby="new-step3"
+                         [class.active]="showLook">
+                        <div class="tab-content-wrap message-wrapper">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper custom-margin-bottom">
+                                        <div class="step-inner-title">
+                                            <h3>Give it a name</h3>
+                                        </div>
 
-                <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Project Name
-                    <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showProject"> The Operator name that appears	during the chatbot conversation. Everyone who uses your chatbot will see this name.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label> Enter Project Name</label>
-                    <input type="text" name="name" (keypress)="operator = true" [(ngModel)]="bot.name">
-                  </div>
-                </div>
+                                        <div class="full-width-input-fields full-width-input-fields-step4">
+                                            <p>Project Name
+                                                <sup><i (mouseover)="showProject= true" (mouseout)="showProject= false"
+                                                        class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                <b [class.show]="showProject"> The Operator name that appears during the
+                                                    chatbot conversation. Everyone who uses your chatbot will see this
+                                                    name.</b>
+                                            </p>
+                                            <div class="login-form-elements">
+                                                <label> Enter Project Name</label>
+                                                <input type="text" name="name" (keypress)="operator = true"
+                                                       [(ngModel)]="bot.name">
+                                            </div>
+                                        </div>
 
-                <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Bot Operator Name
-                    <sup><i (mouseover)="showBotName= true" (mouseout)="showBotName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showBotName"> The name of this project. Only you	will see this.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label>Enter Your Operator Name</label>
-                    <input name="name" type="text"  [(ngModel)]="bot.operator_name">
-                  </div>
-                </div>
+                                        <div class="full-width-input-fields full-width-input-fields-step4">
+                                            <p>Bot Operator Name
+                                                <sup><i (mouseover)="showBotName= true" (mouseout)="showBotName= false"
+                                                        class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                <b [class.show]="showBotName"> The name of this project. Only you will
+                                                    see this.</b>
+                                            </p>
+                                            <div class="login-form-elements">
+                                                <label>Enter Your Operator Name</label>
+                                                <input name="name" type="text" [(ngModel)]="bot.operator_name">
+                                            </div>
+                                        </div>
 
-                <div class="full-width-input-fields">
-                  <p> Chat Window Name
-                    <sup><i (mouseover)="showChatName= true" (mouseout)="showChatName= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showChatName"> The Chat Window Header Title. Everyone	will see this.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label> Enter A Chat Window Name</label>
-                    <input name="chatWindowName" type="text" [(ngModel)]="bot.chat_window_name">
-                  </div>
-                </div>
-              </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="step-image-wrapper step-give-name-image">
-                    <img src="assets/images/give-it-name.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-9">
-              <div class="step-inner-wrapper custom-margin-bottom">
-                <div class="step-inner-title">
-                  <h3>Chat Style</h3>
-                </div>
-                <div class="full-panel chat-style-latteral-tab">
+                                        <div class="full-width-input-fields">
+                                            <p> Chat Window Name
+                                                <sup><i (mouseover)="showChatName= true"
+                                                        (mouseout)="showChatName= false" class="fa fa-question-circle"
+                                                        aria-hidden="true"></i></sup>
+                                                <b [class.show]="showChatName"> The Chat Window Header Title. Everyone
+                                                    will see this.</b>
+                                            </p>
+                                            <div class="login-form-elements">
+                                                <label> Enter A Chat Window Name</label>
+                                                <input name="chatWindowName" type="text"
+                                                       [(ngModel)]="bot.chat_window_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-image-wrapper step-give-name-image">
+                                        <img src="assets/images/give-it-name.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper custom-margin-bottom">
+                                        <div class="step-inner-title">
+                                            <h3>Chat Style</h3>
+                                        </div>
+                                        <div class="full-panel chat-style-latteral-tab">
                                         <span>Lateral Tab
                                         </span>
 
-                   <mat-slide-toggle (change)="latteralToggle()" name="latteralTab" type="text" [(ngModel)]="latteralTab" color="primary" style="float:right">
-                     {{latteralTab ? 'On' : 'Off'}}
+                                            <mat-slide-toggle (change)="latteralToggle()" name="latteralTab" type="text"
+                                                              [(ngModel)]="latteralTab" color="primary"
+                                                              style="float:right">
+                                                {{latteralTab ? 'On' : 'Off'}}
 
-                  </mat-slide-toggle>
-                </div>
-                <div class="full-panel chat-style-floating-icon">
+                                            </mat-slide-toggle>
+                                        </div>
+                                        <div class="full-panel chat-style-floating-icon">
                                         <span>Floating Icon
                                         </span>
 
-                  <mat-slide-toggle (change)="floatingToggle()" name="floatingIcon" type="text" [(ngModel)]="floatingIcon" color="primary" style="float: right">
-                    {{floatingIcon ? 'On' : 'Off'}}
-                  </mat-slide-toggle>
-                </div>
-              </div>
-                </div>
-              <div class="col-lg-3">
-                <div class="step-image-wrapper step-chat-style-image">
-                  <img src="assets/images/chat-style.jpg" alt="">
-                </div>
-              </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-9">
-              <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
-                <div class="step-inner-title">
-                  <h3>Chat Window	Customization</h3>
-                </div>
-                <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Welcome	Message
-                    <sup><i (mouseover)="showWelcome= true" (mouseout)="showWelcome= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showWelcome"> The Chat Window Welcome Message. Everyone will see	this.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label>Enter A Welcome	Message</label>
-                    <input  name="initialGreeting" type="text" [(ngModel)]="bot.initial_greeting">
-                  </div>
-                </div>
-                <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Input Title
-                    <sup><i (mouseover)="showTitle= true" (mouseout)="showTitle= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showTitle">The text that appears	in the chatbot	input text field.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label> Please	Enter An Input Text</label>
-                    <input name="inputTitle" type="text" [(ngModel)]="bot.input_title">
-                  </div>
-                </div>
-                <!--<div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Input Waiting Text
-                    <sup><i (mouseover)="showWaiting= true" (mouseout)="showWaiting= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showWaiting">The	text that appears in chat window when your bot is waiting.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label>Please Enter A Waiting Text</label>
-                    <input name="waitingMsg" type="text" [(ngModel)]="bot.waiting_msg">
-                  </div>
-                </div>-->
-                <div class="full-width-input-fields full-width-input-fields-step4">
-                  <p>Tab Name
-                    <sup><i (mouseover)="showTab= true" (mouseout)="showTab= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showTab">The text that appears in the chatbot tab name field.</b>
-                  </p>
-                  <div class="login-form-elements">
-                    <label> Please	Enter A Tab Name</label>
-                    <input name="inputTitle" type="text" [(ngModel)]="bot.tab_name">
-                  </div>
-                </div>
-              </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="step-image-wrapper step-chat-window-image">
-                    <img src="assets/images/window-customization.jpg">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-9">
-              <div class="step-inner-wrapper custom-margin-bottom">
-                <div class="step-inner-title">
-                  <h3>Appearance</h3>
-                </div>
-                <div class="full-panel full-panel-step2">
+                                            <mat-slide-toggle (change)="floatingToggle()" name="floatingIcon"
+                                                              type="text" [(ngModel)]="floatingIcon" color="primary"
+                                                              style="float: right">
+                                                {{floatingIcon ? 'On' : 'Off'}}
+                                            </mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-image-wrapper step-chat-style-image">
+                                        <img src="assets/images/chat-style.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
+                                        <div class="step-inner-title">
+                                            <h3>Chat Window Customization</h3>
+                                        </div>
+                                        <div class="full-width-input-fields full-width-input-fields-step4">
+                                            <p>Welcome Message
+                                                <sup><i (mouseover)="showWelcome= true" (mouseout)="showWelcome= false"
+                                                        class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                <b [class.show]="showWelcome"> The Chat Window Welcome Message. Everyone
+                                                    will see this.</b>
+                                            </p>
+                                            <div class="login-form-elements">
+                                                <label>Enter A Welcome Message</label>
+                                                <input name="initialGreeting" type="text"
+                                                       [(ngModel)]="bot.initial_greeting">
+                                            </div>
+                                        </div>
+                                        <div class="full-width-input-fields full-width-input-fields-step4">
+                                            <p>Input Title
+                                                <sup><i (mouseover)="showTitle= true" (mouseout)="showTitle= false"
+                                                        class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                <b [class.show]="showTitle">The text that appears in the chatbot input
+                                                    text field.</b>
+                                            </p>
+                                            <div class="login-form-elements">
+                                                <label> Please Enter An Input Text</label>
+                                                <input name="inputTitle" type="text" [(ngModel)]="bot.input_title">
+                                            </div>
+                                        </div>
+                                        <div class="full-width-input-fields full-width-input-fields-step4">
+                                            <p>Tab Name
+                                                <sup><i (mouseover)="showTab= true" (mouseout)="showTab= false"
+                                                        class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                <b [class.show]="showTab">The text that appears in the chatbot tab name
+                                                    field.</b>
+                                            </p>
+                                            <div class="login-form-elements">
+                                                <label> Please Enter A Tab Name</label>
+                                                <input name="inputTitle" type="text" [(ngModel)]="bot.tab_name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-image-wrapper step-chat-window-image">
+                                        <img src="assets/images/window-customization.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper custom-margin-bottom">
+                                        <div class="step-inner-title">
+                                            <h3>Appearance</h3>
+                                        </div>
+                                        <div class="full-panel full-panel-step2">
                   <span>Upload Your Avatar Image
-                    <sup><i (mouseover)="showAvatar= true" (mouseout)="showAvatar= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <sup><i (mouseover)="showAvatar= true" (mouseout)="showAvatar= false" class="fa fa-question-circle"
+                            aria-hidden="true"></i></sup>
                     <b [class.show]="showAvatar"> Upload	a PNG or JPEG file</b>
                   </span>
-                  <div class="right-side-form">
+                                            <div class="right-side-form">
 
-                    <input id="file_input_avatar" (change)="avatarChangeEvent($event)" *ngIf="!imageUrl" type="file"/>
-                    <div id="imagePreview" *ngIf="imageUrl">
-                      <img class="imageThumb" src="{{imagePreview}}">
-                      <span class="remove" (click)="deleteImage('avatar');"><i class="fa fa-trash-o"></i>Delete</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="full-panel full-panel-step2">
+                                                <input id="file_input_avatar" (change)="avatarChangeEvent($event)"
+                                                       *ngIf="!imageUrl" type="file"/>
+                                                <div id="imagePreview" *ngIf="imageUrl">
+                                                    <img class="imageThumb" src="{{imagePreview}}">
+                                                    <span class="remove" (click)="deleteImage('avatar');"><i
+                                                            class="fa fa-trash-o"></i>Delete</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="full-panel full-panel-step2">
                   <span>Upload Your	Cover Image
-                    <sup><i (mouseover)="showCover= true" (mouseout)="showCover= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <sup><i (mouseover)="showCover= true" (mouseout)="showCover= false" class="fa fa-question-circle"
+                            aria-hidden="true"></i></sup>
                     <b [class.show]="showCover">Upload a PNG or JPEG file</b>
                   </span>
-                  <div class="right-side-form">
-                      <input id="file_input_cover" (change)="coverChangeEvent($event)" *ngIf="!coverUrl" type="file"/>
-                      <div id="coverPreview" *ngIf="coverUrl">
-                        <img class="imageThumb" src="{{coverPreview}}">
-                        <span class="remove" (click)="deleteImage('cover');"><i class="fa fa-trash-o"></i>Delete</span>
-                      </div>
-                  </div>
-                </div>
-                <div class="full-panel full-panel-step2">
+                                            <div class="right-side-form">
+                                                <input id="file_input_cover" (change)="coverChangeEvent($event)"
+                                                       *ngIf="!coverUrl" type="file"/>
+                                                <div id="coverPreview" *ngIf="coverUrl">
+                                                    <img class="imageThumb" src="{{coverPreview}}">
+                                                    <span class="remove" (click)="deleteImage('cover');"><i
+                                                            class="fa fa-trash-o"></i>Delete</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="full-panel full-panel-step2">
                   <span> Choose the background color of chat tab/icon
-                    <sup><i (mouseover)="showBackClr= true" (mouseout)="showBackClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <sup><i (mouseover)="showBackClr= true" (mouseout)="showBackClr= false"
+                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showBackClr">The tab/icon background	color seen by users</b>
                   </span>
-                  <div class="right-side-form color-pick-section">
-                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_color" maxlength="7" size="7"
-                           id="colorpickerNewTab" appColorPicker [ngStyle]="{'background': bot.tab_color}" (onGetColor)="onTabColor($event)" value={{bot.tab_color}} />
+                                            <div class="right-side-form color-pick-section">
+                                                <input type="text" class="color-picker-input"
+                                                       [(ngModel)]="bot.tab_color" maxlength="7" size="7"
+                                                       id="colorpickerNewTab" appColorPicker
+                                                       [ngStyle]="{'background': bot.tab_color}"
+                                                       (onGetColor)="onTabColor($event)" value={{bot.tab_color}}/>
 
-                  </div>
-                </div>
-                <div class="full-panel full-panel-step2">
+                                            </div>
+                                        </div>
+                                        <div class="full-panel full-panel-step2">
                   <span>Choose the font color of the tab/icon.
-                    <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <sup><i (mouseover)="showFontClr= true" (mouseout)="showFontClr= false"
+                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
                     <b [class.show]="showFontClr">The tab/icon color seen by users</b>
                   </span>
-                  <div class="right-side-form color-pick-section">
-                    <input type="text" class="color-picker-input" [(ngModel)]="bot.tab_text_color" maxlength="7" size="7"
-                           id="colorpickerNewText" appColorPicker [ngStyle]="{'background': bot.tab_text_color}" (onGetColor)="onTextColor($event)" value={{bot.tab_text_color}} />
-                  </div>
-                </div>
-              </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="step-image-wrapper step-appearance-image">
-                    <img src="assets/images/appearance-image.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-              <div class="error-msg-wrap">
-                <div class="error-message" *ngFor="let error of errors">
-                  <span>{{error.message}}</span>
+                                            <div class="right-side-form color-pick-section">
+                                                <input type="text" class="color-picker-input"
+                                                       [(ngModel)]="bot.tab_text_color" maxlength="7" size="7"
+                                                       id="colorpickerNewText" appColorPicker
+                                                       [ngStyle]="{'background': bot.tab_text_color}"
+                                                       (onGetColor)="onTextColor($event)" value={{bot.tab_text_color}}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-image-wrapper step-appearance-image">
+                                        <img src="assets/images/appearance-image.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="error-msg-wrap">
+                                <div class="error-message" *ngFor="let error of errors">
+                                    <span>{{error.message}}</span>
 
-                  <button class="launchBtnBack errorBtn errorBtnStep1" data-toggle="pill" [attr.href]="error.value"
-                          (click)="redirectPage(error.value);">Resolve
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="next-button-wrap">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="blank-wrap">
-                    <a data-toggle="pill" href="#capture"  (click)="showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <button class="btnNext" data-toggle="pill" (click)="checkValidation();">
-                    Save & Next
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4" [class.active]="showModules">
-            <div class="tab-content-wrap modules-page">
-              <div class="row main-modules-wrap">
-                <div class="col-lg-9">
-                  <div class="step-inner-wrapper full-panel-wrap">
-                    <div class="step-inner-title">
-                      <h3>FAQ Section<span>Pro</span></h3>
-                      <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection" type="text"
-                                        [(ngModel)]="faqSection" color="primary" style="float:left">
-                      </mat-slide-toggle>
-                      <div class="configure-btn" [class.active]="faqSection">
-                        <button class="white-btn visitor-content-toggle" (click)="showDiv= true;">
-                          Configure
-                        </button>
-                      </div>
-                    </div>
-                    <div class="step-inner-text-wrap">
-                      <h4>Provide an easy to use FAQ menu</h4>
-                      <p>It has been established truth that the reader will read anything written on the canvas as its
-                        in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
-                      <ul>
-                        <li>This is one super cool feature.</li>
-                        <li>It can also do impressive things.</li>
-                        <li>Finally it can do magic.</li>
-                      </ul>
-                    </div>
-                    <div class="visitor-count-wrapper" [class.active]="showDiv">
-                      <div class="visitor-count-wrap">
-                        <h3>Add FAQs</h3>
-                        <p>It has been established truth that the reader will read anything written on the canvas as its
-                          in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
-                        <div class="close-visitor-count" (click)="showDiv = false">
-                          <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                                    <button class="launchBtnBack errorBtn errorBtnStep1" data-toggle="pill"
+                                            [attr.href]="error.value"
+                                            (click)="redirectPage(error.value);">Resolve
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="visiters-count-inner-wrap">
-                          <div class="full-width-input-fields full-width-input-fields-step4">
-                            <div class="login-form-elements">
-                              <input [(ngModel)]="bot.complements_title" name="complements_title" type="text"
-                                     placeholder="Enter a Complements Title">
-                            </div>
-                          </div>
 
-                          <div class="full-width-input-fields full-width-input-fields-step4">
-                            <div class="login-form-elements">
-                              <!--<label>Enter a FAQ	Topic</label> -->
-                              <input id="faq_top" [(ngModel)]="bot.faqTopic" name="faqTopic" type="text"
-                                     placeholder="Enter a FAQ Topic">
+                        <div class="next-button-wrap">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="blank-wrap">
+                                        <a data-toggle="pill" href="#capture"
+                                           (click)="showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btnNext" data-toggle="pill" (click)="checkValidation();">
+                                        Save & Next
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </div>
-                          </div>
-                          <div class="full-width-input-fields full-width-input-fields-step4">
-                            <div class="login-form-elements btn-right-aligned" (click)="addFaqTopic()">
-                              <button id="faq_add" class="blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add
-                              </button>
-                            </div>
-                          </div>
+                        </div>
+                    </div>
 
-                          <div id="sortable" class="full-width-input-fields display-add-faq-content final-add-res"
-                               *ngFor="let topic of topics; let i = index">
+                    <div class="tab-pane" id="customize" role="tabpanel" aria-labelledby="new-step4"
+                         [class.active]="showModules">
+                        <div class="tab-content-wrap modules-page">
+                            <div class="row main-modules-wrap">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper full-panel-wrap">
+                                        <div class="step-inner-title">
+                                            <h3>FAQ Section<span>Pro</span></h3>
+                                            <mat-slide-toggle (change)="faqSectionToggle()" name="faqSection"
+                                                              type="text"
+                                                              [(ngModel)]="faqSection" color="primary"
+                                                              style="float:left">
+                                            </mat-slide-toggle>
+                                            <div class="configure-btn" [class.active]="faqSection">
+                                                <button class="white-btn visitor-content-toggle"
+                                                        (click)="showDiv= true;">
+                                                    Configure
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="step-inner-text-wrap">
+                                            <h4>Provide an easy to use FAQ menu</h4>
+                                            <p>It has been established truth that the reader will read anything written
+                                                on the canvas as its
+                                                in it nature. So lorem ipsum is used as a dummy text due to lack of
+                                                original content.</p>
+                                            <ul>
+                                                <li>This is one super cool feature.</li>
+                                                <li>It can also do impressive things.</li>
+                                                <li>Finally it can do magic.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="visitor-count-wrapper" [class.active]="showDiv">
+                                            <div class="visitor-count-wrap" (clickOutside)="onFaqOutside($event)"
+                                                 appClickOutside>
+                                                <h3>Add FAQs</h3>
+                                                <p>It has been established truth that the reader will read anything
+                                                    written on the canvas as its
+                                                    in it nature. So lorem ipsum is used as a dummy text due to lack of
+                                                    original content.</p>
+                                                <div class="close-visitor-count" (click)="showDiv = false">
+                                                    <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                                                </div>
+                                                <div class="visiters-count-inner-wrap">
+                                                    <div class="full-width-input-fields full-width-input-fields-step4">
+                                                        <div class="login-form-elements">
+                                                            <input [(ngModel)]="bot.complements_title"
+                                                                   name="complements_title" type="text"
+                                                                   placeholder="Enter a Complements Title">
+                                                        </div>
+                                                    </div>
 
-                            <div class="ui-state-default display-contetnt-box">
-                              <h2>{{topic.name}}</h2>
-                              <input class="faq-top-edit-text-box" [class.active]="showTopic[i]"
-                                     [(ngModel)]="topic.name"
-                                     name="name" type="text" value={{topic.name}}>
-                              <div class="topic-actions-wrap">
+                                                    <div class="full-width-input-fields full-width-input-fields-step4">
+                                                        <div class="login-form-elements">
+                                                            <!--<label>Enter a FAQ	Topic</label> -->
+                                                            <input id="faq_top" [(ngModel)]="bot.faqTopic"
+                                                                   name="faqTopic" type="text"
+                                                                   placeholder="Enter a FAQ Topic">
+                                                        </div>
+                                                    </div>
+                                                    <div class="full-width-input-fields full-width-input-fields-step4">
+                                                        <div class="login-form-elements btn-right-aligned"
+                                                             (click)="addFaqTopic()">
+                                                            <button id="faq_add" class="blue-btn"><i class="fa fa-plus"
+                                                                                                     aria-hidden="true"></i>
+                                                                Add
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="sortable"
+                                                         class="full-width-input-fields display-add-faq-content final-add-res"
+                                                         *ngFor="let topic of topics; let i = index">
+
+                                                        <div class="ui-state-default display-contetnt-box">
+                                                            <h2>{{topic.name}}</h2>
+                                                            <input class="faq-top-edit-text-box"
+                                                                   [class.active]="showTopic[i]"
+                                                                   [(ngModel)]="topic.name"
+                                                                   name="name" type="text" value={{topic.name}}>
+                                                            <div class="topic-actions-wrap">
                                 <span class="edit_topic{{i}}"
                                       (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"><i
-                                  class="fa fa-pencil" aria-hidden="true"></i></span>
-                                <span class="del_topic{{i}}" (click)="deleteFaqTopic(topic.id, topic.name)"><i
-                                  class="fa fa-trash" aria-hidden="true"></i></span>
-                              </div>
-                              <div class="faq-question-wrap faq-question-wrap1">
-                                <h4 *ngFor="let ques of topic.questions"><b>{{ques.name}}</b>
-                                  <input class="faq-que-edit-text-box" [class.active]="showQues[ques.id]"
-                                         type="text"[(ngModel)]="ques.name" value={{ques.name}}>
-                                  <div class="faq-question-actions">
+                                        class="fa fa-pencil" aria-hidden="true"></i></span>
+                                                                <span class="del_topic{{i}}"
+                                                                      (click)="deleteFaqTopic(topic.id, topic.name)"><i
+                                                                        class="fa fa-trash"
+                                                                        aria-hidden="true"></i></span>
+                                                            </div>
+                                                            <div class="faq-question-wrap faq-question-wrap1">
+                                                                <h4 *ngFor="let ques of topic.questions"><b>{{ques.name}}</b>
+                                                                    <input class="faq-que-edit-text-box"
+                                                                           [class.active]="showQues[ques.id]"
+                                                                           type="text" [(ngModel)]="ques.name"
+                                                                           value={{ques.name}}>
+                                                                    <div class="faq-question-actions">
                                       <span class="edit_question3"
                                             (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id)">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                       </span>
-                                    <span class="del_question2">
+                                                                        <span class="del_question2">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                       </span>
-                                  </div>
-                                </h4>
-                              </div>
-                              <div class="full-width-input-fields full-width-input-fields-step4">
-                                <div class="login-form-elements">
-                                  <input id="faq_que1" type="text" placeholder="Enter a FAQ"
-                                         [(ngModel)]="faqQuestion[i]" name="faqQuestion">
+                                                                    </div>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="full-width-input-fields full-width-input-fields-step4">
+                                                                <div class="login-form-elements">
+                                                                    <input id="faq_que1" type="text"
+                                                                           placeholder="Enter a FAQ"
+                                                                           [(ngModel)]="faqQuestion[i]"
+                                                                           name="faqQuestion">
+                                                                </div>
+                                                            </div>
+                                                            <div class="login-form-elements btn-right-aligned">
+                                                                <button id="" class="blue-btn add-faq-que1"
+                                                                        (click)="addFaqQuestion(topic.id, i)">
+                                                                    <i class="fa fa-plus" aria-hidden="true"></i> Add
+                                                                    Question
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <button class="blue-btn close-slide-btn" (click)="showDiv = false">
+                                                    Done
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
-                              <div class="login-form-elements btn-right-aligned">
-                                <button id="" class="blue-btn add-faq-que1" (click)="addFaqQuestion(topic.id, i)">
-                                  <i class="fa fa-plus" aria-hidden="true"></i> Add Question
-                                </button>
-                              </div>
+                                <div class="col-lg-3">
+                                    <div class="step-video-wrapper">
+                                        <video class="video" loop>
+                                            <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
 
-                        </div>
-                        <button class="blue-btn close-slide-btn" (click)="showDiv = false">Done</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="step-video-wrapper">
-                    <video class="video" loop>
-                      <source src="assets/video/SampleVideo.mp4" type="video/mp4">
-                      Your browser does not support HTML5 video.
-                    </video>
-                  </div>
-                </div>
-
-                <div class="col-lg-9">
-                  <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                    <div class="custom-timing-btn-wrap" *ngIf="proHide">
-                      <button (click)="showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro
-                        Active Mode
-                      </button>
-                    </div>
-                    <div class="step-inner-title">
-                      <h3>Pro-Active Mode<span>Business</span></h3>
-                      <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text"
-                                        [(ngModel)]="proActive" color="primary" style="float:left">
-                      </mat-slide-toggle>
-                      <div class="configure-btn" [class.active]="proActive">
-                        <button class="white-btn visitor-content-toggle" (click)="showBusiness= true">Configure</button>
-                      </div>
-                    </div>
-                    <div class="step-inner-text-wrap">
-                      <h4>Provide an easy to use FAQ menu</h4>
-                      <p>It has been established truth that the reader will read anything written on the canvas as its
-                        in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
-                      <ul>
-                        <li>This is one super cool feature.</li>
-                        <li>It can also do impressive things.</li>
-                        <li>Finally it can do magic.</li>
-                      </ul>
-                    </div>
-                    <div class="visitor-count-wrapper" [class.active]="showBusiness">
-                      <div class="visitor-count-wrap">
-                        <h3>Pro Active Mode</h3>
-                        <p>It has been established truth that the reader will read anything written on the canvas as its
-                          in it nature. So lorem ipsum is used as a dummy text due to lack of original content.</p>
-                        <div class="close-visitor-count" (click)="showBusiness = false">
-                          <span><i class="fa fa-close" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="visiters-count-inner-wrap">
-                          <div class="full-panel">
-                            <span>Pro Active Mode Desktop
-                              <sup><i (mouseover)="showDesktop= true"
-                                      (mouseout)="showDesktop= false"
-                                      class="fa fa-question-circle"
-                                      aria-hidden="true"></i></sup>
-                              <b [class.show]="showDesktop">This opens the chat bot	window automatically and immediately.</b>
-                            </span>
-                            <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
-                            </mat-slide-toggle>
-                          </div>
-                          <div class="full-panel">
-                            <span>Pro Active Mode Mobile
-                              <sup><i (mouseover)="showMobile= true"
-                                      (mouseout)="showMobile= false"
-                                      class="fa fa-question-circle"
-                                      aria-hidden="true"></i></sup>
-                              <b [class.show]="showMobile">This opens the chat bot	window automatically and immediately.</b>
-                            </span>
-                            <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;">
-                            </mat-slide-toggle>
-                          </div>
-                          <div class="full-panel">
-                            <span>Pro Active Level</span>
-                            <div class="progress-bar-wrap">
-                              <div id="progress-bar" class="progress-level{{progress}}"></div>
-                              <span id="progress0" (click)="progress = 0"><strong>0</strong><i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress1" (click)="progress = 1"><strong>1</strong><i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress2" (click)="progress = 2"><strong>2</strong><i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress3" (click)="progress = 3"><strong>3</strong><i>Lorem Ipsum Shit Amet</i></span>
-                              <span id="progress4" (click)="progress = 4"><strong>4</strong><i>Lorem Ipsum Shit Amet</i></span>
+                            <div class="row main-modules-wrap">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+                                        <div class="step-inner-title">
+                                            <h3>Chatbot Feedback KPI</h3>
+                                            <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
+                                                <mat-slide-toggle name="chatBot" type="text" [(ngModel)]="chatBot"
+                                                                  color="primary"></mat-slide-toggle>
+                                            </div>
+                                            <div class="configure-btn" [class.active]="chatBot">
+                                                <button class="white-btn visitor-content-toggle"
+                                                        (click)="showChatBot= true;">Configure
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="step-inner-text-wrap">
+                                            <h4>Feedback KPI Configuration</h4>
+                                            <p>It has been established truth that the reader will read anything written
+                                                on the canvas as its
+                                                in it nature. So lorem ipsum is used as a dummy text due to lack of
+                                                original content.</p>
+                                            <ul>
+                                                <li>This is one super cool feature.</li>
+                                                <li>It can also do impressive things.</li>
+                                                <li>Finally it can do magic.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="visitor-count-wrapper" [class.active]="showChatBot">
+                                            <div class="visitor-count-wrap" (clickOutside)="onKpiOutside($event)"
+                                                 appClickOutside>
+                                                <h3>Feedback KPI Configuration</h3>
+                                                <p>It has been established truth that the reader will read anything
+                                                    written on the canvas as its in it nature.
+                                                    So lorem ipsum is used as a dummy text due to lack of original
+                                                    content.</p>
+                                                <div class="close-visitor-count" (click)="showChatBot = false">
+                                                    <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                                                </div>
+                                                <div class="visiters-count-inner-wrap">
+                                                    <div class="full-width-input-fields full-width-input-fields-step4">
+                                                        <div class="faq-topic-input-wrap">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="full-width-input-fields full-width-input-fields-step4">
+                                                                        <div class="login-form-elements">
+                                                                            <select [(ngModel)]="bot.feedback_type"
+                                                                                    name="feedback_type"
+                                                                                    (change)="changeFeedbackType()">
+                                                                                <option value="0">Feedback by session
+                                                                                </option>
+                                                                                <option value="1">Feedback by message
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="blue-btn close-slide-btn" (click)="showChatBot = false;">
+                                                    Done
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-video-wrapper">
+                                        <video class="video" loop>
+                                            <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
-                        </div>
-                        <button class="blue-btn close-slide-btn" (click)="showBusiness = false">Done</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="step-video-wrapper">
-                    <video class="video" loop>
-                      <source src="assets/video/SampleVideo.mp4" type="video/mp4">
-                      Your browser does not support HTML5 video.
-                    </video>
-                  </div>
-                </div>
-              </div>
-              <div class="row main-modules-wrap">
-                <div class="col-lg-9">
-                  <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
-                    <div class="custom-timing-btn-wrap" *ngIf="proHide">
-                      <button (click)="showDialog = true" class="blue-btn toggle-custom-timing-section">Activiate Pro Active Mode</button>
-                    </div>
-                    <div class="step-inner-title">
-                      <h3>Live Chat <span>Pro</span></h3>
-                      <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text" [(ngModel)]="liveChat" color="primary" style="float:left">
-                      </mat-slide-toggle>
-                      <div class="configure-btn" [class.active]="liveChat" (click)="showLiveChat = true">
-                        <button class="white-btn visitor-content-toggle">Configure</button>
-                      </div>
-                    </div>
-                    <div class="step-inner-text-wrap">
-                      <h4>Provide an easy to use FAQ menu</h4>
-                      <p></p>
-                      <ul>
-                        <li>This is one super cool feature.</li>
-                        <li>It can also do impressive things.</li>
-                        <li>Finally it can do magic.</li>
-                      </ul>
-                    </div>
-                    <div class="visitor-count-wrapper" [class.active]="showLiveChat">
-                      <div class="visitor-count-wrap">
-                        <h3>Live Chat</h3>
-                        <p></p>
-                        <div class="close-visitor-count" (click)="showLiveChat = false">
-                          <span><i class="fa fa-close" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="visiters-count-inner-wrap">
-                          <div class="full-panel">
+
+                            <div class="row main-modules-wrap">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+                                        <div class="step-inner-title">
+                                            <h3>Pro-Active Mode<span>Business</span></h3>
+                                            <mat-slide-toggle (change)="proActiveToggle()" name="proActive" type="text"
+                                                              [(ngModel)]="proActive" color="primary"
+                                                              style="float:left">
+                                            </mat-slide-toggle>
+                                            <div class="configure-btn" [class.active]="proActive">
+                                                <button class="white-btn visitor-content-toggle"
+                                                        (click)="showBusiness= true">Configure
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="step-inner-text-wrap">
+                                            <h4>Provide an easy to use FAQ menu</h4>
+                                            <p>It has been established truth that the reader will read anything written
+                                                on the canvas as its
+                                                in it nature. So lorem ipsum is used as a dummy text due to lack of
+                                                original content.</p>
+                                            <ul>
+                                                <li>This is one super cool feature.</li>
+                                                <li>It can also do impressive things.</li>
+                                                <li>Finally it can do magic.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="visitor-count-wrapper" [class.active]="showBusiness">
+                                            <div class="visitor-count-wrap" (clickOutside)="onProActiveOutside($event)"
+                                                 appClickOutside>
+                                                <h3>Pro Active Mode</h3>
+                                                <p>Be reactive to your visits.</p>
+                                                <div class="close-visitor-count" (click)="showBusiness = false">
+                                                    <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                                                </div>
+                                                <div class="visiters-count-inner-wrap">
+                                                    <div class="full-width-input-fields full-width-input-fields-step4 full-panel">
+                                                        <span>What message would you like to show on your notification?</span>
+                                                        <div class="login-form-elements">
+                                                            <!--<label>Enter a FAQ	Topic</label> -->
+                                                            <input type="text" placeholder="Enter a Message"
+                                                                   name="hybrid_msg" [(ngModel)]="bot.hybrid_msg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="full-panel">
+                  <span>Add Mouse Out On Desktop
+                    <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false"
+                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
+                  </span>
+                                                        <mat-slide-toggle type="text" color="primary"
+                                                                          style="float:right; margin:0;"
+                                                                          name="hybrid_mode"
+                                                                          [(ngModel)]="bot.hybrid_mode">
+                                                        </mat-slide-toggle>
+                                                    </div>
+                                                    <div class="full-panel">
+                  <span>Add Dwell Time On Desktop
+                    <sup><i (mouseover)="showDeskDwell= true" (mouseout)="showDeskDwell= false"
+                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showDeskDwell">This opens the chat bot window automatically and immediately.</b>
+                  </span>
+                                                        <mat-slide-toggle type="text" color="primary"
+                                                                          style="float:right; margin:0;"
+                                                                          name="hybrid_desktop"
+                                                                          [(ngModel)]="bot.hybrid_desktop">
+                                                        </mat-slide-toggle>
+                                                    </div>
+                                                    <div class="full-panel">
+                  <span>Add Dwell Time On Mobile
+                    <sup><i (mouseover)="showMobDwell= true" (mouseout)="showMobDwell= false"
+                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                    <b [class.show]="showMobDwell">This opens the chat bot window automatically and immediately.</b>
+                  </span>
+                                                        <mat-slide-toggle type="text" color="primary"
+                                                                          style="float:right; margin:0;"
+                                                                          name="hybrid_mobile"
+                                                                          [(ngModel)]="bot.hybrid_mobile">
+                                                        </mat-slide-toggle>
+                                                    </div>
+                                                    <div class="full-panel">
+                                                        <span>Set the time in second Dwell time</span>
+
+                                                        <div class="row range-slider">
+                                                            <div class="col-sm-5">
+                                                                <input type="text" value={{dwell_time}}
+                                                                       [(ngModel)]="dwell_time">
+                                                            </div>
+                                                            <div class="col-sm-7">
+                                                                <nouislider [connect]="true" [min]=0 [max]=30 [step]="1"
+                                                                            [(ngModel)]="dwell_time"></nouislider>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="blue-btn close-slide-btn"
+                                                        (click)="showBusiness = false; editBotWithProActive()">Done
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-video-wrapper">
+                                        <video class="video" loop>
+                                            <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row main-modules-wrap">
+                                <div class="col-lg-9">
+                                    <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+                                        <div class="step-inner-title">
+                                            <h3>Live Chat <span>Pro</span></h3>
+                                            <mat-slide-toggle (change)="liveChatToggle()" name="liveChat" type="text"
+                                                              [(ngModel)]="liveChat" color="primary" style="float:left">
+                                            </mat-slide-toggle>
+                                            <div class="configure-btn" [class.active]="liveChat"
+                                                 (click)="showLiveChat = true">
+                                                <button class="white-btn visitor-content-toggle">Configure</button>
+                                            </div>
+                                        </div>
+                                        <div class="step-inner-text-wrap">
+                                            <h4>Provide an easy to use FAQ menu</h4>
+                                            <p></p>
+                                            <ul>
+                                                <li>This is one super cool feature.</li>
+                                                <li>It can also do impressive things.</li>
+                                                <li>Finally it can do magic.</li>
+                                            </ul>
+                                        </div>
+                                        <div class="visitor-count-wrapper" [class.active]="showLiveChat">
+                                            <div class="visitor-count-wrap" (clickOutside)="onLiveChatOutside($event)"
+                                                 appClickOutside>
+                                                <h3>Live Chat</h3>
+                                                <p></p>
+                                                <div class="close-visitor-count" (click)="showLiveChat = false">
+                                                    <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                                                </div>
+                                                <div class="visiters-count-inner-wrap">
+                                                    <div class="full-panel">
                                                         <span>Open Chat Bot Window By	Default
-                                                            <sup><i (mouseover)="showOpenChat = true" (mouseout)="showOpenChat = false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                                            <sup><i (mouseover)="showOpenChat = true"
+                                                                    (mouseout)="showOpenChat = false"
+                                                                    class="fa fa-question-circle"
+                                                                    aria-hidden="true"></i></sup>
                                                             <b [class.show]="showOpenChat">This opens the chat bot	window automatically and immediately.</b>
                                                         </span>
-                            <mat-slide-toggle type="text" color="primary" style="float:right; margin:0">
-                            </mat-slide-toggle>
-                          </div>
-                          <div class="full-width-input-fields full-width-input-fields-step4">
-                            <p>Time to	Open Chat Window Automatically (Dwell time)
-                              <sup><i (mouseover)="showChatWindow = true" (mouseout)="showChatWindow = false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                              <b [class.show]="showChatWindow">The	amount of seconds it takes to open the chatbot window.</b>
-                            </p>
-                            <div class="login-form-elements">
-                              <label>Enter seconds to trigger chatbot open.</label>
-                              <input type="text">
+                                                        <mat-slide-toggle type="text" color="primary"
+                                                                          style="float:right; margin:0">
+                                                        </mat-slide-toggle>
+                                                    </div>
+                                                    <div class="full-width-input-fields full-width-input-fields-step4">
+                                                        <p>Time to Open Chat Window Automatically (Dwell time)
+                                                            <sup><i (mouseover)="showChatWindow = true"
+                                                                    (mouseout)="showChatWindow = false"
+                                                                    class="fa fa-question-circle"
+                                                                    aria-hidden="true"></i></sup>
+                                                            <b [class.show]="showChatWindow">The amount of seconds it
+                                                                takes to open the chatbot window.</b>
+                                                        </p>
+                                                        <div class="login-form-elements">
+                                                            <label>Enter seconds to trigger chatbot open.</label>
+                                                            <input type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="blue-btn close-slide-btn" (click)="showLiveChat = false">
+                                                    Done
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="step-video-wrapper">
+                                        <video class="video" loop>
+                                            <source src="assets/video/SampleVideo.mp4" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                        <button class="blue-btn close-slide-btn" (click)="showLiveChat = false">Done</button>
-                      </div>
+                        <div class="next-button-wrap">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="blank-wrap">
+                                        <a data-toggle="pill" href="#message"
+                                           (click)="next(); showNlp = showModules = false; showLook = true;"
+                                           class="btnPrev">Back</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button data-toggle="pill" href="#launch" (click)="editBot()"
+                                            class="btnNext launchBtn">
+                                        Launch
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <div class="col-lg-3">
-                  <div class="step-video-wrapper">
-                    <video class="video" loop>
-                      <source src="assets/video/SampleVideo.mp4" type="video/mp4">
-                      Your browser does not support HTML5 video.
-                    </video>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="next-button-wrap">
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="blank-wrap">
-                    <a data-toggle="pill" href="#message" (click)="next(); showNlp = showModules = false; showLook = true;" class="btnPrev">Back</a>
-                  </div>
+
+            <div id="timing" class="custom-timing-section" [class.active]="showDialog">
+                <div class="custom-timing-container">
+                    <a href="javascript:void(0)" mat-mini-fab color="primary" (click)="showDialog= false">x</a>
+                    <h2>Pro Active Mode</h2>
+                    <p>Sometimes notifications popup faster or slower than you'd prefer. With custom timing, you can
+                        speed them up, slow them down, or hold them on screen longer.</p>
+                    <p><strong>Upgrade to the BUSINESS plan for $129/mo to unlock Custom Timing, plus:</strong></p>
+                    <ul>
+                        <li>Priority Support</li>
+                        <li>50,000 Unique Monthly Visitors</li>
+                        <li>Unlimited Domains</li>
+
+                    </ul>
+                    <button (click)="openModal()" class="unlock-timing-toggle">
+                        <i class="fa fa-unlock" aria-hidden="true"></i>
+                        Activate Pro Active Mode
+                    </button>
                 </div>
-                <div class="col-sm-6">
-                  <button data-toggle="pill" href="#launch" (click)="editBot()" class="btnNext launchBtn">
-                    Launch
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </div>
             </div>
-          </div>
-  </div>
-</div>
-
-<div  id="timing"  class="custom-timing-section" [class.active]="showDialog">
-  <div class="custom-timing-container">
-    <a href="javascript:void(0)" mat-mini-fab color="primary" (click)= "showDialog= false">x</a>
-    <h2>Pro Active Mode</h2>
-    <p>Sometimes notifications popup faster or slower than you'd prefer. With custom timing, you can speed them up, slow them down, or hold them on screen longer.</p>
-    <p><strong>Upgrade to the BUSINESS plan for $129/mo to unlock Custom Timing, plus:</strong></p>
-    <ul>
-      <li>Priority Support</li>
-      <li>50,000 Unique Monthly Visitors</li>
-      <li>Unlimited Domains</li>
-
-    </ul>
-    <button (click)="openModal()" class="unlock-timing-toggle">
-      <i class="fa fa-unlock" aria-hidden="true"></i>
-      Activate Pro Active Mode
-    </button>
-  </div>
-</div>
+        </div>
+    </div>
 </div>

@@ -14,7 +14,7 @@ import {BotService} from '../bot/bot.service';
     providers: [NewBotService, BotService],
 })
 export class NewBotComponent implements OnInit, OnDestroy {
-    dialogRef: MatDialogRef<JazzDialog>;
+    dialogRef: MatDialogRef<JazzDialogComponent>;
 
     config: MatDialogConfig = {
         disableClose: false,
@@ -47,7 +47,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
     bot: any = {};
     proActive = true;
     liveChatShowHide = false;
-    proHide = true;
     snackBars = false;
     snackbarsOne = false;
     color: string;
@@ -78,6 +77,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     showLiveChat = false;
     showOpenChat = false;
     showChatWindow = false;
+    showChatBot = true;
     imagePreview: any;
     coverPreview: any;
     dialogFlow = true;
@@ -96,6 +96,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     emptyField = false;
     operator = false;
     dataSaved = false;
+    dwell_time = 0;
 
     constructor(private router: Router, private Service: NewBotService, public sbs: SidebarService, public botService: BotService,
                 public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
@@ -136,6 +137,30 @@ export class NewBotComponent implements OnInit, OnDestroy {
             this.bot.icon_tab = true;
         }
         this.bot.icon_color = this.bot.tab_text_color;
+    }
+
+    onProActiveOutside(event) {
+        if (event) {
+            this.showBusiness = false;
+        }
+    }
+
+    onKpiOutside(event) {
+        if (event) {
+            this.showChatBot = false;
+        }
+    }
+
+    onFaqOutside(event) {
+        if (event) {
+            this.showDiv = false;
+        }
+    }
+
+    onLiveChatOutside(event) {
+        if (event) {
+            this.showLiveChat = false;
+        }
     }
 
     uploadAvatarImage() {
@@ -329,18 +354,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
         this.snackBarService.openSnackBar('Your Chat Bot has been reset');
     }
 
-    openModal() {
-        this.dialogRef = this.dialog.open(JazzDialog, {position: {top: '15%', left: '23%'}});
-        this.dialogRef.afterClosed().subscribe((result: string) => {
-            if (result === 'Yes!') {
-                this.showDialog = false;
-                this.snackBars = true;
-                this.snackBarService.openSnackBar('Congratulations! You have successfully upgraded to pro mode.');
-            }
-            this.proHide = false;
-        });
-    }
-
     getBotData(botId) {
         this.botService.getBotData(botId).subscribe((data) => {
             this.bot = data;
@@ -489,10 +502,43 @@ export class NewBotComponent implements OnInit, OnDestroy {
     onTextColor(event) {
         this.bot.tab_text_color = event;
     }
+
+    editBotWithProActive() {
+        const bot = {
+            hybrid_msg: this.bot.hybrid_msg,
+            hybrid_mode: this.bot.hybrid_mode,
+            hybrid_desktop: this.bot.hybrid_desktop,
+            hybrid_mobile: this.bot.hybrid_mobile,
+            dwell_time: this.dwell_time
+        };
+
+        this.editBotData(bot, this.bot.id);
+    }
+
+    editBotData(botData, botId) {
+        this.botService.editBot(botData, botId).subscribe((data) => {
+            if (data && data.id) {
+                this.sbs.feedback_type = data.feedback_type;
+                this.sbs.savedData = data;
+                this.snackBarService.openSnackBar('Bot Updated');
+            } else {
+                console.log(data);
+            }
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    changeFeedbackType() {
+        const bot = {
+            feedback_type: this.bot.feedback_type
+        };
+        this.editBotData(bot, this.bot.id);
+    }
 }
 
 @Component({
-    selector: 'demo-jazz-dialog',
+    selector: 'app-jazz-dialog',
     template: `
         <div class="unlock-btn-wrap">
             <h3>Upgrade your account to the BUSINESS plan?</h3>
@@ -502,8 +548,8 @@ export class NewBotComponent implements OnInit, OnDestroy {
         </div>
     `
 })
-export class JazzDialog {
-    constructor(public dialogRef: MatDialogRef<JazzDialog>, @Inject(MAT_DIALOG_DATA) public data: any) {
+export class JazzDialogComponent {
+    constructor(public dialogRef: MatDialogRef<JazzDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     }
 }
 

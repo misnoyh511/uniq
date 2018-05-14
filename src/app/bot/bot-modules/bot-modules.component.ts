@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, OnDestroy,  ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
 import {DOCUMENT} from '@angular/platform-browser';
 import {BotService} from '../bot.service';
@@ -120,6 +120,30 @@ export class botModulesComponent implements OnInit, OnDestroy {
             this.topics[k] = this.topics[k + increment];
         }
         this.topics[this.indexDrop] = target;
+    }
+
+    onKpiOutside(event) {
+        if (event) {
+            this.showChatBot = false;
+        }
+    }
+
+    onProActiveOutside(event) {
+        if (event) {
+            this.showBusiness = false;
+        }
+    }
+
+    onFaqOutside(event) {
+        if (event) {
+            this.showDiv = false;
+        }
+    }
+
+    onLiveChatOutside(event) {
+        if (event) {
+            this.showLiveChat = false;
+        }
     }
 
     getElementIndex(el: any) {

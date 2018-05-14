@@ -9,6 +9,7 @@ import {MaterialComponentsModule} from '../material-components.module';
 import '../../assets/js/colorpicker.js';
 import {DatePickerDirective} from '../directives/date-picker.directive';
 import {ColorPickerDirective} from '../directives/color-picker.directive';
+import {OutSideClickDirective} from '../directives/outsideclick.directive';
 import { NouisliderModule} from 'ng2-nouislider';
 import {ArraySortPipe} from '../directives/sort.directive';
 import { TagCloudModule } from 'angular-tag-cloud-module';
@@ -18,9 +19,9 @@ declare var require: any;
 
 @NgModule({
   imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, NouisliderModule, TagCloudModule],
-  declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe],
+  declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe, OutSideClickDirective],
   exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule,
-      DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe, TagCloudModule],
+      DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe, TagCloudModule, OutSideClickDirective],
   providers: [
     {
       provide: HighchartsStatic,

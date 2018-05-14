@@ -22,11 +22,11 @@
             <p>frequently asked questions</p>
           </div>
           <div class="visitor-count-wrapper" [class.active]="showDiv">
-            <div class="visitor-count-wrap">
+            <div class="visitor-count-wrap" (clickOutside)="onFaqOutside($event)" appClickOutside>
               <h3>Add FAQs</h3>
               <p>Write your frequently asked questions here.</p>
-              <div class="close-visitor-count">
-                <span><i class="fa fa-close" aria-hidden="true" (click)="showDiv = false"></i></span>
+              <div class="close-visitor-count" (click)="showDiv = false">
+                <span><i class="fa fa-close" aria-hidden="true"></i></span>
               </div>
               <div class="visiters-count-inner-wrap">
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -115,12 +115,12 @@
             <p>Feedback KPI Configuration</p>
           </div>
           <div class="visitor-count-wrapper" [class.active]="showChatBot">
-            <div class="visitor-count-wrap">
+            <div class="visitor-count-wrap" (clickOutside)="onKpiOutside($event)" appClickOutside>
               <h3>Feedback KPI Configuration</h3>
               <p>It has been established truth that the reader will read anything written on the canvas as its in it nature.
                 So lorem ipsum is used as a dummy text due to lack of original content.</p>
-              <div class="close-visitor-count">
-                <span><i class="fa fa-close" aria-hidden="true" (click)="showChatBot = false"></i></span>
+              <div class="close-visitor-count" (click)="showChatBot = false">
+                <span><i class="fa fa-close" aria-hidden="true"></i></span>
               </div>
               <div class="visiters-count-inner-wrap">
                 <div class="full-width-input-fields full-width-input-fields-step4">
@@ -158,7 +158,7 @@
             <p>Be reactive to your visits.</p>
           </div>
           <div class="visitor-count-wrapper" [class.active]="showBusiness">
-            <div class="visitor-count-wrap">
+            <div class="visitor-count-wrap" (clickOutside)="onProActiveOutside($event)" appClickOutside>
               <h3>Pro Active Mode</h3>
               <p>Be reactive to your visits.</p>
               <div class="close-visitor-count" (click)="showBusiness = false">
@@ -168,7 +168,6 @@
                 <div class="full-width-input-fields full-width-input-fields-step4 full-panel">
                   <span>What message would you like to show on your notification?</span>
                   <div class="login-form-elements">
-                    <!--<label>Enter a FAQ	Topic</label> -->
                     <input type="text" placeholder="Enter a Message" name="hybrid_msg" [(ngModel)]="botData.hybrid_msg">
                   </div>
                 </div>
@@ -196,17 +195,6 @@
                   <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_mobile" [(ngModel)]="botData.hybrid_mobile">
                   </mat-slide-toggle>
                 </div>
-                <!--<div class="full-panel">
-                  <span>Pro Active Level</span>
-                  <div class="progress-bar-wrap">
-                    <div id="progress-bar" class="progress-level{{progress}}"></div>
-                    <span id="progress0" (click)="progress = 0"><strong>0</strong><i>Lorem Ipsum Shit Amet</i></span>
-                    <span id="progress1" (click)="progress = 1"><strong>1</strong><i>Lorem Ipsum Shit Amet</i></span>
-                    <span id="progress2" (click)="progress = 2"><strong>2</strong><i>Lorem Ipsum Shit Amet</i></span>
-                    <span id="progress3" (click)="progress = 3"><strong>3</strong><i>Lorem Ipsum Shit Amet</i></span>
-                    <span id="progress4" (click)="progress = 4"><strong>4</strong><i>Lorem Ipsum Shit Amet</i></span>
-                  </div>
-                </div>-->
                 <div class="full-panel">
                   <span>Set the time in second Dwell time</span>
 
@@ -238,7 +226,7 @@
             <p>Use your staff to answer questions that the bot is not able to know.</p>
           </div>
           <div class="visitor-count-wrapper" [class.active]="showLiveChat">
-            <div class="visitor-count-wrap">
+            <div class="visitor-count-wrap" (clickOutside)="onLiveChatOutside($event)" appClickOutside>
               <h3>Live Chat</h3>
               <p>Use your staff to answer questions that the bot is not able to know.</p>
               <div class="close-visitor-count" (click)="showLiveChat = false">
