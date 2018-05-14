@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ConversationsService} from '../conversations.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {ArraySortPipe} from '../../directives/sort.directive';
+import {DatePipe} from '@angular/common';
 
 declare var that: any;
 
@@ -9,7 +10,7 @@ declare var that: any;
     selector: 'app-transcripts',
     templateUrl: 'transcripts.component.html',
     styleUrls: ['./transcripts.component.css'],
-    providers: [ConversationsService, ArraySortPipe]
+    providers: [ConversationsService, ArraySortPipe, DatePipe]
 })
 export class TranscriptsComponent implements OnInit, OnDestroy {
     transcripts: any = [];
@@ -29,7 +30,8 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     endDate: any;
     flag = true;
 
-    constructor(private conversationsService: ConversationsService, public sbs: SidebarService, private sort: ArraySortPipe) {
+    constructor(private conversationsService: ConversationsService, public sbs: SidebarService, private sort: ArraySortPipe,
+                private datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -37,12 +39,8 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
             this.startDate = this.sbs.dateObj.start;
             this.endDate = this.sbs.dateObj.end;
         } else {
-            const today = new Date();
-            this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + (today.getDate())).slice(-2);
-            today.setDate(today.getDate() - 30);
-            this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + (today.getDate())).slice(-2);
+            this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+            this.startDate = this.datePipe.transform(((new Date()).setDate((new Date()).getDate() - 29)), 'yyyy-MM-dd');
         }
         if (this.sbs.token) {
             this.analytics_token = this.sbs.token;
@@ -225,10 +223,8 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
         if (event.start && event.end) {
             const startDate = new Date(event.start);
             const endDate = new Date(event.end);
-            this.startDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + (startDate.getDate())).slice(-2);
-            this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + (endDate.getDate())).slice(-2);
+            this.startDate = this.datePipe.transform(startDate, 'yyyy-MM-dd');
+            this.endDate = this.datePipe.transform(endDate, 'yyyy-MM-dd');
             this.sbs.dateObj = {
                 start: this.startDate,
                 end: this.endDate

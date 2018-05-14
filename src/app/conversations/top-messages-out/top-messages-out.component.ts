@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ConversationsService} from '../conversations.service';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-top-messages-out',
   templateUrl: './top-messages-out.component.html',
   styleUrls: ['./top-messages-out.component.css'],
-    providers: [ConversationsService]
+    providers: [ConversationsService, DatePipe]
 })
 export class TopMessagesOutComponent implements OnInit, OnDestroy {
 
@@ -24,19 +25,15 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
     startDate: any;
     endDate: any;
 
-  constructor(private conversationsService: ConversationsService, public sbs: SidebarService) { }
+  constructor(private conversationsService: ConversationsService, public sbs: SidebarService, private datePipe: DatePipe) { }
 
   ngOnInit() {
       if (Object.keys(this.sbs.dateObj).length) {
           this.startDate = this.sbs.dateObj.start;
           this.endDate = this.sbs.dateObj.end;
       } else {
-          const today = new Date();
-          this.endDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-              ('0' + (today.getDate())).slice(-2);
-          today.setDate(today.getDate() - 30);
-          this.startDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' +
-              ('0' + (today.getDate())).slice(-2);
+          this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+          this.startDate = this.datePipe.transform(((new Date()).setDate((new Date()).getDate() - 29)), 'yyyy-MM-dd');
       }
     if (this.sbs.token) {
       this.analytics_token =  this.sbs.token;
@@ -128,10 +125,8 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
         if (event.start && event.end) {
             const startDate = new Date(event.start);
             const endDate = new Date(event.end);
-            this.startDate = startDate.getFullYear() + '-' + ('0' + (startDate.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + (startDate.getDate())).slice(-2);
-            this.endDate = endDate.getFullYear() + '-' + ('0' + (endDate.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + (endDate.getDate())).slice(-2);
+            this.startDate = this.datePipe.transform(startDate, 'yyyy-MM-dd');
+            this.endDate = this.datePipe.transform(endDate, 'yyyy-MM-dd');
             this.sbs.dateObj = {
                 start: this.startDate,
                 end: this.endDate

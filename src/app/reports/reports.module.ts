@@ -6,7 +6,6 @@ import { ServiceKpiComponent } from './service-kpi/service-kpi.component';
 import {ReportsRoutes} from './reports.routing';
 import {SharedModule} from '../shared/shared.module';
 import { SubNavComponent } from './sub-nav/sub-nav.component';
-import { Daterangepicker } from 'ng2-daterangepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
@@ -14,7 +13,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [
     RouterModule.forChild(ReportsRoutes),
     SharedModule,
-    Daterangepicker,
     MatTooltipModule
   ],
   declarations: [AnalyticsComponent, FeedbackComponent, ServiceKpiComponent, SubNavComponent]
