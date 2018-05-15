@@ -58,6 +58,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
         });
 
         this.sbs.botData.subscribe((data) => {
+            this.flag = true;
             this.analytics_token = data.analytics_token;
             this.botName = data.name;
             this.getTranscripts();
@@ -69,6 +70,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
     }
 
     reloadData() {
+        this.flag = true;
         this.getTranscripts();
     }
 
@@ -229,6 +231,7 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
                 start: this.startDate,
                 end: this.endDate
             };
+            this.flag = true;
             this.getTranscripts();
         }
     }

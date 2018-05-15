@@ -179,7 +179,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             } else {
                 this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
-
                     const posData = this.insertDates(positiveRes.data);
                     const posValueArr = posData.map(function (item) {
                         let data = {};
@@ -229,7 +228,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             // loop over every element in the copy and see if it's the same
             for (let w = 0; w < copy.length; w++) {
                 if (copy[w] && copy[w].text) {
-                    if (original[i].text === copy[w].text) {
+                    if ((original[i].text === copy[w].text) && (original[i].status === copy[w].status)) {
                         // increase amount of times duplicate is found
                         myCount++;
                         // sets item to undefined
@@ -310,15 +309,16 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
     insertDates(resData) {
         const newPosArr = {};
-        for (const currentDay = new Date(this.startDate); currentDay <= new Date(this.endDate); currentDay.setDate(currentDay.getDate() + 1)) {
+        const startDatePart = this.startDate.split('-');
+        const endDatePart = this.endDate.split('-');
+        for (const currentDay = new Date(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
+             currentDay <= new Date(endDatePart[0], endDatePart[1] - 1, endDatePart[2]);
+             currentDay.setDate(currentDay.getDate() + 1)) {
             // let day;
             let flag = false;
             resData.forEach(x => {
-                x.created_at = new Date(x.created_at);
-                x.created_at = x.created_at.getFullYear() + '-' + ('0' + (x.created_at.getMonth() + 1)).slice(-2) + '-' +
-                    ('0' + (x.created_at.getDate())).slice(-2);
-                const day = currentDay.getFullYear() + '-' + ('0' + (currentDay.getMonth() + 1)).slice(-2) + '-' +
-                    ('0' + (currentDay.getDate())).slice(-2);
+                x.created_at = this.datePipe.transform(x.created_at, 'yyyy-MM-dd');
+                const day = this.datePipe.transform(currentDay, 'yyyy-MM-dd');
                 if (x.created_at === day) {
                     flag = true;
                 }
@@ -338,19 +338,16 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
     generateGraph(valueArr) {
         for (const i in valueArr) {
-            const date = new Date(valueArr[i].created_at);
-            valueArr[i].created_at = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + (date.getDate())).slice(-2);
+            valueArr[i].created_at = this.datePipe.transform(valueArr[i].created_at, 'yyyy-MM-dd');
         }
         const graphData = _.groupBy(valueArr, 'created_at');
         let finalData = [];
         _.map(graphData, function (data) {
             finalData.push(_.groupBy(data, 'status'));
         });
-        const countArray = [];
         for (const i in finalData) {
             finalData[i].created_at = finalData[i].positive[0].created_at;
-            if (finalData[i].positive.length <= 1) {
+            if (finalData[i] && finalData[i].positive && finalData[i].positive.length <= 1) {
                 if (finalData[i].positive[0].text === '') {
                     finalData[i].positive_count = 0;
                 } else {
@@ -359,7 +356,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             } else {
                 finalData[i].positive_count = finalData[i].positive.length;
             }
-            if (finalData[i].negative.length <= 1) {
+            if (finalData[i] && finalData[i].negative && finalData[i].negative.length <= 1) {
                 if (finalData[i].negative[0].text === '') {
                     finalData[i].negative_count = 0;
                 } else {
@@ -371,7 +368,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             if (finalData[i].positive_count === 0 && finalData[i].negative_count === 0) {
                 finalData[i].positiveAvg = 0;
             } else {
-                finalData[i].positiveAvg = finalData[i].positive_count * 100 / (finalData[i].positive_count + finalData[i].negative_count)
+                finalData[i].positiveAvg = finalData[i].positive_count * 100 / (finalData[i].positive_count + finalData[i].negative_count);
             }
             finalData[i] = _.omit(finalData[i], ['positive', 'negative', 'positive_count', 'negative_count']);
         }
@@ -379,9 +376,12 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             (item) => {
                 return +new Date(item.created_at);
             });
+        const countArray = [];
         for (const i in finalData) {
             countArray.push(finalData[i].positiveAvg);
         }
+        const startDatePart = finalData[0].created_at.split('-');
+        const startPoint = Date.UTC(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
         this.options = {
             title: {
                 text: ''
@@ -406,9 +406,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                     label: {
                         connectorAllowed: false
                     },
-                    pointStart: Date.UTC((new Date(finalData[0].created_at)).getFullYear(),
-                        (new Date(finalData[0].created_at)).getMonth(),
-                        (new Date(finalData[0].created_at)).getDate()),
+                    pointStart: startPoint,
                     pointInterval: 24 * 3600 * 1000
                 }
             },

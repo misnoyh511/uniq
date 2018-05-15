@@ -109,7 +109,7 @@
           <h5>{{botName}}: </h5>
         </div>
         <div class="col-md-6 right-text">
-          <p><strong>Started: </strong> <span>{{startTime | date: 'MMM dd, yyyy hh:mm a'}}</span></p>
+          <p><strong>Started: </strong> <span>{{startTime | date: 'MMM dd, yyyy hh:mm:ss a'}}</span></p>
         </div>
       </div>
     </div>
@@ -117,12 +117,12 @@
       <div *ngFor="let info of totalMsgs">
         <div class="chat-block-wrap chat-block-wrap-right" *ngIf="info.type === 'outgoing'">
           <p>{{info.msg}}
-            <span>{{info.created_at | date: 'EEEE MMM dd, yyyy hh:mm a'}}</span>
+            <span>{{info.created_at | date: 'EEEE MMM dd, yyyy hh:mm:ss a'}}</span>
           </p>
         </div>
         <div class="chat-block-wrap chat-block-wrap-left" *ngIf="info.type === 'incoming'">
           <p>{{info.msg}}
-            <span>{{info.created_at | date: 'EEEE MMM dd, yyyy hh:mm a'}}</span>
+            <span>{{info.created_at | date: 'EEEE MMM dd, yyyy hh:mm:ss a'}}</span>
           </p>
         </div>
       </div>
