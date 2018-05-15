@@ -83,7 +83,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     const day = currentDay;
                     let flag = false;
                     response.data.forEach(x => {
-                        if (this.datePipe.transform(x.date, 'yyyy-MM-dd') === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
+                        if (x.date.split('T')[0] === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
                             flag = true;
                         }
                     });
@@ -91,6 +91,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         newArr[currentDay.getTime()] = '0';
                     }
                 }
+
                 for (const j in Object.keys(newArr)) {
                     response.data.push({
                         count: '0',
@@ -174,7 +175,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     const day = currentDay;
                     let flag = false;
                     response.data.forEach(x => {
-                        if (this.datePipe.transform(x.date, 'yyyy-MM-dd') === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
+                        if (x.date.split('T')[0] === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
                             flag = true;
                         }
                     });
@@ -264,7 +265,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     const day = currentDay;
                     let flag = false;
                     response.data.forEach(x => {
-                        if (this.datePipe.transform(x.date, 'yyyy-MM-dd') === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
+                        if (x.date.split('T')[0] === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
                             flag = true;
                         }
                     });
