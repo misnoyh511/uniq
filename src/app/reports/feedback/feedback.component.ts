@@ -398,7 +398,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             yAxis: {
                 title: {
                     text: 'Percentage of Positive Feedback'
-                }
+                },
+                max: 100
             },
 
             plotOptions: {
