@@ -24,7 +24,11 @@ export class botHomeComponent implements OnInit, OnDestroy {
       this.previewBot = AppConfig.PREVIEW_BOT + this.botData.id;
     }
     this.sbs.botList.subscribe((data) => {
-      this.botData = data[0];
+        if (localStorage.getItem('CURRENT_BOT')) {
+            this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+        } else {
+            this.botData = data[0];
+        }
         this.previewBot = AppConfig.PREVIEW_BOT + this.botData.id;
     });
 

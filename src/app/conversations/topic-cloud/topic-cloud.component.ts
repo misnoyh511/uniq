@@ -49,7 +49,11 @@ export class TopicCloudComponent implements OnInit, OnDestroy {
         }
 
         this.sbs.botList.subscribe((data) => {
-            this.analytics_token = data[0].analytics_token;
+            if (localStorage.getItem('CURRENT_BOT')) {
+                this.analytics_token = JSON.parse(localStorage.getItem('CURRENT_BOT')).analytics_token;
+            } else {
+                this.analytics_token = data[0].analytics_token;
+            }
             this.getTopMessageIn();
         });
 

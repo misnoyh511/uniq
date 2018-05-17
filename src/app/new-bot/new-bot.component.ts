@@ -33,21 +33,19 @@ export class NewBotComponent implements OnInit, OnDestroy {
         }
     };
 
-    name: String;
-    chat_window_name: String;
-    input_title: String;
-    initial_greeting: String;
+    name: string;
+    chat_window_name: string;
+    input_title: string;
+    initial_greeting: string;
     latteralTab = true;
     floatingIcon = false;
-    faqSection = true;
+    faqSection = false;
     faqShowHide = false;
     proActiveShowHide = false;
-    liveChat = true;
-    showDialog = false;
+    liveChat = false;
     bot: any = {};
-    proActive = true;
+    proActive = false;
     liveChatShowHide = false;
-    snackBars = false;
     snackbarsOne = false;
     color: string;
     file: any[];
@@ -71,20 +69,17 @@ export class NewBotComponent implements OnInit, OnDestroy {
     showBackClr = false;
     showFontClr = false;
     showProject = false;
-    showFeature = false;
     showBusiness = false;
-    progress: number;
     showLiveChat = false;
     showOpenChat = false;
     showChatWindow = false;
-    showChatBot = true;
+    showChatBot = false;
     imagePreview: any;
     coverPreview: any;
     dialogFlow = true;
     comingSoon1 = false;
     comingSoon2 = false;
     showDesktop = false;
-    showMobile = false;
     showTopics = false;
     topics: any = [];
     questions: any = [];
@@ -120,9 +115,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
             dwell_time: null,
             closed_msg: 'admin disconnected',
             mobile_complements: false,
-            medium_ids: [null, null],
-            hybrid_msg: 'Necesitas asistencia? puedo ayudarte',
-            hybrid_mobile: true
+            medium_ids: [null, null]
         };
         this.bot.tab_color = '#00FF00';
         this.bot.tab_text_color = '#00FF00';

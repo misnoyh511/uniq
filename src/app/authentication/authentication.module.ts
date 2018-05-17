@@ -8,17 +8,20 @@ import {AuthenticationService} from './authentication.service';
 import {AuthenticationRoutes} from './authentication.routing';
 import {AngularFireDatabase} from 'angularfire2/database-deprecated';
 import {ToastyModule} from 'ng2-toasty';
-
+import {MatStepperModule} from '@angular/material/stepper';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
     imports: [
         RouterModule.forChild(AuthenticationRoutes),
         FormsModule,
         ToastyModule.forRoot(),
-        CommonModule
+        CommonModule,
+        MatStepperModule,
+        SharedModule
     ],
     declarations: [LoginComponent, SignUpComponent],
-    providers:[AuthenticationService, AngularFireDatabase]
+    providers: [AuthenticationService, AngularFireDatabase]
 })
 
 export class AuthenticationModule {}

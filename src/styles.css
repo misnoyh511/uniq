@@ -1980,6 +1980,170 @@ a.mat-mini-fab.mat-primary {
     margin: 0 !important;
 }
 
+.login-signup-page {background-color: #f4f7f8;}
+.login-signup-header {background-color:#fff; box-shadow: 0 2px 4px 0 rgba(0,0,0,.09);}
+.login-signup-header-container {display:block; padding:20px 0;height:71px;}
+.login-signup-logo-wrap {float:left;}
+.login-signup-button-wrap {float:right;}
+.login-signup-button-wrap a {display: inline-block;padding: 10px 15px;border-radius: 4px;line-height: 1em;margin:0 5px 0;color: #90a4ae;font-size: .8em;
+    font-weight: 600;box-shadow: 0 1px 2px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.05);}
+.login-signup-button-wrap a:hover {box-shadow: 0 1px 2px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.05),0 5px 40px rgba(0,0,0,.05);color: #0095f7;}
+
+.login-signup-form-wrap {max-width: 440px;margin: 80px auto;text-align: center;border-radius: 5px;box-shadow: 0 2px 4px 0 rgba(14,30,37,.12);padding: 20px;
+    background-color: #fff;}
+.login-signup-form-wrap h2 {font-size:28px; text-transform:none; font-weight:900; color:#2c3e50; margin:10px 0 30px;}
+.login-signup-form-wrap a.white-btn {display:block;background-color: #fff;border: 1px solid rgba(0,0,0,.12);    padding: 15px 30px;border-radius: 4px;font-size: 18px;
+    font-weight: 600; box-shadow:0 4px 6px rgba(0,0,0,.11), 0 1px 3px rgba(0,0,0,.08);transition:0.15s ease-in-out;}
+.login-signup-form-wrap a.white-btn:hover {transform: translateY(-1px);box-shadow: 0 7px 14px rgba(0,0,0,.1), 0 3px 6px rgba(0,0,0,.08); transition:0.15s ease-in-out;}
+.login-signup-form-wrap .login-signup-border-wrap {margin: 30px 0 1px;border-top: 1px solid #f5f5f5;}
+.login-signup-form-wrap .login-signup-border-wrap span {font-weight: 500;font-size: 16px;transform: translateY(-15px);display: inline-block;padding: 5px 10px;
+    background-color: #fff;color: #999;}
+.login-signup-form-elements-wrap {background: #fff;box-shadow: 0 1px 3px 0 rgba(50,50,93,.15), 0 4px 6px 0 rgba(112,157,199,.15);border-radius: 4px;
+    margin-bottom:20px;}
+.login-signup-form-elements {border-bottom: 1px solid #f0f5fa; padding:10px 0;}
+.login-signup-form-elements label {min-width: 120px;padding: 0 15px;text-align: right; display:inline-block; margin:0; color:#666;}
+.login-signup-form-elements input[type=email], .login-signup-form-elements input[type=password], .login-signup-form-elements input[type=text] {font-weight: 400 !important; color: #333 !important; outline: none; border:none; background:#fff;}
+.login-signup-form-elements input[type=submit] {box-shadow: 0 4px 6px rgba(0,0,0,.11), 0 1px 3px rgba(0,0,0,.08);border-radius: 4px;font-size: 18px;font-weight: 600; display:block; width:100%; text-align:center;transition:0.15s ease-in-out; padding:15px 30px; margin:0 0 5px;}
+.login-signup-form-elements input[type=submit]:hover {transform: translateY(-1px);box-shadow: 0 7px 14px rgba(0,0,0,.1), 0 3px 6px rgba(0,0,0,.08); transition:0.15s ease-in-out;}
+
+.login-signup-form-wrap p {line-height: 1.4em;color: #525f7f;letter-spacing: -.01em; font-size:14px;}
+.login-signup-form-wrap p img { margin-right:5px;}
+.login-signup-form-wrap p a {color:#556dff;}
+.no-border {border:none;}
+
+.login-testimonial {max-width:440px; margin:0 auto; text-align:center;}
+.login-testimonial p {color: #0095f7;font-size: 16px;font-weight: 600;font-style: italic;margin-bottom: 15px;}
+
+.login-testimonial-client-info {width:140px; margin:0 auto;}
+.login-testimonial-client-image {height: 40px;width: 40px;border-radius: 50%;border: 2px solid #fff; float:left; overflow:hidden; margin-bottom:20px;}
+.login-testimonial-client-name {float:right; text-align:left;}
+.login-testimonial-client-name h6 {color: #90a4ae;font-size: 13px; text-transform:none; font-weight:700; margin:0; line-height:13px; padding:2px 0 0;}
+.login-testimonial-client-name span {color: #90a4ae; font-weight:400; font-size:12px; opacity:0.5;}
+
+.signup-steps-wrap {float:left;}
+.signup-steps-wrap ul {list-style:none; margin:0 0 20px;}
+.signup-steps-wrap ul li {display:inline-block;}
+.signup-steps-wrap ul li a, .signup-steps-wrap ul li span {font-size: 13px;padding:10px;color: #90a4ae;font-weight: 500;letter-spacing: -.03em; display:inline-block;}
+.signup-steps-wrap ul li a.active,.signup-steps-wrap ul li a:hover {color:#556dff;}
+.signup-steps-wrap ul li a.active {pointer-events:none; }
+
+.mat-stepper-horizontal {
+    background-color: transparent !important;
+    font-family: "Roboto Condensed",helvetica,arial,sans-serif;
+}
+
+.mat-horizontal-stepper-header-container {
+    width: 50%;
+    margin: auto;
+}
+
+.signup-plan-container {padding:40px 0; text-align:center;}
+.signup-plan-container h2 {font-size:36px;  text-transform:none; font-weight:900; color:#2c3e50; margin:20px 0 10px;}
+.signup-plan-container p {font-size:20px; color:#90a4ae; max-width:300px;margin:0 auto 20px;}
+
+.signup-plan-wrapper ul.nav-pills {display:inline-block; background:#fff; border-radius:30px; margin:15px 0 70px; }
+.signup-plan-wrapper ul.nav-pills li {display:inline-block;}
+.signup-plan-wrapper ul li a {font-size: .9em;color: #90a4ae;font-weight: 600;text-align: center;letter-spacing: -.02em;
+    cursor: pointer;position: relative;padding: 7px 20px; border-radius:30px !important;border: 2px solid transparent; width:95px;}
+.signup-plan-wrapper .nav-pills .nav-link.active, .signup-plan-wrapper .nav-pills .show > .nav-link {color:#0bdc60;border: 2px solid rgba(11,220,96,.2);background:rgba(11,220,96,.2);}
+
+.signup-plan-wrap {padding: 20px;text-align: center;box-shadow: 0 1px 2px rgba(0,0,0,.05),0 10px 20px rgba(0,0,0,.05);border-radius: 10px;cursor: pointer;background-color: #fff;position: relative; transition:0.15s ease-in-out;}
+.signup-plan-wrap:hover {transform: translateY(-3px);transition:0.15s ease-in-out; box-shadow:0 1px 2px rgba(0,0,0,.05),0 15px 40px rgba(0,0,0,.15);}
+.signup-plan-wrap h3 {color: #2b3950;font-weight: 900;font-size: 16px;}
+.signup-plan-wrap span {font-weight: 900;color: #556dff; font-size:40px; display:inline-block; margin:0 0 20px;}
+.signup-plan-wrap span b {color: #90a4ae;font-weight: 400;font-size:20px; margin:0 0 0 10px;}
+.signup-plan-wrap ul {list-style:none; padding:0; text-align:left;}
+.signup-plan-wrap ul li {padding: 8px 0 8px 30px;letter-spacing: -.02em;position: relative;color: #2b3950;}
+.signup-plan-wrap ul li:before {content:url(./assets/images/green-check-icon.png); position:absolute; top:10px; left:0;}
+.signup-plan-wrap a.blue-btn {display:block; font-size:18px; padding:15px 30px;}
+.signup-plan-highlights {position: absolute;width: 70px;padding: 7px 0;border-radius: 10px;background-color: #0bdc60;color: #fff;box-shadow: 0 0 0 2px #fff,0 1px 2px rgba(0,0,0,.08),0 2px 15px rgba(0,0,0,.17);text-align: center;font-size: .8em;font-weight: 700;line-height: 1.1em;letter-spacing: -.03em;top: -10px;right: -10px;
+    transform: rotate(10deg);}
+
+.signup-special-plan-container {padding:0 0 100px;}
+.signup-special-plan-container .special-plan-wrapper {box-shadow:none; padding:0 !important; transition:0.4s ease-in-out;}
+
+.signup-special-plan-container .special-plan-wrapper a.special-plan-content-toggle {background:#fff; display:inline-block !important; border-radius: 6px;padding:20px 30px;}
+.signup-special-plan-container .special-plan-wrapper a.special-plan-content-toggle:hover {box-shadow:0 0 0 2px rgba(85,109,255,.5);}
+.signup-special-plan-container .special-plan-wrapper h2 { padding:0;font-size: 1.5em;font-weight: 600;}
+
+.signup-special-plan-container .special-plan-wrap {text-align: center;box-shadow: 0 1px 2px rgba(0,0,0,.05),0 10px 20px rgba(0,0,0,.05);border-radius: 10px;cursor: pointer;background-color: #fff;position: relative; padding:20px;transition:0.15s ease-in-out;}
+.signup-special-plan-container .special-plan-wrap:hover {transform: translateY(-3px);transition:0.15s ease-in-out; box-shadow:0 1px 2px rgba(0,0,0,.05),0 15px 40px rgba(0,0,0,.15);}
+.signup-special-plan-container .special-plan-wrap h3 {color: #2b3950;font-weight: 900;font-size: 16px; text-align:center; text-transform:uppercase; margin:0 0 20px;}
+.signup-special-plan-container .special-plan-wrap p {}
+.signup-special-plan-container .special-plan-wrap span {font-weight: 900;color: #556dff; font-size:40px; display:inline-block; margin:0 0 20px;}
+.signup-special-plan-container .special-plan-wrap span b {color: #90a4ae;font-weight: 400;font-size:20px; margin:0 0 0 10px; position:static;}
+.signup-special-plan-container .special-plan-wrap a.blue-btn {margin:0 0 20px;}
+
+.signup-plan-wrapper .tab-content {position:relative; margin: 0!important}
+.free-tria-image {position:absolute; top:-60px; left:0; right:0; margin:0 auto;}
+
+.confirm-signup-wrapper {max-width:870px;}
+.confirm-signup-wrapper h2 {margin-top:0;}
+.confirm-account-form-elements {text-align:left;}
+.login-signup-form-elements-wrap input[type=tel], .login-signup-form-elements-wrap input[type=number], .login-signup-form-elements-wrap input[type=text] {font-weight: 400;color: #333;outline: none; border:none; background:#fff; -webkit-appearance:none; -moz-appearance:none; appearance:none; font-weight:900; color:#97A3AF;}
+.login-signup-form-elements-wrap input[type=number] {-moz-appearance:textfield;}
+.login-signup-form-elements-wrap input[type=number]::-webkit-inner-spin-button,.login-signup-form-elements-wrap input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.login-signup-form-elements-wrap .cardNum {width:63%; padding:0 0 0 35px; }
+.login-signup-form-elements-wrap .expDate {width:20%;}
+.login-signup-form-elements-wrap .cvcNum {width:13%;}
+.login-signup-form-elements-wrap .cardHolderName {outline:1px solid #ff0000 !important; width:calc(100% - 129px); padding:0 0 0 20px;}
+
+.confirm-account-form-elements {padding:10px 20px; position:relative;}
+.confirm-account-form-elements a {width:calc(100% - 129px); display:inline-block; color:#333;}
+.confirm-account-form-elements a:after {content:url(./assets/images/select-icon.png); position:absolute; top:10px; right:10px;}
+.confirm-account-form-elements a button {
+    width: 100%;
+}
+.confirm-account-form-elements a button .mat-button-focus-overlay {
+    background-color: transparent !important;
+}
+.confirm-signup-wrap {text-align:left;}
+.confirm-signup-wrap ul {list-style:none; margin:0; padding:0;}
+.confirm-signup-wrap ul li {margin-bottom: 20px;font-size: 15px;padding: 0 0 0 30px;position: relative;line-height: 1.6em; color:#2c3e50; }
+.confirm-signup-wrap ul li:before {content:url(./assets/images/green-check-light-icon.png); position:absolute; top:2px; left:0;}
+
+.special-plan-container {padding:70px 0 100px;}
+.special-plan-wrapper a {display:block;}
+.special-plan-wrapper {box-shadow: 0 12px 24px 0 rgba(40,43,49,.16); border-radius:6px; text-align:center; max-width:460px; margin:0 auto;}
+.special-plan-wrapper.active {max-width:none; padding:30px 15px;}
+.special-plan-wrapper h2 {display:inline-block; margin-top: 0;margin-bottom: 0;color: #3a3f52;font-size: 26px;line-height: 25px;font-weight: 900;text-align: left;
+    letter-spacing: 1px; text-transform:none; padding:30px 15px;}
+.special-plan-wrapper.active h2 {padding:0;}
+.special-plan-wrapper a i {font-size:30px; margin-left:10px; color:#556dff;}
+.special-plan-content {margin:60px 0 0; text-align:left; padding:0 30px; display:none;}
+.special-plan-wrapper.active .special-plan-content {display:block;}
+.special-plan-wrap {border-radius: 6px;background-color: #f6f8f9; padding:30px; margin:0 0 20px;}
+.special-plan-wrap h3 {margin-top: 0;margin-bottom: 10px;color: #3a3f52;font-size: 26px;line-height: 25px;font-weight: 900;text-align: left; text-transform:none; letter-spacing:1px;}
+.special-plan-wrap span {color: #556dff;font-size: 30px;line-height: 30px;font-weight: 400; margin:10px 0 30px; display:inline-block; position:relative;}
+.special-plan-wrap span b {color: #8da2b5;font-size: 12px;letter-spacing: .5px;text-transform: none; font-weight:400; position:absolute;top:0; left:100%;margin-left:5px; width:100px; line-height:16px; vertical-align:baseline;}
+.special-plan-wrap a {display:block; text-align:center; letter-spacing:1px;}
+
+.signup-bottom-links {max-width:700px; margin:0 auto; padding:20px; border-top:1px solid #eee; text-align:center; clear:both;}
+.signup-bottom-links a {display:inline-block; width:50%; float:left;padding: 20px 0;border-radius: 10px;}
+.signup-bottom-links a:last-child {margin-bottom:70px;}
+.signup-bottom-links a:hover {background:#fff;}
+.signup-bottom-links a img {display:inline-block; margin: 0 0 10px; opacity:0.5;}
+.signup-bottom-links a:hover img {opacity:1;}
+.signup-bottom-links a span {display: block;color: #90a4ae;}
+.background-transparent {background-color:transparent; box-shadow:none; margin:40px auto;}
+.background-transparent h2 {font-size:36px; margin-bottom:10px;}
+.background-transparent p.large-text {font-size:20px; color:#90a4ae; max-width:300px;margin:0 auto 30px;}
+
+.flip-container {perspective: 1000px;position:absolute;  top:9px; left:20px;}
+.flip-container .flipper.active {transform: rotateY(180deg);}
+.flip-container, .front, .back {width: 22px;height: 15px;}
+/* flip speed goes here */
+.flipper {transition: 0.6s;transform-style: preserve-3d;position: relative;}
+/* hide back of pane during swap */
+.front, .back {backface-visibility: hidden;position: absolute;top: 0;left: 0;}
+/* front pane, placed above back */
+.front {z-index: 2; /* for firefox 31 */transform: rotateY(0deg);}
+/* back, initially hidden pane */
+.back {transform: rotateY(180deg);}
+
 @media only screen and (max-width: 767px) {
     .pagination-export-wrap {
         text-align: center;

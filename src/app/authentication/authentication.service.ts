@@ -160,7 +160,7 @@ export class AuthenticationService {
             })
             .catch((err: Response) => {
                 this.ngProgress.done();
-                return Observable.of(err.json().errors[0]);
+                return Observable.of(err.json());
             });
     }
 }

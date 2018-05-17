@@ -1,116 +1,127 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {SidebarService} from './sidebar.service';
 import {Router} from '@angular/router';
 import {AppConfig} from '../../app.config';
+import {BotService} from '../../bot/bot.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css'],
-  providers: [],
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.css'],
+    providers: [BotService],
 })
 export class SidebarComponent implements OnInit {
-  @Input() navType;
-  @Input() getUrl;
-  bot: any[];
-  name: String;
-  data: any;
-  id: any;
-  linkUrl: any;
-  showStarted = false;
-  showKnowledge = false;
-  showConversation = false;
-  showReport = false;
-  showAccount = false;
-  showModules = false;
-  message: string;
-  showList = false;
-  currentBot: string;
-  botData: any = {};
-  showMenu = false;
+    @Input() navType;
+    @Input() getUrl;
+    bot: any[];
+    name: String;
+    data: any;
+    id: any;
+    linkUrl: any;
+    showStarted = false;
+    showKnowledge = false;
+    showConversation = false;
+    showReport = false;
+    showAccount = false;
+    showModules = false;
+    message: string;
+    showList = false;
+    currentBot: string;
+    botData: any = {};
+    showMenu = false;
 
-  constructor(private Service: SidebarService, private router: Router) { }
+    constructor(private Service: SidebarService, private router: Router, private botService: BotService) {
+    }
 
-  ngOnInit() {
-    this.Service.botList.subscribe((data) => {
-      this.bot = data;
-      if (this.Service.deleteMsg) {
-        this.showStarted = true;
-        this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
-        this.currentBot = this.bot[0].name;
-        this.Service.token = this.bot[0].analytics_token;
-      } else {
-        this.currentBot = this.Service.savedData.name;
-      }
-    });
-    this.onloaddata();
-    if (!this.data) {
-      this.data = 'Bot Providencia';
-    }
-    if (location.pathname.includes('knowledge-center')) {
-      this.showKnowledge = true;
-    } else if (location.pathname.includes('conversation')) {
-      this.showConversation = true;
-    } else if (location.pathname.includes('reports')) {
-      this.showReport = true;
-    } else if (location.pathname.includes('get-started')) {
-      this.showStarted = true;
-    } else if (location.pathname.includes('account')) {
-      this.showAccount = true;
-    }
-  }
-
-  onloaddata() {
-   this.Service.getBot().subscribe((data) => {
-     if (data && data.length) {
-         this.bot = data;
-         this.currentBot = this.bot[0].name;
-         this.Service.savedData = data[0];
-         if (this.bot.length > 0) {
-             this.data = this.bot[0];
-         }
-     }
-   });
-  }
-  dropDown(getUrl, botData) {
-    if (botData) {
-        if (location.pathname === '/get-started' || location.pathname === '/new-bot') {
-        this.router.navigate(['/bot-home']);
-        this.currentBot = botData.name;
-        this.Service.savedData = botData;
-        this.Service.token = botData.analytics_token;
-        this.getBotData();
-      } else {
-        this.currentBot = botData.name;
-        this.Service.savedData = botData;
-        this.Service.token = botData.analytics_token;
-        this.Service.somethingHappend(botData);
-      }
-      this.showList = false;
-    }
-    if (getUrl.split('/')[2]) {
-      this.linkUrl = '/' + this.getUrl ;
-    } else {
-      delete this.linkUrl;
-    }
-  }
-
-  getBotData() {
-    for (const i in this.bot) {
-      if (this.bot[i].name === this.currentBot) {
-        this.Service.token = this.bot[i].analytics_token;
-        if (location.pathname === '/get-started') {
-          this.Service.somethingHappend(this.bot[i]);
+    ngOnInit() {
+        if (localStorage.getItem('CURRENT_BOT') !== null) {
+            const myBot = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+            if (Object.keys(myBot).length) {
+                this.currentBot = myBot.name;
+                this.data = myBot;
+                this.Service.savedData = myBot;
+            }
         } else {
-          this.Service.savedData = this.bot[i];
-        }
-        break;
-      }
-    }
-  }
+            this.Service.botList.subscribe((data) => {
+                this.bot = data;
+                if (this.Service.deleteMsg) {
+                    this.showStarted = true;
+                    this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
+                    this.currentBot = this.bot[0].name;
+                    this.Service.token = this.bot[0].analytics_token;
+                } else {
+                    if (Object.keys(this.Service.savedData).length && this.Service.savedData.name) {
+                        this.currentBot = this.Service.savedData.name;
+                    } else {
+                        this.currentBot = this.bot[0].name;
+                    }
 
-  logout() {
-    delete localStorage[AppConfig.USER_INFO_KEY];
-    this.router.navigate(['/login']);
-  }
+                }
+            });
+        }
+        this.onloaddata();
+        if (!this.data) {
+            this.data = 'Bot Providencia';
+        }
+        if (location.pathname.includes('knowledge-center')) {
+            this.showKnowledge = true;
+        } else if (location.pathname.includes('conversation')) {
+            this.showConversation = true;
+        } else if (location.pathname.includes('reports')) {
+            this.showReport = true;
+        } else if (location.pathname.includes('get-started')) {
+            this.showStarted = true;
+        } else if (location.pathname.includes('account')) {
+            this.showAccount = true;
+        }
+    }
+
+    onloaddata() {
+            this.Service.getBot().subscribe((data) => {
+                if (data && data.length) {
+                    this.bot = data;
+                }
+            });
+    }
+
+    dropDown(getUrl, botData) {
+        if (botData) {
+            localStorage.setItem('CURRENT_BOT', JSON.stringify(botData));
+            this.currentBot = botData.name;
+            this.Service.savedData = botData;
+            this.Service.token = botData.analytics_token;
+            if (location.pathname === '/get-started' || location.pathname === '/new-bot') {
+                this.router.navigate(['/bot-home']);
+                this.getBotData();
+            } else {
+                this.Service.somethingHappend(botData);
+            }
+            this.showList = false;
+        }
+        if (getUrl.split('/')[2]) {
+            this.linkUrl = '/' + this.getUrl;
+        } else {
+            delete this.linkUrl;
+        }
+    }
+
+    getBotData() {
+        for (const i in this.bot) {
+            if (this.bot[i].name === this.currentBot) {
+                this.Service.token = this.bot[i].analytics_token;
+                if (location.pathname === '/get-started') {
+                    this.Service.somethingHappend(this.bot[i]);
+                } else {
+                    this.Service.savedData = this.bot[i];
+                }
+                break;
+            }
+        }
+    }
+
+    logout() {
+        delete localStorage[AppConfig.USER_INFO_KEY];
+        delete localStorage['CURRENT_BOT'];
+        this.router.navigate(['/login']);
+    }
 }

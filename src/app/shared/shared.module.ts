@@ -3,7 +3,7 @@ import {RouterModule} from '@angular/router';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { CommonModule } from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SidebarComponent } from './sidebar/sidebar.component';
 import {MaterialComponentsModule} from '../material-components.module';
 import '../../assets/js/colorpicker.js';
@@ -18,9 +18,9 @@ import { TagCloudModule } from 'angular-tag-cloud-module';
 declare var require: any;
 
 @NgModule({
-  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, NouisliderModule, TagCloudModule],
+  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule, NouisliderModule, TagCloudModule],
   declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe, OutSideClickDirective],
-  exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule,
+  exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule,
       DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe, TagCloudModule, OutSideClickDirective],
   providers: [
     {

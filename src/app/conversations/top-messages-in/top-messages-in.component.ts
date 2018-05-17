@@ -35,47 +35,53 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
             this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
             this.startDate = this.datePipe.transform(((new Date()).setDate((new Date()).getDate() - 29)), 'yyyy-MM-dd');
         }
-      if (this.sbs.token) {
-        this.analytics_token =  this.sbs.token;
-        this.getTopMessageIn();
-      }
+
+        if (this.sbs.token) {
+            this.analytics_token = this.sbs.token;
+            this.getTopMessageIn();
+        }
 
         if (Object.keys(this.sbs.savedData).length) {
             this.analytics_token = this.sbs.savedData.analytics_token;
             this.getTopMessageIn();
         }
 
-      this.sbs.botList.subscribe((data) => {
-        this.analytics_token = data[0].analytics_token;
-        this.getTopMessageIn();
-      });
+        this.sbs.botList.subscribe((data) => {
+            if (localStorage.getItem('CURRENT_BOT')) {
+                this.analytics_token = JSON.parse(localStorage.getItem('CURRENT_BOT')).analytics_token;
+            } else {
+                this.analytics_token = data[0].analytics_token;
+            }
+            this.getTopMessageIn();
+        });
 
-      this.sbs.botData.subscribe((data) => {
-        this.analytics_token = data.analytics_token;
-        this.getTopMessageIn();
-      });
+        this.sbs.botData.subscribe((data) => {
+            this.analytics_token = data.analytics_token;
+            this.getTopMessageIn();
+        });
     }
 
-  ngOnDestroy(): void {
-    this.sbs.token = this.analytics_token;
-  }
+    ngOnDestroy(): void {
+        this.sbs.token = this.analytics_token;
+    }
 
     getTopMessageIn() {
-      this.topMessagesIn = [];
+        this.topMessagesIn = [];
         this.items = [];
-      this.conversationsService.getTopMessagesIn(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-        this.topMessagesIn = response.data;
-        if (this.topMessagesIn && this.topMessagesIn.length) {
-            for (const i in this.topMessagesIn) {
-                this.totalCount = this.totalCount + parseInt(this.topMessagesIn[i].count, 10);
+        this.totalCount = 0;
+        this.conversationsService.getTopMessagesIn(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+            this.topMessagesIn = response.data;
+            if (this.topMessagesIn && this.topMessagesIn.length) {
+                for (const i in this.topMessagesIn) {
+                    this.totalCount = this.totalCount + parseInt(this.topMessagesIn[i].count, 10);
+                }
+                this.itemsPerPage = this.getItemPerPage(this.topMessagesIn.length);
+                this.totalPages = Math.ceil(this.topMessagesIn.length / this.itemPerPage);
+                this.getPaginatedData();
             }
-            this.itemsPerPage = this.getItemPerPage(this.topMessagesIn.length);
-            this.totalPages = Math.ceil(this.topMessagesIn.length / this.itemPerPage);
-            this.getPaginatedData();
-        }
-      }, (err) => {
-        console.log(err);
-      });
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     getItemPerPage(count) {

@@ -1,74 +1,330 @@
-<div class="signup-main">
-    <div class="col-md-3">
-        <div class="signup-sidebar">
-            <div class="signup-logo-wrap">
-                <a [routerLink]="(['/'])"><img src="./../../assets/images/logo-white.png" alt=""></a>
-            </div>
-            <div class="quote-wrap">
-                <p>"Not only is the tool genius but the people are awesome 👍 Well done on a tool that's offering massive value!"</p>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="quote-avatar">
-                            <img src="./../../assets/images/robpene.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="quote-desc">
-                            <span>Rob Pene</span>
-                            <h3>Mission Driven Brand</h3>
-                        </div>
-                    </div>
+<div class="login-signup-page">
+    <div class="login-signup-header">
+        <div class="container-fluid">
+            <div class="login-signup-header-container">
+                <div class="login-signup-logo-wrap">
+                    <a [routerLink]="(['/'])"><img src="../../../assets/images/logo-white-0303.png" alt="UNIQ"></a>
+                </div>
+                <div class="login-signup-button-wrap">
+                    <a [routerLink]="(['/'])">Sign In</a>
                 </div>
             </div>
-            <div class="app-version">Version 2.1.69</div>
         </div>
     </div>
-    <div class="col-md-9">
-        <div class="signup-container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="login-signup-btn cursor">
-                        <span>Already have an account?</span>
-                        <a [routerLink]="['/']">Sign In</a>
-                    </div>
-                </div>
-            </div>
-            <div class="login-form-wrap">
-                <h1 class="cursor">Let's Get Started</h1>
-                <p>Complete the first step below</p>
-                    <form (submit)="signUp()">
-                    <div class="login-form-elements">
-                        <label>Full Name</label>
-                        <input type="text" name="userName" [(ngModel)]="user.name">
-                    </div>
-                    <div class="login-form-elements">
-                        <label>Enter Email</label>
-                        <input type="email" name="email" [(ngModel)]="user.email">
-                    </div>
-                    <div class="login-form-elements">
-                        <label>Enter Password</label>
-                        <input type="password" name="password" [(ngModel)]="user.password">
-                    </div>
-                    <div class="login-form-elements">
-                        <div class="login-btn-highlights">
-                            <img src="./../../assets/images/simpleInstall.png" alt="">
+    <div class="login-signup-form-container">
+        <div class="container">
+            <div class="login-signup-form-wrapper">
+                <mat-horizontal-stepper #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Sign Up</ng-template>
+                            <div class="login-signup-form-wrap background-transparent">
+                                <h2>Sign Up</h2>
+                                <p class="large-text">Enter your work email to access your <strong>fully-loaded</strong>
+                                    14-day
+                                    trial.</p>
+                                <form>
+                                    <div class="login-signup-form-elements-wrap">
+                                        <div class="login-signup-form-elements">
+                                            <label>Name</label>
+                                            <input type="text" name="name" [(ngModel)]="user.name">
+                                        </div>
+                                        <div class="login-signup-form-elements">
+                                            <label>Email</label>
+                                            <input id="inputId" type="email" name="email" [(ngModel)]="user.email">
+                                        </div>
+                                        <div class="login-signup-form-elements">
+                                            <label>Password</label>
+                                            <input type="password" name="password" [(ngModel)]="user.password">
+                                        </div>
+                                    </div>
+                                    <div class="login-signup-form-elements no-border">
+                                        <button mat-button class="blue-btn" type="submit" (click)="signUp(stepper)">Create Account</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Choose Plan</ng-template>
+                            <div class="signup-plan-container">
+                                <h2>Choose Your Plan</h2>
+                                <p>Enjoy any plan <strong>free for 14 days</strong></p>
+
+                                <div class="signup-plan-wrapper">
+                                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="monthly-tab" data-toggle="pill" href="#monthly"
+                                               role="tab" aria-controls="monthly" aria-selected="true">Monthly</a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="nav-link active" id="yearly-tab" data-toggle="pill"
+                                               href="#yearly" role="tab" aria-controls="yearly"
+                                               aria-selected="false">Annual</a>
+
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane" id="monthly" role="tabpanel"
+                                             aria-labelledby="monthly-tab">
+                                            <img class="free-tria-image"
+                                                 src="./../../../assets/images/free-trial-image.png" alt="">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="signup-plan-wrap" matStepperNext>
+                                                        <h3>Basic</h3>
+                                                        <span>$29<b>/mo</b></span>
+                                                        <ul>
+                                                            <li>1,000 Unique Visitors /mo</li>
+                                                            <li>Unlimited Domains</li>
+                                                            <li>Unlimited Notifications</li>
+                                                            <li>Custom Rules & Timing</li>
+                                                            <li>Conversion Club</li>
+                                                            <li class="red-item">Live Visitor Count</li>
+                                                            <li class="red-item">Hot Streaks</li>
+                                                            <li class="red-item">Priority Support</li>
+                                                        </ul>
+                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="signup-plan-wrap">
+                                                        <div class="signup-plan-highlights"><b>Most Popular</b>
+                                                        </div>
+                                                        <h3>Pro</h3>
+                                                        <span>$79<b>/mo</b></span>
+
+                                                        <ul>
+                                                            <li>1,000 Unique Visitors /mo</li>
+                                                            <li>Unlimited Domains</li>
+                                                            <li>Unlimited Notifications</li>
+                                                            <li>Custom Rules & Timing</li>
+                                                            <li>Conversion Club</li>
+                                                            <li>Live Visitor Count</li>
+                                                            <li>Hot Streaks</li>
+                                                            <li class="red-item">Priority Support</li>
+                                                        </ul>
+                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="signup-plan-wrap">
+                                                        <h3>Business</h3>
+                                                        <span>$129<b>/mo</b></span>
+                                                        <ul>
+                                                            <li>1,000 Unique Visitors /mo</li>
+                                                            <li>Unlimited Domains</li>
+                                                            <li>Unlimited Notifications</li>
+                                                            <li>Custom Rules & Timing</li>
+                                                            <li>Conversion Club</li>
+                                                            <li>Live Visitor Count</li>
+                                                            <li>Hot Streaks</li>
+                                                            <li>Priority Support</li>
+                                                        </ul>
+                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane active" id="yearly" role="tabpanel"
+                                             aria-labelledby="yearly-tab">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="signup-plan-wrap">
+                                                        <h3>Basic</h3>
+                                                        <span>$25<b>/yr</b></span>
+                                                        <ul>
+                                                            <li>1,000 Unique Visitors /mo</li>
+                                                            <li>Unlimited Domains</li>
+                                                            <li>Unlimited Notifications</li>
+                                                            <li>Custom Rules & Timing</li>
+                                                            <li>Conversion Club</li>
+                                                            <li class="red-item">Live Visitor Count</li>
+                                                            <li class="red-item">Hot Streaks</li>
+                                                            <li class="red-item">Priority Support</li>
+                                                        </ul>
+                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="signup-plan-wrap">
+                                                        <div class="signup-plan-highlights"><b>Most Popular</b>
+                                                        </div>
+                                                        <h3>Pro</h3>
+                                                        <span>$66<b>/yr</b></span>
+                                                        <ul>
+                                                            <li>1,000 Unique Visitors /mo</li>
+                                                            <li>Unlimited Domains</li>
+                                                            <li>Unlimited Notifications</li>
+                                                            <li>Custom Rules & Timing</li>
+                                                            <li>Conversion Club</li>
+                                                            <li>Live Visitor Count</li>
+                                                            <li>Hot Streaks</li>
+                                                            <li class="red-item">Priority Support</li>
+                                                        </ul>
+                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="signup-plan-wrap">
+                                                        <h3>Business</h3>
+                                                        <span>$108<b>/yr</b></span>
+                                                        <ul>
+                                                            <li>1,000 Unique Visitors /mo</li>
+                                                            <li>Unlimited Domains</li>
+                                                            <li>Unlimited Notifications</li>
+                                                            <li>Custom Rules & Timing</li>
+                                                            <li>Conversion Club</li>
+                                                            <li>Live Visitor Count</li>
+                                                            <li>Hot Streaks</li>
+                                                            <li>Priority Support</li>
+                                                        </ul>
+                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="signup-special-plan-section">
+                                <div class="container">
+                                    <div class="signup-special-plan-container">
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-10">
+                                                <div class="special-plan-wrapper" [class.active]="showTrafficLimit">
+                                                    <a class="special-plan-content-toggle"
+                                                       href="javascript:void(0)"
+                                                       (click)="showTrafficLimit = !showTrafficLimit">
+                                                        <h2>Need a higher traffic limit?</h2>
+                                                        <i *ngIf="!showTrafficLimit" class="fa fa-angle-down"></i>
+                                                        <i *ngIf="showTrafficLimit" class="fa fa-angle-up"></i>
+                                                    </a>
+                                                    <div class="special-plan-content">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="special-plan-wrap">
+                                                                    <h3>Premium Plan</h3>
+
+                                                                    <span>$199 <b>/mo</b></span>
+                                                                    <p>100k visitor / mo</p>
+                                                                    <a href="#" class="blue-btn">Start Free Trial</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="special-plan-wrap">
+                                                                    <h3>Platinum Plan</h3>
+                                                                    <span>$299 <b>/mo</b></span>
+                                                                    <p>300k visitor / mo</p>
+                                                                    <a href="#" class="blue-btn">Start Free Trial</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="special-plan-wrap">
+                                                                    <h3>Enterprise</h3>
+                                                                    <span>Custom</span>
+                                                                    <p>300k+ visitor / mo</p>
+                                                                    <a href="#" class="blue-btn">Start Free Trial</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="login-signup-form-elements no-border">
+                                <button mat-button class="blue-btn" matStepperPrevious>Back</button>
+                                <button mat-button class="blue-btn" type="submit" matStepperNext>Next</button>
+                            </div>-->
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="thirdFormGroup">
+                        <form [formGroup]="thirdFormGroup">
+                        <ng-template matStepLabel>Confirm</ng-template>
+                        <div class="login-signup-form-wrap background-transparent confirm-signup-wrapper">
+                            <h2>Confirm Your Account</h2>
+                            <p class="large-text">Try any plan free for 14 days and cancel anytime.</p>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form>
+                                        <div class="login-signup-form-elements-wrap">
+                                            <div class="login-signup-form-elements confirm-account-form-elements">
+                                                <label>Name</label>
+                                                <input class="cardHolderName" placeholder="George Michael" type="text"
+                                                       name="name">
+                                            </div>
+                                            <div class="login-signup-form-elements confirm-account-form-elements">
+                                                <label>Plan</label>
+                                                <a href="javascript:void(0)"><button mat-button matStepperPrevious>Choose Plan</button></a>
+                                            </div>
+                                        </div>
+                                        <div class="login-signup-form-elements-wrap">
+                                            <div class="confirm-account-form-elements">
+                                                <div class="flip-container">
+                                                    <div class="flipper" [class.active]="!showCardFront">
+                                                        <div class="front">
+                                                            <img src="./../../../assets/images/credit-card-front-icon.png" alt="">
+                                                        </div>
+                                                        <div class="back">
+                                                            <img src="./../../../assets/images/credit-card-back-icon.png" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input class="cardNum" placeholder="Card number" type="tel"
+                                                       name="number" (click)="showCardFront = true">
+                                                <input class="expDate" placeholder="MM/YY" type="tel" name="expiry">
+                                                <input class="cvcNum" placeholder="CVC" type="number" name="cvc" (click)="showCardFront = false">
+                                            </div>
+                                        </div>
+                                        <div class="login-signup-form-elements no-border">
+                                            <input class="blue-btn" value="Start Free 14 Day Trial" type="submit" [routerLink]="(['/'])">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="confirm-signup-wrap">
+                                        <ul>
+                                            <li>Increase conversion rate in minutes</li>
+                                            <li>Your card will not be charged until the end of your 14-day trial</li>
+                                            <li>Self-cancel at any time</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button type="submit">
-                            Continue
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </form>
-                <div class="social-media-login-title">
-                    <div class="social-media-login-title-border"></div>
-                    <h4>Or Signup With One Click</h4>
-                    <div class="login-social-btn" id="googleBtn">
-                        <button class="login-google-btn" (click)="googleSignIn()">
-                            Signup With Google
-                            <img src="images/google-icon.png" alt="">
-                        </button>
+                        <!--<div class="login-signup-form-elements no-border">
+                            <button mat-button class="blue-btn" matStepperPrevious>Back</button>
+                            <button mat-button class="blue-btn" (click)="stepper.reset()">Reset</button>
+                        </div>-->
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+
+                <div class="login-testimonial">
+                    <p>"A great tool! Nothing beats live social proof."</p>
+                    <div class="login-testimonial-client-info">
+                        <div class="login-testimonial-client-image">
+                            <img src="../../../assets/images/home-testimonial-image.jpg" alt="">
+                        </div>
+                        <div class="login-testimonial-client-name">
+                            <h6>Neil Patel</h6>
+                            <span>Quicksprout.com</span>
+                        </div>
                     </div>
                 </div>
+
+                <div class="signup-bottom-links">
+                    <a href="#"><img src="../../../assets/images/signup-bottom-link1.png" alt=""><span>Talk to a human</span></a>
+                    <a href="#"><img src="../../../assets/images/signup-bottom-link2.png" alt=""><span>Frequently Asked Question</span></a>
+                </div>
+
             </div>
         </div>
     </div>

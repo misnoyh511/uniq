@@ -46,7 +46,11 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
       }
 
     this.sbs.botList.subscribe((data) => {
-      this.analytics_token = data[0].analytics_token;
+        if (localStorage.getItem('CURRENT_BOT')) {
+            this.analytics_token = JSON.parse(localStorage.getItem('CURRENT_BOT')).analytics_token;
+        } else {
+            this.analytics_token = data[0].analytics_token;
+        }
       this.getTopMessageOut();
     });
 
@@ -63,6 +67,7 @@ export class TopMessagesOutComponent implements OnInit, OnDestroy {
   getTopMessageOut() {
     this.topMessagesOut = [];
       this.items = [];
+      this.totalCount = 0;
     this.conversationsService.getTopMessagesOut(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
       this.topMessagesOut = response.data;
         if (this.topMessagesOut && this.topMessagesOut.length) {

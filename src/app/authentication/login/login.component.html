@@ -1,67 +1,53 @@
-<div class="signup-main">
-    <div class="col-md-3">
-        <div class="signup-sidebar">
-            <div class="signup-logo-wrap">
-                <a [routerLink]="(['/'])"><img src="../../../assets/images/logo-white.png" alt=""></a>
-            </div>
-            <div class="quote-wrap">
-                <p>"We used uniq for Frontend Masters and had our best promotional period ever."</p>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="quote-avatar">
-                            <img src="../../../assets/images/marc.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="col-sm-9">
-                        <div class="quote-desc">
-                            <span>Marc Grabanski</span>
-                            <h3>Frontend Masters</h3>
-                        </div>
-                    </div>
+<div class="login-signup-page">
+    <div class="login-signup-header">
+        <div class="container-fluid">
+            <div class="login-signup-header-container">
+                <div class="login-signup-logo-wrap">
+                    <a [routerLink]="(['/'])"><img src="../../../assets/images/logo-white-0303.png" alt="UNIQ"></a>
+                </div>
+                <div class="login-signup-button-wrap">
+                    <a [routerLink]="['/sign-up']">Sign Up</a>
                 </div>
             </div>
-            <div class="app-version">Version 2.1.74</div>
         </div>
     </div>
-    <div class="col-md-9">
-        <div class="signup-container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="login-signup-btn cursor">
-                        <span>Need an account?</span>
-                        <a [routerLink]="['/sign-up']">Get Started</a>
-                    </div>
+    <div class="login-signup-form-container">
+        <div class="container">
+            <div class="login-signup-form-wrapper">
+                <div class="login-signup-form-wrap">
+                    <h2>Welcome to Uniq</h2>
+                    <a href="#" class="white-btn" (click)="loginWithGoogle()">Continue with Google</a>
+                    <div class="login-signup-border-wrap"><span>or</span></div>
+                    <form>
+                        <div class="login-signup-form-elements-wrap">
+                            <div class="login-signup-form-elements">
+                                <label>Email</label>
+                                <input type="email" name="email" [(ngModel)]="user.email">
+                            </div>
+                            <div class="login-signup-form-elements">
+                                <label>Password</label>
+                                <input type="password" name="password" [(ngModel)]="user.password">
+                            </div>
+                        </div>
+                        <div class="login-signup-form-elements no-border">
+                            <input type="submit" (click)="login()" class="blue-btn" value="Sign In">
+                        </div>
+                    </form>
+                    <p><img src="https://useproof.s3.amazonaws.com/turbo1/tip.svg" alt=""> Trouble signing in? <a
+                            href="#">Reset your password</a></p>
+                    <p><img src="https://useproof.s3.amazonaws.com/turbo1/tip.svg" alt=""> Don't have an account? <a
+                            [routerLink]="['/sign-up']">Sign up here</a></p>
                 </div>
-            </div>
-            <div class="login-form-wrap">
-                <h1>Welcome to Uniq</h1>
-                <p>Let's Grow Your Business</p>
-                <form >
-                    <div class="login-form-elements">
-                        <label>Enter Email</label>
-                        <input type="email" name="email" [(ngModel)]="user.email">
-                    </div>
-                    <div class="login-form-elements">
-                        <label>Enter Password</label>
-                        <input type="password" name="password" [(ngModel)]="user.password">
-                        <a href="#">Recover My Password</a>
-                    </div>
-                    <div class="login-form-elements">
-
-                        <button type="submit" (click)="login()">
-                            Sign In
-                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </form>
-                <div class="social-media-login-title">
-                    <div class="social-media-login-title-border"></div>
-                    <h4>Or Sign in With One Click</h4>
-                    <div class="login-social-btn" id="googleBtn">
-                        <button class="login-google-btn" (click)="loginWithGoogle()">
-                            Continue With Google
-                            <img src="../../../assets/images/google-icon.png" alt="">
-                        </button>
+                <div class="login-testimonial">
+                    <p>"A great tool! Nothing beats live social Uniq."</p>
+                    <div class="login-testimonial-client-info">
+                        <div class="login-testimonial-client-image">
+                            <img src="../../../assets/images/home-testimonial-image.jpg" alt="">
+                        </div>
+                        <div class="login-testimonial-client-name">
+                            <h6>Neil Patel</h6>
+                            <span>Quicksprout.com</span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -52,8 +52,13 @@ export class TranscriptsComponent implements OnInit, OnDestroy {
             this.getTranscripts();
         }
         this.sbs.botList.subscribe((data) => {
-            this.analytics_token = data[0].analytics_token;
-            this.botName = data[0].name;
+            if (localStorage.getItem('CURRENT_BOT')) {
+                this.botName = JSON.parse(localStorage.getItem('CURRENT_BOT')).name;
+                this.analytics_token = JSON.parse(localStorage.getItem('CURRENT_BOT')).analytics_token;
+            } else {
+                this.botName = data[0].name;
+                this.analytics_token = data[0].analytics_token;
+            }
             this.getTranscripts();
         });
 

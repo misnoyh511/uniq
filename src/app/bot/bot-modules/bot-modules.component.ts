@@ -79,12 +79,17 @@ export class botModulesComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.proActive = false;
+        this.dwell_time = 0;
         if (Object.keys(this.sbs.savedData).length) {
             this.botData = this.sbs.savedData;
             this.getBotData(this.botData.id);
         }
         this.sbs.botList.subscribe((data) => {
-            this.botData = data[0];
+            if (localStorage.getItem('CURRENT_BOT')) {
+                this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+            } else {
+                this.botData = data[0];
+            }
             this.getBotData(this.botData.id);
         });
 
@@ -158,9 +163,14 @@ export class botModulesComponent implements OnInit, OnDestroy {
 
     getBotData(botId) {
         this.botService.getBotData(botId).subscribe((data) => {
+            console.log('data', data);
             this.showPage = true;
             this.botData = data;
-            this.dwell_time = this.botData.dwell_time;
+            if (this.botData.dwell_time === null) {
+                this.dwell_time = 0;
+            } else {
+                this.dwell_time = this.botData.dwell_time;
+            }
             this.proActive = !!(this.botData.hybrid_msg || this.botData.hybrid_desktop || this.botData.hybrid_mobile
                 || this.botData.hybrid_mode || this.botData.dwell_time);
             this.topics = this.botData.topics;
@@ -198,7 +208,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
                 topicId: topicId
             }).subscribe((data) => {
                 this.getBotData(this.botData.id);
-                // this.getTopicsWithQues();
                 this.faqQuestion[index] = '';
                 this.snackBarService.openSnackBar('Faq Question Created for this Topic');
             }, (err) => {

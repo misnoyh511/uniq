@@ -39,7 +39,11 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
             this.botData = this.sbs.savedData;
         }
         this.sbs.botList.subscribe((data) => {
-            this.botData = data[0];
+            if (localStorage.getItem('CURRENT_BOT')) {
+                this.botData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
+            } else {
+                this.botData = data[0];
+            }
         });
 
         this.sbs.botData.subscribe((data) => {

@@ -14,7 +14,7 @@ export class BotService {
       const myHeaders = new Headers();
       this.httpClient.createAuthorizationHeader(myHeaders);
       const options = new RequestOptions({ headers: myHeaders});
-      return this.http.get(AppConfig.API_ENDPOINT + '/ai/' + botId, options)
+      return this.http.get(AppConfig.API_ENDPOINT + '/ai/' + botId + '/full', options)
           .map(response => {
               return response.json();
           })
