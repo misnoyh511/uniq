@@ -20,9 +20,7 @@
                             <ng-template matStepLabel>Sign Up</ng-template>
                             <div class="login-signup-form-wrap background-transparent">
                                 <h2>Sign Up</h2>
-                                <p class="large-text">Enter your work email to access your <strong>fully-loaded</strong>
-                                    14-day
-                                    trial.</p>
+                                <p class="large-text">Enter your work email to access your <strong>fully-loaded</strong> 14-day trial.</p>
                                 <form>
                                     <div class="login-signup-form-elements-wrap">
                                         <div class="login-signup-form-elements">
@@ -39,9 +37,12 @@
                                         </div>
                                     </div>
                                     <div class="login-signup-form-elements no-border">
-                                        <button mat-button class="blue-btn" type="submit" (click)="signUp(stepper)">Create Account</button>
+                                        <button mat-button class="blue-btn" type="submit" (click)="signUp(stepper)">Create
+                                            Account
+                                        </button>
                                     </div>
                                 </form>
+
                             </div>
                         </form>
                     </mat-step>
@@ -59,9 +60,8 @@
                                                role="tab" aria-controls="monthly" aria-selected="true">Monthly</a>
                                         </li>
                                         <li class="nav-item active">
-                                            <a class="nav-link active" id="yearly-tab" data-toggle="pill"
-                                               href="#yearly" role="tab" aria-controls="yearly"
-                                               aria-selected="false">Annual</a>
+                                            <a class="nav-link active" id="yearly-tab" data-toggle="pill" href="#yearly"
+                                               role="tab" aria-controls="yearly" aria-selected="false">Annual</a>
 
                                         </li>
                                     </ul>
@@ -73,7 +73,7 @@
                                                  src="./../../../assets/images/free-trial-image.png" alt="">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <div class="signup-plan-wrap" matStepperNext>
+                                                    <div class="signup-plan-wrap">
                                                         <h3>Basic</h3>
                                                         <span>$29<b>/mo</b></span>
                                                         <ul>
@@ -86,7 +86,7 @@
                                                             <li class="red-item">Hot Streaks</li>
                                                             <li class="red-item">Priority Support</li>
                                                         </ul>
-                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -106,7 +106,7 @@
                                                             <li>Hot Streaks</li>
                                                             <li class="red-item">Priority Support</li>
                                                         </ul>
-                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -123,7 +123,7 @@
                                                             <li>Hot Streaks</li>
                                                             <li>Priority Support</li>
                                                         </ul>
-                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@
                                                             <li class="red-item">Hot Streaks</li>
                                                             <li class="red-item">Priority Support</li>
                                                         </ul>
-                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -164,7 +164,7 @@
                                                             <li>Hot Streaks</li>
                                                             <li class="red-item">Priority Support</li>
                                                         </ul>
-                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -181,7 +181,7 @@
                                                             <li>Hot Streaks</li>
                                                             <li>Priority Support</li>
                                                         </ul>
-                                                        <a href="#" class="blue-btn">Select Plan</a>
+                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,7 +211,7 @@
 
                                                                     <span>$199 <b>/mo</b></span>
                                                                     <p>100k visitor / mo</p>
-                                                                    <a href="#" class="blue-btn">Start Free Trial</a>
+                                                                    <button mat-button class="blue-btn" matStepperNext>Start Free Trial</button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">
@@ -219,7 +219,7 @@
                                                                     <h3>Platinum Plan</h3>
                                                                     <span>$299 <b>/mo</b></span>
                                                                     <p>300k visitor / mo</p>
-                                                                    <a href="#" class="blue-btn">Start Free Trial</a>
+                                                                    <button mat-button class="blue-btn" matStepperNext>Start Free Trial</button>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">
@@ -227,7 +227,7 @@
                                                                     <h3>Enterprise</h3>
                                                                     <span>Custom</span>
                                                                     <p>300k+ visitor / mo</p>
-                                                                    <a href="#" class="blue-btn">Start Free Trial</a>
+                                                                    <button mat-button class="blue-btn" matStepperNext>Start Free Trial</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -247,62 +247,70 @@
                     </mat-step>
                     <mat-step [stepControl]="thirdFormGroup">
                         <form [formGroup]="thirdFormGroup">
-                        <ng-template matStepLabel>Confirm</ng-template>
-                        <div class="login-signup-form-wrap background-transparent confirm-signup-wrapper">
-                            <h2>Confirm Your Account</h2>
-                            <p class="large-text">Try any plan free for 14 days and cancel anytime.</p>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form>
-                                        <div class="login-signup-form-elements-wrap">
-                                            <div class="login-signup-form-elements confirm-account-form-elements">
-                                                <label>Name</label>
-                                                <input class="cardHolderName" placeholder="George Michael" type="text"
-                                                       name="name">
+                            <ng-template matStepLabel>Confirm</ng-template>
+                            <div class="login-signup-form-wrap background-transparent confirm-signup-wrapper">
+                                <h2>Confirm Your Account</h2>
+                                <p class="large-text">Try any plan free for 14 days and cancel anytime.</p>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <form>
+                                            <div class="login-signup-form-elements-wrap">
+                                                <div class="login-signup-form-elements confirm-account-form-elements">
+                                                    <label>Name</label>
+                                                    <input class="cardHolderName" placeholder="George Michael"
+                                                           type="text"
+                                                           name="name">
+                                                </div>
+                                                <div class="login-signup-form-elements confirm-account-form-elements">
+                                                    <label>Plan</label>
+                                                    <a href="javascript:void(0)">
+                                                        <button mat-button matStepperPrevious>Choose Plan</button>
+                                                    </a>
+                                                </div>
                                             </div>
-                                            <div class="login-signup-form-elements confirm-account-form-elements">
-                                                <label>Plan</label>
-                                                <a href="javascript:void(0)"><button mat-button matStepperPrevious>Choose Plan</button></a>
-                                            </div>
-                                        </div>
-                                        <div class="login-signup-form-elements-wrap">
-                                            <div class="confirm-account-form-elements">
-                                                <div class="flip-container">
-                                                    <div class="flipper" [class.active]="!showCardFront">
-                                                        <div class="front">
-                                                            <img src="./../../../assets/images/credit-card-front-icon.png" alt="">
-                                                        </div>
-                                                        <div class="back">
-                                                            <img src="./../../../assets/images/credit-card-back-icon.png" alt="">
+                                            <div class="login-signup-form-elements-wrap">
+                                                <div class="confirm-account-form-elements">
+                                                    <div class="flip-container">
+                                                        <div class="flipper" [class.active]="!showCardFront">
+                                                            <div class="front">
+                                                                <img src="./../../../assets/images/credit-card-front-icon.png"
+                                                                     alt="">
+                                                            </div>
+                                                            <div class="back">
+                                                                <img src="./../../../assets/images/credit-card-back-icon.png"
+                                                                     alt="">
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <input class="cardNum" placeholder="Card number" type="tel"
+                                                           name="number" (click)="showCardFront = true">
+                                                    <input class="expDate" placeholder="MM/YY" type="tel" name="expiry">
+                                                    <input class="cvcNum" placeholder="CVC" type="number" name="cvc"
+                                                           (click)="showCardFront = false">
                                                 </div>
-                                                <input class="cardNum" placeholder="Card number" type="tel"
-                                                       name="number" (click)="showCardFront = true">
-                                                <input class="expDate" placeholder="MM/YY" type="tel" name="expiry">
-                                                <input class="cvcNum" placeholder="CVC" type="number" name="cvc" (click)="showCardFront = false">
                                             </div>
+                                            <div class="login-signup-form-elements no-border">
+                                                <input class="blue-btn" value="Start Free 14 Day Trial" type="submit"
+                                                       [routerLink]="(['/'])">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="confirm-signup-wrap">
+                                            <ul>
+                                                <li>Increase conversion rate in minutes</li>
+                                                <li>Your card will not be charged until the end of your 14-day trial
+                                                </li>
+                                                <li>Self-cancel at any time</li>
+                                            </ul>
                                         </div>
-                                        <div class="login-signup-form-elements no-border">
-                                            <input class="blue-btn" value="Start Free 14 Day Trial" type="submit" [routerLink]="(['/'])">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="confirm-signup-wrap">
-                                        <ul>
-                                            <li>Increase conversion rate in minutes</li>
-                                            <li>Your card will not be charged until the end of your 14-day trial</li>
-                                            <li>Self-cancel at any time</li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--<div class="login-signup-form-elements no-border">
-                            <button mat-button class="blue-btn" matStepperPrevious>Back</button>
-                            <button mat-button class="blue-btn" (click)="stepper.reset()">Reset</button>
-                        </div>-->
+                            <!--<div class="login-signup-form-elements no-border">
+                                <button mat-button class="blue-btn" matStepperPrevious>Back</button>
+                                <button mat-button class="blue-btn" (click)="stepper.reset()">Reset</button>
+                            </div>-->
                         </form>
                     </mat-step>
                 </mat-horizontal-stepper>
@@ -321,7 +329,8 @@
                 </div>
 
                 <div class="signup-bottom-links">
-                    <a href="#"><img src="../../../assets/images/signup-bottom-link1.png" alt=""><span>Talk to a human</span></a>
+                    <a href="#"><img src="../../../assets/images/signup-bottom-link1.png"
+                                     alt=""><span>Talk to a human</span></a>
                     <a href="#"><img src="../../../assets/images/signup-bottom-link2.png" alt=""><span>Frequently Asked Question</span></a>
                 </div>
 

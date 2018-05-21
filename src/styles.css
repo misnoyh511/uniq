@@ -2055,9 +2055,22 @@ a.mat-mini-fab.mat-primary {
 .signup-plan-wrap ul {list-style:none; padding:0; text-align:left;}
 .signup-plan-wrap ul li {padding: 8px 0 8px 30px;letter-spacing: -.02em;position: relative;color: #2b3950;}
 .signup-plan-wrap ul li:before {content:url(./assets/images/green-check-icon.png); position:absolute; top:10px; left:0;}
-.signup-plan-wrap a.blue-btn {display:block; font-size:18px; padding:15px 30px;}
+.signup-plan-wrap a.blue-btn, .signup-plan-wrap button.blue-btn, .login-signup-form-elements button.blue-btn,
+.special-plan-wrap button.blue-btn{display:block; font-size:18px; padding:15px 30px;}
 .signup-plan-highlights {position: absolute;width: 70px;padding: 7px 0;border-radius: 10px;background-color: #0bdc60;color: #fff;box-shadow: 0 0 0 2px #fff,0 1px 2px rgba(0,0,0,.08),0 2px 15px rgba(0,0,0,.17);text-align: center;font-size: .8em;font-weight: 700;line-height: 1.1em;letter-spacing: -.03em;top: -10px;right: -10px;
     transform: rotate(10deg);}
+.login-signup-form-elements button.blue-btn, .signup-plan-wrap button.blue-btn, .special-plan-wrap button.blue-btn {
+    width: 100%;
+    border-radius: 5px;
+    line-height: 25px;
+}
+.login-signup-form-elements button span, .signup-plan-wrap button span, .special-plan-wrap button span {
+    color: #fff !important;
+    font-size: 18px !important;
+    margin: 0 !important;
+    font-family: "Roboto Condensed",helvetica,arial,sans-serif !important;
+    font-weight: 600 !important;
+}
 
 .signup-special-plan-container {padding:0 0 100px;}
 .signup-special-plan-container .special-plan-wrapper {box-shadow:none; padding:0 !important; transition:0.4s ease-in-out;}

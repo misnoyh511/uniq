@@ -28,7 +28,10 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        if (Object.keys(this.sbs.dateObj).length) {
+        if (localStorage.getItem('DATE_OBJ')) {
+            this.startDate = JSON.parse(localStorage.getItem('DATE_OBJ')).start;
+            this.endDate = JSON.parse(localStorage.getItem('DATE_OBJ')).end;
+        } else if (Object.keys(this.sbs.dateObj).length) {
             this.startDate = this.sbs.dateObj.start;
             this.endDate = this.sbs.dateObj.end;
         } else {
@@ -137,6 +140,7 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
                 start: this.startDate,
                 end: this.endDate
             };
+            localStorage.setItem('DATE_OBJ', JSON.stringify(this.sbs.dateObj));
             this.getTopMessageIn();
         }
     }

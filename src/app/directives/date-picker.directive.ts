@@ -19,8 +19,8 @@ export class DatePickerDirective implements AfterViewInit {
           format: { input: 'MMM D, YYYY'},
           earliest_date: '2000-01-01',
           latest_date: moment(),
-          start_date: this.sbs.dateObj.start || moment().subtract(29, 'days'),
-          end_date: this.sbs.dateObj.end || moment(),
+          start_date: JSON.parse(localStorage.getItem('DATE_OBJ')).start || this.sbs.dateObj.start || moment().subtract(29, 'days'),
+          end_date: JSON.parse(localStorage.getItem('DATE_OBJ')).end || this.sbs.dateObj.end || moment(),
           that : that,
           presets: [{
               label: 'Last 7 Days',

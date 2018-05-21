@@ -39,7 +39,10 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        if (Object.keys(this.sbs.dateObj).length) {
+        if (localStorage.getItem('DATE_OBJ')) {
+            this.startDate = JSON.parse(localStorage.getItem('DATE_OBJ')).start;
+            this.endDate = JSON.parse(localStorage.getItem('DATE_OBJ')).end;
+        } else if (Object.keys(this.sbs.dateObj).length) {
             this.startDate = this.sbs.dateObj.start;
             this.endDate = this.sbs.dateObj.end;
         } else {
@@ -372,16 +375,6 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.daterange.label = value.label;
     }
 
-    getDateRange() {
-        this.openDropdown = !this.openDropdown;
-        this.startDate = this.daterange.start._d.getFullYear() + '-' + ('0' + (this.daterange.start._d.getMonth() + 1)).slice(-2) +
-            '-' + ('0' + (this.daterange.start._d.getDate())).slice(-2);
-        this.endDate = this.daterange.end._d.getFullYear() + '-' + ('0' + (this.daterange.end._d.getMonth() + 1)).slice(-2) +
-            '-' + ('0' + (this.daterange.end._d.getDate())).slice(-2);
-        this.duration = this.startDate.replace(/-/g, '/') + ' - ' + this.endDate.replace(/-/g, '/');
-        this.onLoadData(this.startDate, this.endDate);
-    }
-
     onDateChange(event: any) {
         if (event.start && event.end) {
             const startDate = new Date(event.start);
@@ -392,6 +385,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                 start: this.startDate,
                 end: this.endDate
             };
+            localStorage.setItem('DATE_OBJ', JSON.stringify(this.sbs.dateObj));
             this.onLoadData(this.startDate, this.endDate);
         }
     }
