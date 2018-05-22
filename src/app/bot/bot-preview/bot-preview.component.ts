@@ -27,7 +27,6 @@ export class BotPreviewComponent implements OnInit {
       if (botId) {
           return new Promise((resolve, reject) => {
               this.id = this.sanitizer.bypassSecurityTrustResourceUrl('http://service.allegra.ai/bot-script/bot.js');
-              console.log('this.id', this.id);
               const botScript = this._renderer2.createElement('script');
               botScript.type = 'text/javascript';
               botScript.setAttribute('data-app-id', botId);

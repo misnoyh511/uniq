@@ -163,7 +163,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
 
     getBotData(botId) {
         this.botService.getBotData(botId).subscribe((data) => {
-            console.log('data', data);
             this.showPage = true;
             this.botData = data;
             if (this.botData.dwell_time === null) {

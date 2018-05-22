@@ -303,6 +303,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
                     this.bot.medium_ids[1] = this.bot.cover_image.split('/')[4];
                 }
                 this.sbs.savedData = response;
+                localStorage.setItem('CURRENT_BOT', JSON.stringify(response));
                 this.sbs.token = response.analytics_token;
                 this.sbs.deleteMsg = '';
                 this.sbs.getBot().subscribe((data) => {

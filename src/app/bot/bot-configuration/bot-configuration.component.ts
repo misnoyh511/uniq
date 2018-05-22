@@ -79,6 +79,8 @@ export class botConfigurationComponent implements OnInit, OnDestroy {
                 if (response && response.type && response.type === 'error') {
                     this.snackBarService.openSnackBar('Error in Deleting Bot');
                 } else {
+                    localStorage.removeItem('CURRENT_BOT');
+                    this.sbs.savedData = data[0];
                     this.snackBarService.openSnackBar('Bot Deleted');
                     this.router.navigate(['/get-started']);
                 }
