@@ -2,7 +2,6 @@
   .dashboard-sidebar {min-width:0; max-width:none; width:15%;}
   .dashboard-container {min-width:0; max-width:none; width:85%;}
   .dashboard-automate-container .row {margin:0;}
-  .app-version-dashboard {min-width:0; max-width:none; width:15%;}
   .sub-nav-list {
     width: calc(100% - 15%);
     padding-left: 35px;
