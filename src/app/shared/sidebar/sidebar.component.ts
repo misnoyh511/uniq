@@ -34,23 +34,17 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (localStorage.getItem('CURRENT_BOT') !== null) {
-            const myBot = JSON.parse(localStorage.getItem('CURRENT_BOT'));
-            if (Object.keys(myBot).length) {
-                this.currentBot = myBot.name;
-                this.data = myBot;
-                this.Service.savedData = myBot;
-            }
-        } else {
             this.Service.botList.subscribe((data) => {
                 this.bot = data;
                 if (this.Service.deleteMsg) {
                     this.showStarted = true;
                     this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
-                    this.currentBot = this.bot[0].name;
-                    this.Service.token = this.bot[0].analytics_token;
+                        this.currentBot = this.bot[0].name;
+                        this.Service.token = this.bot[0].analytics_token;
                 } else {
-                    if (Object.keys(this.Service.savedData).length && this.Service.savedData.name) {
+                    if (localStorage.getItem('CURRENT_BOT')) {
+                        this.currentBot = JSON.parse(localStorage.getItem('CURRENT_BOT')).name;
+                    } else if (Object.keys(this.Service.savedData).length && this.Service.savedData.name) {
                         this.currentBot = this.Service.savedData.name;
                     } else {
                         this.currentBot = this.bot[0].name;
@@ -58,7 +52,6 @@ export class SidebarComponent implements OnInit {
 
                 }
             });
-        }
         this.onloaddata();
         if (!this.data) {
             this.data = 'Bot Providencia';
