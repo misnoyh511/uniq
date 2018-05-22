@@ -71,9 +71,9 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
     getTopMessageIn() {
         this.topMessagesIn = [];
         this.items = [];
-        this.totalCount = 0;
         this.conversationsService.getTopMessagesIn(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
             this.topMessagesIn = response.data;
+            this.totalCount = 0;
             if (this.topMessagesIn && this.topMessagesIn.length) {
                 for (const i in this.topMessagesIn) {
                     this.totalCount = this.totalCount + parseInt(this.topMessagesIn[i].count, 10);
