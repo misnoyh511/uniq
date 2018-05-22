@@ -123,6 +123,7 @@ export class SidebarComponent implements OnInit {
         delete localStorage[AppConfig.USER_INFO_KEY];
         delete localStorage['CURRENT_BOT'];
         delete localStorage['DATE_OBJ'];
+        this.Service.dateObj = {};
         this.router.navigate(['/login']);
     }
 }
