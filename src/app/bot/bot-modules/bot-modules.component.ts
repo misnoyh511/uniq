@@ -174,10 +174,10 @@ export class botModulesComponent implements OnInit, OnDestroy {
                 || this.botData.hybrid_mode || this.botData.dwell_time);
             this.topics = this.botData.topics;
             this.oldTitle = _.cloneDeep(this.botData.complements_title);
-            if (this.botData.complements_title || (this.topics && this.topics.length)) {
-                this.faqSection = true;
-            } else {
-                this.faqSection = false;
+            this.faqSection = !!(this.botData.complements_title || (this.topics && this.topics.length));
+
+            if (this.botData.feedback_type !== null) {
+                this.chatBot = true;
             }
         }, (err) => {
             console.log(err);

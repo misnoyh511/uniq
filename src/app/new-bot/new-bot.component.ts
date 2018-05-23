@@ -109,7 +109,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
         this.bot = {
             active: false,
             box_state: false,
-            feedback_type: 0,
             with_login: false,
             hybrid_mode: false,
             dwell_time: null,
@@ -255,11 +254,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
                     message: 'Input Title is Missing', value: '#message'
                 });
             }
-            /*if (!this.bot.waiting_msg) {
-                this.errors.push({
-                    message: 'Waiting Message is Missing', value: '#message'
-                });
-            }*/
             if (!this.bot.tab_name) {
                 this.errors.push({
                     message: 'Tab Name is Missing', value: '#message'
