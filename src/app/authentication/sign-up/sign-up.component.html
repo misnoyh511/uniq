@@ -20,24 +20,29 @@
                             <ng-template matStepLabel>Sign Up</ng-template>
                             <div class="login-signup-form-wrap background-transparent">
                                 <h2>Sign Up</h2>
-                                <p class="large-text">Enter your work email to access your <strong>fully-loaded</strong> 14-day trial.</p>
+                                <p class="large-text">Enter your work email to access your <strong>fully-loaded</strong>
+                                    14-day trial.</p>
                                 <form>
                                     <div class="login-signup-form-elements-wrap">
                                         <div class="login-signup-form-elements">
                                             <label>Name</label>
-                                            <input type="text" name="name" [(ngModel)]="user.name">
+                                            <input placeholder="nameofuser" type="text" name="name"
+                                                   [(ngModel)]="user.name">
                                         </div>
                                         <div class="login-signup-form-elements">
                                             <label>Email</label>
-                                            <input id="inputId" type="email" name="email" [(ngModel)]="user.email">
+                                            <input placeholder="example@uniq.ai" id="inputId" type="email" name="email"
+                                                   [(ngModel)]="user.email">
                                         </div>
                                         <div class="login-signup-form-elements">
                                             <label>Password</label>
-                                            <input type="password" name="password" [(ngModel)]="user.password">
+                                            <input placeholder="••••••••••" type="password" name="password"
+                                                   [(ngModel)]="user.password">
                                         </div>
                                     </div>
                                     <div class="login-signup-form-elements no-border">
-                                        <button mat-button class="blue-btn" type="submit" (click)="signUp(stepper)">Create
+                                        <button mat-button class="blue-btn" type="submit" (click)="signUp(stepper)">
+                                            Create
                                             Account
                                         </button>
                                     </div>
@@ -73,58 +78,64 @@
                                                  src="./../../../assets/images/free-trial-image.png" alt="">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <div class="signup-plan-wrap">
-                                                        <h3>Basic</h3>
-                                                        <span>$29<b>/mo</b></span>
-                                                        <ul>
-                                                            <li>1,000 Unique Visitors /mo</li>
-                                                            <li>Unlimited Domains</li>
-                                                            <li>Unlimited Notifications</li>
-                                                            <li>Custom Rules & Timing</li>
-                                                            <li>Conversion Club</li>
-                                                            <li class="red-item">Live Visitor Count</li>
-                                                            <li class="red-item">Hot Streaks</li>
-                                                            <li class="red-item">Priority Support</li>
-                                                        </ul>
-                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="signup-plan-wrap">
-                                                        <div class="signup-plan-highlights"><b>Most Popular</b>
+                                                    <button matStepperNext (click)="getPlan('Basic - $29/mo'); showTrafficLimit = false;">
+                                                        <div class="signup-plan-wrap" [class.active]="planInfo === 'Basic - $29/mo'">
+                                                            <h3>Basic</h3>
+                                                            <span>$29<b>/mo</b></span>
+                                                            <ul>
+                                                                <li>1,000 Unique Visitors /mo</li>
+                                                                <li>Unlimited Domains</li>
+                                                                <li>Unlimited Notifications</li>
+                                                                <li>Custom Rules & Timing</li>
+                                                                <li>Conversion Club</li>
+                                                                <li class="red-item">Live Visitor Count</li>
+                                                                <li class="red-item">Hot Streaks</li>
+                                                                <li class="red-item">Priority Support</li>
+                                                            </ul>
+                                                            <button mat-button class="blue-btn">Select Plan</button>
                                                         </div>
-                                                        <h3>Pro</h3>
-                                                        <span>$79<b>/mo</b></span>
-
-                                                        <ul>
-                                                            <li>1,000 Unique Visitors /mo</li>
-                                                            <li>Unlimited Domains</li>
-                                                            <li>Unlimited Notifications</li>
-                                                            <li>Custom Rules & Timing</li>
-                                                            <li>Conversion Club</li>
-                                                            <li>Live Visitor Count</li>
-                                                            <li>Hot Streaks</li>
-                                                            <li class="red-item">Priority Support</li>
-                                                        </ul>
-                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
-                                                    </div>
+                                                    </button>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <div class="signup-plan-wrap">
-                                                        <h3>Business</h3>
-                                                        <span>$129<b>/mo</b></span>
-                                                        <ul>
-                                                            <li>1,000 Unique Visitors /mo</li>
-                                                            <li>Unlimited Domains</li>
-                                                            <li>Unlimited Notifications</li>
-                                                            <li>Custom Rules & Timing</li>
-                                                            <li>Conversion Club</li>
-                                                            <li>Live Visitor Count</li>
-                                                            <li>Hot Streaks</li>
-                                                            <li>Priority Support</li>
-                                                        </ul>
-                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
-                                                    </div>
+                                                    <button matStepperNext (click)="getPlan('Pro - $79/mo'); showTrafficLimit = false;">
+                                                        <div class="signup-plan-wrap" [class.active]="planInfo === 'Pro - $79/mo'">
+                                                            <div class="signup-plan-highlights"><b>Most Popular</b>
+                                                            </div>
+                                                            <h3>Pro</h3>
+                                                            <span>$79<b>/mo</b></span>
+
+                                                            <ul>
+                                                                <li>1,000 Unique Visitors /mo</li>
+                                                                <li>Unlimited Domains</li>
+                                                                <li>Unlimited Notifications</li>
+                                                                <li>Custom Rules & Timing</li>
+                                                                <li>Conversion Club</li>
+                                                                <li>Live Visitor Count</li>
+                                                                <li>Hot Streaks</li>
+                                                                <li class="red-item">Priority Support</li>
+                                                            </ul>
+                                                            <button mat-button class="blue-btn">Select Plan</button>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button matStepperNext (click)="getPlan('Business - $129/mo'); showTrafficLimit = false;">
+                                                        <div class="signup-plan-wrap" [class.active]="planInfo === 'Business - $129/mo'">
+                                                            <h3>Business</h3>
+                                                            <span>$129<b>/mo</b></span>
+                                                            <ul>
+                                                                <li>1,000 Unique Visitors /mo</li>
+                                                                <li>Unlimited Domains</li>
+                                                                <li>Unlimited Notifications</li>
+                                                                <li>Custom Rules & Timing</li>
+                                                                <li>Conversion Club</li>
+                                                                <li>Live Visitor Count</li>
+                                                                <li>Hot Streaks</li>
+                                                                <li>Priority Support</li>
+                                                            </ul>
+                                                            <button mat-button class="blue-btn">Select Plan</button>
+                                                        </div>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,57 +143,64 @@
                                              aria-labelledby="yearly-tab">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <div class="signup-plan-wrap">
-                                                        <h3>Basic</h3>
-                                                        <span>$25<b>/yr</b></span>
-                                                        <ul>
-                                                            <li>1,000 Unique Visitors /mo</li>
-                                                            <li>Unlimited Domains</li>
-                                                            <li>Unlimited Notifications</li>
-                                                            <li>Custom Rules & Timing</li>
-                                                            <li>Conversion Club</li>
-                                                            <li class="red-item">Live Visitor Count</li>
-                                                            <li class="red-item">Hot Streaks</li>
-                                                            <li class="red-item">Priority Support</li>
-                                                        </ul>
-                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="signup-plan-wrap">
-                                                        <div class="signup-plan-highlights"><b>Most Popular</b>
+                                                    <button matStepperNext (click)="getPlan('Basic - $25/yr'); showTrafficLimit = false;">
+                                                        <div class="signup-plan-wrap" [class.active]="planInfo === 'Basic - $25/yr'">
+                                                            <h3>Basic</h3>
+                                                            <span>$25<b>/yr</b></span>
+                                                            <ul>
+                                                                <li>1,000 Unique Visitors /mo</li>
+                                                                <li>Unlimited Domains</li>
+                                                                <li>Unlimited Notifications</li>
+                                                                <li>Custom Rules & Timing</li>
+                                                                <li>Conversion Club</li>
+                                                                <li class="red-item">Live Visitor Count</li>
+                                                                <li class="red-item">Hot Streaks</li>
+                                                                <li class="red-item">Priority Support</li>
+                                                            </ul>
+                                                            <button mat-button class="blue-btn">Select Plan</button>
                                                         </div>
-                                                        <h3>Pro</h3>
-                                                        <span>$66<b>/yr</b></span>
-                                                        <ul>
-                                                            <li>1,000 Unique Visitors /mo</li>
-                                                            <li>Unlimited Domains</li>
-                                                            <li>Unlimited Notifications</li>
-                                                            <li>Custom Rules & Timing</li>
-                                                            <li>Conversion Club</li>
-                                                            <li>Live Visitor Count</li>
-                                                            <li>Hot Streaks</li>
-                                                            <li class="red-item">Priority Support</li>
-                                                        </ul>
-                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
-                                                    </div>
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <div class="signup-plan-wrap">
-                                                        <h3>Business</h3>
-                                                        <span>$108<b>/yr</b></span>
-                                                        <ul>
-                                                            <li>1,000 Unique Visitors /mo</li>
-                                                            <li>Unlimited Domains</li>
-                                                            <li>Unlimited Notifications</li>
-                                                            <li>Custom Rules & Timing</li>
-                                                            <li>Conversion Club</li>
-                                                            <li>Live Visitor Count</li>
-                                                            <li>Hot Streaks</li>
-                                                            <li>Priority Support</li>
-                                                        </ul>
-                                                        <button mat-button class="blue-btn" matStepperNext>Select Plan</button>
-                                                    </div>
+                                                    <button matStepperNext (click)="getPlan('Pro - $66/yr'); showTrafficLimit = false;">
+                                                        <div class="signup-plan-wrap" [class.active]="planInfo === 'Pro - $66/yr'">
+                                                            <div class="signup-plan-highlights"><b>Most Popular</b>
+                                                            </div>
+                                                            <h3>Pro</h3>
+                                                            <span>$66<b>/yr</b></span>
+                                                            <ul>
+                                                                <li>1,000 Unique Visitors /mo</li>
+                                                                <li>Unlimited Domains</li>
+                                                                <li>Unlimited Notifications</li>
+                                                                <li>Custom Rules & Timing</li>
+                                                                <li>Conversion Club</li>
+                                                                <li>Live Visitor Count</li>
+                                                                <li>Hot Streaks</li>
+                                                                <li class="red-item">Priority Support</li>
+                                                            </ul>
+                                                            <button mat-button class="blue-btn">Select Plan</button>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button matStepperNext (click)="getPlan('Business - $108/yr'); showTrafficLimit = false;">
+                                                        <div class="signup-plan-wrap" [class.active]="planInfo === 'Business - $108/yr'">
+                                                            <h3>Business</h3>
+                                                            <span>$108<b>/yr</b></span>
+                                                            <ul>
+                                                                <li>1,000 Unique Visitors /mo</li>
+                                                                <li>Unlimited Domains</li>
+                                                                <li>Unlimited Notifications</li>
+                                                                <li>Custom Rules & Timing</li>
+                                                                <li>Conversion Club</li>
+                                                                <li>Live Visitor Count</li>
+                                                                <li>Hot Streaks</li>
+                                                                <li>Priority Support</li>
+                                                            </ul>
+                                                            <button mat-button class="blue-btn">Select Plan</button>
+                                                        </div>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -206,29 +224,35 @@
                                                     <div class="special-plan-content">
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <div class="special-plan-wrap">
-                                                                    <h3>Premium Plan</h3>
+                                                                <button matStepperNext (click)="getPlan('Premium - $199/mo'); showTrafficLimit = true;">
+                                                                    <div class="special-plan-wrap" [class.active]="planInfo === 'Premium - $199/mo'">
+                                                                        <h3>Premium Plan</h3>
 
-                                                                    <span>$199 <b>/mo</b></span>
-                                                                    <p>100k visitor / mo</p>
-                                                                    <button mat-button class="blue-btn" matStepperNext>Start Free Trial</button>
-                                                                </div>
+                                                                        <span>$199 <b>/mo</b></span>
+                                                                        <p>100k visitor / mo</p>
+                                                                        <button mat-button class="blue-btn">Start Free Trial</button>
+                                                                    </div>
+                                                                </button>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <div class="special-plan-wrap">
-                                                                    <h3>Platinum Plan</h3>
-                                                                    <span>$299 <b>/mo</b></span>
-                                                                    <p>300k visitor / mo</p>
-                                                                    <button mat-button class="blue-btn" matStepperNext>Start Free Trial</button>
-                                                                </div>
+                                                                <button matStepperNext (click)="getPlan('Platinum - $299/mo'); showTrafficLimit = true">
+                                                                    <div class="special-plan-wrap" [class.active]="planInfo === 'Platinum - $299/mo'">
+                                                                        <h3>Platinum Plan</h3>
+                                                                        <span>$299 <b>/mo</b></span>
+                                                                        <p>300k visitor / mo</p>
+                                                                        <button mat-button class="blue-btn">Start Free Trial</button>
+                                                                    </div>
+                                                                </button>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <div class="special-plan-wrap">
-                                                                    <h3>Enterprise</h3>
-                                                                    <span>Custom</span>
-                                                                    <p>300k+ visitor / mo</p>
-                                                                    <button mat-button class="blue-btn" matStepperNext>Start Free Trial</button>
-                                                                </div>
+                                                                <button matStepperNext (click)="getPlan('Enterprise - Custom'); showTrafficLimit = true">
+                                                                    <div class="special-plan-wrap" [class.active]="planInfo === 'Enterprise - Custom'">
+                                                                        <h3>Enterprise</h3>
+                                                                        <span>Custom</span>
+                                                                        <p>300k+ visitor / mo</p>
+                                                                        <button mat-button class="blue-btn">Start Free Trial</button>
+                                                                    </div>
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -257,14 +281,12 @@
                                             <div class="login-signup-form-elements-wrap">
                                                 <div class="login-signup-form-elements confirm-account-form-elements">
                                                     <label>Name</label>
-                                                    <input class="cardHolderName" placeholder="George Michael"
-                                                           type="text"
-                                                           name="name">
+                                                    <input placeholder="George Michael" type="text" name="name">
                                                 </div>
                                                 <div class="login-signup-form-elements confirm-account-form-elements">
                                                     <label>Plan</label>
                                                     <a href="javascript:void(0)">
-                                                        <button mat-button matStepperPrevious>Choose Plan</button>
+                                                        <button class="planInfo" mat-button matStepperPrevious>{{planInfo}}</button>
                                                     </a>
                                                 </div>
                                             </div>

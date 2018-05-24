@@ -68,7 +68,7 @@ p{margin:0 0 20px 0; }
 .login-btn a{color: #8da2b5 !important;font-size: 14px; text-transform:uppercase;  padding:25px 22px !important;display:inline-block;}
 .login-btn a:hover {box-shadow: 0 2px 0 0 #0095f7;color: #797979;}
 .signup-btn a { margin:12px 0; padding:12px 22px !important;}
-.blue-btn {color: #fff !important;font-size: 14px;  background:#0095F7; display:inline-block; border-radius:5px;box-shadow: 0 2px 3px 0 rgba(0,0,0,.05),0 1px 2px 0 rgba(0,0,0,.08); padding:11px 22px; border:none; font-weight:600;}
+.blue-btn {color: #fff !important;font-size: 14px;  background:#0095F7 !important; display:inline-block; border-radius:5px;box-shadow: 0 2px 3px 0 rgba(0,0,0,.05),0 1px 2px 0 rgba(0,0,0,.08); padding:11px 22px; border:none; font-weight:600;}
 .blue-btn:hover, .blue-btn:focus  {box-shadow: 0 5px 10px 0 rgba(0,0,0,.1),0 1px 3px 0 rgba(0,0,0,.1);background-color:#0095F7 !important;}
 
 .landing-container {padding:120px 0 0 0;}
@@ -2014,9 +2014,29 @@ a.mat-mini-fab.mat-primary {
     margin-bottom:20px;}
 .login-signup-form-elements {border-bottom: 1px solid #f0f5fa; padding:10px 0;}
 .login-signup-form-elements label {min-width: 120px;padding: 0 15px;text-align: right; display:inline-block; margin:0; color:#666;}
-.login-signup-form-elements input[type=email], .login-signup-form-elements input[type=password], .login-signup-form-elements input[type=text] {font-weight: 400 !important; color: #333 !important; outline: none; border:none; background:#fff;}
+.login-signup-form-elements input[type=email], .login-signup-form-elements input[type=password], .login-signup-form-elements input[type=text] {font-weight: 400 !important; color: #000 !important; outline: none; border:none; background:#fff;}
 .login-signup-form-elements input[type=submit] {box-shadow: 0 4px 6px rgba(0,0,0,.11), 0 1px 3px rgba(0,0,0,.08);border-radius: 4px;font-size: 18px;font-weight: 600; display:block; width:100%; text-align:center;transition:0.15s ease-in-out; padding:15px 30px; margin:0 0 5px;}
 .login-signup-form-elements input[type=submit]:hover {transform: translateY(-1px);box-shadow: 0 7px 14px rgba(0,0,0,.1), 0 3px 6px rgba(0,0,0,.08); transition:0.15s ease-in-out;}
+.login-signup-form-elements input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: lightgrey;
+}
+
+.signup-plan-wrap.active, .special-plan-wrap.active{
+    box-shadow: 0 1px 2px rgba(0,0,0,.1), 0 10px 20px rgba(0,0,0,.1), 0 0 0 1px #0095f7, 0 0 0 4px rgba(0,149,247,.2) !important;
+    color: #0095f7;
+}
+
+.tab-pane button, .special-plan-content button {
+    background: none;
+    border: none;
+    width: 100%;
+}
+
+.special-plan-content button button span {
+    font-size: 18px !important;
+    color: #fff !important;
+    font-weight: 400;
+}
 
 .login-signup-form-wrap p {line-height: 1.4em;color: #525f7f;letter-spacing: -.01em; font-size:14px;}
 .login-signup-form-wrap p img { margin-right:5px;}
@@ -2077,11 +2097,11 @@ a.mat-mini-fab.mat-primary {
     line-height: 25px;
 }
 .login-signup-form-elements button span, .signup-plan-wrap button span, .special-plan-wrap button span {
-    color: #fff !important;
-    font-size: 18px !important;
+    color: #fff;
+    font-size: 18px;
     margin: 0 !important;
     font-family: "Roboto Condensed",helvetica,arial,sans-serif !important;
-    font-weight: 600 !important;
+    font-weight: 600;
 }
 
 .signup-special-plan-container {padding:0 0 100px;}
@@ -2116,6 +2136,15 @@ a.mat-mini-fab.mat-primary {
 .login-signup-form-elements-wrap .cvcNum {width:13%;}
 .login-signup-form-elements-wrap .cardHolderName {outline:1px solid #ff0000 !important; width:calc(100% - 129px); padding:0 0 0 20px;}
 
+.planInfo {
+    text-align: left !important;
+    padding-left: 0 !important;
+}
+.planInfo span{
+    color: #313b3f !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+}
 .confirm-account-form-elements {padding:10px 20px; position:relative;}
 .confirm-account-form-elements a {width:calc(100% - 129px); display:inline-block; color:#333;}
 .confirm-account-form-elements a:after {content:url(./assets/images/select-icon.png); position:absolute; top:10px; right:10px;}

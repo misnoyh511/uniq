@@ -17,6 +17,7 @@ export class SignUpComponent implements OnInit {
     thirdFormGroup: FormGroup;
     showTrafficLimit = false;
     showCardFront = true;
+    planInfo: string;
     constructor(private authenticationService: AuthenticationService, private router: Router,
                 private snackBarService: SnackBarService, private _formBuilder: FormBuilder) {
         this.authenticationService.checkAuthenticate();
@@ -59,5 +60,9 @@ export class SignUpComponent implements OnInit {
         this.authenticationService.loginWithGoogle().then((data) => {
             this.router.navigate(['/get-started']);
         });
+    }
+
+    getPlan(plan) {
+        this.planInfo = plan;
     }
 }
