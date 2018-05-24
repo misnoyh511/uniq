@@ -2026,7 +2026,7 @@ a.mat-mini-fab.mat-primary {
     color: #0095f7;
 }
 
-.tab-pane button, .special-plan-content button {
+.signup-plan-wrapper .tab-pane button, .special-plan-content button {
     background: none;
     border: none;
     width: 100%;
