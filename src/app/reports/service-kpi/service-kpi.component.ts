@@ -22,6 +22,16 @@ export class ServiceKpiComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
+      if (localStorage.getItem('DATE_OBJ')) {
+          this.startDate = JSON.parse(localStorage.getItem('DATE_OBJ')).start;
+          this.endDate = JSON.parse(localStorage.getItem('DATE_OBJ')).end;
+      } else if (Object.keys(this.sbs.dateObj).length) {
+          this.startDate = this.sbs.dateObj.start;
+          this.endDate = this.sbs.dateObj.end;
+      } else {
+          this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+          this.startDate = this.datePipe.transform(((new Date()).setDate((new Date()).getDate() - 29)), 'yyyy-MM-dd');
+      }
     if (this.sbs.token) {
       this.analytics_token =  this.sbs.token;
         this.getBotTrust();
@@ -47,12 +57,27 @@ export class ServiceKpiComponent implements OnInit, OnDestroy {
 
   getBotTrust() {
       const today = new Date();
-      this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-      this.startDate = this.datePipe.transform(((new Date()).setDate((new Date()).getDate() - 29)), 'yyyy-MM-dd');
+      /*this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+      this.startDate = this.datePipe.transform(((new Date()).setDate((new Date()).getDate() - 29)), 'yyyy-MM-dd');*/
     this.reportsService.getBotTrust(this.startDate, this.endDate, this.analytics_token).subscribe((response) => {
       this.botData = response.data[0].avg;
     }, (err) => {
       console.log(err);
     });
   }
+
+    onDateChange(event: any) {
+        if (event.start && event.end) {
+            const startDate = new Date(event.start);
+            const endDate = new Date(event.end);
+            this.startDate = this.datePipe.transform(startDate, 'yyyy-MM-dd');
+            this.endDate = this.datePipe.transform(endDate, 'yyyy-MM-dd');
+            this.sbs.dateObj = {
+                start: this.startDate,
+                end: this.endDate
+            };
+            localStorage.setItem('DATE_OBJ', JSON.stringify(this.sbs.dateObj));
+            this.getBotTrust();
+        }
+    }
 }
