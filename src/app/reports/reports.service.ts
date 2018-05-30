@@ -69,6 +69,16 @@ export class ReportsService {
       });
   }
 
+    getFeedbackSession(analytics_token, startDate, endDate) {
+        return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'feedback_session/' + analytics_token +
+            '?start=' + startDate + '&end=' + endDate)
+            .map(response => {
+                return response.json();
+            }).catch((err: Response) => {
+                return Observable.throw(err);
+            });
+    }
+
   getBotTrust(startDate, endDate, analytics_token) {
     return this.httpClient.get(AppConfig.ANALYTICS_API_ENDPOINT + 'bot_trust/' + analytics_token +
       '?start=' + startDate + '&end=' + endDate)
@@ -108,4 +118,5 @@ export class ReportsService {
         return Observable.throw(err);
       });
   }
+
 }

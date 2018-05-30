@@ -25,7 +25,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     endDate: any;
     options: any = {};
 
-    constructor(private reportsService: ReportsService, public sbs: SidebarService, private sort: ArraySortPipe, private datePipe: DatePipe) {
+    constructor(private reportsService: ReportsService, public sbs: SidebarService, private sort: ArraySortPipe,
+                private datePipe: DatePipe) {
     }
 
     ngOnInit() {
@@ -113,6 +114,19 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                     console.log(err);
                 });
             } else {
+                this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
+                    const feedbackData = [];
+                    res.data.forEach(function (element) {
+                        feedbackData.push({
+                            text: element.feedback,
+                            created_at: element.date
+                        });
+                    });
+                    const data = this.insertDates(feedbackData);
+                    this.generateGraph(data);
+                }, (err) => {
+                    console.log(err);
+                });
                 this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
                     const posData = this.insertDates(positiveRes.data);
                     const posValueArr = posData.map(function (item) {
@@ -137,7 +151,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         });
                         const valueArr = posValueArr.concat(negValueArr);
                         this.sessions = this.compressArray(valueArr);
-                        this.generateGraph(valueArr);
                         this.itemsPerPage = this.getItemPerPage(this.sessions.length);
                         this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
                         this.getPaginatedData();
@@ -186,6 +199,19 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                     console.log(err);
                 });
             } else {
+                this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
+                    const feedbackData = [];
+                    res.data.forEach(function (element) {
+                        feedbackData.push({
+                            text: element.feedback,
+                            created_at: element.date
+                        });
+                    });
+                    const data = this.insertDates(feedbackData);
+                    this.generateGraph(data);
+                }, (err) => {
+                    console.log(err);
+                });
                 this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
                     const posData = this.insertDates(positiveRes.data);
                     const posValueArr = posData.map(function (item) {
@@ -210,7 +236,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         });
                         const valueArr = posValueArr.concat(negValueArr);
                         this.sessions = this.compressArray(valueArr);
-                        this.generateGraph(valueArr);
                         this.itemsPerPage = this.getItemPerPage(this.sessions.length);
                         this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
                         this.getPaginatedData();
@@ -336,12 +361,12 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 newPosArr[currentDay.getTime()] = '0';
             }
         }
-        for (const j in Object.keys(newPosArr)) {
+        Object.keys(newPosArr).forEach(function (element) {
             resData.push({
                 text: '',
-                created_at: new Date(parseInt(Object.keys(newPosArr)[j], 10))
+                created_at: new Date(parseInt(element, 10))
             });
-        }
+        });
         return resData;
     }
 
@@ -349,47 +374,15 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         for (const i in valueArr) {
             valueArr[i].created_at = this.datePipe.transform(valueArr[i].created_at, 'yyyy-MM-dd');
         }
-        const graphData = _.groupBy(valueArr, 'created_at');
-        let finalData = [];
-        _.map(graphData, function (data) {
-            finalData.push(_.groupBy(data, 'status'));
-        });
-        for (const i in finalData) {
-            finalData[i].created_at = finalData[i].positive[0].created_at;
-            if (finalData[i] && finalData[i].positive && finalData[i].positive.length <= 1) {
-                if (finalData[i].positive[0].text === '') {
-                    finalData[i].positive_count = 0;
-                } else {
-                    finalData[i].positive_count = finalData[i].positive.length;
-                }
-            } else {
-                finalData[i].positive_count = finalData[i].positive.length;
-            }
-            if (finalData[i] && finalData[i].negative && finalData[i].negative.length <= 1) {
-                if (finalData[i].negative[0].text === '') {
-                    finalData[i].negative_count = 0;
-                } else {
-                    finalData[i].negative_count = finalData[i].negative.length;
-                }
-            } else {
-                finalData[i].negative_count = finalData[i].negative.length;
-            }
-            if (finalData[i].positive_count === 0 && finalData[i].negative_count === 0) {
-                finalData[i].positiveAvg = 0;
-            } else {
-                finalData[i].positiveAvg = finalData[i].positive_count * 100 / (finalData[i].positive_count + finalData[i].negative_count);
-            }
-            finalData[i] = _.omit(finalData[i], ['positive', 'negative', 'positive_count', 'negative_count']);
-        }
-        finalData = _.sortBy(finalData,
+        valueArr = _.sortBy(valueArr,
             (item) => {
                 return +new Date(item.created_at);
             });
         const countArray = [];
-        for (const i in finalData) {
-            countArray.push(finalData[i].positiveAvg);
-        }
-        const startDatePart = finalData[0].created_at.split('-');
+        valueArr.forEach(function (element) {
+            countArray.push(parseFloat(element.text || '0') * 100);
+        });
+        const startDatePart = valueArr[0].created_at.split('-');
         const startPoint = Date.UTC(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
         this.options = {
             title: {

@@ -17,21 +17,15 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     options: any = {};
     options1: any = {};
     options2: any = {};
-    openDropdown = false;
     showAvgtip = false;
     showUsertip = false;
     showMsgtip = false;
     showSessiontip = false;
     avg_time = 0;
-    duration = 'Yesterday';
     startDate: any;
     endDate: any;
     daterange: any = {};
     message: any = [];
-    public dateOptions: any = {
-        locale: {format: 'MM/DD/YYYY'},
-        alwaysShowCalendars: false,
-    };
     analytics_token: string;
 
     constructor(private reportsService: ReportsService, public sbs: SidebarService, private datePipe: DatePipe) {
@@ -99,22 +93,22 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     }
                 }
 
-                for (const j in Object.keys(newArr)) {
+                Object.keys(newArr).forEach(function (element) {
                     response.data.push({
                         count: '0',
-                        date: new Date(parseInt(Object.keys(newArr)[j], 10))
+                        date: new Date(parseInt(element, 10))
                     });
-                }
+                });
 
                 response.data = _.sortBy(response.data,
                     (item) => {
                         return +new Date(item.date);
                     });
                 const countArray = [];
-                for (const i in response.data) {
-                    response.data[i].date = new Date(response.data[i].date);
-                    countArray.push(parseInt(response.data[i].count, 10));
-                }
+                response.data.forEach(function (element) {
+                    element.date = new Date(element.date);
+                    countArray.push(parseInt(element.count, 10));
+                });
                 this.options = {
                     title: {
                         text: ''
@@ -190,21 +184,21 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         newArr[currentDay.getTime()] = '0';
                     }
                 }
-                for (const j in Object.keys(newArr)) {
+                Object.keys(newArr).forEach(function (element) {
                     response.data.push({
                         count: '0',
-                        date: new Date(parseInt(Object.keys(newArr)[j], 10))
+                        date: new Date(parseInt(element, 10))
                     });
-                }
+                });
                 response.data = _.sortBy(response.data,
                     (item) => {
                         return +new Date(item.date);
                     });
                 const countArray = [];
-                for (const i in response.data) {
-                    response.data[i].date = new Date(response.data[i].date);
-                    countArray.push(parseInt(response.data[i].count, 10));
-                }
+                response.data.forEach(function (element) {
+                    element.date = new Date(element.date);
+                    countArray.push(parseInt(element.count, 10));
+                });
                 this.options1 = {
                     title: {
                         text: ''
@@ -280,21 +274,21 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         newArr[currentDay.getTime()] = '0';
                     }
                 }
-                for (const j in Object.keys(newArr)) {
+                Object.keys(newArr).forEach(function (element) {
                     response.data.push({
                         count: '0',
-                        date: new Date(parseInt(Object.keys(newArr)[j], 10))
+                        date: new Date(parseInt(element, 10))
                     });
-                }
+                });
                 response.data = _.sortBy(response.data,
                     (item) => {
                         return +new Date(item.date);
                     });
                 const countArray = [];
-                for (const i in response.data) {
-                    response.data[i].date = new Date(response.data[i].date);
-                    countArray.push(parseInt(response.data[i].count, 10));
-                }
+                response.data.forEach(function (element) {
+                    element.date = new Date(element.date);
+                    countArray.push(parseInt(element.count, 10));
+                });
                 this.options2 = {
                     title: {
                         text: ''
@@ -353,16 +347,16 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.reportsService.getAvgTtime(startDate, endDate, this.analytics_token).subscribe((response) => {
             this.data = response.data;
             let sum = 0;
-            for (const i in response.data) {
-                sum = sum + response.data[i].avg_time;
-            }
+            response.data.forEach(function (element) {
+                sum = sum + element.avg_time;
+            });
             this.avg_time = sum / response.data.length;
         }, (err) => {
             console.log(err);
         });
     }
 
-    public selectedDate(value: any, datepicker?: any) {
+    /*public selectedDate(value: any, datepicker?: any) {
         // this is the date the iser selected
 
         // any object can be passed to the selected event and it will be passed back here
@@ -373,7 +367,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.daterange.start = value.start;
         this.daterange.end = value.end;
         this.daterange.label = value.label;
-    }
+    }*/
 
     onDateChange(event: any) {
         if (event.start && event.end) {
