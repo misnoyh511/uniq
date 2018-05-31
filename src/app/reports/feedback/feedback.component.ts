@@ -351,7 +351,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             // let day;
             let flag = false;
             resData.forEach(x => {
-                x.created_at = this.datePipe.transform(x.created_at, 'yyyy-MM-dd');
+                x.created_at = x.created_at.split('T')[0];
                 const day = this.datePipe.transform(currentDay, 'yyyy-MM-dd');
                 if (x.created_at === day) {
                     flag = true;
