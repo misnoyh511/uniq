@@ -34,24 +34,25 @@ export class SidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-            this.Service.botList.subscribe((data) => {
-                this.bot = data;
-                if (this.Service.deleteMsg) {
-                    this.showStarted = true;
-                    this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
-                        this.currentBot = this.bot[0].name;
-                        this.Service.token = this.bot[0].analytics_token;
+        this.Service.botList.subscribe((data) => {
+            this.bot = data;
+            if (this.Service.deleteMsg) {
+                this.showStarted = true;
+                this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
+                this.currentBot = this.bot[0].name;
+                this.Service.token = this.bot[0].analytics_token;
+            } else {
+                if (localStorage.getItem('CURRENT_BOT')) {
+                    this.currentBot = JSON.parse(localStorage.getItem('CURRENT_BOT')).name;
+                } else if (Object.keys(this.Service.savedData).length && this.Service.savedData.name) {
+                    this.currentBot = this.Service.savedData.name;
                 } else {
-                    if (localStorage.getItem('CURRENT_BOT')) {
-                        this.currentBot = JSON.parse(localStorage.getItem('CURRENT_BOT')).name;
-                    } else if (Object.keys(this.Service.savedData).length && this.Service.savedData.name) {
-                        this.currentBot = this.Service.savedData.name;
-                    } else {
-                        this.currentBot = this.bot[0].name;
-                    }
-
+                    this.currentBot = this.bot[0].name;
+                    this.Service.savedData = this.bot[0];
                 }
-            });
+
+            }
+        });
         this.onloaddata();
         if (!this.data) {
             this.data = 'Bot Providencia';
@@ -73,6 +74,7 @@ export class SidebarComponent implements OnInit {
             this.Service.getBot().subscribe((data) => {
                 if (data && data.length) {
                     this.bot = data;
+                    this.Service.savedData = this.bot[0];
                 }
             });
     }

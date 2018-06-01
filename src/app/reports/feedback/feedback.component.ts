@@ -380,7 +380,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             });
         const countArray = [];
         valueArr.forEach(function (element) {
-            countArray.push(parseFloat(element.text || '0') * 100);
+            countArray.push(parseFloat((parseFloat(element.text || '0') * 100).toFixed(1)));
         });
         const startDatePart = valueArr[0].created_at.split('-');
         const startPoint = Date.UTC(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
