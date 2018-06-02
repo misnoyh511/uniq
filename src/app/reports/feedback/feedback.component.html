@@ -27,9 +27,12 @@
       <div class="getting-started-wrap-wrapper">
         <div class="step-inner-wrapper chart-title-wrap">
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6" *ngIf="totalAvg">
               <h2>{{totalAvg}}</h2>
               <span>Feedback Type: <strong>Evaluation is per {{feedback_type ? 'Message': 'Session'}}</strong></span>
+            </div>
+            <div class="col-sm-6" *ngIf="!totalAvg">
+
             </div>
             <div class="col-sm-6">
               <div class="chart-duration-wrap" [class.active]="showOptions">
