@@ -11,7 +11,7 @@ export class SidebarService {
   public savedData: any = {};
   public token: string;
   public feedback_type: number;
-  public deleteMsg = ''
+  public deleteMsg = '';
   public dateObj: any = {};
 
   constructor(private http: Http, private httpClient: InterceptorService) { }

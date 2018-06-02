@@ -25,29 +25,24 @@
         </div>
       </div>
       <div class="getting-started-wrap-wrapper">
-        <div class="step-inner-wrapper">
-          <div class="step-inner-title">
-            <h3>Feedback</h3>
-          </div>
-          <div class="feedback-wrapper">
-            <form>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="analytics-feedback-filters">
-                    <select [(ngModel)]="selectedValue" name="selectedValue" (change)="getSession()">
-                      <option value="all">All</option>
-                      <option value="positive">Positive</option>
-                      <option value="negative">Negative</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="analytics-feedback-filters feedback">
-                    {{feedback_type ? 'message': 'session'}}
-                  </div>
+        <div class="step-inner-wrapper chart-title-wrap">
+          <div class="row">
+            <div class="col-sm-6">
+              <h2>{{totalAvg}}</h2>
+              <span>Feedback Type: <strong>Evaluation is per {{feedback_type ? 'Message': 'Session'}}</strong></span>
+            </div>
+            <div class="col-sm-6">
+              <div class="chart-duration-wrap" [class.active]="showOptions">
+                <a href="javascript:void(0)" (click)="showOptions = true;"><span>{{selectedValue}}</span> <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                <div class="chart-duration-options">
+                  <span [class.active]="showAll" (click)="getOption('All'); showAll = true; showOptions = showPositive = showNegative = false; ">All</span>
+                  <span [class.active]="showPositive" (click)="getOption('Positive'); showPositive = true; showOptions = showAll = showNegative = false; ">Positive</span>
+                  <span [class.active]="showNegative" (click)="getOption('Negative'); showNegative = true; showOptions = showPositive = showAll = false; ">Negative</span>
                 </div>
               </div>
-            </form>
+            </div>
+          </div>
+          <div class="feedback-wrapper">
             <div class="analytics-inner-wrap">
               <chart [options]="options"></chart>
             </div>

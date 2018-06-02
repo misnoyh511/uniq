@@ -13,7 +13,7 @@ import {DatePipe} from '@angular/common';
 })
 export class FeedbackComponent implements OnInit, OnDestroy {
     sessions: any = [];
-    selectedValue = 'all';
+    selectedValue = 'All';
     feedback_type: number;
     analytics_token: string;
     itemPerPage = 10;
@@ -24,6 +24,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     startDate: any;
     endDate: any;
     options: any = {};
+    totalAvg: string;
+    showOptions = false;
+    showAll = true;
+    showPositive = false;
+    showNegative = false;
 
     constructor(private reportsService: ReportsService, public sbs: SidebarService, private sort: ArraySortPipe,
                 private datePipe: DatePipe) {
@@ -73,11 +78,16 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.sbs.feedback_type = this.feedback_type;
     }
 
+    getOption(value) {
+        this.selectedValue = value;
+        this.getSession();
+    }
+
     getSession() {
         this.items = [];
         this.sessions = [];
         if (this.feedback_type) {
-            if (this.selectedValue === 'negative') {
+            if (this.selectedValue === 'Negative') {
                 this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
                     const valueArr = response.data.map(function (item) {
                         let data = {};
@@ -95,7 +105,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 }, (err) => {
                     console.log(err);
                 });
-            } else if (this.selectedValue === 'positive') {
+            } else if (this.selectedValue === 'Positive') {
                 this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
                     const valueArr = response.data.map(function (item) {
                         let data = {};
@@ -115,15 +125,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             } else {
                 this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
-                    const feedbackData = [];
-                    res.data.forEach(function (element) {
-                        feedbackData.push({
-                            text: element.feedback,
-                            created_at: element.date
-                        });
-                    });
-                    const data = this.insertDates(feedbackData);
-                    this.generateGraph(data);
+                    this.generateGraph(res.data);
                 }, (err) => {
                     console.log(err);
                 });
@@ -162,7 +164,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             }
         } else {
-            if (this.selectedValue === 'negative') {
+            if (this.selectedValue === 'Negative') {
                 this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
                     const valueArr = response.data.map(function (item) {
                         let data = {};
@@ -180,7 +182,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 }, (err) => {
                     console.log(err);
                 });
-            } else if (this.selectedValue === 'positive') {
+            } else if (this.selectedValue === 'Positive') {
                 this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
                     const valueArr = response.data.map(function (item) {
                         let data = {};
@@ -200,15 +202,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             } else {
                 this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
-                    const feedbackData = [];
-                    res.data.forEach(function (element) {
-                        feedbackData.push({
-                            text: element.feedback,
-                            created_at: element.date
-                        });
-                    });
-                    const data = this.insertDates(feedbackData);
-                    this.generateGraph(data);
+                    this.generateGraph(res.data);
                 }, (err) => {
                     console.log(err);
                 });
@@ -371,30 +365,21 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     }
 
     generateGraph(valueArr) {
-        for (const i in valueArr) {
-            valueArr[i].created_at = this.datePipe.transform(valueArr[i].created_at, 'yyyy-MM-dd');
-        }
-        valueArr = _.sortBy(valueArr,
-            (item) => {
-                return +new Date(item.created_at);
-            });
         const countArray = [];
+        const feedbackArr = [];
         valueArr.forEach(function (element) {
-            countArray.push(parseFloat((parseFloat(element.text || '0') * 100).toFixed(1)));
+            feedbackArr.push(element.date.split('T')[0]);
+            countArray.push(parseFloat((parseFloat(element.feedback) * 100).toFixed(1)));
         });
-        const startDatePart = valueArr[0].created_at.split('-');
-        const startPoint = Date.UTC(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
+        let sum = 0;
+        for (let i = 0; i < countArray.length; i++) {
+            sum += parseInt( countArray[i], 10 );
+        }
+
+        this.totalAvg = parseFloat((sum / countArray.length).toFixed(2)) + '%';
         this.options = {
-            title: {
-                text: ''
-            },
-
-            subtitle: {
-                text: ''
-            },
-
             xAxis: {
-                type: 'datetime'
+                categories: feedbackArr
             },
 
             yAxis: {
@@ -408,9 +393,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 series: {
                     label: {
                         connectorAllowed: false
-                    },
-                    pointStart: startPoint,
-                    pointInterval: 24 * 3600 * 1000
+                    }
                 }
             },
 

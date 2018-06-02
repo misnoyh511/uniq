@@ -118,7 +118,10 @@ export class SidebarComponent implements OnInit {
         delete localStorage[AppConfig.USER_INFO_KEY];
         delete localStorage['CURRENT_BOT'];
         delete localStorage['DATE_OBJ'];
+        this.Service.savedData = {};
         this.Service.dateObj = {};
+        this.Service.token = '';
+        this.Service.deleteMsg = '';
         this.router.navigate(['/login']);
     }
 }
