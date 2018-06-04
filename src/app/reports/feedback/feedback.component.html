@@ -36,7 +36,9 @@
             </div>
             <div class="col-sm-6">
               <div class="chart-duration-wrap" [class.active]="showOptions">
-                <a href="javascript:void(0)" (click)="showOptions = true;"><span>{{selectedValue}}</span> <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                <a href="javascript:void(0)" (click)="showOptions = !showOptions;"><span>{{selectedValue}}</span>
+                  <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </a>
                 <div class="chart-duration-options">
                   <span [class.active]="showAll" (click)="getOption('All'); showAll = true; showOptions = showPositive = showNegative = false; ">All</span>
                   <span [class.active]="showPositive" (click)="getOption('Positive'); showPositive = true; showOptions = showAll = showNegative = false; ">Positive</span>

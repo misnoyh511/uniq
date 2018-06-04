@@ -8311,6 +8311,7 @@ a.mat-mini-fab.mat-primary {
 .chart-title-wrap {
     position: relative;
     margin-bottom: 30px;
+    box-shadow: none;
 }
 
 .chart-title-wrap h2 {
@@ -8330,19 +8331,35 @@ a.mat-mini-fab.mat-primary {
     margin: 0;
 }
 
-.chart-duration-wrap {
-    float: right;
-    margin: 15px 15px 0;
-    width: 27%;
-}
+.chart-title-wrap span strong {color:#37bd85;}
 
+.chart-duration-wrap {
+    float: none;
+    margin: 15px 15px 0;
+    width: 100%;
+    position: relative;
+    Z-INDEX: 99;
+}
 .chart-duration-wrap a {
-    border: 1px solid #E6E6FF;
+    border: 1px solid #e6e6ff;
     padding: 10px 15px;
     border-radius: 5px;
     width: 140px;
     display: inline-block;
-    color: #7171A6;
+    color: #7171a6;
+    top: -11px;
+    right: 15px;
+    position: absolute;
+}
+.chart-duration-options {
+    width: 140px;
+    border: 1px solid #e6e6ff;
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    z-index: 999;
+    background: #fff;
+    display: none;
 }
 
 .chart-duration-wrap a i {
@@ -8352,17 +8369,6 @@ a.mat-mini-fab.mat-primary {
 
 .chart-duration-wrap.active a i {
     transform: rotate(180deg) translateY(-5px);
-}
-
-.chart-duration-options {
-    width: 140px;
-    border: 1px solid #E6E6FF;
-    position: absolute;
-    top: 100%;
-    right: 15px;
-    z-index: 999;
-    background: #fff;
-    display: none;
 }
 
 .chart-duration-wrap.active .chart-duration-options {
@@ -8405,6 +8411,21 @@ a.mat-mini-fab.mat-primary {
 .chart-duration-options span.active:before {
     display: block;
 }
+
+.highcharts-tooltip>span {
+    background: #fff;
+    border: 1px solid #F7F7FC;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(96,120,255,0.1);
+    padding: 6px 25px;
+    text-align:center;
+    font-size:14px;
+}
+
+.highcharts-tooltip span small {font-size:12px; color:#626597; margin-bottom:10px; font-weight:600;}
+.highcharts-tooltip span table tr td:first-child {padding:6px 0;}
+.highcharts-tooltip span table tr td {font-size:12px; padding:6px 15px; font-weight:600;color:#626597}
+.highcharts-tooltip span table tr td span {height:10px; width:10px; border-radius:50%; display:inline-block;}
 
 @media only screen and (max-width: 767px) {
     .pagination-export-wrap {

@@ -4,6 +4,9 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {ArraySortPipe} from '../../directives/sort.directive';
 import * as _ from 'lodash';
 import {DatePipe} from '@angular/common';
+// import * as Highcharts from 'highcharts';
+
+const Highcharts = require('highcharts');
 
 @Component({
     selector: 'app-feedback',
@@ -367,8 +370,23 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     generateGraph(valueArr) {
         const countArray = [];
         const feedbackArr = [];
+        const month = {
+            '01': 'Jan',
+            '02': 'Feb',
+            '03': 'Mar',
+            '04': 'Apr',
+            '05': 'May',
+            '06': 'Jun',
+            '07': 'Jul',
+            '08': 'Aug',
+            '09': 'Sep',
+            '10': 'Oct',
+            '11': 'Nov',
+            '12': 'Dec'
+        };
         valueArr.forEach(function (element) {
-            feedbackArr.push(element.date.split('T')[0]);
+            const dateParts = element.date.split('T')[0].split('-');
+            feedbackArr.push(month[dateParts[1]] + ' ' + dateParts[2]);
             countArray.push(parseFloat((parseFloat(element.feedback) * 100).toFixed(1)));
         });
         let sum = 0;
@@ -378,44 +396,109 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
         this.totalAvg = parseFloat((sum / countArray.length).toFixed(2)) + '%';
         this.options = {
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
             xAxis: {
-                categories: feedbackArr
-            },
-
-            yAxis: {
-                title: {
-                    text: 'Percentage of Positive Feedback'
+                type: 'datetime',
+                categories: feedbackArr,
+                dateTimeLabelFormats: {
+                    day: '%b %e'
                 },
-                max: 100
-            },
-
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: false
+                labels: {
+                    style: {
+                        color: '#626597',
+                        fontSize: '14px'
                     }
                 }
             },
-
-            series: [{
-                name: 'Positive Feedback',
-                data: countArray
-            }],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 700
+            yAxis: {
+                title: {
+                    text: 'Percentage of positive feedback'
+                },
+                gridLineColor: '#fafafa',
+                labels: {
+                    formatter: function () {
+                        return this.value;
                     },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
+                    style: {
+                        color: '#626597',
+                        fontSize: '14px'
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                        this.x + '</span> <br> <b style="color:#6078FF; ' +
+                        'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                },
+                backgroundColor: null,
+                borderWidth: 0,
+                shadow: false,
+                useHTML: true,
+                style: {
+                    padding: 0
+                }
+            },
+            plotOptions: {
+                area: {
+                    type: 'percent',
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        fillColor: '#6078FF',
+                        radius: 7,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                symbol: 'circle',
+                                fillColor: '#fff',
+                                lineColor: '#6078FF',
+                                lineWidth: 3,
+                                radius: 10
+                            }
+                        }
+                    },
+                    series: {
+                        events: {
+                            mouseOver: function () {
+                                const that = this;
+                                setTimeout( function() {
+                                    that.update({
+                                        marker: {
+                                            enabled: true
+                                        }
+                                    });
+                                }, 20);
+                            }, mouseOut: function () {
+                                const that = this;
+                                setTimeout( function() {
+                                    that.update({
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    });
+                                }, 20);
+                            }
                         }
                     }
-                }]
-            }
+                }
+            },
+            series: [{
+
+                lineColor: '#6078FF',
+                lineWidth: 5,
+                color: '#6078FF',
+                fillOpacity: 0.1,
+                data: countArray
+            }]
         };
     }
 }
