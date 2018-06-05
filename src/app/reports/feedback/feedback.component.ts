@@ -55,7 +55,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         }
         if (Object.keys(this.sbs.savedData).length) {
             this.analytics_token = this.sbs.savedData.analytics_token;
-            this.feedback_type = this.sbs.savedData.feedback_type;
+            this.feedback_type = parseInt(this.sbs.savedData.feedback_type, 10);
             this.getSession();
         }
         this.sbs.botList.subscribe((data) => {
@@ -128,6 +128,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             } else {
                 this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
+                    this.options = {};
                     const feedbackData = [];
                     res.data.forEach(function (element) {
                         feedbackData.push({
@@ -384,7 +385,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     }
 
     generateGraph(valueArr) {
-        this.options = {};
         for (const i in valueArr) {
             valueArr[i].created_at = this.datePipe.transform(valueArr[i].created_at, 'yyyy-MM-dd');
         }
