@@ -8338,7 +8338,6 @@ a.mat-mini-fab.mat-primary {
     margin: 15px 15px 0;
     width: 100%;
     position: relative;
-    Z-INDEX: 99;
 }
 .chart-duration-wrap a {
     border: 1px solid #e6e6ff;

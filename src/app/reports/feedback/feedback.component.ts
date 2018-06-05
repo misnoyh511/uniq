@@ -416,7 +416,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 const dateParts = element.created_at.split(' ');
                 feedbackArr.push(dateParts[1] + ' ' + dateParts[2]);
             }
-            if (element.text) {
+            if (element.text && parseFloat(element.text) !== 0) {
                 countArray.push(parseFloat((parseFloat(element.text) * 100).toFixed(1)));
             } else {
                 countArray.push(null);
