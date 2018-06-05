@@ -128,7 +128,15 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             } else {
                 this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
-                    this.generateGraph(res.data);
+                    const feedbackData = [];
+                    res.data.forEach(function (element) {
+                        feedbackData.push({
+                            text: element.feedback,
+                            created_at: element.date
+                        });
+                    });
+                    const data = this.insertDates(feedbackData);
+                    this.generateGraph(data);
                 }, (err) => {
                     console.log(err);
                 });
@@ -205,7 +213,15 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             } else {
                 this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
-                    this.generateGraph(res.data);
+                    const feedbackData = [];
+                    res.data.forEach(function (element) {
+                        feedbackData.push({
+                            text: element.feedback,
+                            created_at: element.date
+                        });
+                    });
+                    const data = this.insertDates(feedbackData);
+                    this.generateGraph(data);
                 }, (err) => {
                     console.log(err);
                 });
@@ -368,6 +384,14 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     }
 
     generateGraph(valueArr) {
+        this.options = {};
+        for (const i in valueArr) {
+            valueArr[i].created_at = this.datePipe.transform(valueArr[i].created_at, 'yyyy-MM-dd');
+        }
+        valueArr = _.sortBy(valueArr,
+            (item) => {
+                return +new Date(item.created_at);
+            });
         const countArray = [];
         const feedbackArr = [];
         const month = {
@@ -385,16 +409,28 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             '12': 'Dec'
         };
         valueArr.forEach(function (element) {
-            const dateParts = element.date.split('T')[0].split('-');
-            feedbackArr.push(month[dateParts[1]] + ' ' + dateParts[2]);
-            countArray.push(parseFloat((parseFloat(element.feedback) * 100).toFixed(1)));
+            if (typeof element.created_at === 'string') {
+                const dateParts = element.created_at.split('-');
+                feedbackArr.push(month[dateParts[1]] + ' ' + dateParts[2]);
+            } else {
+                const dateParts = element.created_at.split(' ');
+                feedbackArr.push(dateParts[1] + ' ' + dateParts[2]);
+            }
+            if (element.text) {
+                countArray.push(parseFloat((parseFloat(element.text) * 100).toFixed(1)));
+            } else {
+                countArray.push(null);
+            }
         });
         let sum = 0;
+        let count = 0;
         for (let i = 0; i < countArray.length; i++) {
-            sum += parseInt( countArray[i], 10 );
+            if (countArray[i] !== null) {
+                count ++;
+                sum += parseInt(countArray[i], 10);
+            }
         }
-
-        this.totalAvg = parseFloat((sum / countArray.length).toFixed(2)) + '%';
+        this.totalAvg = parseFloat((sum / count).toFixed(2)) + '%';
         this.options = {
             chart: {
                 type: 'area'
@@ -431,7 +467,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         color: '#626597',
                         fontSize: '14px'
                     }
-                }
+                },
+                max: 100
             },
             tooltip: {
                 formatter: function () {
@@ -489,6 +526,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                             }
                         }
                     }
+                },
+                series: {
+                    connectNulls: true
                 }
             },
             series: [{

@@ -311,6 +311,7 @@ export class botModulesComponent implements OnInit, OnDestroy {
             if (data && data.id) {
                 this.sbs.feedback_type = data.feedback_type;
                 this.sbs.savedData = data;
+                localStorage.setItem('CURRENT_BOT', JSON.stringify(data));
                 this.snackBarService.openSnackBar('Bot Updated');
             } else {
                 console.log(data);
