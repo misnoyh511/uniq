@@ -2,3 +2,7 @@
     width: 100% !important;
     float: left;
 }
+
+/deep/ .highcharts-axis.highcharts-xaxis .highcharts-tick {
+  display: none !important;
+}
