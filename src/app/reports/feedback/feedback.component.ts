@@ -411,6 +411,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         valueArr.forEach(function (element) {
             if (typeof element.created_at === 'string') {
                 const dateParts = element.created_at.split('-');
+                dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
                 feedbackArr.push(month[dateParts[1]] + ' ' + dateParts[2]);
             } else {
                 const dateParts = element.created_at.split(' ');
@@ -433,7 +434,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.totalAvg = parseFloat((sum / count).toFixed(2)) + '%';
         this.options = {
             chart: {
-                type: 'area'
+                type: 'area',
+                marginTop: 25
             },
             title: {
                 text: ''
@@ -452,7 +454,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         color: '#626597',
                         fontSize: '14px'
                     }
-                }
+                },
+                tickmarkPlacement: 'on'
             },
             yAxis: {
                 title: {
@@ -503,36 +506,27 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                             }
                         }
                     },
-                    series: {
                         events: {
                             mouseOver: function () {
-                                const that = this;
-                                setTimeout( function() {
-                                    that.update({
+                                    this.update({
                                         marker: {
                                             enabled: true
                                         }
                                     });
-                                }, 20);
                             }, mouseOut: function () {
-                                const that = this;
-                                setTimeout( function() {
-                                    that.update({
+                                    this.update({
                                         marker: {
                                             enabled: false
                                         }
                                     });
-                                }, 20);
                             }
                         }
-                    }
                 },
                 series: {
                     connectNulls: true
                 }
             },
             series: [{
-
                 lineColor: '#6078FF',
                 lineWidth: 5,
                 color: '#6078FF',
