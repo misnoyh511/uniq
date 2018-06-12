@@ -11,6 +11,9 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
     providers: [ReportsService, DatePipe]
 })
 export class AnalyticsComponent implements OnInit, OnDestroy {
+    totalSessionCount: number;
+    totalMesasgeCount: number;
+    totalUserCount: number;
     sessions: string;
     users: string;
     data: any = {};
@@ -72,6 +75,20 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
     onLoadData(startDate, endDate) {
         this.options = this.options1 = this.options2 = {};
+        const month = {
+            '01': 'Jan',
+            '02': 'Feb',
+            '03': 'Mar',
+            '04': 'Apr',
+            '05': 'May',
+            '06': 'Jun',
+            '07': 'Jul',
+            '08': 'Aug',
+            '09': 'Sep',
+            '10': 'Oct',
+            '11': 'Nov',
+            '12': 'Dec'
+        };
         this.reportsService.getAllSession(startDate, endDate, this.analytics_token).subscribe((response) => {
             this.sessions = response.data;
             if (response.data && response.data.length) {
@@ -105,11 +122,34 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         return +new Date(item.date);
                     });
                 const countArray = [];
+                const dateArray = [];
                 response.data.forEach(function (element) {
-                    element.date = new Date(element.date);
-                    countArray.push(parseInt(element.count, 10));
+                    if (typeof element.date === 'string') {
+                        const dateParts = element.date.split('-');
+                        dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
+                        dateArray.push(month[dateParts[1]] + ' ' + dateParts[2]);
+                    } else {
+                        const dateParts = element.date.toString().split(' ');
+                        dateArray.push(dateParts[1] + ' ' + dateParts[2]);
+                    }
+                    if (element.count && parseInt(element.count, 10) !== 0) {
+                        countArray.push(parseInt(element.count, 10));
+                    } else {
+                        countArray.push(null);
+                    }
                 });
+
+                let sum = 0;
+                for (let i = 0; i < countArray.length; i++) {
+                    if (countArray[i] !== null) {
+                        sum += parseInt(countArray[i], 10);
+                    }
+                }
+                this.totalSessionCount = sum;
                 this.options = {
+                    chart: {
+                        type: 'area'
+                    },
                     title: {
                         text: ''
                     },
@@ -119,45 +159,95 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     },
 
                     xAxis: {
-                        type: 'datetime'
+                        type: 'datetime',
+                        categories: dateArray,
+                        dateTimeLabelFormats: {
+                            day: '%b %e'
+                        },
+                        labels: {
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        },
+                        tickmarkPlacement: 'on'
                     },
-
                     yAxis: {
                         title: {
                             text: 'Count'
+                        },
+                        gridLineColor: '#fafafa',
+                        labels: {
+                            formatter: function () {
+                                return this.value;
+                            },
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                        },
+                        backgroundColor: null,
+                        borderWidth: 0,
+                        shadow: false,
+                        useHTML: true,
+                        style: {
+                            padding: 0
                         }
                     },
 
                     plotOptions: {
-                        series: {
-                            label: {
-                                connectorAllowed: false
+                        area: {
+                            type: 'percent',
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                fillColor: '#6078FF',
+                                radius: 7,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        fillColor: '#fff',
+                                        lineColor: '#6078FF',
+                                        lineWidth: 3,
+                                        radius: 10
+                                    }
+                                }
                             },
-                            pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
-                                response.data[0].date.getDate()),
-                            pointInterval: 24 * 3600 * 1000
-                        }
-                    },
-
-                    series: [{
-                        name: 'Session Count',
-                        data: countArray
-                    }],
-
-                    responsive: {
-                        rules: [{
-                            condition: {
-                                maxWidth: 500
-                            },
-                            chartOptions: {
-                                legend: {
-                                    layout: 'horizontal',
-                                    align: 'center',
-                                    verticalAlign: 'bottom'
+                            events: {
+                                mouseOver: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: true
+                                        }
+                                    });
+                                }, mouseOut: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    });
                                 }
                             }
-                        }]
-                    }
+                        },
+                        series: {
+                            connectNulls: true
+                        }
+                    },
+                    series: [{
+                        lineColor: '#6078FF',
+                        lineWidth: 5,
+                        color: '#6078FF',
+                        fillOpacity: 0.1,
+                        data: countArray
+                    }]
                 };
             }
         }, (err) => {
@@ -194,12 +284,35 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     (item) => {
                         return +new Date(item.date);
                     });
-                const countArray = [];
+                const msgCountArray = [];
+                const msgDateArray = [];
                 response.data.forEach(function (element) {
-                    element.date = new Date(element.date);
-                    countArray.push(parseInt(element.count, 10));
+                    if (typeof element.date === 'string') {
+                        const dateParts = element.date.split('-');
+                        dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
+                        msgDateArray.push(month[dateParts[1]] + ' ' + dateParts[2]);
+                    } else {
+                        const dateParts = element.date.toString().split(' ');
+                        msgDateArray.push(dateParts[1] + ' ' + dateParts[2]);
+                    }
+                    if (element.count && parseInt(element.count, 10) !== 0) {
+                        msgCountArray.push(parseInt(element.count, 10));
+                    } else {
+                        msgCountArray.push(null);
+                    }
                 });
+
+                let sum = 0;
+                for (let i = 0; i < msgCountArray.length; i++) {
+                    if (msgCountArray[i] !== null) {
+                        sum += parseInt(msgCountArray[i], 10);
+                    }
+                }
+                this.totalMesasgeCount = sum;
                 this.options1 = {
+                    chart: {
+                        type: 'area'
+                    },
                     title: {
                         text: ''
                     },
@@ -209,45 +322,95 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     },
 
                     xAxis: {
-                        type: 'datetime'
+                        type: 'datetime',
+                        categories: msgDateArray,
+                        dateTimeLabelFormats: {
+                            day: '%b %e'
+                        },
+                        labels: {
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        },
+                        tickmarkPlacement: 'on'
                     },
-
                     yAxis: {
                         title: {
-                            text: 'Count'
+                            text: 'Message Count'
+                        },
+                        gridLineColor: '#fafafa',
+                        labels: {
+                            formatter: function () {
+                                return this.value;
+                            },
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                        },
+                        backgroundColor: null,
+                        borderWidth: 0,
+                        shadow: false,
+                        useHTML: true,
+                        style: {
+                            padding: 0
                         }
                     },
 
                     plotOptions: {
-                        series: {
-                            label: {
-                                connectorAllowed: false
+                        area: {
+                            type: 'percent',
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                fillColor: '#6078FF',
+                                radius: 7,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        fillColor: '#fff',
+                                        lineColor: '#6078FF',
+                                        lineWidth: 3,
+                                        radius: 10
+                                    }
+                                }
                             },
-                            pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
-                                response.data[0].date.getDate()),
-                            pointInterval: 24 * 3600 * 1000
-                        }
-                    },
-
-                    series: [{
-                        name: 'Messages per Session',
-                        data: countArray
-                    }],
-
-                    responsive: {
-                        rules: [{
-                            condition: {
-                                maxWidth: 500
-                            },
-                            chartOptions: {
-                                legend: {
-                                    layout: 'horizontal',
-                                    align: 'center',
-                                    verticalAlign: 'bottom'
+                            events: {
+                                mouseOver: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: true
+                                        }
+                                    });
+                                }, mouseOut: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    });
                                 }
                             }
-                        }]
-                    }
+                        },
+                        series: {
+                            connectNulls: true
+                        }
+                    },
+                    series: [{
+                        lineColor: '#6078FF',
+                        lineWidth: 4,
+                        color: '#6078FF',
+                        fillOpacity: 0.1,
+                        data: msgCountArray
+                    }]
                 };
             }
         }, (err) => {
@@ -285,11 +448,33 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         return +new Date(item.date);
                     });
                 const countArray = [];
+                const dateArray = [];
                 response.data.forEach(function (element) {
-                    element.date = new Date(element.date);
-                    countArray.push(parseInt(element.count, 10));
+                    if (typeof element.date === 'string') {
+                        const dateParts = element.date.split('-');
+                        dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
+                        dateArray.push(month[dateParts[1]] + ' ' + dateParts[2]);
+                    } else {
+                        const dateParts = element.date.toString().split(' ');
+                        dateArray.push(dateParts[1] + ' ' + dateParts[2]);
+                    }
+                    if (element.count && parseInt(element.count, 10) !== 0) {
+                        countArray.push(parseInt(element.count, 10));
+                    } else {
+                        countArray.push(null);
+                    }
                 });
+                let sum = 0;
+                for (let i = 0; i < countArray.length; i++) {
+                    if (countArray[i] !== null) {
+                        sum += parseInt(countArray[i], 10);
+                    }
+                }
+                this.totalUserCount = sum;
                 this.options2 = {
+                    chart: {
+                        type: 'area'
+                    },
                     title: {
                         text: ''
                     },
@@ -299,45 +484,95 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     },
 
                     xAxis: {
-                        type: 'datetime'
+                        type: 'datetime',
+                        categories: dateArray,
+                        dateTimeLabelFormats: {
+                            day: '%b %e'
+                        },
+                        labels: {
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        },
+                        tickmarkPlacement: 'on'
                     },
-
                     yAxis: {
                         title: {
                             text: 'Users'
+                        },
+                        gridLineColor: '#fafafa',
+                        labels: {
+                            formatter: function () {
+                                return this.value;
+                            },
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                        },
+                        backgroundColor: null,
+                        borderWidth: 0,
+                        shadow: false,
+                        useHTML: true,
+                        style: {
+                            padding: 0
                         }
                     },
 
                     plotOptions: {
-                        series: {
-                            label: {
-                                connectorAllowed: false
+                        area: {
+                            type: 'percent',
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                fillColor: '#6078FF',
+                                radius: 7,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        fillColor: '#fff',
+                                        lineColor: '#6078FF',
+                                        lineWidth: 3,
+                                        radius: 10
+                                    }
+                                }
                             },
-                            pointStart: Date.UTC(response.data[0].date.getFullYear(), response.data[0].date.getMonth(),
-                                response.data[0].date.getDate()),
-                            pointInterval: 24 * 3600 * 1000
-                        }
-                    },
-
-                    series: [{
-                        name: 'User Count',
-                        data: countArray
-                    }],
-
-                    responsive: {
-                        rules: [{
-                            condition: {
-                                maxWidth: 500
-                            },
-                            chartOptions: {
-                                legend: {
-                                    layout: 'horizontal',
-                                    align: 'center',
-                                    verticalAlign: 'bottom'
+                            events: {
+                                mouseOver: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: true
+                                        }
+                                    });
+                                }, mouseOut: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    });
                                 }
                             }
-                        }]
-                    }
+                        },
+                        series: {
+                            connectNulls: true
+                        }
+                    },
+                    series: [{
+                        lineColor: '#6078FF',
+                        lineWidth: 4,
+                        color: '#6078FF',
+                        fillOpacity: 0.1,
+                        data: countArray
+                    }]
                 };
             }
         }, (err) => {
@@ -355,19 +590,6 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             console.log(err);
         });
     }
-
-    /*public selectedDate(value: any, datepicker?: any) {
-        // this is the date the iser selected
-
-        // any object can be passed to the selected event and it will be passed back here
-        datepicker.start = value.start;
-        datepicker.end = value.end;
-
-        // or manupulat your own internal property
-        this.daterange.start = value.start;
-        this.daterange.end = value.end;
-        this.daterange.label = value.label;
-    }*/
 
     onDateChange(event: any) {
         if (event.start && event.end) {

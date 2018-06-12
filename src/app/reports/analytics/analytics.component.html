@@ -1,89 +1,102 @@
 <div class="dashboard-container analytics-page-container">
-  <div class="dashboard-inner-container">
-    <div class="dashboard-getting-stared-wrapper">
-      <app-sub-nav [navType]="'analytics'"></app-sub-nav>
-      <div class="page-title-filter-wrap">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="page-title-wrapper">
-              <h1>Analytics</h1>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-sm-4">
-                <!--<span class="data-update-text">Updated an hour ago</span>-->
-              </div>
-              <div class="col-sm-8">
-                <div class="date-picker-filter-wrap">
-                  <div class="daterange daterange--double date-range-picker" (onDateChange) ="onDateChange($event)" appDatePicker></div>
+    <div class="dashboard-inner-container">
+        <div class="dashboard-getting-stared-wrapper">
+            <app-sub-nav [navType]="'analytics'"></app-sub-nav>
+            <div class="page-title-filter-wrap">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="page-title-wrapper">
+                            <h1>Analytics</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <!--<span class="data-update-text">Updated an hour ago</span>-->
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="date-picker-filter-wrap">
+                                    <div class="daterange daterange--double date-range-picker"
+                                         (onDateChange)="onDateChange($event)" appDatePicker></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="getting-started-wrap-wrapper">
-        <div class="export-datepicker-wrapper">
+            <div class="getting-started-wrap-wrapper reports-main-container">
+                <div class="step-inner-wrapper analytics-inner-sections">
+                    <div class="analytics-inner-wrap">
+                        <div class="main-chart-wrapper">
+                            <div class="chart-title-wrap">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h2>{{totalSessionCount}}</h2>
+                                        <span *ngIf="avg_time">Average Session Time: <strong>{{(avg_time.toFixed(0) <= '15' && avg_time.toFixed(0) > '0') ? 'less then 15 seconds' : (avg_time.toFixed(0) <= '60' && avg_time.toFixed(0) > '0') ? '15 seconds to one min' : (avg_time.toFixed(0) === '0') ? '': 'more then 1 min'}}</strong></span>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <chart [options]="options"></chart>
+                    </div>
+                </div>
+                <div class="step-inner-wrapper analytics-inner-sections">
+
+                    <div class="analytics-inner-wrap">
+                        <div class="main-chart-wrapper">
+                            <div class="chart-title-wrap">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h2>{{totalMesasgeCount}}</h2>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <chart [options]="options1"></chart>
+                    </div>
+                </div>
+                <!--<div class="step-inner-wrapper analytics-inner-sections">
+                    <div class="step-inner-title analytics-inner-titles">
+                        <h3>Average Session Length
+                            <sup><i class="fa fa-question-circle" (mouseover)="showAvgtip= true"
+                                    (mouseout)="showAvgtip= false" aria-hidden="true"></i></sup>
+                            <div class="analytics-tool-tip" [class.show]="showAvgtip">
+                                <p>Analytics - Average Session Length</p>
+                            </div>
+                        </h3>
+                    </div>
+                    <div class="analytics-inner-wrap">
+                        <h4>{{(avg_time.toFixed(0) <= '15' && avg_time.toFixed(0) > '0') ? 'less then 15 seconds' :
+                            (avg_time.toFixed(0) <= '60' && avg_time.toFixed(0) > '0') ? '15 seconds to one min' :
+                            (avg_time.toFixed(0) === '0') ? '': 'more then 1 min'}}</h4>
+                    </div>
+                </div>-->
+                <div class="step-inner-wrapper analytics-inner-sections">
+
+                    <div class="analytics-inner-wrap">
+                        <div class="main-chart-wrapper">
+                            <div class="chart-title-wrap">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <h2>{{totalUserCount}}</h2>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <chart [options]="options2"></chart>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        <div class="step-inner-wrapper analytics-inner-sections">
-          <div class="step-inner-title analytics-inner-titles">
-            <h3>Sessions
-              <sup><i class="fa fa-question-circle" (mouseover)="showSessiontip= true" (mouseout)="showSessiontip= false" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip" [class.show]="showSessiontip">
-                <p>Analytics - Sessions</p>
-              </div>
-            </h3>
-          </div>
-          <div class="analytics-inner-wrap">
-            <h4>Sessions</h4>
-            <chart [options]="options"></chart>
-          </div>
-        </div>
-        <div class="step-inner-wrapper analytics-inner-sections">
-          <div class="step-inner-title analytics-inner-titles">
-            <h3>Messages Per Session
-              <sup><i class="fa fa-question-circle" (mouseover)="showMsgtip= true" (mouseout)="showMsgtip= false" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip" [class.show]="showMsgtip">
-                <p>Analytics - Messages Per Session</p>
-              </div>
-            </h3>
-          </div>
-          <div class="analytics-inner-wrap">
-            <h4>Queries per session</h4>
-            <chart [options]="options1"></chart>
-          </div>
-        </div>
-        <div class="step-inner-wrapper analytics-inner-sections">
-          <div class="step-inner-title analytics-inner-titles">
-            <h3>Average Session Length
-              <sup><i class="fa fa-question-circle" (mouseover)="showAvgtip= true" (mouseout)="showAvgtip= false" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip" [class.show]="showAvgtip">
-                <p>Analytics - Average Session Length</p>
-              </div>
-            </h3>
-          </div>
-          <div class="analytics-inner-wrap">
-            <h4>{{(avg_time.toFixed(0) <= '15' && avg_time.toFixed(0) > '0') ? 'less then 15 seconds' : (avg_time.toFixed(0) <= '60' && avg_time.toFixed(0) > '0') ? '15 seconds to one min' : (avg_time.toFixed(0) === '0') ? '': 'more then 1 min'}}</h4>
-          </div>
-        </div>
-        <div class="step-inner-wrapper analytics-inner-sections">
-          <div class="step-inner-title analytics-inner-titles">
-            <h3>Users
-              <sup><i class="fa fa-question-circle" (mouseover)="showUsertip= true" (mouseout)="showUsertip= false" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip" [class.show]="showUsertip">
-                <p>Analytics - Users</p>
-              </div>
-            </h3>
-          </div>
-
-          <div class="analytics-inner-wrap">
-            <chart [options]="options2"></chart>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
 </div>
