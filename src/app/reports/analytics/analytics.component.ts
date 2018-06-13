@@ -3,6 +3,7 @@ import {DatePipe} from '@angular/common';
 import {ReportsService} from '../reports.service';
 import * as _ from 'lodash';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+const Highcharts = require('highcharts');
 
 @Component({
     selector: 'app-reports',
@@ -217,7 +218,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                                         lineWidth: 3,
                                         radius: 10
                                     }
-                                }
+                                },
+                                zIndex: 100
                             },
                             events: {
                                 mouseOver: function () {
@@ -247,6 +249,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         data: countArray
                     }]
                 };
+
             }
         }, (err) => {
             console.log(err);
@@ -378,7 +381,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                                         lineWidth: 3,
                                         radius: 10
                                     }
-                                }
+                                },
+                                zIndex: 100
                             },
                             events: {
                                 mouseOver: function () {
@@ -538,7 +542,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                                         lineWidth: 3,
                                         radius: 10
                                     }
-                                }
+                                },
+                                zIndex: 100
                             },
                             events: {
                                 mouseOver: function () {
@@ -582,6 +587,11 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.avg_time = sum / response.data.length;
         }, (err) => {
             console.log(err);
+        });
+        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
+            proceed.call(this);
+            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+            this.graph.add(this.markerGroup);
         });
     }
 

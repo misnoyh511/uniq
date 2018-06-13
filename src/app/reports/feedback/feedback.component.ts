@@ -4,7 +4,6 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {ArraySortPipe} from '../../directives/sort.directive';
 import * as _ from 'lodash';
 import {DatePipe} from '@angular/common';
-// import * as Highcharts from 'highcharts';
 
 const Highcharts = require('highcharts');
 
@@ -435,7 +434,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.options = {
             chart: {
                 type: 'area',
-                marginTop: 25
+                marginTop: 50
             },
             title: {
                 text: ''
@@ -504,23 +503,24 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                                 lineWidth: 3,
                                 radius: 10
                             }
-                        }
+                        },
+                        zIndex: 100
                     },
-                        events: {
-                            mouseOver: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: true
-                                        }
-                                    });
-                            }, mouseOut: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: false
-                                        }
-                                    });
-                            }
+                    events: {
+                        mouseOver: function () {
+                            this.update({
+                                marker: {
+                                    enabled: true
+                                }
+                            });
+                        }, mouseOut: function () {
+                            this.update({
+                                marker: {
+                                    enabled: false
+                                }
+                            });
                         }
+                    }
                 },
                 series: {
                     connectNulls: true
@@ -534,5 +534,10 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 data: countArray
             }]
         };
+        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
+            proceed.call(this);
+            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+            this.graph.add(this.markerGroup);
+        });
     }
 }
