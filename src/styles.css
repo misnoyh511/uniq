@@ -472,7 +472,7 @@ p {
 .daterange .dr-selections .dr-list-item .dr-item-aside {
     font-size: 12px !important;
     margin-left: 7px !important;
-    top: 0px !important;
+    top: 0 !important;
     display: inline-block;
 }
 
@@ -502,7 +502,7 @@ p {
 }
 
 .platform-wrapper {
-    margin: 0px 0 0;
+    margin: 0 0 0;
 }
 
 .platform-icon {
@@ -606,7 +606,7 @@ p {
 }
 
 .feature-landing-container {
-    margin: 0px 0 0;
+    margin: 0;
 }
 
 .feature-landing-container .landing-content {
@@ -1449,7 +1449,7 @@ p {
 }
 
 .checkoutflex .flex-col:last-child {
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 .leftdet {
@@ -1548,7 +1548,7 @@ p {
 
 .testimonial .quote, .testimonial .name {
     margin: 0 0 0 90px;
-    margin-top: 0px;
+    margin-top: 0;
     text-align: center;
 }
 
@@ -1623,7 +1623,6 @@ p {
     text-transform: uppercase;
     padding: 4px 7px;
     margin: 0;
-    margin-bottom: 0px;
     background-color: rgba(11, 220, 96, 0.07);
     color: #0bdc60;
     border-radius: 3px;
@@ -1632,7 +1631,7 @@ p {
 }
 
 .productDetails .checkoutTitle {
-    margin: 0 0 0px;
+    margin: 0 0 0;
     padding: 0;
     line-height: 1em;
     font-size: 1.2em;
@@ -1656,7 +1655,7 @@ p {
 
 .productDetails .checkoutRating {
     max-height: 15px;
-    margin: 10px 0 10px 0px;
+    margin: 10px 0 10px 0;
 }
 
 .checkoutMTB .checkoutRightCol .checkoutRightColBox .checkoutProof {
@@ -1678,7 +1677,7 @@ p {
 }
 
 .checkrightsec .termsOfService {
-    padding: 5px 0px 0px 0px;
+    padding: 5px 0 0 0;
     text-align: left;
     margin-bottom: 20px;
 }
@@ -1888,7 +1887,7 @@ p {
     line-height: 1em;
     text-align: center;
     font-size: 15px;
-    padding: 13px 0px;
+    padding: 13px 0;
     box-shadow: 0 16px 16px -8px rgba(0, 0, 0, 0.1);
     border: none;
     border-radius: 4px;
@@ -2351,7 +2350,7 @@ p {
     background-color: #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 5px rgba(0, 0, 0, 0.05);
     border-radius: 4px;
-    margin: 0 0px 15px 15px;
+    margin: 0 0 15px 15px;
     color: rgba(34, 34, 34, 0.5);
     min-height: 60px;
     display: inline-block;
@@ -2478,7 +2477,7 @@ p {
     border-radius: 3px;
     border: 1px solid #dadbdc;
     border-bottom-color: #cacccd;
-    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 0 rgba(255, 255, 255, 0.72) inset;
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.72) inset;
     color: #545D63;
     display: inline-block;
     font-size: 0.928rem;
@@ -2540,8 +2539,7 @@ p {
 
 .btn-text {
     display: inline-block;
-    padding: 4px 0 0px;
-    display: inline-block;
+    padding: 4px 0 0;
     color: #8c8c8c;
     font-size: 14px;
     position: relative;
@@ -3163,7 +3161,7 @@ p {
     font-size: 14px;
     color: #666;
     border-radius: 8px;
-    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .pixel-install-script button {
@@ -3286,9 +3284,8 @@ p {
 }
 
 .settings-inner-wrap p {
-    padding: 20px 0px;
+    padding: 20px 0;
     color: #888d9c;
-    margin: 0;
     border-bottom: 1px solid #eee;
     margin: 0 20px 20px;
 }
@@ -3302,7 +3299,7 @@ p {
 }
 
 .language-form-wrap button {
-    margin: 0 20px 0px;
+    margin: 0 20px 0;
     position: relative;
     left: 78%;
     cursor: pointer;
@@ -3542,7 +3539,7 @@ p {
     background: rgba(0, 0, 0, 0.1);
     top: 0;
     right: 0;
-    padding: 0px 30px;
+    padding: 0 30px;
     visibility: hidden;
     opacity: 0;
     transition: 0.4s ease-in-out;
@@ -3629,7 +3626,7 @@ p {
     color: #666;
     font-size: 18px;
     display: block;
-    padding: 0px 20px 10px;
+    padding: 0 20px 10px;
 }
 
 .full-panel-step2 {
@@ -3700,7 +3697,7 @@ p {
 }
 
 .notification-wrap {
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px -5px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 5px 15px -5px;
     border: 1px solid #d9e3ed;
 }
 
@@ -3851,12 +3848,11 @@ p {
 
 .toggle-btn-active-text {
     display: inline-block;
-    padding: 4px 0 0px;
-    display: inline-block;
+    padding: 4px 0 0;
     color: #a7b5c2;
     font-size: 14px;
     position: relative;
-    top: 0px;
+    top: 0;
     margin: 0 10px;
     left: -85px;
     text-transform: uppercase;
@@ -3943,7 +3939,7 @@ p {
     background-color: rgba(239, 154, 154, 0.2);
     border-left: 2px solid #E57373;
     color: #E57373;
-    padding: 0px 15px;
+    padding: 0 15px;
     margin-bottom: 7px;
 }
 
@@ -4307,7 +4303,7 @@ p {
 .faq-question-actions {
     position: absolute;
     top: 10px;
-    right: 0px;
+    right: 0;
     visibility: hidden;
     opacity: 0;
     transition: 0.2s ease-in-out;
@@ -4364,7 +4360,7 @@ p {
     width: 100%;
     color: #000000;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 0;
     right: 0;
     margin: auto;
@@ -4532,7 +4528,7 @@ p {
 }
 
 .analytics-inner-wrap {
-    padding: 30px 20px;
+    padding: 0;
 }
 
 .analytics-inner-wrap h4 {
@@ -4894,7 +4890,7 @@ p {
     border-radius: 3px;
     border: 1px solid #dadbdc;
     border-bottom-color: #cacccd;
-    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.12), 0px 1px 0 rgba(255, 255, 255, 0.72) inset;
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.72) inset;
     color: #545D63;
     display: inline-block;
     font-size: 1.3rem;
@@ -5403,7 +5399,7 @@ p {
     font-weight: 800;
     position: relative;
     display: inline-block;
-    padding: 0px 0;
+    padding: 0 0;
     font-size: 30px;
 }
 
@@ -5727,7 +5723,7 @@ p {
     background: #fff;
     border-radius: 5px;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 100%;
     text-align: center;
     box-shadow: 0 5px 10px rgba(21, 57, 130, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.05);
@@ -5910,7 +5906,7 @@ p {
 
 .group-add-block-btn {
     display: inline-block;
-    padding: 7px 0px;
+    padding: 7px 0;
     background-color: #fff;
     border-radius: 4px;
     cursor: pointer;
@@ -5973,7 +5969,7 @@ p {
     display: inline-block;
     position: absolute;
     background: #333;
-    padding: 8px 0px;
+    padding: 8px 0;
     width: 150px;
     font-size: 14px;
     color: #fff;
@@ -6981,7 +6977,7 @@ a.mat-mini-fab.mat-primary {
 
 .full-panel-wrap .on-off-btn {
     float: left;
-    margin: 6px 0px 6px 10px;
+    margin: 6px 0 6px 10px;
 }
 
 .configure-btn {
@@ -7407,7 +7403,7 @@ a.mat-mini-fab.mat-primary {
 .colorpicker input {
     top: 4px !important;
     right: 11px !important;
-    padding: 0px 2px !important;
+    padding: 0 2px !important;
     height: auto !important;
 }
 
@@ -8389,7 +8385,7 @@ a.mat-mini-fab.mat-primary {
     background-color: #6078FF;
     width: 5px;
     height: 10px;
-    border-radius: 0px 10px 10px 0;
+    border-radius: 0 10px 10px 0;
     left: 0;
     top: 40%;
     display: none;
@@ -8425,6 +8421,8 @@ a.mat-mini-fab.mat-primary {
 .highcharts-tooltip span table tr td:first-child {padding:6px 0;}
 .highcharts-tooltip span table tr td {font-size:12px; padding:6px 15px; font-weight:600;color:#626597}
 .highcharts-tooltip span table tr td span {height:10px; width:10px; border-radius:50%; display:inline-block;}
+
+.reports-main-container {margin-bottom:20px;}
 
 @media only screen and (max-width: 767px) {
     .pagination-export-wrap {

@@ -132,10 +132,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         const dateParts = element.date.toString().split(' ');
                         dateArray.push(dateParts[1] + ' ' + dateParts[2]);
                     }
-                    if (element.count && parseInt(element.count, 10) !== 0) {
+                    if (element.count) {
                         countArray.push(parseInt(element.count, 10));
-                    } else {
-                        countArray.push(null);
                     }
                 });
 
@@ -295,10 +293,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         const dateParts = element.date.toString().split(' ');
                         msgDateArray.push(dateParts[1] + ' ' + dateParts[2]);
                     }
-                    if (element.count && parseInt(element.count, 10) !== 0) {
+                    if (element.count) {
                         msgCountArray.push(parseInt(element.count, 10));
-                    } else {
-                        msgCountArray.push(null);
                     }
                 });
 
@@ -458,10 +454,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         const dateParts = element.date.toString().split(' ');
                         dateArray.push(dateParts[1] + ' ' + dateParts[2]);
                     }
-                    if (element.count && parseInt(element.count, 10) !== 0) {
+                    if (element.count) {
                         countArray.push(parseInt(element.count, 10));
-                    } else {
-                        countArray.push(null);
                     }
                 });
                 let sum = 0;

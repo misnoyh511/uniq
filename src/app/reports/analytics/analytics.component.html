@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="page-title-wrapper">
-                            <h1>Analytics</h1>
+                            <h1>Sessions</h1>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -25,78 +25,67 @@
                 </div>
             </div>
             <div class="getting-started-wrap-wrapper reports-main-container">
-                <div class="step-inner-wrapper analytics-inner-sections">
-                    <div class="analytics-inner-wrap">
-                        <div class="main-chart-wrapper">
-                            <div class="chart-title-wrap">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <h2>{{totalSessionCount}}</h2>
-                                        <span *ngIf="avg_time">Average Session Time: <strong>{{(avg_time.toFixed(0) <= '15' && avg_time.toFixed(0) > '0') ? 'less then 15 seconds' : (avg_time.toFixed(0) <= '60' && avg_time.toFixed(0) > '0') ? '15 seconds to one min' : (avg_time.toFixed(0) === '0') ? '': 'more then 1 min'}}</strong></span>
-                                    </div>
-                                    <div class="col-sm-6">
+                <div class="main-chart-wrapper analytics-inner-wrap">
+                    <div class="chart-title-wrap">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2>{{totalSessionCount}}</h2>
+                                <span *ngIf="avg_time">Average Session Time: <strong>{{(avg_time.toFixed(0) <= '15' && avg_time.toFixed(0) > '0') ? 'less then 15 seconds' : (avg_time.toFixed(0) <= '60' && avg_time.toFixed(0) > '0') ? '15 seconds to one min' : (avg_time.toFixed(0) === '0') ? '': 'more then 1 min'}}</strong></span>
+                            </div>
+                            <div class="col-sm-6">
 
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <chart [options]="options"></chart>
                     </div>
+                    <chart [options]="options"></chart>
+
                 </div>
-                <div class="step-inner-wrapper analytics-inner-sections">
-
-                    <div class="analytics-inner-wrap">
-                        <div class="main-chart-wrapper">
-                            <div class="chart-title-wrap">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <h2>{{totalMesasgeCount}}</h2>
-                                    </div>
-                                    <div class="col-sm-6">
-
-                                    </div>
-                                </div>
-                            </div>
+            </div>
+            <div class="page-title-filter-wrap">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="page-title-wrapper">
+                            <h1>Messages</h1>
                         </div>
-                        <chart [options]="options1"></chart>
-                    </div>
-                </div>
-                <!--<div class="step-inner-wrapper analytics-inner-sections">
-                    <div class="step-inner-title analytics-inner-titles">
-                        <h3>Average Session Length
-                            <sup><i class="fa fa-question-circle" (mouseover)="showAvgtip= true"
-                                    (mouseout)="showAvgtip= false" aria-hidden="true"></i></sup>
-                            <div class="analytics-tool-tip" [class.show]="showAvgtip">
-                                <p>Analytics - Average Session Length</p>
-                            </div>
-                        </h3>
-                    </div>
-                    <div class="analytics-inner-wrap">
-                        <h4>{{(avg_time.toFixed(0) <= '15' && avg_time.toFixed(0) > '0') ? 'less then 15 seconds' :
-                            (avg_time.toFixed(0) <= '60' && avg_time.toFixed(0) > '0') ? '15 seconds to one min' :
-                            (avg_time.toFixed(0) === '0') ? '': 'more then 1 min'}}</h4>
-                    </div>
-                </div>-->
-                <div class="step-inner-wrapper analytics-inner-sections">
-
-                    <div class="analytics-inner-wrap">
-                        <div class="main-chart-wrapper">
-                            <div class="chart-title-wrap">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <h2>{{totalUserCount}}</h2>
-                                    </div>
-                                    <div class="col-sm-6">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <chart [options]="options2"></chart>
                     </div>
                 </div>
             </div>
+            <div class="getting-started-wrap-wrapper reports-main-container">
+                <div class="main-chart-wrapper analytics-inner-wrap">
+                    <div class="chart-title-wrap">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2>{{totalMesasgeCount}}</h2>
 
+                            </div>
+                        </div>
+                    </div>
+                    <chart [options]="options1"></chart>
+                </div>
+            </div>
+
+            <div class="page-title-filter-wrap">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="page-title-wrapper">
+                            <h1>Users</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="getting-started-wrap-wrapper reports-main-container">
+                <div class="main-chart-wrapper analytics-inner-wrap">
+                    <div class="chart-title-wrap">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h2>{{totalUserCount}}</h2>
+
+                            </div>
+                        </div>
+                    </div>
+                    <chart [options]="options2"></chart>
+                </div>
+            </div>
         </div>
     </div>
 </div>
