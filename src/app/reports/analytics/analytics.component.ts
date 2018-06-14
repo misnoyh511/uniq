@@ -21,10 +21,6 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     options: any = {};
     options1: any = {};
     options2: any = {};
-    showAvgtip = false;
-    showUsertip = false;
-    showMsgtip = false;
-    showSessiontip = false;
     avg_time = 0;
     startDate: any;
     endDate: any;
@@ -32,9 +28,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     message: any = [];
     analytics_token: string;
 
-    constructor(private reportsService: ReportsService, public sbs: SidebarService, private datePipe: DatePipe) {
-
-    }
+    constructor(private reportsService: ReportsService, public sbs: SidebarService, private datePipe: DatePipe) {}
 
     ngOnInit() {
         if (localStorage.getItem('DATE_OBJ')) {
@@ -63,7 +57,6 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             }
             this.onLoadData(this.startDate, this.endDate);
         });
-
         this.sbs.botData.subscribe((data) => {
             this.analytics_token = data.analytics_token;
             this.onLoadData(this.startDate, this.endDate);
@@ -76,75 +69,11 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
     onLoadData(startDate, endDate) {
         this.options = this.options1 = this.options2 = {};
-        const month = {
-            '01': 'Jan',
-            '02': 'Feb',
-            '03': 'Mar',
-            '04': 'Apr',
-            '05': 'May',
-            '06': 'Jun',
-            '07': 'Jul',
-            '08': 'Aug',
-            '09': 'Sep',
-            '10': 'Oct',
-            '11': 'Nov',
-            '12': 'Dec'
-        };
         this.reportsService.getAllSession(startDate, endDate, this.analytics_token).subscribe((response) => {
             this.sessions = response.data;
             if (response.data && response.data.length) {
-                const newArr = {};
-                const startDatePart = startDate.split('-');
-                const endDatePart = endDate.split('-');
-                for (const currentDay = new Date(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
-                     currentDay <= new Date(endDatePart[0], endDatePart[1] - 1, endDatePart[2]);
-                     currentDay.setDate(currentDay.getDate() + 1)) {
-                    const day = currentDay;
-                    let flag = false;
-                    response.data.forEach(x => {
-                        if (x.date.split('T')[0] === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
-                            flag = true;
-                        }
-                    });
-                    if (!flag) {
-                        newArr[currentDay.getTime()] = '0';
-                    }
-                }
-
-                Object.keys(newArr).forEach(function (element) {
-                    response.data.push({
-                        count: '0',
-                        date: new Date(parseInt(element, 10))
-                    });
-                });
-
-                response.data = _.sortBy(response.data,
-                    (item) => {
-                        return +new Date(item.date);
-                    });
-                const countArray = [];
-                const dateArray = [];
-                response.data.forEach(function (element) {
-                    if (typeof element.date === 'string') {
-                        const dateParts = element.date.split('-');
-                        dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
-                        dateArray.push(month[dateParts[1]] + ' ' + dateParts[2]);
-                    } else {
-                        const dateParts = element.date.toString().split(' ');
-                        dateArray.push(dateParts[1] + ' ' + dateParts[2]);
-                    }
-                    if (element.count) {
-                        countArray.push(parseInt(element.count, 10));
-                    }
-                });
-
-                let sum = 0;
-                for (let i = 0; i < countArray.length; i++) {
-                    if (countArray[i] !== null) {
-                        sum += parseInt(countArray[i], 10);
-                    }
-                }
-                this.totalSessionCount = sum;
+                const finalResult = this.getGraphData(response.data, startDate, endDate);
+                this.totalSessionCount = finalResult.sum;
                 this.options = {
                     chart: {
                         type: 'area'
@@ -159,7 +88,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
                     xAxis: {
                         type: 'datetime',
-                        categories: dateArray,
+                        categories: finalResult.dateArray,
                         dateTimeLabelFormats: {
                             day: '%b %e'
                         },
@@ -246,7 +175,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         lineWidth: 5,
                         color: '#6078FF',
                         fillOpacity: 0.1,
-                        data: countArray
+                        data: finalResult.countArray
                     }]
                 };
 
@@ -258,56 +187,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.reportsService.getMessagePerSession(startDate, endDate, this.analytics_token).subscribe((response) => {
             this.message = response.data;
             if (response.data && response.data.length) {
-                const newArr = {};
-                const startDatePart = startDate.split('-');
-                const endDatePart = endDate.split('-');
-                for (const currentDay = new Date(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
-                     currentDay <= new Date(endDatePart[0], endDatePart[1] - 1, endDatePart[2]);
-                     currentDay.setDate(currentDay.getDate() + 1)) {
-                    const day = currentDay;
-                    let flag = false;
-                    response.data.forEach(x => {
-                        if (x.date.split('T')[0] === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
-                            flag = true;
-                        }
-                    });
-                    if (!flag) {
-                        newArr[currentDay.getTime()] = '0';
-                    }
-                }
-                Object.keys(newArr).forEach(function (element) {
-                    response.data.push({
-                        count: '0',
-                        date: new Date(parseInt(element, 10))
-                    });
-                });
-                response.data = _.sortBy(response.data,
-                    (item) => {
-                        return +new Date(item.date);
-                    });
-                const msgCountArray = [];
-                const msgDateArray = [];
-                response.data.forEach(function (element) {
-                    if (typeof element.date === 'string') {
-                        const dateParts = element.date.split('-');
-                        dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
-                        msgDateArray.push(month[dateParts[1]] + ' ' + dateParts[2]);
-                    } else {
-                        const dateParts = element.date.toString().split(' ');
-                        msgDateArray.push(dateParts[1] + ' ' + dateParts[2]);
-                    }
-                    if (element.count) {
-                        msgCountArray.push(parseInt(element.count, 10));
-                    }
-                });
-
-                let sum = 0;
-                for (let i = 0; i < msgCountArray.length; i++) {
-                    if (msgCountArray[i] !== null) {
-                        sum += parseInt(msgCountArray[i], 10);
-                    }
-                }
-                this.totalMesasgeCount = sum;
+                const finalResult = this.getGraphData(response.data, startDate, endDate);
+                this.totalMesasgeCount = finalResult.sum;
                 this.options1 = {
                     chart: {
                         type: 'area'
@@ -322,7 +203,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
                     xAxis: {
                         type: 'datetime',
-                        categories: msgDateArray,
+                        categories: finalResult.dateArray,
                         dateTimeLabelFormats: {
                             day: '%b %e'
                         },
@@ -409,7 +290,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         lineWidth: 4,
                         color: '#6078FF',
                         fillOpacity: 0.1,
-                        data: msgCountArray
+                        data: finalResult.countArray
                     }]
                 };
             }
@@ -420,55 +301,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.reportsService.getTotalUsers(startDate, endDate, this.analytics_token).subscribe((response) => {
             this.users = response.data;
             if (response.data && response.data.length) {
-                const newArr = {};
-                const startDatePart = startDate.split('-');
-                const endDatePart = endDate.split('-');
-                for (const currentDay = new Date(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
-                     currentDay <= new Date(endDatePart[0], endDatePart[1] - 1, endDatePart[2]);
-                     currentDay.setDate(currentDay.getDate() + 1)) {
-                    const day = currentDay;
-                    let flag = false;
-                    response.data.forEach(x => {
-                        if (x.date.split('T')[0] === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
-                            flag = true;
-                        }
-                    });
-                    if (!flag) {
-                        newArr[currentDay.getTime()] = '0';
-                    }
-                }
-                Object.keys(newArr).forEach(function (element) {
-                    response.data.push({
-                        count: '0',
-                        date: new Date(parseInt(element, 10))
-                    });
-                });
-                response.data = _.sortBy(response.data,
-                    (item) => {
-                        return +new Date(item.date);
-                    });
-                const countArray = [];
-                const dateArray = [];
-                response.data.forEach(function (element) {
-                    if (typeof element.date === 'string') {
-                        const dateParts = element.date.split('-');
-                        dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
-                        dateArray.push(month[dateParts[1]] + ' ' + dateParts[2]);
-                    } else {
-                        const dateParts = element.date.toString().split(' ');
-                        dateArray.push(dateParts[1] + ' ' + dateParts[2]);
-                    }
-                    if (element.count) {
-                        countArray.push(parseInt(element.count, 10));
-                    }
-                });
-                let sum = 0;
-                for (let i = 0; i < countArray.length; i++) {
-                    if (countArray[i] !== null) {
-                        sum += parseInt(countArray[i], 10);
-                    }
-                }
-                this.totalUserCount = sum;
+                const finalResult = this.getGraphData(response.data, startDate, endDate);
+                this.totalUserCount = finalResult.sum;
                 this.options2 = {
                     chart: {
                         type: 'area'
@@ -483,7 +317,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
                     xAxis: {
                         type: 'datetime',
-                        categories: dateArray,
+                        categories: finalResult.dateArray,
                         dateTimeLabelFormats: {
                             day: '%b %e'
                         },
@@ -570,7 +404,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         lineWidth: 4,
                         color: '#6078FF',
                         fillOpacity: 0.1,
-                        data: countArray
+                        data: finalResult.countArray
                     }]
                 };
             }
@@ -593,6 +427,74 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             proceed.apply(this, Array.prototype.slice.call(arguments, 1));
             this.graph.add(this.markerGroup);
         });
+    }
+
+    getGraphData(resArray, startDate, endDate) {
+        const newArr = {};
+        const month = {
+            '01': 'Jan',
+            '02': 'Feb',
+            '03': 'Mar',
+            '04': 'Apr',
+            '05': 'May',
+            '06': 'Jun',
+            '07': 'Jul',
+            '08': 'Aug',
+            '09': 'Sep',
+            '10': 'Oct',
+            '11': 'Nov',
+            '12': 'Dec'
+        };
+        const startDatePart = startDate.split('-');
+        const endDatePart = endDate.split('-');
+        for (const currentDay = new Date(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
+             currentDay <= new Date(endDatePart[0], endDatePart[1] - 1, endDatePart[2]);
+             currentDay.setDate(currentDay.getDate() + 1)) {
+            const day = currentDay;
+            let flag = false;
+            resArray.forEach(x => {
+                if (x.date.split('T')[0] === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
+                    flag = true;
+                }
+            });
+            if (!flag) {
+                newArr[currentDay.getTime()] = '0';
+            }
+        }
+
+        Object.keys(newArr).forEach(function (element) {
+            resArray.push({
+                count: '0',
+                date: new Date(parseInt(element, 10))
+            });
+        });
+
+        resArray = _.sortBy(resArray,
+            (item) => {
+                return +new Date(item.date);
+            });
+        const countArray = [];
+        const dateArray = [];
+        resArray.forEach(function (element) {
+            if (typeof element.date === 'string') {
+                const dateParts = element.date.split('-');
+                dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
+                dateArray.push(month[dateParts[1]] + ' ' + dateParts[2]);
+            } else {
+                const dateParts = element.date.toString().split(' ');
+                dateArray.push(dateParts[1] + ' ' + dateParts[2]);
+            }
+            if (element.count) {
+                countArray.push(parseInt(element.count, 10));
+            }
+        });
+        let sum = 0;
+        for (let i = 0; i < countArray.length; i++) {
+            if (countArray[i] !== null) {
+                sum += parseInt(countArray[i], 10);
+            }
+        }
+        return {countArray: countArray, dateArray: dateArray, sum: sum};
     }
 
     onDateChange(event: any) {
