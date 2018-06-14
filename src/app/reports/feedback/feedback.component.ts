@@ -129,14 +129,16 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
                     this.options = {};
                     const feedbackData = [];
-                    res.data.forEach(function (element) {
-                        feedbackData.push({
-                            text: element.feedback,
-                            created_at: element.date
+                    if (res.data && res.data.length) {
+                        res.data.forEach(function (element) {
+                            feedbackData.push({
+                                text: element.feedback,
+                                created_at: element.date
+                            });
                         });
-                    });
-                    const data = this.insertDates(feedbackData);
-                    this.generateGraph(data);
+                        const data = this.insertDates(feedbackData);
+                        this.generateGraph(data);
+                    }
                 }, (err) => {
                     console.log(err);
                 });
@@ -214,14 +216,17 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             } else {
                 this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
                     const feedbackData = [];
-                    res.data.forEach(function (element) {
-                        feedbackData.push({
-                            text: element.feedback,
-                            created_at: element.date
+                    this.options = {};
+                    if (res.data && res.data.length) {
+                        res.data.forEach(function (element) {
+                            feedbackData.push({
+                                text: element.feedback,
+                                created_at: element.date
+                            });
                         });
-                    });
-                    const data = this.insertDates(feedbackData);
-                    this.generateGraph(data);
+                        const data = this.insertDates(feedbackData);
+                        this.generateGraph(data);
+                    }
                 }, (err) => {
                     console.log(err);
                 });

@@ -36,7 +36,8 @@
                 <span>Feedback Type: <strong>Evaluation is per {{feedback_type ? 'Message': 'Session'}}</strong></span>
             </div>
               <div class="col-sm-6" *ngIf="!totalAvg">
-
+                <h2></h2>
+                <span>Feedback Type: <strong>Evaluation is per {{feedback_type ? 'Message': 'Session'}}</strong></span>
               </div>
             <div class="col-sm-6">
               <div class="chart-duration-wrap" [class.active]="showOptions">
@@ -51,12 +52,12 @@
               </div>
             </div>
           </div>
-          <div class="feedback-wrapper">
+          <div class="feedback-wrapper" *ngIf="sessions && sessions.length">
             <div class="analytics-inner-wrap">
               <chart [options]="options"></chart>
             </div>
 
-            <table class="table table-bordered table-striped feedback_table" *ngIf="sessions && sessions.length">
+            <table class="table table-bordered table-striped feedback_table">
               <thead>
               <tr>
                 <th>Message</th>
@@ -71,7 +72,7 @@
               </tbody>
             </table>
 
-            <div class="pagination-export-wrapper" *ngIf="sessions && sessions.length && items && items.length">
+            <div class="pagination-export-wrapper" *ngIf="items && items.length">
               <div class="row">
                 <div class="col-md-4">
                   <div class="export-btn-wrap pagination-export-wrap">
