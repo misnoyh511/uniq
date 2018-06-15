@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="page-title-wrapper">
-              <h1>Transcripts</h1>
+              <h1>All Conversations</h1>
             </div>
           </div>
           <div class="col-md-6">
@@ -26,7 +26,7 @@
       </div>
       <div class="getting-started-wrap-wrapper">
         <div class="step-inner-wrapper analytics-inner-sections">
-          <div class="step-inner-title analytics-inner-titles">
+          <!--<div class="step-inner-title analytics-inner-titles">
             <h3>Transcripts
               <sup><i (mouseover)="showTooltip= true" (mouseout)="showTooltip= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
               <div class="analytics-tool-tip" [class.show]="showTooltip">
@@ -37,10 +37,10 @@
                 </ul>
               </div>
             </h3>
-          </div>
+          </div>-->
 
           <div class="analytics-inner-wrap transcript-wrap">
-            <h4>Total Transcripts <span (click)="reloadData()"><i class="fa fa-refresh"></i></span> </h4>
+            <!--<h4>Total Transcripts <span (click)="reloadData()"><i class="fa fa-refresh"></i></span> </h4>-->
             <table class="table table-bordered table-striped">
               <thead>
               <tr>
@@ -54,8 +54,14 @@
               </thead>
               <tbody>
               <tr *ngFor="let transcript of items">
-                <td><a class="toggle-chat-wrap" href="javascript:void(0)">{{transcript.created_at | date : 'MMM d, y h:mm:ss'}}</a></td>
-                <td><i class="fa fa-user" aria-hidden="true"></i> {{transcript.session_id}}</td>
+                <td><a class="toggle-chat-wrap" href="javascript:void(0)">{{transcript.created_at | date : 'MMM d, y'}} <br>{{transcript.created_at | date : 'h:mma' | lowercase}}</a></td>
+                <!--<td><i class="fa fa-user" aria-hidden="true"></i> {{transcript.session_id}}</td>-->
+                <td>
+                  <span matTooltip={{transcript.session_id}}>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                  {{transcript.session_id.length > 17 ?transcript.session_id.substring(0, 17)+ '...' : transcript.session_id}}
+                  </span>
+                </td>
                 <td>{{(transcript.totalMsgs.length <=2) ? 'less then 15 seconds' : (transcript.totalMsgs.length <= 10) ? '15 seconds to one min' : 'more then 1 min'}}</td>
                 <td>{{transcript.msg_in.length}}</td>
                 <td>{{transcript.msg_out.length}}</td>
@@ -64,33 +70,34 @@
               </tbody>
             </table>
 
-            <div class="pagination-export-wrapper" *ngIf="transcripts && transcripts.length">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="export-btn-wrap pagination-export-wrap">
-                    <button class="blue-btn">Export CSV</button>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="pagination-wrap hide-prev pagination-export-wrap">
-                    <ul>
-                      <li (click)="moveToFirstPage()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>
-                      <li (click)="goBack()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a></li>
-                      <li>{{(pageNo + 1) + ' / ' + totalPages}}</li>
-                      <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="number-of-items-wrap pagination-export-wrap">
-                    <form>
-                      <label>Number of Items</label>
-                      <select [(ngModel)]="itemPerPage" name="itemPerPage" (change)="getItemCount()">
-                        <option *ngFor="let page of itemsPerPage">{{page}}</option>
-                      </select>
-                    </form>
-                  </div>
-                </div>
+
+          </div>
+        </div>
+        <div class="pagination-export-wrapper" *ngIf="transcripts && transcripts.length">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="export-btn-wrap pagination-export-wrap">
+                <button class="blue-btn">Export CSV</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="pagination-wrap hide-prev pagination-export-wrap">
+                <ul>
+                  <li (click)="moveToFirstPage()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>
+                  <li (click)="goBack()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a></li>
+                  <li>{{(pageNo + 1) + ' / ' + totalPages}}</li>
+                  <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="number-of-items-wrap pagination-export-wrap">
+                <form>
+                  <label>Number of Items</label>
+                  <select [(ngModel)]="itemPerPage" name="itemPerPage" (change)="getItemCount()">
+                    <option *ngFor="let page of itemsPerPage">{{page}}</option>
+                  </select>
+                </form>
               </div>
             </div>
           </div>

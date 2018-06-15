@@ -88,6 +88,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     getSession() {
         this.items = [];
         this.sessions = [];
+        this.totalAvg = '';
         if (this.feedback_type) {
             if (this.selectedValue === 'Negative') {
                 this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
@@ -217,6 +218,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
                     const feedbackData = [];
                     this.options = {};
+                    console.log('res.data', res.data);
                     if (res.data && res.data.length) {
                         res.data.forEach(function (element) {
                             feedbackData.push({
@@ -495,7 +497,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 area: {
                     type: 'percent',
                     marker: {
-                        enabled: false,
+                        enabled: true,
                         symbol: 'circle',
                         fillColor: '#6078FF',
                         radius: 7,
@@ -521,7 +523,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         }, mouseOut: function () {
                             this.update({
                                 marker: {
-                                    enabled: false
+                                    enabled: true
                                 }
                             });
                         }

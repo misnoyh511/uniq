@@ -27,6 +27,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     daterange: any = {};
     message: any = [];
     analytics_token: string;
+    flag = true;
 
     constructor(private reportsService: ReportsService, public sbs: SidebarService, private datePipe: DatePipe) {}
 
@@ -58,6 +59,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.onLoadData(this.startDate, this.endDate);
         });
         this.sbs.botData.subscribe((data) => {
+            this.flag = true;
             this.analytics_token = data.analytics_token;
             this.onLoadData(this.startDate, this.endDate);
         });
@@ -69,364 +71,367 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
     onLoadData(startDate, endDate) {
         this.options = this.options1 = this.options2 = {};
-        this.reportsService.getAllSession(startDate, endDate, this.analytics_token).subscribe((response) => {
-            this.sessions = response.data;
-            if (response.data && response.data.length) {
-                const finalResult = this.getGraphData(response.data, startDate, endDate);
-                this.totalSessionCount = finalResult.sum;
-                this.options = {
-                    chart: {
-                        type: 'area'
-                    },
-                    title: {
-                        text: ''
-                    },
-
-                    subtitle: {
-                        text: ''
-                    },
-
-                    xAxis: {
-                        type: 'datetime',
-                        categories: finalResult.dateArray,
-                        dateTimeLabelFormats: {
-                            day: '%b %e'
+        if (this.flag) {
+            this.flag = false;
+            this.reportsService.getAllSession(startDate, endDate, this.analytics_token).subscribe((response) => {
+                this.sessions = response.data;
+                if (response.data && response.data.length) {
+                    const finalResult = this.getGraphData(response.data, startDate, endDate);
+                    this.totalSessionCount = finalResult.sum;
+                    this.options = {
+                        chart: {
+                            type: 'area'
                         },
-                        labels: {
-                            style: {
-                                color: '#626597',
-                                fontSize: '14px'
-                            }
-                        },
-                        tickmarkPlacement: 'on'
-                    },
-                    yAxis: {
                         title: {
-                            text: 'Count'
+                            text: ''
                         },
-                        gridLineColor: '#fafafa',
-                        labels: {
-                            formatter: function () {
-                                return this.value;
+
+                        subtitle: {
+                            text: ''
+                        },
+
+                        xAxis: {
+                            type: 'datetime',
+                            categories: finalResult.dateArray,
+                            dateTimeLabelFormats: {
+                                day: '%b %e'
                             },
-                            style: {
-                                color: '#626597',
-                                fontSize: '14px'
-                            }
-                        }
-                    },
-
-                    tooltip: {
-                        formatter: function () {
-                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
-                                this.x + '</span> <br> <b style="color:#6078FF; ' +
-                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                            labels: {
+                                style: {
+                                    color: '#626597',
+                                    fontSize: '14px'
+                                }
+                            },
+                            tickmarkPlacement: 'on'
                         },
-                        backgroundColor: null,
-                        borderWidth: 0,
-                        shadow: false,
-                        useHTML: true,
-                        style: {
-                            padding: 0
-                        }
-                    },
-
-                    plotOptions: {
-                        area: {
-                            type: 'percent',
-                            marker: {
-                                enabled: false,
-                                symbol: 'circle',
-                                fillColor: '#6078FF',
-                                radius: 7,
-                                states: {
-                                    hover: {
-                                        enabled: true,
-                                        fillColor: '#fff',
-                                        lineColor: '#6078FF',
-                                        lineWidth: 3,
-                                        radius: 10
-                                    }
+                        yAxis: {
+                            title: {
+                                text: 'Count'
+                            },
+                            gridLineColor: '#fafafa',
+                            labels: {
+                                formatter: function () {
+                                    return this.value;
                                 },
-                                zIndex: 100
-                            },
-                            events: {
-                                mouseOver: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: true
-                                        }
-                                    });
-                                }, mouseOut: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: false
-                                        }
-                                    });
+                                style: {
+                                    color: '#626597',
+                                    fontSize: '14px'
                                 }
                             }
                         },
-                        series: {
-                            connectNulls: true
-                        }
-                    },
-                    series: [{
-                        lineColor: '#6078FF',
-                        lineWidth: 5,
-                        color: '#6078FF',
-                        fillOpacity: 0.1,
-                        data: finalResult.countArray
-                    }]
-                };
 
-            }
-        }, (err) => {
-            console.log(err);
-        });
-
-        this.reportsService.getMessagePerSession(startDate, endDate, this.analytics_token).subscribe((response) => {
-            this.message = response.data;
-            if (response.data && response.data.length) {
-                const finalResult = this.getGraphData(response.data, startDate, endDate);
-                this.totalMesasgeCount = finalResult.sum;
-                this.options1 = {
-                    chart: {
-                        type: 'area'
-                    },
-                    title: {
-                        text: ''
-                    },
-
-                    subtitle: {
-                        text: ''
-                    },
-
-                    xAxis: {
-                        type: 'datetime',
-                        categories: finalResult.dateArray,
-                        dateTimeLabelFormats: {
-                            day: '%b %e'
-                        },
-                        labels: {
-                            style: {
-                                color: '#626597',
-                                fontSize: '14px'
-                            }
-                        },
-                        tickmarkPlacement: 'on'
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Message Count'
-                        },
-                        gridLineColor: '#fafafa',
-                        labels: {
+                        tooltip: {
                             formatter: function () {
-                                return this.value;
+                                return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                    this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                    'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
                             },
+                            backgroundColor: null,
+                            borderWidth: 0,
+                            shadow: false,
+                            useHTML: true,
                             style: {
-                                color: '#626597',
-                                fontSize: '14px'
+                                padding: 0
                             }
-                        }
-                    },
-
-                    tooltip: {
-                        formatter: function () {
-                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
-                                this.x + '</span> <br> <b style="color:#6078FF; ' +
-                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
                         },
-                        backgroundColor: null,
-                        borderWidth: 0,
-                        shadow: false,
-                        useHTML: true,
-                        style: {
-                            padding: 0
-                        }
-                    },
 
-                    plotOptions: {
-                        area: {
-                            type: 'percent',
-                            marker: {
-                                enabled: false,
-                                symbol: 'circle',
-                                fillColor: '#6078FF',
-                                radius: 7,
-                                states: {
-                                    hover: {
-                                        enabled: true,
-                                        fillColor: '#fff',
-                                        lineColor: '#6078FF',
-                                        lineWidth: 3,
-                                        radius: 10
-                                    }
+                        plotOptions: {
+                            area: {
+                                type: 'percent',
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    fillColor: '#6078FF',
+                                    radius: 7,
+                                    states: {
+                                        hover: {
+                                            enabled: true,
+                                            fillColor: '#fff',
+                                            lineColor: '#6078FF',
+                                            lineWidth: 3,
+                                            radius: 10
+                                        }
+                                    },
+                                    zIndex: 100
                                 },
-                                zIndex: 100
-                            },
-                            events: {
-                                mouseOver: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: true
-                                        }
-                                    });
-                                }, mouseOut: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: false
-                                        }
-                                    });
-                                }
-                            }
-                        },
-                        series: {
-                            connectNulls: true
-                        }
-                    },
-                    series: [{
-                        lineColor: '#6078FF',
-                        lineWidth: 4,
-                        color: '#6078FF',
-                        fillOpacity: 0.1,
-                        data: finalResult.countArray
-                    }]
-                };
-            }
-        }, (err) => {
-            console.log(err);
-        });
-
-        this.reportsService.getTotalUsers(startDate, endDate, this.analytics_token).subscribe((response) => {
-            this.users = response.data;
-            if (response.data && response.data.length) {
-                const finalResult = this.getGraphData(response.data, startDate, endDate);
-                this.totalUserCount = finalResult.sum;
-                this.options2 = {
-                    chart: {
-                        type: 'area'
-                    },
-                    title: {
-                        text: ''
-                    },
-
-                    subtitle: {
-                        text: ''
-                    },
-
-                    xAxis: {
-                        type: 'datetime',
-                        categories: finalResult.dateArray,
-                        dateTimeLabelFormats: {
-                            day: '%b %e'
-                        },
-                        labels: {
-                            style: {
-                                color: '#626597',
-                                fontSize: '14px'
-                            }
-                        },
-                        tickmarkPlacement: 'on'
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Users'
-                        },
-                        gridLineColor: '#fafafa',
-                        labels: {
-                            formatter: function () {
-                                return this.value;
-                            },
-                            style: {
-                                color: '#626597',
-                                fontSize: '14px'
-                            }
-                        }
-                    },
-
-                    tooltip: {
-                        formatter: function () {
-                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
-                                this.x + '</span> <br> <b style="color:#6078FF; ' +
-                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
-                        },
-                        backgroundColor: null,
-                        borderWidth: 0,
-                        shadow: false,
-                        useHTML: true,
-                        style: {
-                            padding: 0
-                        }
-                    },
-
-                    plotOptions: {
-                        area: {
-                            type: 'percent',
-                            marker: {
-                                enabled: false,
-                                symbol: 'circle',
-                                fillColor: '#6078FF',
-                                radius: 7,
-                                states: {
-                                    hover: {
-                                        enabled: true,
-                                        fillColor: '#fff',
-                                        lineColor: '#6078FF',
-                                        lineWidth: 3,
-                                        radius: 10
+                                events: {
+                                    mouseOver: function () {
+                                        this.update({
+                                            marker: {
+                                                enabled: true
+                                            }
+                                        });
+                                    }, mouseOut: function () {
+                                        this.update({
+                                            marker: {
+                                                enabled: false
+                                            }
+                                        });
                                     }
-                                },
-                                zIndex: 100
-                            },
-                            events: {
-                                mouseOver: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: true
-                                        }
-                                    });
-                                }, mouseOut: function () {
-                                    this.update({
-                                        marker: {
-                                            enabled: false
-                                        }
-                                    });
                                 }
+                            },
+                            series: {
+                                connectNulls: true
                             }
                         },
-                        series: {
-                            connectNulls: true
-                        }
-                    },
-                    series: [{
-                        lineColor: '#6078FF',
-                        lineWidth: 4,
-                        color: '#6078FF',
-                        fillOpacity: 0.1,
-                        data: finalResult.countArray
-                    }]
-                };
-            }
-        }, (err) => {
-            console.log(err);
-        });
+                        series: [{
+                            lineColor: '#6078FF',
+                            lineWidth: 5,
+                            color: '#6078FF',
+                            fillOpacity: 0.1,
+                            data: finalResult.countArray
+                        }]
+                    };
 
-        this.reportsService.getAvgTtime(startDate, endDate, this.analytics_token).subscribe((response) => {
-            this.data = response.data;
-            let sum = 0;
-            response.data.forEach(function (element) {
-                sum = sum + element.avg_time;
+                }
+            }, (err) => {
+                console.log(err);
             });
-            this.avg_time = sum / response.data.length;
-        }, (err) => {
-            console.log(err);
-        });
-        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
-            proceed.call(this);
-            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-            this.graph.add(this.markerGroup);
-        });
+
+            this.reportsService.getMessagePerSession(startDate, endDate, this.analytics_token).subscribe((response) => {
+                this.message = response.data;
+                if (response.data && response.data.length) {
+                    const finalResult = this.getGraphData(response.data, startDate, endDate);
+                    this.totalMesasgeCount = finalResult.sum;
+                    this.options1 = {
+                        chart: {
+                            type: 'area'
+                        },
+                        title: {
+                            text: ''
+                        },
+
+                        subtitle: {
+                            text: ''
+                        },
+
+                        xAxis: {
+                            type: 'datetime',
+                            categories: finalResult.dateArray,
+                            dateTimeLabelFormats: {
+                                day: '%b %e'
+                            },
+                            labels: {
+                                style: {
+                                    color: '#626597',
+                                    fontSize: '14px'
+                                }
+                            },
+                            tickmarkPlacement: 'on'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Message Count'
+                            },
+                            gridLineColor: '#fafafa',
+                            labels: {
+                                formatter: function () {
+                                    return this.value;
+                                },
+                                style: {
+                                    color: '#626597',
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+
+                        tooltip: {
+                            formatter: function () {
+                                return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                    this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                    'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                            },
+                            backgroundColor: null,
+                            borderWidth: 0,
+                            shadow: false,
+                            useHTML: true,
+                            style: {
+                                padding: 0
+                            }
+                        },
+
+                        plotOptions: {
+                            area: {
+                                type: 'percent',
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    fillColor: '#6078FF',
+                                    radius: 7,
+                                    states: {
+                                        hover: {
+                                            enabled: true,
+                                            fillColor: '#fff',
+                                            lineColor: '#6078FF',
+                                            lineWidth: 3,
+                                            radius: 10
+                                        }
+                                    },
+                                    zIndex: 100
+                                },
+                                events: {
+                                    mouseOver: function () {
+                                        this.update({
+                                            marker: {
+                                                enabled: true
+                                            }
+                                        });
+                                    }, mouseOut: function () {
+                                        this.update({
+                                            marker: {
+                                                enabled: false
+                                            }
+                                        });
+                                    }
+                                }
+                            },
+                            series: {
+                                connectNulls: true
+                            }
+                        },
+                        series: [{
+                            lineColor: '#6078FF',
+                            lineWidth: 4,
+                            color: '#6078FF',
+                            fillOpacity: 0.1,
+                            data: finalResult.countArray
+                        }]
+                    };
+                }
+            }, (err) => {
+                console.log(err);
+            });
+
+            this.reportsService.getTotalUsers(startDate, endDate, this.analytics_token).subscribe((response) => {
+                this.users = response.data;
+                if (response.data && response.data.length) {
+                    const finalResult = this.getGraphData(response.data, startDate, endDate);
+                    this.totalUserCount = finalResult.sum;
+                    this.options2 = {
+                        chart: {
+                            type: 'area'
+                        },
+                        title: {
+                            text: ''
+                        },
+
+                        subtitle: {
+                            text: ''
+                        },
+
+                        xAxis: {
+                            type: 'datetime',
+                            categories: finalResult.dateArray,
+                            dateTimeLabelFormats: {
+                                day: '%b %e'
+                            },
+                            labels: {
+                                style: {
+                                    color: '#626597',
+                                    fontSize: '14px'
+                                }
+                            },
+                            tickmarkPlacement: 'on'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Users'
+                            },
+                            gridLineColor: '#fafafa',
+                            labels: {
+                                formatter: function () {
+                                    return this.value;
+                                },
+                                style: {
+                                    color: '#626597',
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+
+                        tooltip: {
+                            formatter: function () {
+                                return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                    this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                    'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                            },
+                            backgroundColor: null,
+                            borderWidth: 0,
+                            shadow: false,
+                            useHTML: true,
+                            style: {
+                                padding: 0
+                            }
+                        },
+
+                        plotOptions: {
+                            area: {
+                                type: 'percent',
+                                marker: {
+                                    enabled: false,
+                                    symbol: 'circle',
+                                    fillColor: '#6078FF',
+                                    radius: 7,
+                                    states: {
+                                        hover: {
+                                            enabled: true,
+                                            fillColor: '#fff',
+                                            lineColor: '#6078FF',
+                                            lineWidth: 3,
+                                            radius: 10
+                                        }
+                                    },
+                                    zIndex: 100
+                                },
+                                events: {
+                                    mouseOver: function () {
+                                        this.update({
+                                            marker: {
+                                                enabled: true
+                                            }
+                                        });
+                                    }, mouseOut: function () {
+                                        this.update({
+                                            marker: {
+                                                enabled: false
+                                            }
+                                        });
+                                    }
+                                }
+                            },
+                            series: {
+                                connectNulls: true
+                            }
+                        },
+                        series: [{
+                            lineColor: '#6078FF',
+                            lineWidth: 4,
+                            color: '#6078FF',
+                            fillOpacity: 0.1,
+                            data: finalResult.countArray
+                        }]
+                    };
+                }
+            }, (err) => {
+                console.log(err);
+            });
+
+            this.reportsService.getAvgTtime(startDate, endDate, this.analytics_token).subscribe((response) => {
+                this.data = response.data;
+                let sum = 0;
+                response.data.forEach(function (element) {
+                    sum = sum + element.avg_time;
+                });
+                this.avg_time = sum / response.data.length;
+            }, (err) => {
+                console.log(err);
+            });
+            Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
+                proceed.call(this);
+                proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+                this.graph.add(this.markerGroup);
+            });
+        }
     }
 
     getGraphData(resArray, startDate, endDate) {
@@ -508,6 +513,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                 end: this.endDate
             };
             localStorage.setItem('DATE_OBJ', JSON.stringify(this.sbs.dateObj));
+            this.flag = true;
             this.onLoadData(this.startDate, this.endDate);
         }
     }

@@ -1,118 +1,112 @@
-
 <div class="dashboard-container">
 
-  <div class="dashboard-inner-container">
-    <div class="dashboard-getting-stared-wrapper">
-      <app-sub-nav [navType]="'topMessageOut'"></app-sub-nav>
-      <div class="page-title-filter-wrap">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="page-title-wrapper">
-              <h1>Top Message Out</h1>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-sm-4">
-                <!--<span class="data-update-text">Updated an hour ago</span>-->
-              </div>
-              <div class="col-sm-8">
-                <div class="date-picker-filter-wrap">
-                  <div class="daterange daterange--double date-range-picker" (onDateChange) ="onDateChange($event)" appDatePicker></div>
+    <div class="dashboard-inner-container">
+        <div class="dashboard-getting-stared-wrapper">
+            <app-sub-nav [navType]="'topMessageOut'"></app-sub-nav>
+            <div class="page-title-filter-wrap">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="page-title-wrapper">
+                            <h1>Message Out</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="date-picker-filter-wrap">
+                                    <div class="daterange daterange--double date-range-picker"
+                                         (onDateChange)="onDateChange($event)" appDatePicker></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="getting-started-wrap-wrapper">
-        <div class="step-inner-wrapper analytics-inner-sections">
-          <div class="step-inner-title analytics-inner-titles">
-            <h3>Top Messages
-              <sup><i (mouseover)="showTooltip= true" (mouseout)="showTooltip= false" class="fa fa-question-circle" aria-hidden="true"></i></sup>
-              <div class="analytics-tool-tip" [class.show]="showTooltip">
-                <p>Lorem ipsum dummy text sit amet. Lorem is a placeholde text due to lack of the original content.</p>
-                <ul>
-                  <li>Lorem ipusm is just a dummy text.</li>
-                  <li>Contrar sit amet lorem ipsum.</li>
-                </ul>
-              </div>
-            </h3>
-          </div>
+            <div class="getting-started-wrap-wrapper">
+                <div class="step-inner-wrapper analytics-inner-sections">
+                    <div class="analytics-inner-wrap">
+                        <table class="table table-bordered table-striped text-left">
+                            <thead>
+                            <tr>
+                                <th style="width: 45%">Top 10 Messages Out</th>
+                                <th style="width: 45%">Percentage</th>
+                                <th>Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let msg of topMessagesOut; let i = index;">
+                                <td *ngIf="i<10" class="w-40" matTooltip={{msg.text}}>
+                                    {{msg.text.length > 150 ? msg.text.substring(0, 150)+ '...' : msg.text}}
+                                </td>
+                                <td *ngIf="i<10">
+                                    <div class="messages-percentage-bar">
+                                        <div ngClass={{colorClass[i%5]}}
+                                             [style.width.%]="((msg.count/totalCount)* 100).toFixed(2)"></div>
+                                    </div>
+                                    <span>{{((msg.count/totalCount)* 100).toFixed(2)}}%</span>
+                                </td>
+                                <td *ngIf="i<10">{{msg.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="step-inner-wrapper analytics-inner-sections">
+                    <div class="analytics-inner-wrap">
+                        <table class="table table-bordered table-striped text-left">
+                            <thead>
+                            <tr>
+                                <th style="width: 80%">Message</th>
+                                <th>Message Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let msg of items">
+                                <td matTooltip={{msg.text}}>{{msg.text.length > 150 ? msg.text.substring(0, 150)+ '...'
+                                    : msg.text}}
+                                </td>
+                                <td>{{msg.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
-          <div class="analytics-inner-wrap">
-            <h4>Top Message Out</h4>
-            <table class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th>Top 10 Messages Out</th>
-                <th>Percentage</th>
-                <th>Count</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let msg of topMessagesOut; let i = index;">
-                <td *ngIf="i<10" class="w-40" matTooltip={{msg.text}}>
-                  {{msg.text.length > 150 ? msg.text.substring(0, 150)+ '...' : msg.text}}
-                </td>
-                <td *ngIf="i<10">
-                  <div class="messages-percentage-bar">
-                    <div  ngClass={{colorClass[i%5]}} [style.width.%]="((msg.count/totalCount)* 100).toFixed(2)"></div>
-                  </div>
-                  <span>{{((msg.count/totalCount)* 100).toFixed(2)}}%</span>
-                </td>
-                <td *ngIf="i<10">{{msg.count}}</td>
-              </tr>
-              </tbody>
-            </table>
-            <h4 style="margin-top: 20px">Messages</h4>
-            <table class="table table-bordered table-striped">
-              <thead>
-              <tr>
-                <th>Message</th>
-                <th>Message Count</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let msg of items">
-                <td matTooltip={{msg.text}}>{{msg.text.length > 150 ? msg.text.substring(0, 150)+ '...' : msg.text}}</td>
-                <td>{{msg.count}}</td>
-              </tr>
-              </tbody>
-            </table>
-
-            <div class="pagination-export-wrapper" *ngIf="topMessagesOut && topMessagesOut.length">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="export-btn-wrap pagination-export-wrap">
-                    <button class="blue-btn">Export CSV</button>
-                  </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="pagination-wrap hide-prev pagination-export-wrap">
-                    <ul>
-                      <li (click)="moveToFirstPage()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>
-                      <li (click)="goBack()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a></li>
-                      <li>{{(pageNo + 1) + ' / ' + totalPages}}</li>
-                      <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
-                    </ul>
-                  </div>
+                <div class="pagination-export-wrapper" *ngIf="topMessagesOut && topMessagesOut.length">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="export-btn-wrap pagination-export-wrap">
+                                <button class="blue-btn">Export CSV</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="pagination-wrap hide-prev pagination-export-wrap">
+                                <ul>
+                                    <li (click)="moveToFirstPage()" [class.disabled]="pageNo === 0"><a
+                                            href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>
+                                    <li (click)="goBack()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i
+                                            class="fa fa-caret-left"></i></a></li>
+                                    <li>{{(pageNo + 1) + ' / ' + totalPages}}</li>
+                                    <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a
+                                            href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="number-of-items-wrap pagination-export-wrap">
+                                <form>
+                                    <label>Number of Items</label>
+                                    <select [(ngModel)]="itemPerPage" name="itemPerPage" (change)="getItemCount()">
+                                        <option *ngFor="let page of itemsPerPage">{{page}}</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="number-of-items-wrap pagination-export-wrap">
-                    <form>
-                      <label>Number of Items</label>
-                      <select [(ngModel)]="itemPerPage" name="itemPerPage" (change)="getItemCount()">
-                        <option *ngFor="let page of itemsPerPage">{{page}}</option>
-                      </select>
-                    </form>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

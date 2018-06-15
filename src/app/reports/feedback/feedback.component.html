@@ -1,110 +1,121 @@
 <div class="dashboard-container">
 
-  <div class="dashboard-inner-container">
-    <div class="dashboard-getting-stared-wrapper">
-      <app-sub-nav [navType]="'feedback'"></app-sub-nav>
-      <div class="page-title-filter-wrap">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="page-title-wrapper">
-              <h1>Feedback</h1>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-sm-4">
-                <!--<span class="data-update-text">Updated an hour ago</span>-->
-              </div>
-              <div class="col-sm-8">
-                <div class="date-picker-filter-wrap">
-                  <div class="daterange daterange--double date-range-picker" (onDateChange) ="onDateChange($event)" appDatePicker></div>
+    <div class="dashboard-inner-container">
+        <div class="dashboard-getting-stared-wrapper">
+            <app-sub-nav [navType]="'feedback'"></app-sub-nav>
+            <div class="page-title-filter-wrap">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="page-title-wrapper">
+                            <h1>Feedback</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <!--<span class="data-update-text">Updated an hour ago</span>-->
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="date-picker-filter-wrap">
+                                    <div class="daterange daterange--double date-range-picker"
+                                         (onDateChange)="onDateChange($event)" appDatePicker></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
+            <div class="getting-started-wrap-wrapper">
+                <div class="step-inner-wrapper chart-title-wrap">
+                    <div class="row">
+                        <div class="col-sm-6" *ngIf="totalAvg && totalAvg !== 'NaN%'">
+                            <h2>{{totalAvg}}</h2>
+                            <span>Feedback Type: <strong>Evaluation is per {{feedback_type === 1 ? 'Message': feedback_type === 0 ? 'Session' : ''}}</strong></span>
+                        </div>
+                        <div class="col-sm-6" *ngIf="totalAvg === 'NaN%'">
+                            <h2>0%</h2>
+                            <span>Feedback Type: <strong>Evaluation is per {{feedback_type === 1 ? 'Message': feedback_type === 0 ? 'Session' : ''}}</strong></span>
+                        </div>
+                          <div class="col-sm-6" *ngIf="!totalAvg">
+                            <h2></h2>
+                              <span>Feedback Type: <strong>Evaluation is per {{feedback_type === 1 ? 'Message': feedback_type === 0 ? 'Session' : ''}}</strong></span>
+                          </div>
+                        <div class="col-sm-6">
+                            <div class="chart-duration-wrap" [class.active]="showOptions">
+                                <a href="javascript:void(0)" (click)="showOptions = !showOptions;"><span>{{selectedValue}}</span>
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="chart-duration-options">
+                                    <span [class.active]="showAll"
+                                          (click)="getOption('All'); showAll = true; showOptions = showPositive = showNegative = false; ">All</span>
+                                    <span [class.active]="showPositive"
+                                          (click)="getOption('Positive'); showPositive = true; showOptions = showAll = showNegative = false; ">Positive</span>
+                                    <span [class.active]="showNegative"
+                                          (click)="getOption('Negative'); showNegative = true; showOptions = showPositive = showAll = false; ">Negative</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-wrapper" *ngIf="sessions && sessions.length">
+                        <div class="analytics-inner-wrap">
+                            <chart [options]="options"></chart>
+                        </div>
+
+                        <table class="table table-bordered table-striped feedback_table">
+                            <thead>
+                            <tr>
+                                <th>Message</th>
+                                <th>Message Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let session of items" [class]="session.status + 'Color'">
+                                <td matTooltip={{session.msg}}>{{session.msg.length > 90 ? session.msg.substring(0, 90)+
+                                    '...' : session.msg}}
+                                </td>
+                                <td>{{session.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="pagination-export-wrapper" *ngIf="items && items.length">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="export-btn-wrap pagination-export-wrap">
+                                        <button class="blue-btn">Export CSV</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="pagination-wrap hide-prev pagination-export-wrap">
+                                        <ul>
+                                            <li (click)="moveToFirstPage()" [class.disabled]="pageNo === 0"><a
+                                                    href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a>
+                                            </li>
+                                            <li (click)="goBack()" [class.disabled]="pageNo === 0"><a
+                                                    href="javascript:void(0)"><i class="fa fa-caret-left"></i></a></li>
+                                            <li>{{(pageNo + 1) + ' / ' + totalPages}}</li>
+                                            <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a
+                                                    href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" *ngIf="itemsPerPage.length">
+                                    <div class="number-of-items-wrap pagination-export-wrap">
+                                        <form>
+                                            <label>Number of Items</label>
+                                            <select [(ngModel)]="itemPerPage" name="itemPerPage"
+                                                    (change)="getItemCount()">
+                                                <option *ngFor="let page of itemsPerPage">{{page}}</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
-      <div class="getting-started-wrap-wrapper">
-        <div class="step-inner-wrapper chart-title-wrap">
-          <div class="row">
-            <div class="col-sm-6" *ngIf="totalAvg && totalAvg !== 'NaN%'">
-              <h2>{{totalAvg}}</h2>
-              <span>Feedback Type: <strong>Evaluation is per {{feedback_type ? 'Message': 'Session'}}</strong></span>
-            </div>
-            <div class="col-sm-6" *ngIf="totalAvg === 'NaN%'">
-                <h2>0%</h2>
-                <span>Feedback Type: <strong>Evaluation is per {{feedback_type ? 'Message': 'Session'}}</strong></span>
-            </div>
-              <div class="col-sm-6" *ngIf="!totalAvg">
-                <h2></h2>
-                <span>Feedback Type: <strong>Evaluation is per {{feedback_type ? 'Message': 'Session'}}</strong></span>
-              </div>
-            <div class="col-sm-6">
-              <div class="chart-duration-wrap" [class.active]="showOptions">
-                <a href="javascript:void(0)" (click)="showOptions = !showOptions;"><span>{{selectedValue}}</span>
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </a>
-                <div class="chart-duration-options">
-                  <span [class.active]="showAll" (click)="getOption('All'); showAll = true; showOptions = showPositive = showNegative = false; ">All</span>
-                  <span [class.active]="showPositive" (click)="getOption('Positive'); showPositive = true; showOptions = showAll = showNegative = false; ">Positive</span>
-                  <span [class.active]="showNegative" (click)="getOption('Negative'); showNegative = true; showOptions = showPositive = showAll = false; ">Negative</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="feedback-wrapper" *ngIf="sessions && sessions.length">
-            <div class="analytics-inner-wrap">
-              <chart [options]="options"></chart>
-            </div>
-
-            <table class="table table-bordered table-striped feedback_table">
-              <thead>
-              <tr>
-                <th>Message</th>
-                <th>Message Count</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let session of items"[class]="session.status + 'Color'">
-                <td matTooltip={{session.msg}}>{{session.msg.length > 90 ? session.msg.substring(0, 90)+ '...' : session.msg}}</td>
-                <td>{{session.count}}</td>
-              </tr>
-              </tbody>
-            </table>
-
-            <div class="pagination-export-wrapper" *ngIf="items && items.length">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="export-btn-wrap pagination-export-wrap">
-                    <button class="blue-btn">Export CSV</button>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="pagination-wrap hide-prev pagination-export-wrap">
-                    <ul>
-                      <li (click)="moveToFirstPage()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i></a></li>
-                      <li (click)="goBack()" [class.disabled]="pageNo === 0"><a href="javascript:void(0)"><i class="fa fa-caret-left"></i></a></li>
-                      <li>{{(pageNo + 1) + ' / ' + totalPages}}</li>
-                      <li (click)="goAhead()" [class.disabled]="pageNo === (totalPages-1)"><a href="javascript:void(0)"><i class="fa fa-caret-right"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-4" *ngIf="itemsPerPage.length">
-                  <div class="number-of-items-wrap pagination-export-wrap">
-                    <form>
-                      <label>Number of Items</label>
-                      <select [(ngModel)]="itemPerPage" name="itemPerPage" (change)="getItemCount()">
-                        <option *ngFor="let page of itemsPerPage">{{page}}</option>
-                      </select>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
 </div>
