@@ -130,16 +130,21 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
                     this.options = {};
                     const feedbackData = [];
-                    if (res.data && res.data.length) {
-                        res.data.forEach(function (element) {
-                            feedbackData.push({
-                                text: element.feedback,
-                                created_at: element.date
-                            });
+                    if (res && res.data && res.data.length) {
+                        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
+                            proceed.call(this);
+                            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+                            this.graph.add(this.markerGroup);
                         });
-                        const data = this.insertDates(feedbackData);
-                        this.generateGraph(data);
                     }
+                    res.data.forEach(function (element) {
+                        feedbackData.push({
+                            text: element.feedback,
+                            created_at: element.date
+                        });
+                    });
+                    const data = this.insertDates(feedbackData);
+                    this.generateGraph(data);
                 }, (err) => {
                     console.log(err);
                 });
@@ -218,17 +223,21 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
                     const feedbackData = [];
                     this.options = {};
-                    console.log('res.data', res.data);
-                    if (res.data && res.data.length) {
-                        res.data.forEach(function (element) {
-                            feedbackData.push({
-                                text: element.feedback,
-                                created_at: element.date
-                            });
+                    if (res && res.data && res.data.length) {
+                        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
+                            proceed.call(this);
+                            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+                            this.graph.add(this.markerGroup);
                         });
-                        const data = this.insertDates(feedbackData);
-                        this.generateGraph(data);
                     }
+                    res.data.forEach(function (element) {
+                        feedbackData.push({
+                            text: element.feedback,
+                            created_at: element.date
+                        });
+                    });
+                    const data = this.insertDates(feedbackData);
+                    this.generateGraph(data);
                 }, (err) => {
                     console.log(err);
                 });
@@ -433,7 +442,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         let count = 0;
         for (let i = 0; i < countArray.length; i++) {
             if (countArray[i] !== null) {
-                count ++;
+                count++;
                 sum += parseInt(countArray[i], 10);
             }
         }
@@ -541,10 +550,5 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 data: countArray
             }]
         };
-        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
-            proceed.call(this);
-            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-            this.graph.add(this.markerGroup);
-        });
     }
 }

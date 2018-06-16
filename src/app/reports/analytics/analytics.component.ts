@@ -3,6 +3,7 @@ import {DatePipe} from '@angular/common';
 import {ReportsService} from '../reports.service';
 import * as _ from 'lodash';
 import {SidebarService} from '../../shared/sidebar/sidebar.service';
+
 const Highcharts = require('highcharts');
 
 @Component({
@@ -29,7 +30,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
     analytics_token: string;
     flag = true;
 
-    constructor(private reportsService: ReportsService, public sbs: SidebarService, private datePipe: DatePipe) {}
+    constructor(private reportsService: ReportsService, public sbs: SidebarService, private datePipe: DatePipe) {
+    }
 
     ngOnInit() {
         if (localStorage.getItem('DATE_OBJ')) {
@@ -75,343 +77,336 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.flag = false;
             this.reportsService.getAllSession(startDate, endDate, this.analytics_token).subscribe((response) => {
                 this.sessions = response.data;
-                if (response.data && response.data.length) {
-                    const finalResult = this.getGraphData(response.data, startDate, endDate);
-                    this.totalSessionCount = finalResult.sum;
-                    this.options = {
-                        chart: {
-                            type: 'area'
-                        },
-                        title: {
-                            text: ''
-                        },
+                const finalResult = this.getGraphData(response.data, startDate, endDate);
+                this.totalSessionCount = finalResult.sum;
+                this.options = {
+                    chart: {
+                        type: 'area'
+                    },
+                    title: {
+                        text: ''
+                    },
 
-                        subtitle: {
-                            text: ''
-                        },
+                    subtitle: {
+                        text: ''
+                    },
 
-                        xAxis: {
-                            type: 'datetime',
-                            categories: finalResult.dateArray,
-                            dateTimeLabelFormats: {
-                                day: '%b %e'
-                            },
-                            labels: {
-                                style: {
-                                    color: '#626597',
-                                    fontSize: '14px'
-                                }
-                            },
-                            tickmarkPlacement: 'on'
+                    xAxis: {
+                        type: 'datetime',
+                        categories: finalResult.dateArray,
+                        dateTimeLabelFormats: {
+                            day: '%b %e'
                         },
-                        yAxis: {
-                            title: {
-                                text: 'Count'
-                            },
-                            gridLineColor: '#fafafa',
-                            labels: {
-                                formatter: function () {
-                                    return this.value;
-                                },
-                                style: {
-                                    color: '#626597',
-                                    fontSize: '14px'
-                                }
-                            }
-                        },
-
-                        tooltip: {
-                            formatter: function () {
-                                return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
-                                    this.x + '</span> <br> <b style="color:#6078FF; ' +
-                                    'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
-                            },
-                            backgroundColor: null,
-                            borderWidth: 0,
-                            shadow: false,
-                            useHTML: true,
+                        labels: {
                             style: {
-                                padding: 0
+                                color: '#626597',
+                                fontSize: '14px'
                             }
                         },
-
-                        plotOptions: {
-                            area: {
-                                type: 'percent',
-                                marker: {
-                                    enabled: false,
-                                    symbol: 'circle',
-                                    fillColor: '#6078FF',
-                                    radius: 7,
-                                    states: {
-                                        hover: {
-                                            enabled: true,
-                                            fillColor: '#fff',
-                                            lineColor: '#6078FF',
-                                            lineWidth: 3,
-                                            radius: 10
-                                        }
-                                    },
-                                    zIndex: 100
-                                },
-                                events: {
-                                    mouseOver: function () {
-                                        this.update({
-                                            marker: {
-                                                enabled: true
-                                            }
-                                        });
-                                    }, mouseOut: function () {
-                                        this.update({
-                                            marker: {
-                                                enabled: false
-                                            }
-                                        });
-                                    }
-                                }
+                        tickmarkPlacement: 'on'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Count'
+                        },
+                        gridLineColor: '#fafafa',
+                        labels: {
+                            formatter: function () {
+                                return this.value;
                             },
-                            series: {
-                                connectNulls: true
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                        },
+                        backgroundColor: null,
+                        borderWidth: 0,
+                        shadow: false,
+                        useHTML: true,
+                        style: {
+                            padding: 0
+                        }
+                    },
+
+                    plotOptions: {
+                        area: {
+                            type: 'percent',
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                fillColor: '#6078FF',
+                                radius: 7,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        fillColor: '#fff',
+                                        lineColor: '#6078FF',
+                                        lineWidth: 3,
+                                        radius: 10
+                                    }
+                                },
+                                zIndex: 100
+                            },
+                            events: {
+                                mouseOver: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: true
+                                        }
+                                    });
+                                }, mouseOut: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    });
+                                }
                             }
                         },
-                        series: [{
-                            lineColor: '#6078FF',
-                            lineWidth: 5,
-                            color: '#6078FF',
-                            fillOpacity: 0.1,
-                            data: finalResult.countArray
-                        }]
-                    };
-
-                }
+                        series: {
+                            connectNulls: true
+                        }
+                    },
+                    series: [{
+                        lineColor: '#6078FF',
+                        lineWidth: 5,
+                        color: '#6078FF',
+                        fillOpacity: 0.1,
+                        data: finalResult.countArray
+                    }]
+                };
             }, (err) => {
                 console.log(err);
             });
 
             this.reportsService.getMessagePerSession(startDate, endDate, this.analytics_token).subscribe((response) => {
                 this.message = response.data;
-                if (response.data && response.data.length) {
-                    const finalResult = this.getGraphData(response.data, startDate, endDate);
-                    this.totalMesasgeCount = finalResult.sum;
-                    this.options1 = {
-                        chart: {
-                            type: 'area'
-                        },
-                        title: {
-                            text: ''
-                        },
+                const finalResult = this.getGraphData(response.data, startDate, endDate);
+                this.totalMesasgeCount = finalResult.sum;
+                this.options1 = {
+                    chart: {
+                        type: 'area'
+                    },
+                    title: {
+                        text: ''
+                    },
 
-                        subtitle: {
-                            text: ''
-                        },
+                    subtitle: {
+                        text: ''
+                    },
 
-                        xAxis: {
-                            type: 'datetime',
-                            categories: finalResult.dateArray,
-                            dateTimeLabelFormats: {
-                                day: '%b %e'
-                            },
-                            labels: {
-                                style: {
-                                    color: '#626597',
-                                    fontSize: '14px'
-                                }
-                            },
-                            tickmarkPlacement: 'on'
+                    xAxis: {
+                        type: 'datetime',
+                        categories: finalResult.dateArray,
+                        dateTimeLabelFormats: {
+                            day: '%b %e'
                         },
-                        yAxis: {
-                            title: {
-                                text: 'Message Count'
-                            },
-                            gridLineColor: '#fafafa',
-                            labels: {
-                                formatter: function () {
-                                    return this.value;
-                                },
-                                style: {
-                                    color: '#626597',
-                                    fontSize: '14px'
-                                }
-                            }
-                        },
-
-                        tooltip: {
-                            formatter: function () {
-                                return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
-                                    this.x + '</span> <br> <b style="color:#6078FF; ' +
-                                    'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
-                            },
-                            backgroundColor: null,
-                            borderWidth: 0,
-                            shadow: false,
-                            useHTML: true,
+                        labels: {
                             style: {
-                                padding: 0
+                                color: '#626597',
+                                fontSize: '14px'
                             }
                         },
-
-                        plotOptions: {
-                            area: {
-                                type: 'percent',
-                                marker: {
-                                    enabled: false,
-                                    symbol: 'circle',
-                                    fillColor: '#6078FF',
-                                    radius: 7,
-                                    states: {
-                                        hover: {
-                                            enabled: true,
-                                            fillColor: '#fff',
-                                            lineColor: '#6078FF',
-                                            lineWidth: 3,
-                                            radius: 10
-                                        }
-                                    },
-                                    zIndex: 100
-                                },
-                                events: {
-                                    mouseOver: function () {
-                                        this.update({
-                                            marker: {
-                                                enabled: true
-                                            }
-                                        });
-                                    }, mouseOut: function () {
-                                        this.update({
-                                            marker: {
-                                                enabled: false
-                                            }
-                                        });
-                                    }
-                                }
+                        tickmarkPlacement: 'on'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Message Count'
+                        },
+                        gridLineColor: '#fafafa',
+                        labels: {
+                            formatter: function () {
+                                return this.value;
                             },
-                            series: {
-                                connectNulls: true
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                        },
+                        backgroundColor: null,
+                        borderWidth: 0,
+                        shadow: false,
+                        useHTML: true,
+                        style: {
+                            padding: 0
+                        }
+                    },
+
+                    plotOptions: {
+                        area: {
+                            type: 'percent',
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                fillColor: '#6078FF',
+                                radius: 7,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        fillColor: '#fff',
+                                        lineColor: '#6078FF',
+                                        lineWidth: 3,
+                                        radius: 10
+                                    }
+                                },
+                                zIndex: 100
+                            },
+                            events: {
+                                mouseOver: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: true
+                                        }
+                                    });
+                                }, mouseOut: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    });
+                                }
                             }
                         },
-                        series: [{
-                            lineColor: '#6078FF',
-                            lineWidth: 4,
-                            color: '#6078FF',
-                            fillOpacity: 0.1,
-                            data: finalResult.countArray
-                        }]
-                    };
-                }
+                        series: {
+                            connectNulls: true
+                        }
+                    },
+                    series: [{
+                        lineColor: '#6078FF',
+                        lineWidth: 4,
+                        color: '#6078FF',
+                        fillOpacity: 0.1,
+                        data: finalResult.countArray
+                    }]
+                };
             }, (err) => {
                 console.log(err);
             });
 
             this.reportsService.getTotalUsers(startDate, endDate, this.analytics_token).subscribe((response) => {
                 this.users = response.data;
-                if (response.data && response.data.length) {
-                    const finalResult = this.getGraphData(response.data, startDate, endDate);
-                    this.totalUserCount = finalResult.sum;
-                    this.options2 = {
-                        chart: {
-                            type: 'area'
-                        },
-                        title: {
-                            text: ''
-                        },
+                const finalResult = this.getGraphData(response.data, startDate, endDate);
+                this.totalUserCount = finalResult.sum;
+                this.options2 = {
+                    chart: {
+                        type: 'area'
+                    },
+                    title: {
+                        text: ''
+                    },
 
-                        subtitle: {
-                            text: ''
-                        },
+                    subtitle: {
+                        text: ''
+                    },
 
-                        xAxis: {
-                            type: 'datetime',
-                            categories: finalResult.dateArray,
-                            dateTimeLabelFormats: {
-                                day: '%b %e'
-                            },
-                            labels: {
-                                style: {
-                                    color: '#626597',
-                                    fontSize: '14px'
-                                }
-                            },
-                            tickmarkPlacement: 'on'
+                    xAxis: {
+                        type: 'datetime',
+                        categories: finalResult.dateArray,
+                        dateTimeLabelFormats: {
+                            day: '%b %e'
                         },
-                        yAxis: {
-                            title: {
-                                text: 'Users'
-                            },
-                            gridLineColor: '#fafafa',
-                            labels: {
-                                formatter: function () {
-                                    return this.value;
-                                },
-                                style: {
-                                    color: '#626597',
-                                    fontSize: '14px'
-                                }
-                            }
-                        },
-
-                        tooltip: {
-                            formatter: function () {
-                                return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
-                                    this.x + '</span> <br> <b style="color:#6078FF; ' +
-                                    'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
-                            },
-                            backgroundColor: null,
-                            borderWidth: 0,
-                            shadow: false,
-                            useHTML: true,
+                        labels: {
                             style: {
-                                padding: 0
+                                color: '#626597',
+                                fontSize: '14px'
                             }
                         },
-
-                        plotOptions: {
-                            area: {
-                                type: 'percent',
-                                marker: {
-                                    enabled: false,
-                                    symbol: 'circle',
-                                    fillColor: '#6078FF',
-                                    radius: 7,
-                                    states: {
-                                        hover: {
-                                            enabled: true,
-                                            fillColor: '#fff',
-                                            lineColor: '#6078FF',
-                                            lineWidth: 3,
-                                            radius: 10
-                                        }
-                                    },
-                                    zIndex: 100
-                                },
-                                events: {
-                                    mouseOver: function () {
-                                        this.update({
-                                            marker: {
-                                                enabled: true
-                                            }
-                                        });
-                                    }, mouseOut: function () {
-                                        this.update({
-                                            marker: {
-                                                enabled: false
-                                            }
-                                        });
-                                    }
-                                }
+                        tickmarkPlacement: 'on'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Users'
+                        },
+                        gridLineColor: '#fafafa',
+                        labels: {
+                            formatter: function () {
+                                return this.value;
                             },
-                            series: {
-                                connectNulls: true
+                            style: {
+                                color: '#626597',
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        formatter: function () {
+                            return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
+                                this.x + '</span> <br> <b style="color:#6078FF; ' +
+                                'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
+                        },
+                        backgroundColor: null,
+                        borderWidth: 0,
+                        shadow: false,
+                        useHTML: true,
+                        style: {
+                            padding: 0
+                        }
+                    },
+
+                    plotOptions: {
+                        area: {
+                            type: 'percent',
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                fillColor: '#6078FF',
+                                radius: 7,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        fillColor: '#fff',
+                                        lineColor: '#6078FF',
+                                        lineWidth: 3,
+                                        radius: 10
+                                    }
+                                },
+                                zIndex: 100
+                            },
+                            events: {
+                                mouseOver: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: true
+                                        }
+                                    });
+                                }, mouseOut: function () {
+                                    this.update({
+                                        marker: {
+                                            enabled: false
+                                        }
+                                    });
+                                }
                             }
                         },
-                        series: [{
-                            lineColor: '#6078FF',
-                            lineWidth: 4,
-                            color: '#6078FF',
-                            fillOpacity: 0.1,
-                            data: finalResult.countArray
-                        }]
-                    };
-                }
+                        series: {
+                            connectNulls: true
+                        }
+                    },
+                    series: [{
+                        lineColor: '#6078FF',
+                        lineWidth: 4,
+                        color: '#6078FF',
+                        fillOpacity: 0.1,
+                        data: finalResult.countArray
+                    }]
+                };
             }, (err) => {
                 console.log(err);
             });
