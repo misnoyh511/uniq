@@ -51,8 +51,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             this.analytics_token = this.sbs.token;
             this.feedback_type = this.sbs.feedback_type;
             this.getSession();
-        }
-        if (Object.keys(this.sbs.savedData).length) {
+        } else if (Object.keys(this.sbs.savedData).length) {
             this.analytics_token = this.sbs.savedData.analytics_token;
             this.feedback_type = parseInt(this.sbs.savedData.feedback_type, 10);
             this.getSession();
@@ -134,7 +133,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
                             proceed.call(this);
                             proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-                            this.graph.add(this.markerGroup);
+                            if (this.graph !== undefined) {
+                                this.graph.add(this.markerGroup);
+                            }
                         });
                     }
                     res.data.forEach(function (element) {
@@ -227,7 +228,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
                             proceed.call(this);
                             proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-                            this.graph.add(this.markerGroup);
+                            if (this.graph !== undefined) {
+                                this.graph.add(this.markerGroup);
+                            }
                         });
                     }
                     res.data.forEach(function (element) {

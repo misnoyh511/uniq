@@ -421,11 +421,16 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             }, (err) => {
                 console.log(err);
             });
-            Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
-                proceed.call(this);
-                proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-                this.graph.add(this.markerGroup);
-            });
+
+            if ((this.sessions && this.sessions.length) || (this.message && this.message.length) || (this.users && this.users.length)) {
+                Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
+                    proceed.call(this);
+                    proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+                    if (this.graph !== undefined) {
+                        this.graph.add(this.markerGroup);
+                    }
+                });
+            }
         }
     }
 

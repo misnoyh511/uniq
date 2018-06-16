@@ -85,6 +85,7 @@ export class SidebarComponent implements OnInit {
             this.currentBot = botData.name;
             this.Service.savedData = botData;
             this.Service.token = botData.analytics_token;
+            this.Service.feedback_type = botData.feedback_type;
             if (location.pathname === '/get-started' || location.pathname === '/new-bot') {
                 this.router.navigate(['/bot-home']);
                 this.getBotData();
