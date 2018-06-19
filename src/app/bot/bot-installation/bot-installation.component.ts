@@ -6,7 +6,7 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
   templateUrl: 'bot-installation.component.html',
   styleUrls: ['./bot-installation.component.css']
 })
-export class botInstallationComponent implements OnInit, OnDestroy {
+export class BotInstallationComponent implements OnInit, OnDestroy {
     botData: any = {};
     isCopied = false;
   constructor(public sbs: SidebarService) {

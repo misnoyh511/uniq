@@ -23,7 +23,7 @@ import { AutomateModule } from './automate/automate.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { ReportsModule } from './reports/reports.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
-import { botModule } from './bot/bot.module';
+import { BotModule } from './bot/bot.module';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import { NgProgressModule } from 'ngx-progressbar';
@@ -53,7 +53,7 @@ import {SnackBarService} from './snack-bar/snack-bar.service';
     ConversationsModule,
     ReportsModule,
     AccountSettingsModule,
-    botModule,
+    BotModule,
     HttpClientModule,
     NgProgressModule
   ],

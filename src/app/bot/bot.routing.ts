@@ -1,36 +1,36 @@
 import {Routes} from '@angular/router';
-import { botHomeComponent } from './bot-home/bot-home.component';
-import { botConfigurationComponent } from './bot-configuration/bot-configuration.component';
-import { botInstallationComponent } from './bot-installation/bot-installation.component';
-import { botLookFeelComponent } from './bot-look-feel/bot-look-feel.component';
-import { botModulesComponent } from './bot-modules/bot-modules.component';
+import { BotHomeComponent } from './bot-home/bot-home.component';
+import { BotConfigurationComponent } from './bot-configuration/bot-configuration.component';
+import { BotInstallationComponent } from './bot-installation/bot-installation.component';
+import { BotLookFeelComponent } from './bot-look-feel/bot-look-feel.component';
+import { BotModulesComponent } from './bot-modules/bot-modules.component';
 import {BotPreviewComponent} from './bot-preview/bot-preview.component';
 import {AuthGuard} from '../auth-guard/auth-guard.middleware';
 
 export const botRoutes: Routes = [
   {
     path: 'bot-home',
-    component: botHomeComponent,
+    component: BotHomeComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'bot-configuration',
-    component: botConfigurationComponent,
+    component: BotConfigurationComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'bot-installation',
-    component: botInstallationComponent,
+    component: BotInstallationComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'bot-look-feel',
-    component: botLookFeelComponent,
+    component: BotLookFeelComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'modules',
-    component: botModulesComponent,
+    component: BotModulesComponent,
     canActivate: [AuthGuard]
   },
     {

@@ -11,7 +11,7 @@ import {SnackBarService} from '../../snack-bar/snack-bar.service';
   styleUrls: ['./bot-look-feel.component.css'],
   providers: [BotService, NewBotService]
 })
-export class botLookFeelComponent implements OnInit, OnDestroy {
+export class BotLookFeelComponent implements OnInit, OnDestroy {
   latteralTab: boolean;
   showBotName = false;
   showChatName = false;

@@ -12,7 +12,7 @@ import {SnackBarService} from '../../snack-bar/snack-bar.service';
     styleUrls: ['./bot-configuration.component.css'],
     providers: [ConversationsService, BotService]
 })
-export class botConfigurationComponent implements OnInit, OnDestroy {
+export class BotConfigurationComponent implements OnInit, OnDestroy {
 
     showNlp = false;
     showConfig = false;

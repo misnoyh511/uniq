@@ -390,21 +390,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
         }
     }
 
-    getTopicsWithQues() {
-        this.topics = [];
-        this.botService.getTopicsWithQues().subscribe((data) => {
-            this.topics = data.topics;
-            const questions = {};
-            data.questions.forEach(function (item) {
-                const key = item['id']; // take the first key from every object in the array
-                questions[key] = item;  // assign the key and value to output obj
-            });
-            this.quesArr = questions;
-        }, (err) => {
-            console.log(err);
-        });
-    }
-
     editTopic(topic, index) {
         if (!this.showTopic[index]) {
             if (topic.name) {

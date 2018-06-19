@@ -10,7 +10,7 @@ import {AppConfig} from '../../app.config';
   styleUrls: ['./bot-home.component.css'],
   providers: [BotService]
 })
-export class botHomeComponent implements OnInit, OnDestroy {
+export class BotHomeComponent implements OnInit, OnDestroy {
   bot: any[];
   data: any;
   botData: any = {};

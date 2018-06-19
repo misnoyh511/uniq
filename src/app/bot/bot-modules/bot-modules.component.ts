@@ -15,7 +15,7 @@ import * as _ from 'lodash';
     encapsulation: ViewEncapsulation.None,
     preserveWhitespaces: false
 })
-export class botModulesComponent implements OnInit, OnDestroy {
+export class BotModulesComponent implements OnInit, OnDestroy {
     faqSection = false;
     showDiv = false;
     snackbarsOne = false;
@@ -37,7 +37,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
     topics: any = [];
     showTopics = false;
     faqQuestion: any = [];
-    quesArr: any = {};
     showQues: any = {};
     showTopic: any = [];
     oldTitle = '';
@@ -187,7 +186,12 @@ export class botModulesComponent implements OnInit, OnDestroy {
     addFaqTopic() {
         if (this.botData.faqTopic) {
             this.botService.addFaq({topics: [{name: this.botData.faqTopic, robot_id: this.botData.id}]}).subscribe((data) => {
-                this.topics.push(data.topics[0]);
+                if (this.topics && this.topics.length) {
+                    this.topics.push(data.topics[0]);
+                } else {
+                    this.topics = [];
+                    this.topics.push(data.topics[0]);
+                }
                 this.showTopics = true;
                 this.botData.faqTopic = '';
                 this.snackBarService.openSnackBar('Faq Topic Created for this Bot');
@@ -213,24 +217,6 @@ export class botModulesComponent implements OnInit, OnDestroy {
                 console.log(err);
             });
         }
-    }
-
-    getTopicsWithQues() {
-        this.topics = [];
-        this.botService.getTopicsWithQues().subscribe((data) => {
-            this.topics = data.topics;
-            if (this.topics && this.topics.length) {
-                this.faqSection = true;
-            }
-            const questions = {};
-            data.questions.forEach(function (item) {
-                const key = item['id']; // take the first key from every object in the array
-                questions[key] = item;  // assign the key and value to output obj
-            });
-            this.quesArr = questions;
-        }, (err) => {
-            console.log(err);
-        });
     }
 
     editTopic(topic, index) {
