@@ -130,6 +130,11 @@ export class TopMessagesInComponent implements OnInit, OnDestroy {
         this.getPaginatedData();
     }
 
+    moveToLastPage() {
+        this.pageNo = this.totalPages - 1;
+        this.getPaginatedData();
+    }
+
     onDateChange(event: any) {
         if (event.start && event.end) {
             const startDate = new Date(event.start);
