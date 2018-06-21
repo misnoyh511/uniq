@@ -6,12 +6,14 @@ import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angula
 import {SnackBarService} from '../snack-bar/snack-bar.service';
 import {SidebarService} from '../shared/sidebar/sidebar.service';
 import {BotService} from '../bot/bot.service';
+import {ArraySortPipe} from '../directives/sort.directive';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
     selector: 'app-new-bot',
     templateUrl: './new-bot.component.html',
     styleUrls: ['./new-bot.component.css'],
-    providers: [NewBotService, BotService],
+    providers: [NewBotService, BotService, ArraySortPipe],
 })
 export class NewBotComponent implements OnInit, OnDestroy {
     dialogRef: MatDialogRef<JazzDialogComponent>;
@@ -95,13 +97,22 @@ export class NewBotComponent implements OnInit, OnDestroy {
     chatBot = false;
     showDeskDwell = false;
     showMobDwell = false;
+    indexDrag: number;
+    indexDrop: number;
 
     constructor(private router: Router, private Service: NewBotService, public sbs: SidebarService, public botService: BotService,
-                public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService) {
+                public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
+                private sort: ArraySortPipe, private dragulaService: DragulaService) {
         dialog.afterOpen.subscribe(() => {
             if (!doc.body.classList.contains('no-scroll')) {
                 doc.body.classList.add('no-scroll');
             }
+        });
+        dragulaService.drag.subscribe((value) => {
+            this.onDrag(value.slice(1));
+        });
+        dragulaService.drop.subscribe((value) => {
+            this.onDrop(value.slice(1));
         });
     }
 
@@ -132,6 +143,35 @@ export class NewBotComponent implements OnInit, OnDestroy {
             this.bot.icon_tab = true;
         }
         this.bot.icon_color = this.bot.tab_text_color;
+    }
+
+    onDrag(args) {
+        const [e, el] = args;
+        this.indexDrag = this.getElementIndex(e);
+    }
+
+    onDrop(args) {
+        const [e, el] = args;
+        this.indexDrop = this.getElementIndex(e);
+        this.move();
+    }
+
+    move() {
+        if (this.indexDrop === this.indexDrag) {
+            return this.topics;
+        }
+        const target = this.topics[this.indexDrag];
+        const increment = this.indexDrop < this.indexDrag ? -1 : 1;
+        for (let k = this.indexDrag; k !== this.indexDrop; k += increment) {
+            this.topics[k] = this.topics[k + increment];
+        }
+        this.topics[this.indexDrop] = target;
+        this.editTopic(this.topics[this.indexDrop], this.indexDrop);
+        this.editTopic(this.topics[this.indexDrag], this.indexDrag);
+    }
+
+    getElementIndex(el: any) {
+        return [].slice.call(el.parentElement.children).indexOf(el);
     }
 
     onProActiveOutside(event) {
@@ -203,27 +243,15 @@ export class NewBotComponent implements OnInit, OnDestroy {
     }
 
     faqSectionToggle() {
-        if (this.faqSection) {
-            this.faqShowHide = true;
-        } else {
-            this.faqShowHide = false;
-        }
+        this.faqShowHide = this.faqSection;
     }
 
     proActiveToggle() {
-        if (this.proActive) {
-            this.proActiveShowHide = true;
-        } else {
-            this.proActiveShowHide = false;
-        }
+        this.proActiveShowHide = this.proActive;
     }
 
     liveChatToggle() {
-        if (this.liveChat) {
-            this.liveChatShowHide = true;
-        } else {
-            this.liveChatShowHide = false;
-        }
+        this.liveChatShowHide = this.liveChat;
     }
 
     checkValidation() {
@@ -349,11 +377,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
         this.botService.getBotData(botId).subscribe((data) => {
             this.bot = data;
             this.topics = this.bot.topics;
-            if (this.topics && this.topics.length) {
-                this.faqSection = true;
-            } else {
-                this.faqSection = false;
-            }
+            this.faqSection = !!(this.topics && this.topics.length);
         }, (err) => {
             console.log(err);
         });
@@ -361,10 +385,19 @@ export class NewBotComponent implements OnInit, OnDestroy {
 
     addFaqTopic() {
         if (this.bot.faqTopic) {
-            this.botService.addFaq({topics: [{name: this.bot.faqTopic, robot_id: this.bot.id}]}).subscribe((data) => {
-                this.topics.push(data.topics[0]);
+            this.botService.addFaq({topics: [{name: this.bot.faqTopic, robot_id: this.bot.id, position: 1}]}).subscribe((data) => {
+                if (this.topics && this.topics.length) {
+                    for (let i = 0; i < this.topics.length; i++) {
+                        this.editTopic(this.topics[i], i + 1);
+                    }
+                    this.topics.push(data.topics[0]);
+                } else {
+                    this.topics = [];
+                    this.topics.push(data.topics[0]);
+                }
                 this.showTopics = true;
                 this.bot.faqTopic = '';
+                this.getTopicsWithQues();
                 this.snackBarService.openSnackBar('Faq Topic Created for this Bot');
             }, (err) => {
                 console.log(err);
@@ -374,11 +407,11 @@ export class NewBotComponent implements OnInit, OnDestroy {
         }
     }
 
-    addFaqQuestion(topicId, index) {
+    addFaqQuestion(topicId, index, quesIndex) {
         if (this.faqQuestion[index]) {
             this.bot.question = this.faqQuestion[index];
             this.botService.addFaqQuestion({
-                questions: [{name: this.faqQuestion[index]}],
+                questions: [{name: this.faqQuestion[index], position: quesIndex}],
                 topicId: topicId
             }).subscribe((data) => {
                 this.getBotData(this.bot.id);
@@ -392,36 +425,68 @@ export class NewBotComponent implements OnInit, OnDestroy {
 
     editTopic(topic, index) {
         if (!this.showTopic[index]) {
-            if (topic.name) {
-                this.botService.editFaq({topics: [{name: topic.name}]}, topic.id).subscribe((data) => {
-                    this.getBotData(this.bot.id);
+            if (topic && topic.name) {
+                this.botService.editFaq({topics: [{name: topic.name, position: index + 1}]}, topic.id).subscribe((data) => {
+                    this.getTopicsWithQues();
                     this.snackBarService.openSnackBar('Faq Topic Updated');
                 }, (err) => {
                     console.log(err);
                 });
             } else {
-                this.snackBarService.openSnackBar('please add faq topic');
+                this.snackBarService.openSnackBar('Please Enter Topic');
             }
         }
     }
 
-    deleteFaqTopic(topicId, topicName) {
-        if (confirm('This will delete the topic ' + topicName + '. You sure?')) {
+    deleteFaqTopic(topicId, topicName, index) {
+        if (confirm('This will delete the topic "' + topicName + '". You sure?')) {
             this.botService.deleteFaqTopic(topicId).subscribe((data) => {
+                if (index + 1 !== this.topics.length) {
+                    for (let i = index + 1; i < this.topics.length; i++) {
+                        this.editTopic(this.topics[i], (i));                    }
+                }
                 this.snackBarService.openSnackBar('Faq Topic Deleted');
-                this.getBotData(this.bot.id);
             }, (err) => {
                 console.log(err);
             });
         }
     }
 
-    editQues(quesName, quesId) {
+    editQues(quesName, quesId, quesIndex) {
         if (!this.showQues[quesId]) {
-            this.botService.editFaqQues({questions: [{name: quesName}]}, quesId).subscribe((data) => {
+            this.botService.editFaqQues({questions: [{name: quesName, position: quesIndex}]}, quesId).subscribe((data) => {
                 this.snackBarService.openSnackBar('Faq Question Updated');
             });
         }
+    }
+
+    getTopicsWithQues() {
+        // this.topics = [];
+        this.botService.getTopics().subscribe((data) => {
+            this.topics = [];
+            if (data && data.topics && data.topics.length) {
+                for (const i in data.topics) {
+                    data.topics[i]['questions'] = [];
+                    if (data.topics[i].robot_id === this.bot.id) {
+                        for (const j in data.topics[i].links.questions) {
+                            this.botService.getQuestions(data.topics[i].links.questions[j]).subscribe((quesData) => {
+                                data.topics[i]['questions'].push(quesData.questions[0]);
+                            }, (err) => {
+                                console.log(err);
+                            });
+                        }
+                        this.topics.push(data.topics[i]);
+                    }
+                }
+            }
+            this.topics = this.sort.transform(this.topics, 'position');
+            this.topics = this.topics.reverse();
+            if (this.topics && this.topics.length) {
+                this.faqSection = true;
+            }
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     avatarChangeEvent(fileInput: any) {

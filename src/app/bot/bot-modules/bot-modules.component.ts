@@ -6,12 +6,13 @@ import {SidebarService} from '../../shared/sidebar/sidebar.service';
 import {SnackBarService} from '../../snack-bar/snack-bar.service';
 import { DragulaService } from 'ng2-dragula';
 import * as _ from 'lodash';
+import {ArraySortPipe} from '../../directives/sort.directive';
 
 @Component({
     selector: 'app-bot-modules',
     templateUrl: 'bot-modules.component.html',
     styleUrls: ['./bot-modules.component.css'],
-    providers: [BotService],
+    providers: [BotService, ArraySortPipe],
     encapsulation: ViewEncapsulation.None,
     preserveWhitespaces: false
 })
@@ -35,6 +36,7 @@ export class BotModulesComponent implements OnInit, OnDestroy {
     analytics_token: string;
     botData: any = {};
     topics: any = [];
+    quesArr: any = [];
     showTopics = false;
     faqQuestion: any = [];
     showQues: any = {};
@@ -62,7 +64,8 @@ export class BotModulesComponent implements OnInit, OnDestroy {
     };
 
     constructor(public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
-                public sbs: SidebarService, public botService: BotService, private dragulaService: DragulaService) {
+                public sbs: SidebarService, public botService: BotService, private dragulaService: DragulaService,
+                private sort: ArraySortPipe) {
         dialog.afterOpen.subscribe(() => {
             if (!doc.body.classList.contains('no-scroll')) {
                 doc.body.classList.add('no-scroll');
@@ -117,13 +120,14 @@ export class BotModulesComponent implements OnInit, OnDestroy {
         if (this.indexDrop === this.indexDrag) {
             return this.topics;
         }
-
         const target = this.topics[this.indexDrag];
         const increment = this.indexDrop < this.indexDrag ? -1 : 1;
         for (let k = this.indexDrag; k !== this.indexDrop; k += increment) {
             this.topics[k] = this.topics[k + increment];
         }
         this.topics[this.indexDrop] = target;
+        this.editTopic(this.topics[this.indexDrop], this.indexDrop);
+        this.editTopic(this.topics[this.indexDrag], this.indexDrag);
     }
 
     onKpiOutside(event) {
@@ -171,13 +175,13 @@ export class BotModulesComponent implements OnInit, OnDestroy {
             }
             this.proActive = !!(this.botData.hybrid_msg || this.botData.hybrid_desktop || this.botData.hybrid_mobile
                 || this.botData.hybrid_mode || this.botData.dwell_time);
-            this.topics = this.botData.topics;
-            this.oldTitle = _.cloneDeep(this.botData.complements_title);
+                        this.oldTitle = _.cloneDeep(this.botData.complements_title);
             this.faqSection = !!(this.botData.complements_title || (this.topics && this.topics.length));
 
             if (this.botData.feedback_type !== null) {
                 this.chatBot = true;
             }
+            this.getTopicsWithQues();
         }, (err) => {
             console.log(err);
         });
@@ -185,8 +189,11 @@ export class BotModulesComponent implements OnInit, OnDestroy {
 
     addFaqTopic() {
         if (this.botData.faqTopic) {
-            this.botService.addFaq({topics: [{name: this.botData.faqTopic, robot_id: this.botData.id}]}).subscribe((data) => {
+            this.botService.addFaq({topics: [{name: this.botData.faqTopic, robot_id: this.botData.id, position: 1}]}).subscribe((data) => {
                 if (this.topics && this.topics.length) {
+                    for (let i = 0; i < this.topics.length; i++) {
+                        this.editTopic(this.topics[i], i + 1);
+                    }
                     this.topics.push(data.topics[0]);
                 } else {
                     this.topics = [];
@@ -194,6 +201,7 @@ export class BotModulesComponent implements OnInit, OnDestroy {
                 }
                 this.showTopics = true;
                 this.botData.faqTopic = '';
+                this.getTopicsWithQues();
                 this.snackBarService.openSnackBar('Faq Topic Created for this Bot');
             }, (err) => {
                 console.log(err);
@@ -203,14 +211,14 @@ export class BotModulesComponent implements OnInit, OnDestroy {
         }
     }
 
-    addFaqQuestion(topicId, index) {
+    addFaqQuestion(topicId, index, quesIndex) {
         if (this.faqQuestion[index]) {
             this.botData.question = this.faqQuestion[index];
             this.botService.addFaqQuestion({
-                questions: [{name: this.faqQuestion[index]}],
+                questions: [{name: this.faqQuestion[index], position: quesIndex}],
                 topicId: topicId
             }).subscribe((data) => {
-                this.getBotData(this.botData.id);
+                this.getTopicsWithQues();
                 this.faqQuestion[index] = '';
                 this.snackBarService.openSnackBar('Faq Question Created for this Topic');
             }, (err) => {
@@ -219,11 +227,41 @@ export class BotModulesComponent implements OnInit, OnDestroy {
         }
     }
 
+    getTopicsWithQues() {
+        // this.topics = [];
+        this.botService.getTopics().subscribe((data) => {
+            this.topics = [];
+            if (data && data.topics && data.topics.length) {
+                for (const i in data.topics) {
+                    data.topics[i]['questions'] = [];
+                    if (data.topics[i].robot_id === this.botData.id) {
+                        for (const j in data.topics[i].links.questions) {
+                            this.botService.getQuestions(data.topics[i].links.questions[j]).subscribe((quesData) => {
+                                data.topics[i]['questions'].push(quesData.questions[0]);
+                            }, (err) => {
+                                console.log(err);
+                            });
+                        }
+                        data.topics[i]['questions'] = this.sort.transform(data.topics[i]['questions'], 'position');
+                        this.topics.push(data.topics[i]);
+                    }
+                }
+            }
+            this.topics = this.sort.transform(this.topics, 'position');
+            this.topics = this.topics.reverse();
+            if (this.topics && this.topics.length) {
+                this.faqSection = true;
+            }
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
     editTopic(topic, index) {
         if (!this.showTopic[index]) {
             if (topic.name) {
-                this.botService.editFaq({topics: [{name: topic.name}]}, topic.id).subscribe((data) => {
-                    this.getBotData(this.botData.id);
+                this.botService.editFaq({topics: [{name: topic.name, position: index + 1}]}, topic.id).subscribe((data) => {
+                    this.getTopicsWithQues();
                     this.snackBarService.openSnackBar('Faq Topic Updated');
                 }, (err) => {
                     console.log(err);
@@ -234,10 +272,14 @@ export class BotModulesComponent implements OnInit, OnDestroy {
         }
     }
 
-    deleteFaqTopic(topicId, topicName) {
-        if (confirm('This will delete the topic ' + topicName + '. You sure?')) {
+    deleteFaqTopic(topicId, topicName, index) {
+        if (confirm('This will delete the topic "' + topicName + '". You sure?')) {
             this.botService.deleteFaqTopic(topicId).subscribe((data) => {
-                this.getBotData(this.botData.id);
+                if (index + 1 !== this.topics.length) {
+                    for (let i = index + 1; i < this.topics.length; i++) {
+                        this.editTopic(this.topics[i], (i));                    }
+                }
+                // this.getTopicsWithQues();
                 this.snackBarService.openSnackBar('Faq Topic Deleted');
             }, (err) => {
                 console.log(err);
@@ -245,9 +287,9 @@ export class BotModulesComponent implements OnInit, OnDestroy {
         }
     }
 
-    editQues(quesName, quesId) {
+    editQues(quesName, quesId, quesIndex) {
         if (!this.showQues[quesId]) {
-            this.botService.editFaqQues({questions: [{name: quesName}]}, quesId).subscribe((data) => {
+            this.botService.editFaqQues({questions: [{name: quesName}], position: quesIndex}, quesId).subscribe((data) => {
                 this.snackBarService.openSnackBar('Faq Question Updated');
             });
         }
@@ -256,7 +298,7 @@ export class BotModulesComponent implements OnInit, OnDestroy {
     deleteFaqQuestion(quesId) {
         if (confirm('This will delete this question. You sure?')) {
             this.botService.deleteFaqQuestion(quesId).subscribe((data) => {
-                this.getBotData(this.botData.id);
+                this.getTopicsWithQues();
                 this.snackBarService.openSnackBar('Faq Question Deleted');
             }, (err) => {
                 console.log(err);

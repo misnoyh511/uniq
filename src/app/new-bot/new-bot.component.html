@@ -7,7 +7,7 @@
             <div class="dashboard-new-title-wrap">
                 <h3>Create A New Bot</h3>
                 <div class="title-links">
-                    <a href="javascript:void(0)" data-toggle="pill" href="#capture" (click)="clearSearch()"
+                    <a data-toggle="pill" href="#capture" (click)="clearSearch()"
                        class="reset-link" title="Reset Bot"><img src="assets/images/white-close-icon.png" alt=""></a>
                     <!--<a data-toggle="pill" href="#launch" class="launch-link" (click)="checkValidation()"  class="launch" title="Launch Bot"><img src="assets/images/white-next-icon.png" alt=""></a>-->
                 </div>
@@ -424,57 +424,59 @@
                                                             </button>
                                                         </div>
                                                     </div>
+                                                    <div [dragula]='"topic-bag"' class="dragRow">
+                                                        <div id="sortable"
+                                                             class="full-width-input-fields display-add-faq-content final-add-res"
+                                                             *ngFor="let topic of topics; let i = index">
 
-                                                    <div id="sortable"
-                                                         class="full-width-input-fields display-add-faq-content final-add-res"
-                                                         *ngFor="let topic of topics; let i = index">
-
-                                                        <div class="ui-state-default display-contetnt-box">
-                                                            <h2>{{topic.name}}</h2>
-                                                            <input class="faq-top-edit-text-box"
-                                                                   [class.active]="showTopic[i]"
-                                                                   [(ngModel)]="topic.name"
-                                                                   name="name" type="text" value={{topic.name}}>
-                                                            <div class="topic-actions-wrap">
+                                                            <div class="ui-state-default display-contetnt-box">
+                                                                <h2>{{topic.name}}</h2>
+                                                                <input class="faq-top-edit-text-box"
+                                                                       [class.active]="showTopic[i]"
+                                                                       [(ngModel)]="topic.name"
+                                                                       name="name" type="text" value={{topic.name}}>
+                                                                <div class="topic-actions-wrap">
                                 <span class="edit_topic{{i}}"
                                       (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"><i
                                         class="fa fa-pencil" aria-hidden="true"></i></span>
-                                                                <span class="del_topic{{i}}"
-                                                                      (click)="deleteFaqTopic(topic.id, topic.name)"><i
-                                                                        class="fa fa-trash"
-                                                                        aria-hidden="true"></i></span>
-                                                            </div>
-                                                            <div class="faq-question-wrap faq-question-wrap1">
-                                                                <h4 *ngFor="let ques of topic.questions"><b>{{ques.name}}</b>
-                                                                    <input class="faq-que-edit-text-box"
-                                                                           [class.active]="showQues[ques.id]"
-                                                                           type="text" [(ngModel)]="ques.name"
-                                                                           value={{ques.name}}>
-                                                                    <div class="faq-question-actions">
+                                                                    <span class="del_topic{{i}}"
+                                                                          (click)="deleteFaqTopic(topic.id, topic.name, i)"><i
+                                                                            class="fa fa-trash"
+                                                                            aria-hidden="true"></i></span>
+                                                                </div>
+                                                                <div class="faq-question-wrap faq-question-wrap1">
+                                                                    <h4 *ngFor="let ques of topic.questions"><b>{{ques.name}}</b>
+                                                                        <input class="faq-que-edit-text-box"
+                                                                               [class.active]="showQues[ques.id]"
+                                                                               type="text" [(ngModel)]="ques.name"
+                                                                               value={{ques.name}}>
+                                                                        <div class="faq-question-actions">
                                       <span class="edit_question3"
-                                            (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id)">
+                                            (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id, j)">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                       </span>
-                                                                        <span class="del_question2">
+                                                                            <span class="del_question2">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                       </span>
-                                                                    </div>
-                                                                </h4>
-                                                            </div>
-                                                            <div class="full-width-input-fields full-width-input-fields-step4">
-                                                                <div class="login-form-elements">
-                                                                    <input id="faq_que1" type="text"
-                                                                           placeholder="Enter a FAQ"
-                                                                           [(ngModel)]="faqQuestion[i]"
-                                                                           name="faqQuestion">
+                                                                        </div>
+                                                                    </h4>
                                                                 </div>
-                                                            </div>
-                                                            <div class="login-form-elements btn-right-aligned">
-                                                                <button id="" class="blue-btn add-faq-que1"
-                                                                        (click)="addFaqQuestion(topic.id, i)">
-                                                                    <i class="fa fa-plus" aria-hidden="true"></i> Add
-                                                                    Question
-                                                                </button>
+                                                                <div class="full-width-input-fields full-width-input-fields-step4">
+                                                                    <div class="login-form-elements">
+                                                                        <input id="faq_que1" type="text"
+                                                                               placeholder="Enter a FAQ"
+                                                                               [(ngModel)]="faqQuestion[i]"
+                                                                               name="faqQuestion">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="login-form-elements btn-right-aligned">
+                                                                    <button id="" class="blue-btn add-faq-que1"
+                                                                            (click)="addFaqQuestion(topic.id, i, topic.questions.length + 1)">
+                                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                        Add
+                                                                        Question
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

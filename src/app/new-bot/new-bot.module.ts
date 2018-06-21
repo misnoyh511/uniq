@@ -7,6 +7,7 @@ import { NewBotRoutes} from './new-bot.routing';
 import {SharedModule} from '../shared/shared.module';
 import {FormsModule} from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {DragulaModule} from 'ng2-dragula/ng2-dragula';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         SharedModule,
         CommonModule,
         FormsModule,
-        MatTooltipModule
+        MatTooltipModule,
+        DragulaModule
     ],
     declarations: [NewBotComponent, JazzDialogComponent],
     entryComponents: [JazzDialogComponent],

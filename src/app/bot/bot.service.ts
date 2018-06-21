@@ -84,6 +84,32 @@ export class BotService {
             });
     }
 
+    getTopics() {
+        const myHeaders = new Headers();
+        this.httpClient.createAuthorizationHeader(myHeaders);
+        const options = new RequestOptions({ headers: myHeaders});
+
+        return this.http.get(AppConfig.API_ENDPOINT + '/topics', options)
+            .map(response => {
+                return response.json();
+            }).catch((err: Response) => {
+                return Observable.throw(err);
+            });
+    }
+
+    getQuestions(quesId) {
+        const myHeaders = new Headers();
+        this.httpClient.createAuthorizationHeader(myHeaders);
+        const options = new RequestOptions({ headers: myHeaders});
+
+        return this.http.get(AppConfig.API_ENDPOINT + '/questions/' + quesId, options)
+            .map(response => {
+                return response.json();
+            }).catch((err: Response) => {
+                return Observable.throw(err);
+            });
+    }
+
     editFaq(topics, topicId) {
         const myHeaders = new Headers();
         const token = this.localStorageService.getSessionToken();
