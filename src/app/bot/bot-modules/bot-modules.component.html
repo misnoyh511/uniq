@@ -8,7 +8,7 @@
                 <span>Congratulations! You have successfully upgraded to pro mode.</span>
             </div>
             <div class="getting-started-wrap-wrapper modules-page">
-                <div class="step-inner-wrapper full-panel-wrap">
+                <div class="step-inner-wrapper full-panel-wrap custom-timing-wrap">
                     <div class="step-inner-title">
                         <h3>FAQ Section<span>Pro</span></h3>
                         <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
@@ -61,40 +61,51 @@
                                                    [(ngModel)]="topic.name"
                                                    name="name" type="text" value={{topic.name}}>
                                             <div class="topic-actions-wrap">
-                        <span class="edit_topic{{i}}" (click)="showTopic[i] = !showTopic[i];" *ngIf="!showTopic[i]">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </span>
+                                                <span class="edit_topic{{i}}" (click)="showTopic[i] = !showTopic[i];"
+                                                      *ngIf="!showTopic[i]">
+                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                </span>
                                                 <span class="edit_topic{{i}}"
                                                       (click)="showTopic[i] = !showTopic[i]; editTopic(topic, i)"
-                                                      *ngIf="showTopic[i]">
-                            <i class="fa fa-save" aria-hidden="true"></i>
-                        </span>
+                                                      *ngIf="showTopic[i]"><i class="fa fa-save" aria-hidden="true"></i>
+                                                </span>
                                                 <span class="del_topic{{i}}"
                                                       (click)="deleteFaqTopic(topic.id, topic.name, i)">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </span>
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </span>
                                             </div>
-                                            <div class="faq-question-wrap faq-question-wrap1"
-                                                 *ngIf="topic.questions && topic.questions.length">
-                                                <h4 *ngFor="let ques of topic.questions; let j = index;"><b>{{ques.name}}</b>
-                                                    <input class="faq-que-edit-text-box"
-                                                           [class.active]="showQues[ques.id]"
-                                                           type="text" [(ngModel)]="ques.name" value={{ques.name}}>
-                                                    <div class="faq-question-actions">
-                          <span class="edit_question3" (click)="showQues[ques.id] = !showQues[ques.id];"
-                                *ngIf="!showQues[ques.id]">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                          </span>
-                                                        <span (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id, j)"
-                                                              *ngIf="showQues[ques.id]">
-                              <i class="fa fa-save" aria-hidden="true"></i>
-                            </span>
-                                                        <span class="del_question{{i + '-' + j}}"
-                                                              (click)="deleteFaqQuestion(ques.id)">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                          </span>
-                                                    </div>
-                                                </h4>
+                                            <div>
+                                                <div class="faq-question-wrap faq-question-wrap1"
+                                                     *ngIf="topic.questions && topic.questions.length">
+                                                    <h4 *ngFor="let ques of topic.questions; let j = index;">
+                                                        <b>{{ques.name}}</b>
+                                                        <input class="faq-que-edit-text-box"
+                                                               [class.active]="showQues[ques.id]"
+                                                               type="text" [(ngModel)]="ques.name" value={{ques.name}}>
+                                                        <div class="faq-question-actions">
+                                                            <span class="up_question{{i + '-' + j}}" *ngIf="j != 0" (click)="moveUpwards(topic.questions, j);">
+                                                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                                                            </span>
+                                                            <span class="down_question{{i + '-' + j}}" *ngIf="j != (topic.questions.length - 1)"
+                                                                  (click)="moveDownwards(topic.questions, j)">
+                                                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                            </span>
+                                                            <span class="edit_question3"
+                                                                  (click)="showQues[ques.id] = !showQues[ques.id];"
+                                                                  *ngIf="!showQues[ques.id]">
+                                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                            </span>
+                                                            <span (click)="showQues[ques.id] = !showQues[ques.id]; editQues(ques.name, ques.id, j)"
+                                                                  *ngIf="showQues[ques.id]">
+                                                                <i class="fa fa-save" aria-hidden="true"></i>
+                                                            </span>
+                                                            <span class="del_question{{i + '-' + j}}"
+                                                                  (click)="deleteFaqQuestion(ques.id, topic.questions, j)">
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                            </span>
+                                                        </div>
+                                                    </h4>
+                                                </div>
                                             </div>
                                             <div class="full-width-input-fields full-width-input-fields-step4">
                                                 <div class="login-form-elements">
@@ -104,7 +115,7 @@
                                             </div>
                                             <div class="login-form-elements btn-right-aligned">
                                                 <button id="" class="blue-btn add-faq-que1"
-                                                        (click)="addFaqQuestion(topic.id, i, topic.questions.length + 1)">
+                                                        (click)="addFaqQuestion(topic.id, i, topic.questions)">
                                                     <i class="fa fa-plus" aria-hidden="true"></i> Add Question
                                                 </button>
                                             </div>
@@ -116,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="step-inner-wrapper full-panel-wrap">
+                <div class="step-inner-wrapper full-panel-wrap custom-timing-wrap">
                     <div class="step-inner-title">
                         <h3>Chatbot Feedback KPI</h3>
                         <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count2">
@@ -136,7 +147,8 @@
                             <h3>Feedback KPI Configuration</h3>
                             <p>It has been established truth that the reader will read anything written on the canvas as
                                 its in it nature.
-                                So lorem ipsum is used as a dummy text due to lack of original content.</p>
+                                So lorem ipsum is used as a dummy text due to lack of original content.
+                            </p>
                             <div class="close-visitor-count" (click)="showChatBot = false">
                                 <span><i class="fa fa-close" aria-hidden="true"></i></span>
                             </div>
@@ -163,16 +175,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+                <div class="step-inner-wrapper full-panel-wrap custom-timing-wrap">
                     <div class="step-inner-title">
                         <h3>Pro-Active Mode<span>Business</span></h3>
                         <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
-                            <mat-slide-toggle type="text" color="primary" [(ngModel)]="proActive"
-                                              name="proActive"></mat-slide-toggle>
+                            <mat-slide-toggle type="text" color="primary" [(ngModel)]="proActive" name="proActive"></mat-slide-toggle>
                         </div>
                         <div class="configure-btn" [class.active]="proActive">
-                            <button class="white-btn visitor-content-toggle" (click)="showBusiness= true">Configure
-                            </button>
+                            <button class="white-btn visitor-content-toggle" (click)="showBusiness= true">Configure</button>
                         </div>
                     </div>
                     <div class="step-inner-text-wrap">
@@ -189,38 +199,38 @@
                                 <div class="full-width-input-fields full-width-input-fields-step4 full-panel">
                                     <span>What message would you like to show on your notification?</span>
                                     <div class="login-form-elements">
-                                        <input type="text" placeholder="Enter a Message" name="hybrid_msg"
-                                               [(ngModel)]="botData.hybrid_msg">
+                                        <input type="text" placeholder="Enter a Message" name="hybrid_msg" [(ngModel)]="botData.hybrid_msg">
                                     </div>
                                 </div>
                                 <div class="full-panel">
-                  <span>Add Mouse Out On Desktop
-                    <sup><i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false"
-                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
-                  </span>
-                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;"
-                                                      name="hybrid_mode" [(ngModel)]="botData.hybrid_mode">
+                                    <span>Add Mouse Out On Desktop
+                                        <sup>
+                                            <i (mouseover)="showDesktop= true" (mouseout)="showDesktop= false"
+                                                class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </sup>
+                                        <b [class.show]="showDesktop">This opens the chat bot window automatically and immediately.</b>
+                                    </span>
+                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_mode" [(ngModel)]="botData.hybrid_mode">
                                     </mat-slide-toggle>
                                 </div>
                                 <div class="full-panel">
-                  <span>Add Dwell Time On Desktop
-                    <sup><i (mouseover)="showDeskDwell= true" (mouseout)="showDeskDwell= false"
-                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showDeskDwell">This opens the chat bot window automatically and immediately.</b>
-                  </span>
-                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;"
-                                                      name="hybrid_desktop" [(ngModel)]="botData.hybrid_desktop">
+                                    <span>Add Dwell Time On Desktop
+                                        <sup><i (mouseover)="showDeskDwell= true" (mouseout)="showDeskDwell= false"
+                                            class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </sup>
+                                        <b [class.show]="showDeskDwell">This opens the chat bot window automatically and immediately.</b>
+                                    </span>
+                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_desktop" [(ngModel)]="botData.hybrid_desktop">
                                     </mat-slide-toggle>
                                 </div>
                                 <div class="full-panel">
-                  <span>Add Dwell Time On Mobile
-                    <sup><i (mouseover)="showMobDwell= true" (mouseout)="showMobDwell= false"
-                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showMobDwell">This opens the chat bot window automatically and immediately.</b>
-                  </span>
-                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;"
-                                                      name="hybrid_mobile" [(ngModel)]="botData.hybrid_mobile">
+                                    <span>Add Dwell Time On Mobile
+                                        <sup><i (mouseover)="showMobDwell= true" (mouseout)="showMobDwell= false"
+                                            class="fa fa-question-circle" aria-hidden="true"></i>
+                                        </sup>
+                                        <b [class.show]="showMobDwell">This opens the chat bot window automatically and immediately.</b>
+                                    </span>
+                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0;" name="hybrid_mobile" [(ngModel)]="botData.hybrid_mobile">
                                     </mat-slide-toggle>
                                 </div>
                                 <div class="full-panel">
@@ -231,24 +241,20 @@
                                             <input type="text" value={{dwell_time}} [(ngModel)]="dwell_time">
                                         </div>
                                         <div class="col-sm-7">
-                                            <nouislider [connect]="true" [min]=0 [max]=30 [step]="1"
-                                                        [(ngModel)]="dwell_time"></nouislider>
+                                            <nouislider [connect]="true" [min]=0 [max]=30 [step]="1" [(ngModel)]="dwell_time"></nouislider>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button class="blue-btn close-slide-btn"
-                                    (click)="showBusiness = false; editBotWithProActive()">Done
-                            </button>
+                            <button class="blue-btn close-slide-btn" (click)="showBusiness = false; editBotWithProActive()">Done</button>
                         </div>
                     </div>
                 </div>
-                <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 custom-timing-wrap">
+                <div class="step-inner-wrapper full-panel-wrap custom-timing-wrap">
                     <div class="step-inner-title">
                         <h3>Live Chat <span>Pro</span></h3>
                         <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1">
-                            <mat-slide-toggle type="text" color="primary" [(ngModel)]="liveChat"
-                                              name="liveChat"></mat-slide-toggle>
+                            <mat-slide-toggle type="text" color="primary" [(ngModel)]="liveChat" name="liveChat"></mat-slide-toggle>
                         </div>
                         <div class="configure-btn" [class.active]="liveChat" (click)="showLiveChat = true">
                             <button class="white-btn visitor-content-toggle">Configure</button>
@@ -266,13 +272,12 @@
                             </div>
                             <div class="visiters-count-inner-wrap">
                                 <div class="full-panel">
-                  <span>Open Chat Bot Window By	Default
-                    <sup><i (mouseover)="showOpenChat = true" (mouseout)="showOpenChat = false"
-                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
-                    <b [class.show]="showOpenChat">This opens the chat bot	window automatically and immediately.</b>
-                  </span>
-                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0">
-                                    </mat-slide-toggle>
+                                    <span>Open Chat Bot Window By	Default
+                                        <sup><i (mouseover)="showOpenChat = true" (mouseout)="showOpenChat = false"
+                                            class="fa fa-question-circle" aria-hidden="true"></i></sup>
+                                            <b [class.show]="showOpenChat">This opens the chat bot	window automatically and immediately.</b>
+                                    </span>
+                                    <mat-slide-toggle type="text" color="primary" style="float:right; margin:0"></mat-slide-toggle>
                                 </div>
                                 <div class="full-width-input-fields full-width-input-fields-step4">
                                     <p>Time to Open Chat Window Automatically (Dwell time)

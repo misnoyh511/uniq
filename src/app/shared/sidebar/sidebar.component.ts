@@ -44,6 +44,7 @@ export class SidebarComponent implements OnInit {
             } else {
                 if (localStorage.getItem('CURRENT_BOT')) {
                     this.currentBot = JSON.parse(localStorage.getItem('CURRENT_BOT')).name;
+                    this.Service.savedData = JSON.parse(localStorage.getItem('CURRENT_BOT'));
                 } else if (Object.keys(this.Service.savedData).length && this.Service.savedData.name) {
                     this.currentBot = this.Service.savedData.name;
                 } else {
@@ -74,7 +75,9 @@ export class SidebarComponent implements OnInit {
             this.Service.getBot().subscribe((data) => {
                 if (data && data.length) {
                     this.bot = data;
-                    this.Service.savedData = this.bot[0];
+                    if (Object.keys(this.Service.savedData).length === 0) {
+                        this.Service.savedData = this.bot[0];
+                    }
                 }
             });
     }

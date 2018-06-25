@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import {MatDialogRef, MatDialog, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
 import {DOCUMENT} from '@angular/platform-browser';
 import {BotService} from '../bot.service';
@@ -211,14 +211,17 @@ export class BotModulesComponent implements OnInit, OnDestroy {
         }
     }
 
-    addFaqQuestion(topicId, index, quesIndex) {
+    addFaqQuestion(topicId, index, questions) {
         if (this.faqQuestion[index]) {
             this.botData.question = this.faqQuestion[index];
             this.botService.addFaqQuestion({
-                questions: [{name: this.faqQuestion[index], position: quesIndex}],
+                questions: [{name: this.faqQuestion[index], position: 1}],
                 topicId: topicId
             }).subscribe((data) => {
-                this.getTopicsWithQues();
+                for (let i = 0; i < questions.length; i++) {
+                    this.editQues(questions[i].name, questions[i].id, i + 1);
+                }
+                // this.getTopicsWithQues();
                 this.faqQuestion[index] = '';
                 this.snackBarService.openSnackBar('Faq Question Created for this Topic');
             }, (err) => {
@@ -238,11 +241,14 @@ export class BotModulesComponent implements OnInit, OnDestroy {
                         for (const j in data.topics[i].links.questions) {
                             this.botService.getQuestions(data.topics[i].links.questions[j]).subscribe((quesData) => {
                                 data.topics[i]['questions'].push(quesData.questions[0]);
+                                if (data.topics[i]['questions'] && data.topics[i]['questions'].length > 1) {
+                                    data.topics[i]['questions'] = this.sort.transform(data.topics[i]['questions'], 'position');
+                                    data.topics[i]['questions'] = data.topics[i]['questions'].reverse();
+                                }
                             }, (err) => {
                                 console.log(err);
                             });
                         }
-                        data.topics[i]['questions'] = this.sort.transform(data.topics[i]['questions'], 'position');
                         this.topics.push(data.topics[i]);
                     }
                 }
@@ -277,9 +283,11 @@ export class BotModulesComponent implements OnInit, OnDestroy {
             this.botService.deleteFaqTopic(topicId).subscribe((data) => {
                 if (index + 1 !== this.topics.length) {
                     for (let i = index + 1; i < this.topics.length; i++) {
-                        this.editTopic(this.topics[i], (i));                    }
+                        this.editTopic(this.topics[i], (i - 1));
+                    }
+                } else {
+                    // this.getTopicsWithQues();
                 }
-                // this.getTopicsWithQues();
                 this.snackBarService.openSnackBar('Faq Topic Deleted');
             }, (err) => {
                 console.log(err);
@@ -289,16 +297,23 @@ export class BotModulesComponent implements OnInit, OnDestroy {
 
     editQues(quesName, quesId, quesIndex) {
         if (!this.showQues[quesId]) {
-            this.botService.editFaqQues({questions: [{name: quesName}], position: quesIndex}, quesId).subscribe((data) => {
+            this.botService.editFaqQues({questions: [{name: quesName, position: quesIndex + 1}]}, quesId).subscribe((data) => {
+                this.getTopicsWithQues();
                 this.snackBarService.openSnackBar('Faq Question Updated');
             });
         }
     }
 
-    deleteFaqQuestion(quesId) {
+    deleteFaqQuestion(quesId, questions, quesIndex) {
         if (confirm('This will delete this question. You sure?')) {
             this.botService.deleteFaqQuestion(quesId).subscribe((data) => {
-                this.getTopicsWithQues();
+                if (quesIndex + 1 !== questions.length) {
+                    for (let i = quesIndex + 1; i < questions.length; i++) {
+                        this.editQues(questions[i].name, questions[i].id, (i - 1));
+                    }
+                } else {
+                    this.getTopicsWithQues();
+                }
                 this.snackBarService.openSnackBar('Faq Question Deleted');
             }, (err) => {
                 console.log(err);
@@ -347,6 +362,16 @@ export class BotModulesComponent implements OnInit, OnDestroy {
         }, (err) => {
             console.log(err);
         });
+    }
+
+    moveUpwards(quesData, quesIndex) {
+        this.editQues(quesData[quesIndex - 1].name, quesData[quesIndex - 1].id, quesIndex);
+        this.editQues(quesData[quesIndex].name, quesData[quesIndex].id, quesIndex - 1);
+    }
+
+    moveDownwards(quesData, quesIndex) {
+        this.editQues(quesData[quesIndex + 1].name, quesData[quesIndex + 1].id, quesIndex);
+        this.editQues(quesData[quesIndex].name, quesData[quesIndex].id, quesIndex + 1);
     }
 
 }
