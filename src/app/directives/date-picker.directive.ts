@@ -35,7 +35,7 @@ export class DatePickerDirective implements AfterViewInit {
           that : that,
           presets: [{
               label: 'Last 7 Days',
-              start: moment().subtract(7, 'days'),
+              start: moment().subtract(6, 'days'),
               end: moment()
           }, {
               label: 'Last 30 Days',

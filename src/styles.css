@@ -3320,6 +3320,10 @@ p {
     padding: 20px 0 0;
 }
 
+.kpi-wrap {
+    padding: 20px !important;
+}
+
 .language-form-wrap button {
     margin: 0 20px 0;
     position: relative;
@@ -4559,14 +4563,19 @@ p {
     margin: 0;
     padding: 0;
 }
-
+.chart-feedback-wrap{
+    margin-left:-140px !important;
+}
+.chart-feedback-wrap .chart-duration-options{
+    top:31px;
+    right:15px;
+}
 .analytics-inner-wrap span.session-number {
     font-size: 24px;
     color: #666;
     font-weight: 800;
     text-transform: none;
     letter-spacing: 0.25px;
-    margin-bottom: 20px;
     display: inline-block;
 }
 
@@ -5371,7 +5380,7 @@ p {
 }
 
 .feedback-wrapper {
-    padding: 0 20px;
+    padding:20px;
     text-align: center;
 }
 

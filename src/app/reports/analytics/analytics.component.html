@@ -33,7 +33,19 @@
                                 <span *ngIf="avg_time">Average Session Time: <strong>{{(avg_time.toFixed(0) <= '15' && avg_time.toFixed(0) > '0') ? 'less then 15 seconds' : (avg_time.toFixed(0) <= '60' && avg_time.toFixed(0) > '0') ? '15 seconds to one min' : (avg_time.toFixed(0) === '0') ? '': 'more then 1 min'}}</strong></span>
                             </div>
                             <div class="col-sm-6">
-
+                                <div class="chart-duration-wrap" [class.active]="sessionOptions">
+                                    <a href="javascript:void(0)" (click)="sessionOptions = !sessionOptions;"><span>{{selectedValueSession}}</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="chart-duration-options">
+                                    <span [class.active]="sessionDays"
+                                          (click)="getSessionOption('Days'); sessionDays = true; sessionOptions = sessionWeeks = sessionMonths = false; ">Days</span>
+                                        <span [class.active]="sessionWeeks" [class.disabled]="length < 15"
+                                              (click)="getSessionOption('Weeks'); sessionWeeks = true; sessionOptions = sessionDays = sessionMonths = false; ">Weeks</span>
+                                        <span [class.active]="sessionMonths" [class.disabled]="length < 60"
+                                              (click)="getSessionOption('Months'); sessionMonths = true; sessionOptions = sessionWeeks = sessionDays = false; ">Months</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -56,7 +68,21 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <h2>{{totalMesasgeCount}}</h2>
-
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="chart-duration-wrap" [class.active]="messageOptions">
+                                    <a href="javascript:void(0)" (click)="messageOptions = !messageOptions;"><span>{{selectedValueMessage}}</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="chart-duration-options">
+                                    <span [class.active]="messageDays"
+                                          (click)="getMessageOption('Days'); messageDays = true; messageOptions = messageWeeks = messageMonths = false; ">Days</span>
+                                        <span [class.active]="messageWeeks" [class.disabled]="length < 15"
+                                              (click)="getMessageOption('Weeks'); messageWeeks = true; messageOptions = messageDays = messageMonths = false; ">Weeks</span>
+                                        <span [class.active]="showMonths" [class.disabled]="length < 60"
+                                              (click)="getMessageOption('Months'); messageMonths = true; messageOptions = messageWeeks = messageDays = false; ">Months</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,7 +105,21 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <h2>{{totalUserCount}}</h2>
-
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="chart-duration-wrap" [class.active]="userOptions">
+                                    <a href="javascript:void(0)" (click)="userOptions = !userOptions;"><span>{{selectedValueUser}}</span>
+                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                    </a>
+                                    <div class="chart-duration-options">
+                                    <span [class.active]="userDays"
+                                          (click)="getUserOption('Days'); userDays = true; userOptions = userWeeks = userMonths = false; ">Days</span>
+                                        <span [class.active]="userWeeks" [class.disabled]="length < 15"
+                                              (click)="getUserOption('Weeks'); userWeeks = true; userOptions = userDays = userMonths = false; ">Weeks</span>
+                                        <span [class.active]="userMonths" [class.disabled]="length < 60"
+                                              (click)="getUserOption('Months'); userMonths = true; userOptions = userWeeks = userDays = false; ">Months</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
