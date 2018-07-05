@@ -79,7 +79,7 @@
                                           (click)="getMessageOption('Days'); messageDays = true; messageOptions = messageWeeks = messageMonths = false; ">Days</span>
                                         <span [class.active]="messageWeeks" [class.disabled]="length < 15"
                                               (click)="getMessageOption('Weeks'); messageWeeks = true; messageOptions = messageDays = messageMonths = false; ">Weeks</span>
-                                        <span [class.active]="showMonths" [class.disabled]="length < 60"
+                                        <span [class.active]="messageMonths" [class.disabled]="length < 60"
                                               (click)="getMessageOption('Months'); messageMonths = true; messageOptions = messageWeeks = messageDays = false; ">Months</span>
                                     </div>
                                 </div>
