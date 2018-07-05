@@ -122,7 +122,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.message = JSON.parse(JSON.stringify((response.data)));
             const finalResult = this.getGraphData(response.data, this.selectedValueMessage);
             this.totalSessionCount = finalResult.sum;
-            if (this.selectedValueSession === 'Days') {
+            if (this.selectedValueMessage === 'Days') {
                 this.options1 = this.generateGraphForDays(finalResult);
             } else {
                 this.options1 = this.generateGraphForWeeks(finalResult);
@@ -139,7 +139,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.users = JSON.parse(JSON.stringify((response.data)));
             const finalResult = this.getGraphData(response.data, this.selectedValueUser);
             this.totalSessionCount = finalResult.sum;
-            if (this.selectedValueSession === 'Days') {
+            if (this.selectedValueUser === 'Days') {
                 this.options2 = this.generateGraphForDays(finalResult);
             } else {
                 this.options2 = this.generateGraphForWeeks(finalResult);
