@@ -4563,6 +4563,7 @@ p {
     margin: 0;
     padding: 0;
 }
+
 .chart-feedback-wrap{
     margin-left:-140px !important;
 }
@@ -8319,7 +8320,6 @@ a.mat-mini-fab.mat-primary {
 
 .chart-title-wrap {
     position: relative;
-    margin-bottom: 30px;
     box-shadow: none !important;
     border: 0 !important;
 }
@@ -8339,6 +8339,14 @@ a.mat-mini-fab.mat-primary {
 
 .chart-title-wrap .row {
     margin: 0;
+}
+
+.m-b-30 {
+    margin-bottom: 30px !important;
+}
+
+.m-t-30 {
+    margin-top: 30px !important;
 }
 
 .chart-title-wrap span strong {color:#37bd85;}

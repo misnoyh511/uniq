@@ -41,7 +41,7 @@
                               <span>Feedback Type: <strong>Evaluation is per {{feedback_type === 1 ? 'Message': feedback_type === 0 ? 'Session' : ''}}</strong></span>
                           </div>
                         <div class="col-sm-6">
-                            <div class="chart-duration-wrap" [class.active]="showOptions">
+                            <div class="chart-duration-wrap chart-feedback-wrap" [class.active]="showOptions">
                                 <a href="javascript:void(0)" (click)="showOptions = !showOptions;"><span>{{selectedValue}}</span>
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 </a>
@@ -52,6 +52,20 @@
                                           (click)="getOption('Positive'); showPositive = true; showOptions = showAll = showNegative = false; ">Positive</span>
                                     <span [class.active]="showNegative"
                                           (click)="getOption('Negative'); showNegative = true; showOptions = showPositive = showAll = false; ">Negative</span>
+                                </div>
+                            </div>
+
+                            <div class="chart-duration-wrap" [class.active]="feedbackOptions">
+                                <a href="javascript:void(0)" (click)="feedbackOptions = !feedbackOptions;"><span>{{selectedValueFeedback}}</span>
+                                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                </a>
+                                <div class="chart-duration-options">
+                                    <span [class.active]="showDays"
+                                          (click)="getFeedbackOption('Days'); showDays = true; feedbackOptions = showWeeks = showMonths = false; ">Days</span>
+                                    <span [class.active]="showWeeks"
+                                          (click)="getFeedbackOption('Weeks'); showWeeks = true; feedbackOptions = showDays = showMonths = false; ">Weeks</span>
+                                    <span [class.active]="showMonths"
+                                          (click)="getFeedbackOption('Months'); showMonths = true; feedbackOptions = showWeeks = showDays = false; ">Months</span>
                                 </div>
                             </div>
                         </div>

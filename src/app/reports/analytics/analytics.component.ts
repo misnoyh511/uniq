@@ -105,11 +105,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.sessions = JSON.parse(JSON.stringify((response.data)));
             const finalResult = this.getGraphData(response.data, this.selectedValueSession);
             this.totalSessionCount = finalResult.sum;
-            if (this.selectedValueSession === 'Days') {
-                this.options = this.generateGraphForDays(finalResult);
-            } else {
-                this.options = this.generateGraphForWeeks(finalResult);
-            }
+            this.options = this.generateGraph(finalResult);
             this.highchartWrapper(response.data);
         }, (err) => {
             console.log(err);
@@ -122,11 +118,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.message = JSON.parse(JSON.stringify((response.data)));
             const finalResult = this.getGraphData(response.data, this.selectedValueMessage);
             this.totalSessionCount = finalResult.sum;
-            if (this.selectedValueMessage === 'Days') {
-                this.options1 = this.generateGraphForDays(finalResult);
-            } else {
-                this.options1 = this.generateGraphForWeeks(finalResult);
-            }
+            this.options1 = this.generateGraph(finalResult);
             this.highchartWrapper(this.message);
         }, (err) => {
             console.log(err);
@@ -139,11 +131,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
             this.users = JSON.parse(JSON.stringify((response.data)));
             const finalResult = this.getGraphData(response.data, this.selectedValueUser);
             this.totalSessionCount = finalResult.sum;
-            if (this.selectedValueUser === 'Days') {
-                this.options2 = this.generateGraphForDays(finalResult);
-            } else {
-                this.options2 = this.generateGraphForWeeks(finalResult);
-            }
+            this.options2 = this.generateGraph(finalResult);
             this.highchartWrapper(this.users);
         }, (err) => {
             console.log(err);
@@ -189,7 +177,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         let countArray = [];
         let dateArray = [];
         for (const i in resArray) {
-            dateArray.push(resArray[i].date);
+            dateArray.push(this.datePipe.transform(resArray[i].date, 'MMM d'));
             if (resArray[i].count) {
                 countArray.push(parseInt(resArray[i].count, 10));
             }
@@ -206,7 +194,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         const label = [];
         const finalCount = [];
         let weekCount = 0;
-        let startIndex = dateArray[0].getDay();
+        let startIndex = resArray[0].date.getDay();
         if (duration === 'Weeks') {
             for (const i in resArray) {
                 resArray[i].day = resArray[i].date.getDay();
@@ -260,7 +248,17 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         return {countArray: countArray, dateArray: dateArray, sum: sum};
     }
 
-    generateGraphForDays(finalResult) {
+    generateGraph(finalResult) {
+        let interval;
+        if (finalResult.dateArray && finalResult.dateArray.length && finalResult.dateArray.length <= 10) {
+            interval = 1;
+        } else if (finalResult.dateArray.length <= 30) {
+            interval = 2;
+        } else if (finalResult.dateArray.length <= 60) {
+            interval = 7;
+        } else {
+            interval = 15;
+        }
         return {
             chart: {
                 type: 'area'
@@ -275,6 +273,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
 
             xAxis: {
                 type: 'datetime',
+                categories: finalResult.dateArray,
                 dateTimeLabelFormats: {
                     day: '%b %e'
                 },
@@ -284,113 +283,8 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                         fontSize: '14px'
                     }
                 },
-                tickmarkPlacement: 'on'
-            },
-            series: [{
-                lineColor: '#6078FF',
-                lineWidth: 5,
-                color: '#6078FF',
-                fillOpacity: 0.1,
-                data: finalResult.countArray,
-                pointStart: Date.UTC(finalResult.dateArray[0].getYear(),
-                    finalResult.dateArray[0].getMonth(), finalResult.dateArray[0].getDate()),
-                pointInterval: 24 * 3600 * 1000
-            }],
-            yAxis: {
-                title: {
-                    text: 'Count'
-                },
-                gridLineColor: '#fafafa',
-                labels: {
-                    formatter: function () {
-                        return this.value;
-                    },
-                    style: {
-                        color: '#626597',
-                        fontSize: '14px'
-                    }
-                }
-            },
-
-            tooltip: {
-                formatter: function () {
-                    return '<span style="font-size:12px; color:#7171A6;line-height: 1.3;">' +
-                        Highcharts.dateFormat('%b %e', this.x) + '</span> <br> <b style="color:#6078FF; ' +
-                        'font-weight:bold; font-size:16px; line-height:24px;">' + this.y + '</b>';
-                },
-                backgroundColor: null,
-                borderWidth: 0,
-                shadow: false,
-                useHTML: true,
-                style: {
-                    padding: 0
-                }
-            },
-
-            plotOptions: {
-                area: {
-                    type: 'percent',
-                    marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        fillColor: '#6078FF',
-                        radius: 7,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                fillColor: '#fff',
-                                lineColor: '#6078FF',
-                                lineWidth: 3,
-                                radius: 10
-                            }
-                        },
-                        zIndex: 100
-                    },
-                    events: {
-                        mouseOver: function () {
-                            this.update({
-                                marker: {
-                                    enabled: true
-                                }
-                            });
-                        }, mouseOut: function () {
-                            this.update({
-                                marker: {
-                                    enabled: false
-                                }
-                            });
-                        }
-                    }
-                },
-                series: {
-                    connectNulls: true
-                }
-            }
-        };
-    }
-
-    generateGraphForWeeks(finalResult) {
-        return {
-            chart: {
-                type: 'area'
-            },
-            title: {
-                text: ''
-            },
-
-            subtitle: {
-                text: ''
-            },
-
-            xAxis: {
-                categories: finalResult.dateArray,
-                labels: {
-                    style: {
-                        color: '#626597',
-                        fontSize: '14px'
-                    }
-                },
-                tickmarkPlacement: 'on'
+                tickmarkPlacement: 'on',
+                tickInterval: interval
             },
             series: [{
                 lineColor: '#6078FF',
@@ -477,12 +371,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.options = {};
         const responseData = JSON.parse(JSON.stringify(this.sessions));
         const finalResult = this.getGraphData(responseData, this.selectedValueSession);
-        if (value === 'Days') {
-            this.options = this.generateGraphForDays(finalResult);
-        }
-        if (value === 'Weeks' || value === 'Months') {
-            this.options = this.generateGraphForWeeks(finalResult);
-        }
+        this.options = this.generateGraph(finalResult);
     }
 
     getMessageOption(value) {
@@ -490,12 +379,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.options1 = {};
         const responseData = JSON.parse(JSON.stringify(this.message));
         const finalResult = this.getGraphData(responseData, this.selectedValueMessage);
-        if (value === 'Days') {
-            this.options1 = this.generateGraphForDays(finalResult);
-        }
-        if (value === 'Weeks' || value === 'Months') {
-            this.options1 = this.generateGraphForWeeks(finalResult);
-        }
+        this.options1 = this.generateGraph(finalResult);
     }
 
     getUserOption(value) {
@@ -503,12 +387,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.options2 = {};
         const responseData = JSON.parse(JSON.stringify(this.users));
         const finalResult = this.getGraphData(responseData, this.selectedValueUser);
-        if (value === 'Days') {
-            this.options2 = this.generateGraphForDays(finalResult);
-        }
-        if (value === 'Weeks' || value === 'Months') {
-            this.options2 = this.generateGraphForWeeks(finalResult);
-        }
+        this.options2 = this.generateGraph(finalResult);
     }
 
     onDateChange(event: any) {

@@ -31,6 +31,12 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     showAll = true;
     showPositive = false;
     showNegative = false;
+    feedbackOptions = false;
+    showDays = true;
+    showWeeks = false;
+    showMonths = false;
+    selectedValueFeedback = 'Days';
+    feedbackArr: any = [];
 
     constructor(private reportsService: ReportsService, public sbs: SidebarService, private sort: ArraySortPipe,
                 private datePipe: DatePipe) {
@@ -47,7 +53,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             this.endDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
             this.startDate = this.datePipe.transform(((new Date()).setDate((new Date()).getDate() - 29)), 'yyyy-MM-dd');
         }
-        if (this.sbs.token) {
+        if (this.sbs.token && this.sbs.feedback_type) {
             this.analytics_token = this.sbs.token;
             this.feedback_type = this.sbs.feedback_type;
             this.getSession();
@@ -84,201 +90,235 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.getSession();
     }
 
+    getFeedbackOption(value) {
+        this.selectedValueFeedback = value;
+        const finalArray = [];
+        const feedbackArray = JSON.parse(JSON.stringify(this.feedbackArr));
+        feedbackArray.forEach(function (element) {
+            const dateParts = element.created_at.split('T')[0].split('-');
+            finalArray.push({
+                text: element.text,
+                created_at: new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+            });
+        });
+        const finalResult = this.getGraphData(finalArray);
+        this.options = this.generateGraph(finalResult);
+    }
+
     getSession() {
         this.items = [];
         this.sessions = [];
         this.totalAvg = '';
         if (this.feedback_type) {
             if (this.selectedValue === 'Negative') {
-                this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-                    const valueArr = response.data.map(function (item) {
-                        let data = {};
-                        data = {
-                            text: item.text,
-                            status: 'negative',
-                            created_at: item.created_at
-                        };
-                        return data;
-                    });
-                    this.sessions = this.compressArray(valueArr);
-                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                    this.getPaginatedData();
-                }, (err) => {
-                    console.log(err);
-                });
+                this.getNegativeChat();
             } else if (this.selectedValue === 'Positive') {
-                this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-                    const valueArr = response.data.map(function (item) {
-                        let data = {};
-                        data = {
-                            text: item.text,
-                            status: 'positive',
-                            created_at: item.created_at
-                        };
-                        return data;
-                    });
-                    this.sessions = this.compressArray(valueArr);
-                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                    this.getPaginatedData();
-                }, (err) => {
-                    console.log(err);
-                });
+                this.getPositiveChat();
             } else {
-                this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
-                    this.options = {};
-                    const feedbackData = [];
-                    if (res && res.data && res.data.length) {
-                        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
-                            proceed.call(this);
-                            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-                            if (this.graph !== undefined) {
-                                this.graph.add(this.markerGroup);
-                            }
-                        });
-                    }
-                    res.data.forEach(function (element) {
-                        feedbackData.push({
-                            text: element.feedback,
-                            created_at: element.date
-                        });
-                    });
-                    const data = this.insertDates(feedbackData);
-                    this.generateGraph(data);
-                }, (err) => {
-                    console.log(err);
-                });
-                this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
-                    const posData = this.insertDates(positiveRes.data);
-                    const posValueArr = posData.map(function (item) {
-                        let data = {};
-                        data = {
-                            text: item.text,
-                            status: 'positive',
-                            created_at: item.created_at
-                        };
-                        return data;
-                    });
-                    this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
-                        const negData = this.insertDates(negativeRes.data);
-                        const negValueArr = negData.map(function (item) {
-                            let data = {};
-                            data = {
-                                text: item.text,
-                                status: 'negative',
-                                created_at: item.created_at
-                            };
-                            return data;
-                        });
-                        const valueArr = posValueArr.concat(negValueArr);
-                        this.sessions = this.compressArray(valueArr);
-                        this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                        this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                        this.getPaginatedData();
-                    }, (err) => {
-                        console.log(err);
-                    });
-                }, (err) => {
-                    console.log(err);
-                });
+                this.getFeedbackChat();
+                this.getAllChats();
             }
         } else {
             if (this.selectedValue === 'Negative') {
-                this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-                    const valueArr = response.data.map(function (item) {
-                        let data = {};
-                        data = {
-                            text: item.text,
-                            status: 'negative',
-                            created_at: item.created_at
-                        };
-                        return data;
-                    });
-                    this.sessions = this.compressArray(valueArr);
-                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                    this.getPaginatedData();
-                }, (err) => {
-                    console.log(err);
-                });
+                this.getNegativeSession();
             } else if (this.selectedValue === 'Positive') {
-                this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
-                    const valueArr = response.data.map(function (item) {
-                        let data = {};
-                        data = {
-                            text: item.text,
-                            status: 'positive',
-                            created_at: item.created_at
-                        };
-                        return data;
-                    });
-                    this.sessions = this.compressArray(valueArr);
-                    this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                    this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                    this.getPaginatedData();
-                }, (err) => {
-                    console.log(err);
-                });
+                this.getPositiveSession();
             } else {
-                this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
-                    const feedbackData = [];
-                    this.options = {};
-                    if (res && res.data && res.data.length) {
-                        Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
-                            proceed.call(this);
-                            proceed.apply(this, Array.prototype.slice.call(arguments, 1));
-                            if (this.graph !== undefined) {
-                                this.graph.add(this.markerGroup);
-                            }
-                        });
-                    }
-                    res.data.forEach(function (element) {
-                        feedbackData.push({
-                            text: element.feedback,
-                            created_at: element.date
-                        });
-                    });
-                    const data = this.insertDates(feedbackData);
-                    this.generateGraph(data);
-                }, (err) => {
-                    console.log(err);
-                });
-                this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
-                    const posData = this.insertDates(positiveRes.data);
-                    const posValueArr = posData.map(function (item) {
-                        let data = {};
-                        data = {
-                            text: item.text,
-                            status: 'positive',
-                            created_at: item.created_at
-                        };
-                        return data;
-                    });
-                    this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
-                        const negData = this.insertDates(negativeRes.data);
-                        const negValueArr = negData.map(function (item) {
-                            let data = {};
-                            data = {
-                                text: item.text,
-                                status: 'negative',
-                                created_at: item.created_at
-                            };
-                            return data;
-                        });
-                        const valueArr = posValueArr.concat(negValueArr);
-                        this.sessions = this.compressArray(valueArr);
-                        this.itemsPerPage = this.getItemPerPage(this.sessions.length);
-                        this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
-                        this.getPaginatedData();
-                    }, (err) => {
-                        console.log(err);
-                    });
-                }, (err) => {
-                    console.log(err);
-                });
+                this.getFeedbackSession();
+                this.getAllSessions();
             }
         }
+    }
+
+    getNegativeChat() {
+        this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+            const valueArr = response.data.map(function (item) {
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'negative',
+                    created_at: item.created_at
+                };
+                return data;
+            });
+            this.sessions = this.compressArray(valueArr);
+            this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+            this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+            this.getPaginatedData();
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    getPositiveChat() {
+        this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+            const valueArr = response.data.map(function (item) {
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+                return data;
+            });
+            this.sessions = this.compressArray(valueArr);
+            this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+            this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+            this.getPaginatedData();
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    getNegativeSession() {
+        this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+            const valueArr = response.data.map(function (item) {
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'negative',
+                    created_at: item.created_at
+                };
+                return data;
+            });
+            this.sessions = this.compressArray(valueArr);
+            this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+            this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+            this.getPaginatedData();
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    getPositiveSession() {
+        this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((response) => {
+            const valueArr = response.data.map(function (item) {
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+                return data;
+            });
+            this.sessions = this.compressArray(valueArr);
+            this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+            this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+            this.getPaginatedData();
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    getFeedbackChat() {
+        this.reportsService.getFeedbackChat(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
+            this.options = {};
+            const feedbackData = [];
+            this.highchartWrapper(res.data);
+            res.data.forEach(function (element) {
+                const dateParts = element.date.split('T')[0].split('-');
+                feedbackData.push({
+                    text: element.feedback,
+                    created_at: new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+                });
+            });
+            const data = this.insertDates(feedbackData);
+            this.feedbackArr = JSON.parse(JSON.stringify(data));
+            const finalResult = this.getGraphData(data);
+            this.options = this.generateGraph(finalResult);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    getFeedbackSession() {
+        this.reportsService.getFeedbackSession(this.analytics_token, this.startDate, this.endDate).subscribe((res) => {
+            const feedbackData = [];
+            this.options = {};
+            this.highchartWrapper(res.data);
+            res.data.forEach(function (element) {
+                feedbackData.push({
+                    text: element.feedback,
+                    created_at: element.date
+                });
+            });
+            const data = this.insertDates(feedbackData);
+            this.getGraphData(data);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    getAllChats() {
+        this.reportsService.getPositiveChat(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
+            const posData = this.insertDates(positiveRes.data);
+            const posValueArr = posData.map(function (item) {
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+                return data;
+            });
+            this.reportsService.getNegativeChat(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
+                const negData = this.insertDates(negativeRes.data);
+                const negValueArr = negData.map(function (item) {
+                    let data = {};
+                    data = {
+                        text: item.text,
+                        status: 'negative',
+                        created_at: item.created_at
+                    };
+                    return data;
+                });
+                const valueArr = posValueArr.concat(negValueArr);
+                this.sessions = this.compressArray(valueArr);
+                this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                this.getPaginatedData();
+            }, (err) => {
+                console.log(err);
+            });
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    getAllSessions() {
+        this.reportsService.getPositiveSession(this.analytics_token, this.startDate, this.endDate).subscribe((positiveRes) => {
+            const posData = this.insertDates(positiveRes.data);
+            const posValueArr = posData.map(function (item) {
+                let data = {};
+                data = {
+                    text: item.text,
+                    status: 'positive',
+                    created_at: item.created_at
+                };
+                return data;
+            });
+            this.reportsService.getNegativeSession(this.analytics_token, this.startDate, this.endDate).subscribe((negativeRes) => {
+                const negData = this.insertDates(negativeRes.data);
+                const negValueArr = negData.map(function (item) {
+                    let data = {};
+                    data = {
+                        text: item.text,
+                        status: 'negative',
+                        created_at: item.created_at
+                    };
+                    return data;
+                });
+                const valueArr = posValueArr.concat(negValueArr);
+                this.sessions = this.compressArray(valueArr);
+                this.itemsPerPage = this.getItemPerPage(this.sessions.length);
+                this.totalPages = Math.ceil(this.sessions.length / this.itemPerPage);
+                this.getPaginatedData();
+            }, (err) => {
+                console.log(err);
+            });
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     compressArray(original) {
@@ -383,9 +423,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             // let day;
             let flag = false;
             resData.forEach(x => {
-                x.created_at = x.created_at.split('T')[0];
-                const day = this.datePipe.transform(currentDay, 'yyyy-MM-dd');
-                if (x.created_at === day) {
+                if (this.datePipe.transform(x.created_at, 'yyyy-MM-dd') === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
                     flag = true;
                 }
             });
@@ -402,45 +440,23 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         return resData;
     }
 
-    generateGraph(valueArr) {
-        for (const i in valueArr) {
-            valueArr[i].created_at = this.datePipe.transform(valueArr[i].created_at, 'yyyy-MM-dd');
-        }
+    getGraphData(valueArr) {
         valueArr = _.sortBy(valueArr,
             (item) => {
                 return +new Date(item.created_at);
             });
-        const countArray = [];
-        const feedbackArr = [];
-        const month = {
-            '01': 'Jan',
-            '02': 'Feb',
-            '03': 'Mar',
-            '04': 'Apr',
-            '05': 'May',
-            '06': 'Jun',
-            '07': 'Jul',
-            '08': 'Aug',
-            '09': 'Sep',
-            '10': 'Oct',
-            '11': 'Nov',
-            '12': 'Dec'
-        };
-        valueArr.forEach(function (element) {
-            if (typeof element.created_at === 'string') {
-                const dateParts = element.created_at.split('-');
-                dateParts[2] = parseInt(dateParts[2], 10); // for removing leading zeroes
-                feedbackArr.push(month[dateParts[1]] + ' ' + dateParts[2]);
-            } else {
-                const dateParts = element.created_at.split(' ');
-                feedbackArr.push(dateParts[1] + ' ' + dateParts[2]);
-            }
-            if (element.text && parseFloat(element.text) !== 0) {
-                countArray.push(parseFloat((parseFloat(element.text) * 100).toFixed(1)));
+        let countArray = [];
+        let dateArray = [];
+
+        for (const i in valueArr) {
+            dateArray.push(this.datePipe.transform(valueArr[i].created_at, 'MMM d'));
+            if (valueArr[i].text && parseFloat(valueArr[i].text) !== 0) {
+                countArray.push(parseFloat((parseFloat(valueArr[i].text) * 100).toFixed(1)));
             } else {
                 countArray.push(null);
             }
-        });
+        }
+
         let sum = 0;
         let count = 0;
         for (let i = 0; i < countArray.length; i++) {
@@ -450,7 +466,98 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             }
         }
         this.totalAvg = parseFloat((sum / count).toFixed(2)) + '%';
-        this.options = {
+        let startLabel, endLabel;
+        const label = [];
+        const finalCount = [];
+        let weekCount = 0;
+        let index = 0;
+        let startIndex = valueArr[0].created_at.getDay();
+        if (this.selectedValueFeedback === 'Weeks') {
+            for (const i in valueArr) {
+                valueArr[i].day = valueArr[i].created_at.getDay();
+                if (valueArr[i].text === '') {
+                    valueArr[i].text = '0';
+                }
+            }
+
+            for (const i in valueArr) {
+                if (startIndex === valueArr[i].day) {
+                    startLabel = this.datePipe.transform(valueArr[i].created_at, 'M/d');
+                    startIndex = 0;
+                }
+
+                if (valueArr[i].day <= 6) {
+                    weekCount = weekCount + parseFloat(valueArr[i].text);
+                    if (parseFloat(valueArr[i].text)) {
+                        index++;
+                    }
+                    if (valueArr[i].day === 6 || parseInt(i, 10) === (valueArr.length - 1)) {
+                        if (weekCount === 0) {
+                            finalCount.push(null);
+                        } else {
+                            finalCount.push(parseFloat((weekCount * 100 / index).toFixed(1)));
+                        }
+                        weekCount = 0;
+                        index = 0;
+                    }
+                }
+                if (valueArr[i].day === 6 || parseInt(i, 10) === (valueArr.length - 1)) {
+                    endLabel = this.datePipe.transform(valueArr[i].created_at, 'M/d');
+                }
+
+                if (startLabel && endLabel) {
+                    label.push(startLabel + '-' + endLabel);
+                    startLabel = '';
+                    endLabel = '';
+                }
+            }
+            countArray = finalCount;
+            dateArray = label;
+        }
+
+        if (this.selectedValueFeedback === 'Months') {
+            countArray = [];
+            dateArray = [];
+            const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            for (const i in valueArr) {
+                valueArr[i].month = month[valueArr[i].created_at.getMonth()] + '\'' + valueArr[i].created_at.getYear().toString().substr(-2);
+                if (valueArr[i].text === '') {
+                    valueArr[i].text = 0;
+                } else {
+                    valueArr[i].text = parseFloat(valueArr[i].text);
+                }
+            }
+            const monthData = _.groupBy(valueArr, 'month');
+            const monthArray = _.map(monthData, function (monthObj) {
+                index = 0;
+                for (const i in monthObj) {
+                    if (monthObj[i].text) {
+                        index++;
+                    }
+                }
+                const avgText = parseFloat((_.sumBy(monthObj, 'text') / index).toFixed(1));
+                return {created_at: monthObj[0].month, text: avgText * 100};
+            });
+            for (const i in monthArray) {
+                countArray.push(monthArray[i].text);
+                dateArray.push(monthArray[i].created_at);
+            }
+        }
+        return {countArray: countArray, dateArray: dateArray};
+    }
+
+    generateGraph(finalResult) {
+        let interval;
+        if (finalResult.dateArray && finalResult.dateArray.length && finalResult.dateArray.length <= 10) {
+            interval = 1;
+        } else if (finalResult.dateArray.length <= 30) {
+            interval = 2;
+        } else if (finalResult.dateArray.length <= 60) {
+            interval = 7;
+        } else {
+            interval = 15;
+        }
+        return {
             chart: {
                 type: 'area',
                 marginTop: 50
@@ -463,7 +570,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             },
             xAxis: {
                 type: 'datetime',
-                categories: feedbackArr,
+                categories: finalResult.dateArray,
                 dateTimeLabelFormats: {
                     day: '%b %e'
                 },
@@ -473,7 +580,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                         fontSize: '14px'
                     }
                 },
-                tickmarkPlacement: 'on'
+                tickmarkPlacement: 'on',
+                tickInterval: interval
             },
             yAxis: {
                 title: {
@@ -550,8 +658,20 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 lineWidth: 5,
                 color: '#6078FF',
                 fillOpacity: 0.1,
-                data: countArray
+                data: finalResult.countArray
             }]
         };
+    }
+
+    highchartWrapper(resArray) {
+        if (resArray && resArray.length) {
+            Highcharts.wrap(Highcharts.Series.prototype, 'drawGraph', function (proceed) {
+                proceed.call(this);
+                proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+                if (this.graph !== undefined) {
+                    this.graph.add(this.markerGroup);
+                }
+            });
+        }
     }
 }
