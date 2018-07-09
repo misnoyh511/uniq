@@ -62,9 +62,9 @@
                                 <div class="chart-duration-options">
                                     <span [class.active]="showDays"
                                           (click)="getFeedbackOption('Days'); showDays = true; feedbackOptions = showWeeks = showMonths = false; ">Days</span>
-                                    <span [class.active]="showWeeks"
+                                    <span [class.active]="showWeeks" [class.disabled]="feedbackArr.length < 14"
                                           (click)="getFeedbackOption('Weeks'); showWeeks = true; feedbackOptions = showDays = showMonths = false; ">Weeks</span>
-                                    <span [class.active]="showMonths"
+                                    <span [class.active]="showMonths" [class.disabled]="feedbackArr.length < 59"
                                           (click)="getFeedbackOption('Months'); showMonths = true; feedbackOptions = showWeeks = showDays = false; ">Months</span>
                                 </div>
                             </div>

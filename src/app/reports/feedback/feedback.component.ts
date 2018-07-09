@@ -101,8 +101,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 created_at: new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
             });
         });
-        const finalResult = this.getGraphData(finalArray);
-        this.options = this.generateGraph(finalResult);
+        this.getGraphData(finalArray).then((finalResult: any) => {
+            this.options = this.generateGraph(finalResult);
+        });
     }
 
     getSession() {
@@ -224,8 +225,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
             });
             const data = this.insertDates(feedbackData);
             this.feedbackArr = JSON.parse(JSON.stringify(data));
-            const finalResult = this.getGraphData(data);
-            this.options = this.generateGraph(finalResult);
+            this.getGraphData(data).then((finalResult: any) => {
+                this.options = this.generateGraph(finalResult);
+            });
         }, (err) => {
             console.log(err);
         });
@@ -243,7 +245,10 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             });
             const data = this.insertDates(feedbackData);
-            this.getGraphData(data);
+            this.feedbackArr = JSON.parse(JSON.stringify(data));
+            this.getGraphData(data).then((finalResult: any) => {
+                this.options = this.generateGraph(finalResult);
+            });
         }, (err) => {
             console.log(err);
         });
@@ -441,122 +446,118 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     }
 
     getGraphData(valueArr) {
-        valueArr = _.sortBy(valueArr,
-            (item) => {
-                return +new Date(item.created_at);
-            });
-        let countArray = [];
-        let dateArray = [];
-
-        for (const i in valueArr) {
-            dateArray.push(this.datePipe.transform(valueArr[i].created_at, 'MMM d'));
-            if (valueArr[i].text && parseFloat(valueArr[i].text) !== 0) {
-                countArray.push(parseFloat((parseFloat(valueArr[i].text) * 100).toFixed(1)));
-            } else {
-                countArray.push(null);
-            }
-        }
-
-        let sum = 0;
-        let count = 0;
-        for (let i = 0; i < countArray.length; i++) {
-            if (countArray[i] !== null) {
-                count++;
-                sum += parseInt(countArray[i], 10);
-            }
-        }
-        this.totalAvg = parseFloat((sum / count).toFixed(2)) + '%';
-        let startLabel, endLabel;
-        const label = [];
-        const finalCount = [];
-        let weekCount = 0;
-        let index = 0;
-        let startIndex = valueArr[0].created_at.getDay();
-        if (this.selectedValueFeedback === 'Weeks') {
-            for (const i in valueArr) {
-                valueArr[i].day = valueArr[i].created_at.getDay();
-                if (valueArr[i].text === '') {
-                    valueArr[i].text = '0';
-                }
-            }
-
-            for (const i in valueArr) {
-                if (startIndex === valueArr[i].day) {
-                    startLabel = this.datePipe.transform(valueArr[i].created_at, 'M/d');
-                    startIndex = 0;
+        return new Promise((resolve, reject) => {
+            valueArr = _.sortBy(valueArr,
+                (item) => {
+                    return +new Date(item.created_at);
+                });
+            let countArray = [];
+            let dateArray = [];
+            if (this.selectedValueFeedback === 'Days') {
+                for (const i in valueArr) {
+                    dateArray.push(this.datePipe.transform(valueArr[i].created_at, 'MMM d'));
+                    if (valueArr[i].text && parseFloat(valueArr[i].text) !== 0) {
+                        countArray.push(parseFloat((parseFloat(valueArr[i].text) * 100).toFixed(1)));
+                    } else {
+                        countArray.push(null);
+                    }
                 }
 
-                if (valueArr[i].day <= 6) {
-                    weekCount = weekCount + parseFloat(valueArr[i].text);
-                    if (parseFloat(valueArr[i].text)) {
-                        index++;
+            }
+
+            let startLabel, endLabel;
+            const label = [];
+            const finalCount = [];
+            let weekCount = 0;
+            let index = 0;
+            let startIndex = valueArr[0].created_at.getDay();
+            if (this.selectedValueFeedback === 'Weeks') {
+                for (const i in valueArr) {
+                    valueArr[i].day = valueArr[i].created_at.getDay();
+                    if (valueArr[i].text === '') {
+                        valueArr[i].text = '0';
+                    }
+                }
+
+                for (const i in valueArr) {
+                    if (startIndex === valueArr[i].day) {
+                        startLabel = this.datePipe.transform(valueArr[i].created_at, 'M/d');
+                        startIndex = 0;
+                    }
+
+                    if (valueArr[i].day <= 6) {
+                        weekCount = weekCount + parseFloat(valueArr[i].text);
+                        if (parseFloat(valueArr[i].text)) {
+                            index++;
+                        }
+                        if (valueArr[i].day === 6 || parseInt(i, 10) === (valueArr.length - 1)) {
+                            if (weekCount === 0) {
+                                finalCount.push(null);
+                            } else {
+                                finalCount.push(parseFloat((weekCount * 100 / index).toFixed(1)));
+                            }
+                            weekCount = 0;
+                            index = 0;
+                        }
                     }
                     if (valueArr[i].day === 6 || parseInt(i, 10) === (valueArr.length - 1)) {
-                        if (weekCount === 0) {
-                            finalCount.push(null);
-                        } else {
-                            finalCount.push(parseFloat((weekCount * 100 / index).toFixed(1)));
+                        endLabel = this.datePipe.transform(valueArr[i].created_at, 'M/d');
+                    }
+
+                    if (startLabel && endLabel) {
+                        label.push(startLabel + '-' + endLabel);
+                        startLabel = '';
+                        endLabel = '';
+                    }
+                }
+                countArray = finalCount;
+                dateArray = label;
+            }
+
+            if (this.selectedValueFeedback === 'Months') {
+                countArray = [];
+                dateArray = [];
+                const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                for (const i in valueArr) {
+                    valueArr[i].month = month[valueArr[i].created_at.getMonth()] + '\'' + valueArr[i].created_at.getYear().toString().substr(-2);
+                    if (valueArr[i].text === '') {
+                        valueArr[i].text = 0;
+                    } else {
+                        valueArr[i].text = parseFloat(valueArr[i].text);
+                    }
+                }
+                const monthData = _.groupBy(valueArr, 'month');
+                const monthArray = _.map(monthData, function (monthObj) {
+                    index = 0;
+                    for (const i in monthObj) {
+                        if (monthObj[i].text) {
+                            index++;
                         }
-                        weekCount = 0;
-                        index = 0;
                     }
+                    const avgText = parseFloat((_.sumBy(monthObj, 'text') / index).toFixed(1));
+                    return {created_at: monthObj[0].month, text: avgText * 100};
+                });
+                for (const i in monthArray) {
+                    countArray.push(monthArray[i].text);
+                    dateArray.push(monthArray[i].created_at);
                 }
-                if (valueArr[i].day === 6 || parseInt(i, 10) === (valueArr.length - 1)) {
-                    endLabel = this.datePipe.transform(valueArr[i].created_at, 'M/d');
-                }
+            }
 
-                if (startLabel && endLabel) {
-                    label.push(startLabel + '-' + endLabel);
-                    startLabel = '';
-                    endLabel = '';
+            let sum = 0;
+            let count = 0;
+            for (let i = 0; i < countArray.length; i++) {
+                if (countArray[i] !== null) {
+                    count++;
+                    sum += parseInt(countArray[i], 10);
                 }
             }
-            countArray = finalCount;
-            dateArray = label;
-        }
+            this.totalAvg = parseFloat((sum / count).toFixed(2)) + '%';
 
-        if (this.selectedValueFeedback === 'Months') {
-            countArray = [];
-            dateArray = [];
-            const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            for (const i in valueArr) {
-                valueArr[i].month = month[valueArr[i].created_at.getMonth()] + '\'' + valueArr[i].created_at.getYear().toString().substr(-2);
-                if (valueArr[i].text === '') {
-                    valueArr[i].text = 0;
-                } else {
-                    valueArr[i].text = parseFloat(valueArr[i].text);
-                }
-            }
-            const monthData = _.groupBy(valueArr, 'month');
-            const monthArray = _.map(monthData, function (monthObj) {
-                index = 0;
-                for (const i in monthObj) {
-                    if (monthObj[i].text) {
-                        index++;
-                    }
-                }
-                const avgText = parseFloat((_.sumBy(monthObj, 'text') / index).toFixed(1));
-                return {created_at: monthObj[0].month, text: avgText * 100};
-            });
-            for (const i in monthArray) {
-                countArray.push(monthArray[i].text);
-                dateArray.push(monthArray[i].created_at);
-            }
-        }
-        return {countArray: countArray, dateArray: dateArray};
+            resolve ({countArray: countArray, dateArray: dateArray});
+        });
     }
 
     generateGraph(finalResult) {
-        let interval;
-        if (finalResult.dateArray && finalResult.dateArray.length && finalResult.dateArray.length <= 10) {
-            interval = 1;
-        } else if (finalResult.dateArray.length <= 30) {
-            interval = 2;
-        } else if (finalResult.dateArray.length <= 60) {
-            interval = 7;
-        } else {
-            interval = 15;
-        }
         return {
             chart: {
                 type: 'area',
@@ -581,7 +582,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                     }
                 },
                 tickmarkPlacement: 'on',
-                tickInterval: interval
+                tickInterval: Math.ceil((finalResult.dateArray.length) / 30)
             },
             yAxis: {
                 title: {

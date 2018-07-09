@@ -40,9 +40,9 @@
                                     <div class="chart-duration-options">
                                     <span [class.active]="sessionDays"
                                           (click)="getSessionOption('Days'); sessionDays = true; sessionOptions = sessionWeeks = sessionMonths = false; ">Days</span>
-                                        <span [class.active]="sessionWeeks" [class.disabled]="length < 15"
+                                        <span [class.active]="sessionWeeks" [class.disabled]="length < 14"
                                               (click)="getSessionOption('Weeks'); sessionWeeks = true; sessionOptions = sessionDays = sessionMonths = false; ">Weeks</span>
-                                        <span [class.active]="sessionMonths" [class.disabled]="length < 60"
+                                        <span [class.active]="sessionMonths" [class.disabled]="length < 59"
                                               (click)="getSessionOption('Months'); sessionMonths = true; sessionOptions = sessionWeeks = sessionDays = false; ">Months</span>
                                     </div>
                                 </div>

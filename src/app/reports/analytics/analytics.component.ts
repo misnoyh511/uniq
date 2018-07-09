@@ -103,10 +103,11 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.sessions = [];
         this.reportsService.getAllSession(this.startDate, this.endDate, this.analytics_token).subscribe((response) => {
             this.sessions = JSON.parse(JSON.stringify((response.data)));
-            const finalResult = this.getGraphData(response.data, this.selectedValueSession);
-            this.totalSessionCount = finalResult.sum;
-            this.options = this.generateGraph(finalResult);
-            this.highchartWrapper(response.data);
+            this.getGraphData(response.data, this.selectedValueSession).then((finalResult: any) => {
+                this.totalSessionCount = finalResult.sum;
+                this.options = this.generateGraph(finalResult);
+                this.highchartWrapper(response.data);
+            });
         }, (err) => {
             console.log(err);
         });
@@ -116,10 +117,11 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.options1 = {};
         this.reportsService.getMessagePerSession(this.startDate, this.endDate, this.analytics_token).subscribe((response) => {
             this.message = JSON.parse(JSON.stringify((response.data)));
-            const finalResult = this.getGraphData(response.data, this.selectedValueMessage);
-            this.totalSessionCount = finalResult.sum;
-            this.options1 = this.generateGraph(finalResult);
-            this.highchartWrapper(this.message);
+            this.getGraphData(response.data, this.selectedValueMessage).then((finalResult: any) => {
+                this.totalMesasgeCount = finalResult.sum;
+                this.options1 = this.generateGraph(finalResult);
+                this.highchartWrapper(response.data);
+            });
         }, (err) => {
             console.log(err);
         });
@@ -129,136 +131,143 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.options2 = {};
         this.reportsService.getTotalUsers(this.startDate, this.endDate, this.analytics_token).subscribe((response) => {
             this.users = JSON.parse(JSON.stringify((response.data)));
-            const finalResult = this.getGraphData(response.data, this.selectedValueUser);
-            this.totalSessionCount = finalResult.sum;
-            this.options2 = this.generateGraph(finalResult);
-            this.highchartWrapper(this.users);
+            this.getGraphData(response.data, this.selectedValueUser).then((finalResult: any) => {
+                this.totalUserCount = finalResult.sum;
+                this.options2 = this.generateGraph(finalResult);
+                this.highchartWrapper(response.data);
+            });
         }, (err) => {
             console.log(err);
         });
     }
 
     getGraphData(resArray, duration) {
-        resArray.forEach(function(element) {
-            if (typeof element.date === 'string') {
-                const dateParts = element.date.split('T')[0].split('-');
-                element.date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-            }
-        });
-        const newArr = {};
-        const startDatePart = this.startDate.split('-');
-        const endDatePart = this.endDate.split('-');
-        for (const currentDay = new Date(startDatePart[0], startDatePart[1] - 1, startDatePart[2]);
-             currentDay <= new Date(endDatePart[0], endDatePart[1] - 1, endDatePart[2]);
-             currentDay.setDate(currentDay.getDate() + 1)) {
-            const day = currentDay;
-            let flag = false;
-            resArray.forEach(x => {
-                if (this.datePipe.transform(x.date, 'yyyy-MM-dd') === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
-                    flag = true;
+        return new Promise((resolve, reject) => {
+            resArray.forEach(function(element) {
+                if (typeof element.date === 'string') {
+                    const dateParts = element.date.split('T')[0].split('-');
+                    element.date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
                 }
             });
-            if (!flag) {
-                newArr[currentDay.getTime()] = '0';
-            }
-        }
+            const newArr = {};
+            const startDatePart = this.startDate.split('-');
+            const endDatePart = this.endDate.split('-');
+            const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-        Object.keys(newArr).forEach(function (element) {
-            resArray.push({
-                count: '0',
-                date: new Date(parseInt(element, 10))
-            });
-        });
-
-        resArray = _.sortBy(resArray,
-            (item) => {
-                return +new Date(item.date);
-            });
-        let countArray = [];
-        let dateArray = [];
-        for (const i in resArray) {
-            dateArray.push(this.datePipe.transform(resArray[i].date, 'MMM d'));
-            if (resArray[i].count) {
-                countArray.push(parseInt(resArray[i].count, 10));
-            }
-        }
-
-        let sum = 0;
-        for (let i = 0; i < countArray.length; i++) {
-            if (countArray[i] !== null) {
-                sum += parseInt(countArray[i], 10);
-            }
-        }
-        this.length = countArray.length;
-        let startLabel, endLabel;
-        const label = [];
-        const finalCount = [];
-        let weekCount = 0;
-        let startIndex = resArray[0].date.getDay();
-        if (duration === 'Weeks') {
-            for (const i in resArray) {
-                resArray[i].day = resArray[i].date.getDay();
+            // a and b are javascript Date objects
+            function dateDiffInDays(a, b) {
+                // Discard the time and time-zone information.
+                const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+                const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+                return Math.ceil((utc2 - utc1) / _MS_PER_DAY);
             }
 
-            for (const i in resArray) {
-                if (startIndex === resArray[i].day) {
-                    startLabel = this.datePipe.transform(resArray[i].date, 'M/d');
-                    startIndex = 0;
+            // test it
+            const start = new Date(startDatePart[0], startDatePart[1] - 1, startDatePart[2]),
+                end = new Date(endDatePart[0], endDatePart[1] - 1, endDatePart[2]);
+            this.length = dateDiffInDays(start, end);
+            for (const currentDay = start; currentDay <= end; currentDay.setDate(currentDay.getDate() + 1)) {
+                const day = currentDay;
+                let flag = false;
+                resArray.forEach(x => {
+                    if (this.datePipe.transform(x.date, 'yyyy-MM-dd') === this.datePipe.transform(currentDay, 'yyyy-MM-dd')) {
+                        flag = true;
+                    }
+                });
+                if (!flag) {
+                    newArr[currentDay.getTime()] = '0';
                 }
+            }
 
-                if (resArray[i].day <= 6) {
-                    weekCount = weekCount + parseInt(resArray[i].count, 10);
-                    if (resArray[i].day === 6 || parseInt(i, 10) === (resArray.length - 1)) {
-                        finalCount.push(weekCount);
-                        weekCount = 0;
+            Object.keys(newArr).forEach(function (element) {
+                resArray.push({
+                    count: '0',
+                    date: new Date(parseInt(element, 10))
+                });
+            });
+
+            resArray = _.sortBy(resArray,
+                (item) => {
+                    return +new Date(item.date);
+                });
+            let countArray = [];
+            let dateArray = [];
+
+            if (duration === 'Days') {
+                for (const i in resArray) {
+                    dateArray.push(this.datePipe.transform(resArray[i].date, 'MMM d'));
+                    if (resArray[i].count) {
+                        countArray.push(parseInt(resArray[i].count, 10));
                     }
                 }
-                if (resArray[i].day === 6 || parseInt(i, 10) === (resArray.length - 1)) {
-                    endLabel = this.datePipe.transform(resArray[i].date, 'M/d');
+            }
+
+            let startLabel, endLabel;
+            const label = [];
+            const finalCount = [];
+            let weekCount = 0;
+            let startIndex = resArray[0].date.getDay();
+            if (duration === 'Weeks') {
+                for (const i in resArray) {
+                    resArray[i].day = resArray[i].date.getDay();
                 }
 
-                if (startLabel && endLabel) {
-                    label.push(startLabel + '-' + endLabel);
-                    startLabel = '';
-                    endLabel = '';
+                for (const i in resArray) {
+                    if (startIndex === resArray[i].day) {
+                        startLabel = this.datePipe.transform(resArray[i].date, 'M/d');
+                        startIndex = 0;
+                    }
+
+                    if (resArray[i].day <= 6) {
+                        weekCount = weekCount + parseInt(resArray[i].count, 10);
+                        if (resArray[i].day === 6 || parseInt(i, 10) === (resArray.length - 1)) {
+                            finalCount.push(weekCount);
+                            weekCount = 0;
+                        }
+                    }
+                    if (resArray[i].day === 6 || parseInt(i, 10) === (resArray.length - 1)) {
+                        endLabel = this.datePipe.transform(resArray[i].date, 'M/d');
+                    }
+
+                    if (startLabel && endLabel) {
+                        label.push(startLabel + '-' + endLabel);
+                        startLabel = '';
+                        endLabel = '';
+                    }
+                }
+                countArray = finalCount;
+                dateArray = label;
+            }
+
+            if (duration === 'Months') {
+                countArray = [];
+                dateArray = [];
+                const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                for (const i in resArray) {
+                    resArray[i].month = month[resArray[i].date.getMonth()] + '\'' + resArray[i].date.getYear().toString().substr(-2);
+                    resArray[i].count = parseInt(resArray[i].count, 10);
+                }
+                const monthData = _.groupBy(resArray, 'month');
+                const monthArray = _.map(monthData, function(monthObj) {
+                    return {date: monthObj[0].month, count: _.sumBy(monthObj, 'count')};
+                });
+                for (const i in monthArray) {
+                    countArray.push(monthArray[i].count);
+                    dateArray.push(monthArray[i].date);
                 }
             }
-            countArray = finalCount;
-            dateArray = label;
-        }
 
-        if (duration === 'Months') {
-            countArray = [];
-            dateArray = [];
-            const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            for (const i in resArray) {
-                resArray[i].month = month[resArray[i].date.getMonth()] + '\'' + resArray[i].date.getYear().toString().substr(-2);
-                resArray[i].count = parseInt(resArray[i].count, 10);
+            let sum = 0;
+            for (let i = 0; i < countArray.length; i++) {
+                if (countArray[i] !== null) {
+                    sum += parseInt(countArray[i], 10);
+                }
             }
-            const monthData = _.groupBy(resArray, 'month');
-            const monthArray = _.map(monthData, function(monthObj) {
-                return {date: monthObj[0].month, count: _.sumBy(monthObj, 'count')};
-            });
-            for (const i in monthArray) {
-                countArray.push(monthArray[i].count);
-                dateArray.push(monthArray[i].date);
-            }
-        }
-
-        return {countArray: countArray, dateArray: dateArray, sum: sum};
+            resolve ({countArray: countArray, dateArray: dateArray, sum: sum});
+        });
     }
 
     generateGraph(finalResult) {
-        let interval;
-        if (finalResult.dateArray && finalResult.dateArray.length && finalResult.dateArray.length <= 10) {
-            interval = 1;
-        } else if (finalResult.dateArray.length <= 30) {
-            interval = 2;
-        } else if (finalResult.dateArray.length <= 60) {
-            interval = 7;
-        } else {
-            interval = 15;
-        }
         return {
             chart: {
                 type: 'area'
@@ -284,7 +293,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
                     }
                 },
                 tickmarkPlacement: 'on',
-                tickInterval: interval
+                tickInterval: Math.ceil((finalResult.dateArray.length) / 30)
             },
             series: [{
                 lineColor: '#6078FF',
@@ -370,24 +379,27 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
         this.selectedValueSession = value;
         this.options = {};
         const responseData = JSON.parse(JSON.stringify(this.sessions));
-        const finalResult = this.getGraphData(responseData, this.selectedValueSession);
-        this.options = this.generateGraph(finalResult);
+        this.getGraphData(responseData, this.selectedValueSession).then((finalResult: any) => {
+            this.options = this.generateGraph(finalResult);
+        });
     }
 
     getMessageOption(value) {
         this.selectedValueMessage = value;
         this.options1 = {};
         const responseData = JSON.parse(JSON.stringify(this.message));
-        const finalResult = this.getGraphData(responseData, this.selectedValueMessage);
-        this.options1 = this.generateGraph(finalResult);
+        this.getGraphData(responseData, this.selectedValueMessage).then((finalResult: any) => {
+            this.options1 = this.generateGraph(finalResult);
+        });
     }
 
     getUserOption(value) {
         this.selectedValueUser = value;
         this.options2 = {};
         const responseData = JSON.parse(JSON.stringify(this.users));
-        const finalResult = this.getGraphData(responseData, this.selectedValueUser);
-        this.options2 = this.generateGraph(finalResult);
+        this.getGraphData(responseData, this.selectedValueUser).then((finalResult: any) => {
+            this.options2 = this.generateGraph(finalResult);
+        });
     }
 
     onDateChange(event: any) {
