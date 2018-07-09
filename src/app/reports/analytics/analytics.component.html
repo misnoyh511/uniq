@@ -77,9 +77,9 @@
                                     <div class="chart-duration-options">
                                     <span [class.active]="messageDays"
                                           (click)="getMessageOption('Days'); messageDays = true; messageOptions = messageWeeks = messageMonths = false; ">Days</span>
-                                        <span [class.active]="messageWeeks" [class.disabled]="length < 15"
+                                        <span [class.active]="messageWeeks" [class.disabled]="length < 14"
                                               (click)="getMessageOption('Weeks'); messageWeeks = true; messageOptions = messageDays = messageMonths = false; ">Weeks</span>
-                                        <span [class.active]="messageMonths" [class.disabled]="length < 60"
+                                        <span [class.active]="messageMonths" [class.disabled]="length < 59"
                                               (click)="getMessageOption('Months'); messageMonths = true; messageOptions = messageWeeks = messageDays = false; ">Months</span>
                                     </div>
                                 </div>
@@ -114,9 +114,9 @@
                                     <div class="chart-duration-options">
                                     <span [class.active]="userDays"
                                           (click)="getUserOption('Days'); userDays = true; userOptions = userWeeks = userMonths = false; ">Days</span>
-                                        <span [class.active]="userWeeks" [class.disabled]="length < 15"
+                                        <span [class.active]="userWeeks" [class.disabled]="length < 14"
                                               (click)="getUserOption('Weeks'); userWeeks = true; userOptions = userDays = userMonths = false; ">Weeks</span>
-                                        <span [class.active]="userMonths" [class.disabled]="length < 60"
+                                        <span [class.active]="userMonths" [class.disabled]="length < 59"
                                               (click)="getUserOption('Months'); userMonths = true; userOptions = userWeeks = userDays = false; ">Months</span>
                                     </div>
                                 </div>
