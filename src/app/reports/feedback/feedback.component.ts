@@ -582,7 +582,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                     }
                 },
                 tickmarkPlacement: 'on',
-                tickInterval: Math.ceil((finalResult.dateArray.length) / 30)
+                tickInterval: Math.ceil((finalResult.dateArray.length) / 60)
             },
             yAxis: {
                 title: {
