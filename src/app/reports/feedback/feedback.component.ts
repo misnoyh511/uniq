@@ -94,11 +94,10 @@ export class FeedbackComponent implements OnInit, OnDestroy {
         this.selectedValueFeedback = value;
         const finalArray = [];
         const feedbackArray = JSON.parse(JSON.stringify(this.feedbackArr));
-        feedbackArray.forEach(function (element) {
-            const dateParts = element.created_at.split('T')[0].split('-');
+        feedbackArray.forEach(function (element, index) {
             finalArray.push({
                 text: element.text,
-                created_at: new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+                created_at: new Date(element.created_at)
             });
         });
         this.getGraphData(finalArray).then((finalResult: any) => {
@@ -453,17 +452,24 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                 });
             let countArray = [];
             let dateArray = [];
-            if (this.selectedValueFeedback === 'Days') {
-                for (const i in valueArr) {
-                    dateArray.push(this.datePipe.transform(valueArr[i].created_at, 'MMM d'));
-                    if (valueArr[i].text && parseFloat(valueArr[i].text) !== 0) {
-                        countArray.push(parseFloat((parseFloat(valueArr[i].text) * 100).toFixed(1)));
-                    } else {
-                        countArray.push(null);
-                    }
+            for (const i in valueArr) {
+                dateArray.push(this.datePipe.transform(valueArr[i].created_at, 'MMM d'));
+                if (valueArr[i].text && parseFloat(valueArr[i].text) !== 0) {
+                    countArray.push(parseFloat((parseFloat(valueArr[i].text) * 100).toFixed(1)));
+                } else {
+                    countArray.push(null);
                 }
-
             }
+
+            let sum = 0;
+            let count = 0;
+            for (let i = 0; i < countArray.length; i++) {
+                if (countArray[i] !== null) {
+                    count++;
+                    sum += parseInt(countArray[i], 10);
+                }
+            }
+            this.totalAvg = parseFloat((sum / count).toFixed(2)) + '%';
 
             let startLabel, endLabel;
             const label = [];
@@ -542,16 +548,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
                     dateArray.push(monthArray[i].created_at);
                 }
             }
-
-            let sum = 0;
-            let count = 0;
-            for (let i = 0; i < countArray.length; i++) {
-                if (countArray[i] !== null) {
-                    count++;
-                    sum += parseInt(countArray[i], 10);
-                }
-            }
-            this.totalAvg = parseFloat((sum / count).toFixed(2)) + '%';
 
             resolve ({countArray: countArray, dateArray: dateArray});
         });
