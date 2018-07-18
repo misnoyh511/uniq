@@ -11,7 +11,7 @@ export const environment = {
   },
   USER_INFO_KEY: 'USER_INFO_KEY',
   ANALYTICS_TOKEN: 'ANALYTICS_TOKEN',
-  ANALYTICS_API_ENDPOINT: 'https://botdex.allegra.ai/api/',
+  ANALYTICS_API_ENDPOINT: 'https://analytics.uniq.ai/api/',
   API_ENDPOINT: 'https://stagingapi.uniq.ai',
   PREVIEW_BOT: 'http://52.163.118.137:4201/'
 };
