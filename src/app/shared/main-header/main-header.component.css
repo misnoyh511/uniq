@@ -1,0 +1,12 @@
+.main-header {
+  width: 100%;
+  float: left;
+  background: #fff;
+  padding: 8px 10px 10px;
+  position: fixed;
+  z-index: 9999;
+}
+.new-bot-button { width: 30%; float: left; line-height: 30px;}
+.main-setting-button { width: auto; float: right; line-height: 30px;}
+.main-logo { width: 40%; float: left; text-align: center;}
+.main-logo img { width: auto; float: none; display: inline-block;}

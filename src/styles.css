@@ -1777,9 +1777,10 @@ p {
 .dashboard-sidebar {
     width: 250px;
     position: fixed;
-    height: 100%;
+    height: calc(100vh - 96px);
     background: #394555 /*linear-gradient(to right, #363795, #005C97)*/;
     z-index: 999;
+  top: 96px;
 }
 
 .scrollable-wrap {
@@ -6515,7 +6516,7 @@ span.multiselect-native-select select {
 
 /********************* Submenu Style *****************************/
 
-.sub-nav-list {
+/*.sub-nav-list {
     position: fixed;
     top: 0;
     right: 0;
@@ -6564,7 +6565,7 @@ span.multiselect-native-select select {
 .sub-nav-list li a.active, .sub-nav-list li a:hover {
     border-bottom: solid 2px #0095F7;
     border-radius: 0;
-}
+}*/
 
 /*****************************************************************/
 
