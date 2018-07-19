@@ -5,6 +5,7 @@
         </div>
         <div class="dashboard-new-wrapper">
             <div class="dashboard-new-title-wrap">
+                <span>Exit</span>
                 <h3>Create A New Bot</h3>
                 <div class="title-links">
                     <a data-toggle="pill" href="#capture" (click)="clearSearch()"
@@ -89,10 +90,11 @@
                         </div>
                         <div class="next-button-wrap">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="blank-wrap"></div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
                                     <button class="btnNext" data-toggle="pill" href="#message"
                                             (click)="next(); showNlp = showModules = false; showLook = true;">
                                         Next
@@ -339,13 +341,14 @@
 
                         <div class="next-button-wrap">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="blank-wrap">
                                         <a data-toggle="pill" href="#capture"
                                            (click)="showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
                                     <button class="btnNext" data-toggle="pill" (click)="checkValidation();">
                                         Save & Next
                                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
@@ -764,14 +767,15 @@
                         </div>
                         <div class="next-button-wrap">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="blank-wrap">
                                         <a data-toggle="pill" href="#message"
                                            (click)="next(); showNlp = showModules = false; showLook = true;"
                                            class="btnPrev">Back</a>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
                                     <button data-toggle="pill" href="#launch" (click)="editBot()"
                                             class="btnNext launchBtn">
                                         Launch

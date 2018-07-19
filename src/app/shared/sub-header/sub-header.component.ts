@@ -31,9 +31,12 @@ export class SubHeaderComponent implements OnInit {
   currentBot: string;
   botData: any = {};
   showMenu = false;
+  showNewBot: any;
 
   constructor(private Service: SidebarService, private router: Router, private botService: BotService) {
-
+    this.Service.emitMap.subscribe((data) => {
+      this.showNewBot = data;
+    });
   }
 
   ngOnInit() {

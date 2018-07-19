@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {SidebarService} from "../sidebar/sidebar.service";
 
 @Component({
   selector: 'app-main-header',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainHeaderComponent implements OnInit {
 
-  constructor() { }
+  @Input() addClass: any;
+  constructor(private Service: SidebarService) { }
 
   ngOnInit() {
+  }
+
+  showNewBot() {
+    console.log('Hello');
+    this.addClass = !this.addClass;
   }
 
 }

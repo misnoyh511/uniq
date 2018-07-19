@@ -1777,10 +1777,11 @@ p {
 .dashboard-sidebar {
     width: 250px;
     position: fixed;
-    height: calc(100vh - 96px);
+    height: calc(100vh - 114px);
     background: #394555 /*linear-gradient(to right, #363795, #005C97)*/;
     z-index: 999;
-  top: 96px;
+  top: 114px;
+  padding-top: 14px;
 }
 
 .scrollable-wrap {
@@ -2083,7 +2084,7 @@ p {
     max-width: calc(100% - 250px);
     width: 81%;
     float: right;
-    padding: 90px 30px 120px;
+    padding: 145px 30px 120px;
 }
 
 .dashboard-automate-container {
@@ -5407,7 +5408,7 @@ p {
 }
 
 .automate-sidebar {
-    padding: 90px 45px 10px 35px;
+    padding: 145px 45px 10px 35px;
 }
 
 .automate-sidebar h1 {

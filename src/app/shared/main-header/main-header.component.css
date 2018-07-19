@@ -2,11 +2,28 @@
   width: 100%;
   float: left;
   background: #fff;
-  padding: 8px 10px 10px;
+  padding: 11px 10px 13px;
   position: fixed;
   z-index: 9999;
 }
 .new-bot-button { width: 30%; float: left; line-height: 30px;}
+.new-bot-button a{
+  color: #3b3b3b;
+  width: auto;
+  padding: 3px 15px 0 6px;
+  height: 54px;
+  background-color: transparent;
+  margin-bottom: 0;
+  box-shadow: none;
+  float: left;
+}
+.new-bot-button a .fa-plus {
+  font-size: 14px;
+  opacity: 0.5;
+  margin-right: 4px;
+}
 .main-setting-button { width: auto; float: right; line-height: 30px;}
+.main-setting-button a{ color: #000;}
+.main-setting-button i{ float: left; font-size: 12px; margin-right: 10px; line-height: 32px;}
 .main-logo { width: 40%; float: left; text-align: center;}
 .main-logo img { width: auto; float: none; display: inline-block;}
