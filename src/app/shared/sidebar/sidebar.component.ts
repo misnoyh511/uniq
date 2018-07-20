@@ -29,8 +29,13 @@ export class SidebarComponent implements OnInit {
     currentBot: string;
     botData: any = {};
     showMenu = false;
+    sideBarShrinkLeft: any;
 
     constructor(private Service: SidebarService, private router: Router, private botService: BotService) {
+      this.Service.getSideBar.subscribe((data) => {
+        console.log(data);
+        this.sideBarShrinkLeft = data;
+      });
     }
 
     ngOnInit() {
@@ -128,4 +133,7 @@ export class SidebarComponent implements OnInit {
         this.Service.deleteMsg = '';
         this.router.navigate(['/login']);
     }
+
+
+
 }

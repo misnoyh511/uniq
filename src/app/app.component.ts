@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
+import {SidebarService} from "./shared/sidebar/sidebar.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { NgProgress } from 'ngx-progressbar';
 })
 export class AppComponent {
   getUrl: any;
-  constructor(private router: Router, public ngProgress: NgProgress) {
+  shrinkSideBar = false;
+  constructor(private Service: SidebarService, private router: Router, public ngProgress: NgProgress) {
     router.events.subscribe((val) => {
       this.getUrl = router.url;
       if (router.url === '/home' || router.url.indexOf('bot-preview') > -1 || router.url.indexOf('features') > -1 || router.url.indexOf('integrations') > -1 ||
@@ -19,8 +21,15 @@ export class AppComponent {
         this.hideSideBar = true;
       }
     });
+
   }
   title = 'app';
   hideSideBar = true;
+
+  shrinkBar() {
+    console.log('cgvbhjnmk', this.shrinkSideBar);
+    this.Service.getSideBar.emit(this.shrinkSideBar);
+  }
+
 }
 

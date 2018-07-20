@@ -586,7 +586,6 @@ export class NewBotComponent implements OnInit, OnDestroy {
     }
 
     removeIdBoot() {
-      console.log("remove");
       this.addIdBoot = false;
     }
 

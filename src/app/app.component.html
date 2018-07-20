@@ -1,5 +1,11 @@
+<div class="shrink-sidebar" (click)="shrinkSideBar=!shrinkSideBar; shrinkBar()" [ngClass]="{'shirnk-sidebar-left': shrinkSideBar}"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+
 <app-main-header *ngIf="hideSideBar"></app-main-header>
 <app-sub-header *ngIf="hideSideBar"></app-sub-header>
-<app-sidebar *ngIf="hideSideBar" [getUrl]="getUrl"></app-sidebar>
-<router-outlet></router-outlet>
+<div class="sidebar-left" [ngClass]="{'shirnk-sidebar-left': shrinkSideBar}">
+  <app-sidebar *ngIf="hideSideBar" [getUrl]="getUrl"></app-sidebar>
+</div>
+<div class="main-content" [ngClass]="{'shirnk-sidebar-left': shrinkSideBar}">
+  <router-outlet></router-outlet>
+</div>
 <ng-progress [color]="'#0095f7'"></ng-progress>

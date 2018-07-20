@@ -15,8 +15,11 @@ export class SidebarService {
     public dateObj: any = {};
     emitMap: any;
 
+    getSideBar: any;
+
     constructor(private http: Http, private httpClient: InterceptorService) {
       this.emitMap = new EventEmitter();
+      this.getSideBar = new EventEmitter();
     }
 
     getBot() {

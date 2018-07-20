@@ -5,7 +5,7 @@
         </div>
         <div class="dashboard-new-wrapper">
             <div class="dashboard-new-title-wrap">
-                <span (click)="removeIdBoot()">Exit</span>
+                <span (click)="removeIdBoot()" [routerLink]="(['/get-started'])">Exit</span>
                 <h3>Create A New Bot</h3>
                 <div class="title-links">
                     <a data-toggle="pill" href="#capture" (click)="clearSearch()"
