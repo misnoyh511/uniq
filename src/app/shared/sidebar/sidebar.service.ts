@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {InterceptorService} from '../../interceptor/interceptor.service';
 import {Http, Response, RequestOptions, Headers} from '@angular/http';
@@ -13,8 +13,10 @@ export class SidebarService {
     public feedback_type: number;
     public deleteMsg = '';
     public dateObj: any = {};
+    emitMap: any;
 
     constructor(private http: Http, private httpClient: InterceptorService) {
+      this.emitMap = new EventEmitter();
     }
 
     getBot() {

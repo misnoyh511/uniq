@@ -1,0 +1,22 @@
+<div class="sub-header">
+  <div class="login-user-name">
+    <a href="">hop.in</a>
+  </div>
+  <div class="type-bot">
+    <div class="bot-dropdown">
+
+      <a class="bot-name-link" [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = showModules = false; getBotData();">{{currentBot}}</a>
+
+      <div class="mybot-menu-wrap active" (click)="showList = !showList">
+        <i class="fa fa-caret-down mybot-menu-tgl" aria-hidden="true"></i>
+        <div class="clearfix"></div>
+        <div class="bot-list-wrap" [class.active]="showList">
+          <ul>
+            <li *ngFor="let bots of bot"><a href="javascript:void(0)" [class.active]="bots.name === currentBot" (click)="dropDown(getUrl, bots); showList = !showList; "> {{bots.name}}</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

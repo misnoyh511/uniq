@@ -1,0 +1,40 @@
+.sub-header { width: 100%; float: left; background: #454a54; position: fixed;
+  z-index: 9999; top: 54px;
+}
+.login-user-name { width: auto; float: left; line-height: 60px; font-size: 20px; font-weight: 600; padding: 0 15px; color: #fff; position: relative;}
+.login-user-name a{ color: #fff;}
+.login-user-name:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -25px;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 18px solid #454a54;
+}
+.login-user-name:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -26px;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 18px solid #696d75;
+}
+.sub-header .type-bot { width: 120px; float: left; margin: 10px 0 10px 50px;}
+.sub-header .type-bot .mybot-menu-wrap { margin-bottom: 0;}
+.sub-header .type-bot .mybot-menu-wrap.active, .sub-header .type-bot .mybot-menu-wrap:hover { background: none;}
+.sub-header .bot-dropdown a.bot-name-link {
+  margin: 0 0 -40px;
+  float: left;
+  width: auto;
+  position: static;
+  font-size: 13px;
+}
+.sub-header .bot-list-wrap.active { padding-bottom: 0;}
+.sub-header .type-bot .mybot-menu-wrap ul { padding: 0;}
+.sub-header .type-bot .mybot-menu-wrap ul li a { font-size: 13px;}

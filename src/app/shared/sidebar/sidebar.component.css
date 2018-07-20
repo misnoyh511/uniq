@@ -2,3 +2,13 @@ ul.sideMenu {
     float: left;
     width: 100%;
 }
+.sign-out-css {
+  margin: 0 !important;
+  position: static;
+  right: 10px;
+  float: left !important;
+  margin-left: 5px !important;
+  width: 100%;
+  text-align: left;
+}
+.sign-out-css span{ margin-right: 15px;}

@@ -29,10 +29,12 @@ import {HttpClient} from '@angular/common/http';
 import { NgProgressModule } from 'ngx-progressbar';
 import {SidebarService} from './shared/sidebar/sidebar.service';
 import {SnackBarService} from './snack-bar/snack-bar.service';
+import {MainHeaderComponent} from './shared/main-header/main-header.component';
+import {SubHeaderComponent} from './shared/sub-header/sub-header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent, MainHeaderComponent, SubHeaderComponent
   ],
   imports: [
     BrowserModule,
