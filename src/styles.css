@@ -1966,7 +1966,7 @@ p {
 }
 
 .dashboard-navigation ul li a {
-    padding: 8px 20px 8px 15px;
+    padding: 5px 20px 5px 15px;
     color: #A2B0C4;
     font-size: 14px;
     border-radius: 5px;
@@ -8457,6 +8457,9 @@ a.mat-mini-fab.mat-primary {
 .reloadIcon span a {
     margin-left: 3px
 }
+
+.dashboard-navigation ul li.fullscreendisblock a {display: block;}
+.toggleaddclass  .dashboard-navigation ul li.fullscreendisblock a  {display: block;}
 
 @media only screen and (max-width: 767px) {
     .pagination-export-wrap {
