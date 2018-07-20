@@ -1774,16 +1774,19 @@ p {
     background: #f4f7fa;
 }
 
-.dashboard-sidebar {
-    width: 250px;
+/*.dashboard-sidebar {
+    width: 260px;
     position: fixed;
     height: calc(100vh - 114px);
-    background: #394555 /*linear-gradient(to right, #363795, #005C97)*/;
+    background: #394555 !*linear-gradient(to right, #363795, #005C97)*!;
     z-index: 999;
   top: 114px;
-  padding-top: 14px;
+  padding-top: 0;
+}*/
+.dashboard-sidebar{
+  width: 100%;
+  float: left;
 }
-
 .scrollable-wrap {
 }
 
@@ -1966,7 +1969,7 @@ p {
 }
 
 .dashboard-navigation ul li a {
-    padding: 8px 20px 8px 15px;
+    padding: 5px 20px 5px 15px;
     color: #A2B0C4;
     font-size: 14px;
     border-radius: 5px;
@@ -2052,22 +2055,20 @@ p {
     position: absolute;
     top: 100%;
     left: 0;
-    visibility: hidden;
-    opacity: 0;
+    display: none;
     z-index: -999;
-    transition: 0.4s ease-in-out;
-    transform: translateY(20px);
+   /* transition: 0.4s ease-in-out;
+    transform: translateY(20px);*/
     border-radius: 5px;
     max-height: 50vh;
     overflow: auto;
 }
 
 .bot-list-wrap.active {
-    visibility: visible;
-    opacity: 1;
+    display: block;
     z-index: 999;
-    transition: 0.4s ease-in-out;
-    transform: translateY(0px)
+    /*transition: 0.4s ease-in-out;
+    transform: translateY(0px)*/
 }
 
 .bot-list-wrap li {
@@ -2081,10 +2082,9 @@ p {
 }
 
 .dashboard-container {
-    max-width: calc(100% - 250px);
-    width: 81%;
-    float: right;
-    padding: 145px 30px 120px;
+    width: 100%;
+    float: left;
+    padding: 15px 30px;
 }
 
 .dashboard-automate-container {
@@ -8459,6 +8459,9 @@ a.mat-mini-fab.mat-primary {
 .reloadIcon span a {
     margin-left: 3px
 }
+
+.dashboard-navigation ul li.fullscreendisblock a {display: block;}
+.toggleaddclass  .dashboard-navigation ul li.fullscreendisblock a  {display: block;}
 
 @media only screen and (max-width: 767px) {
     .pagination-export-wrap {

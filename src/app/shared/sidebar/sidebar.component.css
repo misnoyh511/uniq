@@ -1,3 +1,11 @@
+.dashboard-main {
+  width: 100%;
+  float: left;
+  margin-top: 114px;
+  height: calc(100vh - 114px);
+  background: #394556;
+}
+
 ul.sideMenu {
     float: left;
     width: 100%;
@@ -12,3 +20,101 @@ ul.sideMenu {
   text-align: left;
 }
 .sign-out-css span{ margin-right: 15px;}
+.dashboard-navigation {
+  padding: 0;
+}
+
+.scrollable-wrap {
+  width: 100%;
+  float: left;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.scrollable-wrap::-webkit-scrollbar-track{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  background-color: #F5F5F5;
+}
+.scrollable-wrap::-webkit-scrollbar{
+  width: 5px;
+  background-color: #F5F5F5;
+}
+.scrollable-wrap::-webkit-scrollbar-thumb{
+  background-color: #000;
+}
+
+.dashboard-navigation ul li{
+  margin-bottom: 0;
+}
+.dashboard-navigation ul li a{
+  border-left: solid 7px #394555;
+  border-radius: 0;
+  color: #A2B0C4;
+  font-size: 13px;
+  display: flex;
+  padding: 0 10px;
+  height: 36px;
+  align-items: center;
+}
+.dashboard-main.shrink-sidebar-left .dashboard-navigation ul li a{
+  font-size: 0;
+  height: 0;
+}
+.dashboard-navigation ul li a:hover {
+  background: none;
+}
+.dashboard-navigation ul li ul li a{
+  padding: 0 15px 0 0;
+  font-size: 12px;
+}
+.dashboard-main.shrink-sidebar-left .dashboard-navigation ul li ul li a{
+  font-size: 16px;
+  height: 36px;
+}
+.dashboard-navigation ul li ul li a:hover{
+  background: rgba(0,0,0,0.1);
+  border-left: 7px solid #394555;
+  color: #fff;
+}
+.dashboard-navigation ul li ul li a.active {
+  background: #26303B;
+  border-left: 7px solid #6078FF;
+  color: #fff;
+}
+.dashboard-navigation ul li a:hover, .dashboard-navigation ul li a.active {
+  background: none;
+  color: #A2B0C4;
+}
+.app-version-dashboard .sign-out-css span {
+  color: #A2B0C4;
+  float: left;
+  margin: 0 10px;
+  display: inline-block;
+  padding-left: 2px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dashboard-navigation ul li a i {
+  opacity: 0.5;
+  min-width: 41px;
+  margin-right: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+.dashboard-main.shrink-sidebar-left .app-version-dashboard .sign-out-css span{ display: none;}
+.dashboard-main.shrink-sidebar-left .app-version-dashboard .sign-out-css i{ width: 49px; text-align: center}
+
+
+@media(max-width: 1169px) {
+  .dashboard-navigation ul li a{
+    font-size: 0;
+    height: 0;
+  }
+  .dashboard-navigation ul li ul li a{
+    font-size: 16px;
+    height: 36px;
+  }
+  .app-version-dashboard .sign-out-css span{ display: none;}
+  .app-version-dashboard .sign-out-css i{ width: 49px; text-align: center}
+}

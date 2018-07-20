@@ -5,7 +5,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ServiceKpiComponent } from './service-kpi/service-kpi.component';
 import {ReportsRoutes} from './reports.routing';
 import {SharedModule} from '../shared/shared.module';
-import { SubNavComponent } from './sub-nav/sub-nav.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 
@@ -15,7 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SharedModule,
     MatTooltipModule
   ],
-  declarations: [AnalyticsComponent, FeedbackComponent, ServiceKpiComponent, SubNavComponent]
+  declarations: [AnalyticsComponent, FeedbackComponent, ServiceKpiComponent]
 })
 
 export class ReportsModule {

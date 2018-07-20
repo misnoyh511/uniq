@@ -1,6 +1,6 @@
 @media only screen and (min-width: 1921px) {
-  .dashboard-sidebar {min-width:0; max-width:none; width:15%;}
-  .dashboard-container {min-width:0; max-width:none; width:85%;}
+  .dashboard-sidebar {min-width:0; max-width:none; /*width:15%;*/}
+  .dashboard-container {min-width:0; max-width:none; /*width:85%;*/}
   .dashboard-automate-container .row {margin:0;}
   .sub-nav-list {
     width: calc(100% - 15%);
@@ -17,10 +17,10 @@
   }
 }
 @media only screen and (min-width: 1367px) and (max-width: 1919px) {
-  .dashboard-sidebar {max-width:317px;}
-  .dashboard-container {width:calc(100% - 330px);}
-  .dashboard-sidebar {min-width:0; max-width:none; width:15%;}
-  .dashboard-container {min-width:0; max-width:none; width:85%;}
+  /*.dashboard-sidebar {max-width:317px;}*/
+  /*.dashboard-container {width:calc(100% - 330px);}*/
+  .dashboard-sidebar {min-width:0; max-width:none; /*width:15%;*/}
+  .dashboard-container {min-width:0; max-width:none; /*width:85%;*/}
   .dashboard-automate-container .row {margin:0;}
   .default-bot-config ul li {display:block; margin-bottom:5px;}
 
@@ -73,7 +73,7 @@
   .custom-timing-container {width:calc(100% - 250px);}
   .analytics-section-container {width:calc(100% - 250px);}
   .knowledge-section-container {width:calc(100% - 250px);}
-  .dashboard-container {width:76.5%;}
+  /*.dashboard-container {width:76.5%;}*/
   .default-bot-config ul li {display:block; margin-bottom:5px;}
   .automate-sidebar .sub-nav-list li {display:block; text-align:center;}
   .automate-sidebar .sub-nav-list li a {display:block; margin:0 0 10px; width:100%;}
@@ -108,13 +108,13 @@
   .login-form-wrap {width:100%;}
   .landing-container {padding:72px 0;}
   .feature-landing-container .landing-content {margin:32px 0 0;}
-  .dashboard-sidebar {transform:translateX(-200px); transition:0.4s ease-in-out; width:200px; min-width:0; max-width:none; z-index:99999;}
+ /* .dashboard-sidebar {transform:translateX(-200px); transition:0.4s ease-in-out; width:200px; min-width:0; max-width:none; z-index:99999;}
   .dashboard-sidebar-toggled {transform:translateX(0px);transition:0.4s ease-in-out;}
   .right-sidebar {transform:translateX(200px); transition:0.4s ease-in-out; width:200px; min-width:0; max-width:none;}
   .right-sidebar-toggled {transform:translateX(0px);transition:0.4s ease-in-out;}
   .dashboard-container {width:100%; max-width:none;}
   .toggle-sidebar {display:block; z-index:99999;}
-  .toggle-right-sidebar {display:block;}
+  .toggle-right-sidebar {display:block;}*/
   .custom-timing-container {width:100%;}
   .analytics-section-container {width:100%;}
   .automate-sidebar .sub-nav-list li {display:block; text-align:center;}

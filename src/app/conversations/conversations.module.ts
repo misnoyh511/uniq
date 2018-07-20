@@ -5,7 +5,6 @@ import { TopMessagesOutComponent } from './top-messages-out/top-messages-out.com
 import { TranscriptsComponent } from './transcripts/transcripts.component';
 import {ConversationsRoutes} from './conversations.routing';
 import {SharedModule} from '../shared/shared.module';
-import { SubNavComponent } from './sub-nav/sub-nav.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { TopicCloudComponent } from './topic-cloud/topic-cloud.component';
@@ -18,7 +17,7 @@ import { TopicCloudComponent } from './topic-cloud/topic-cloud.component';
     MatTooltipModule,
     MatProgressSpinnerModule
   ],
-  declarations: [TopMessagesInComponent, TopMessagesOutComponent, TranscriptsComponent, SubNavComponent, TopicCloudComponent]
+  declarations: [TopMessagesInComponent, TopMessagesOutComponent, TranscriptsComponent, TopicCloudComponent]
 })
 
 export class ConversationsModule {
