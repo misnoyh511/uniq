@@ -1,5 +1,5 @@
-<app-main-header></app-main-header>
-<app-sub-header></app-sub-header>
+<app-main-header *ngIf="hideSideBar"></app-main-header>
+<app-sub-header *ngIf="hideSideBar"></app-sub-header>
 <app-sidebar *ngIf="hideSideBar" [getUrl]="getUrl"></app-sidebar>
 <router-outlet></router-outlet>
 <ng-progress [color]="'#0095f7'"></ng-progress>

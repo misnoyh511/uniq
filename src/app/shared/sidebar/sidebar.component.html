@@ -1,74 +1,106 @@
 <div class="dashboard-main">
-  <div class="toggle-sidebar" [class.active]="showMenu" (click)="showMenu = !showMenu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="dashboard-sidebar" [class.dashboard-sidebar-toggled]="showMenu">
-    <!--<div class="dashboard-logo-wrap">
-      &lt;!&ndash;<a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>&ndash;&gt;
-      <img src="../assets/images/new-un-logo.png" alt="">
+    <div class="toggle-sidebar" [class.active]="showMenu" (click)="showMenu = !showMenu">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-    <div class="dashboard-new">
-      <a [routerLink]="(['/new-bot'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showModules = showReport = showStarted = showAccount = false;" class="cursor blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> <span>New Bot</span></a>
-    </div>-->
-    <div class="dashboard-navigation">
-      <div class="scrollable-wrap">
-
-        <ul>
-          <li><a (click)="showMenu = !showMenu; showStarted = true; showKnowledge = showModules = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
-            <span>Dashboard</span></a></li>
-        </ul>
-        <!--<div class="bot-dropdown">
-          <a class="bot-name-link" [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = showModules = false; getBotData();"><b>{{currentBot}}</b></a>
-
-          <div class="mybot-menu-wrap active" (click)="showList = !showList">
-            <i class="fa fa-caret-down mybot-menu-tgl" aria-hidden="true"></i>
-            <div class="clearfix"></div>
-            <div class="bot-list-wrap" [class.active]="showList">
-              <ul>
-                <li *ngFor="let bots of bot"><a href="javascript:void(0)" [class.active]="bots.name === currentBot" (click)="dropDown(getUrl, bots); showList = !showList; "> {{bots.name}}</a></li>
-              </ul>
-            </div>
-          </div>
+    <div class="dashboard-sidebar" [class.dashboard-sidebar-toggled]="showMenu">
+        <!--<div class="dashboard-logo-wrap">
+          &lt;!&ndash;<a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>&ndash;&gt;
+          <img src="../assets/images/new-un-logo.png" alt="">
+        </div>
+        <div class="dashboard-new">
+          <a [routerLink]="(['/new-bot'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showModules = showReport = showStarted = showAccount = false;" class="cursor blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> <span>New Bot</span></a>
         </div>-->
+        <div class="dashboard-navigation">
+            <div class="scrollable-wrap">
 
-      <ul class="sideMenu">
-        <li>
-          <a (click)="showMenu = !showMenu; showKnowledge = true; showConversation = showReport = showStarted = showAccount = showModules = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])">
-            <i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center
-          </a>
+                <!-- <ul>
+                   <li><a (click)="showMenu = !showMenu; showStarted = true; showKnowledge = showModules = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
+                     <span>Dashboard</span></a></li>
+                 </ul>-->
+                <!--<div class="bot-dropdown">
+                  <a class="bot-name-link" [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = showModules = false; getBotData();"><b>{{currentBot}}</b></a>
 
-        </li>
-        <li>
-          <a (click)="showMenu = !showMenu; showModules = true; showKnowledge = showReport = showStarted = showAccount = showConversation = false;" [class.active]="showModules" [routerLink]="(['/modules'])">
-            <i class="fa fa-cog" aria-hidden="true"></i> Modules
-          </a>
+                  <div class="mybot-menu-wrap active" (click)="showList = !showList">
+                    <i class="fa fa-caret-down mybot-menu-tgl" aria-hidden="true"></i>
+                    <div class="clearfix"></div>
+                    <div class="bot-list-wrap" [class.active]="showList">
+                      <ul>
+                        <li *ngFor="let bots of bot"><a href="javascript:void(0)" [class.active]="bots.name === currentBot" (click)="dropDown(getUrl, bots); showList = !showList; "> {{bots.name}}</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>-->
 
-        </li>
-        <li>
-          <a (click)="showMenu = !showMenu; showConversation = true; showKnowledge = showReport = showStarted = showAccount = showModules = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])">
-            <i class="fa fa-comments" aria-hidden="true"></i> Conversations
-          </a>
+                <!--<ul class="sideMenu">
+                  <li>
+                    <a (click)="showMenu = !showMenu; showKnowledge = true; showConversation = showReport = showStarted = showAccount = showModules = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])">
+                      <i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center
+                    </a>
 
-        </li>
-        <li>
-          <a (click)="showMenu = !showMenu; showReport = true; showConversation = showKnowledge = showStarted = showAccount = showModules = false;" [class.active]="showReport" [routerLink]="(['reports/analytics'])">
-            <i class="fa fa-line-chart" aria-hidden="true"></i> Reports
-          </a>
+                  </li>
+                  <li>
+                    <a (click)="showMenu = !showMenu; showModules = true; showKnowledge = showReport = showStarted = showAccount = showConversation = false;" [class.active]="showModules" [routerLink]="(['/modules'])">
+                      <i class="fa fa-cog" aria-hidden="true"></i> Modules
+                    </a>
 
-        </li>
-      </ul>
-      </div>
+                  </li>
+                  <li>
+                    <a (click)="showMenu = !showMenu; showConversation = true; showKnowledge = showReport = showStarted = showAccount = showModules = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])">
+                      <i class="fa fa-comments" aria-hidden="true"></i> Conversations
+                    </a>
+                    <ul>
+                      <li><a [routerLink]="(['/conversation/transcripts'])"><i class="fa fa-table"></i><span>Transcripts</span></a></li>
+                      <li><a [routerLink]="(['/conversation/topic-cloud'])"><i class="fa fa-book"></i><span>Topic Cloud</span></a></li>
+                      <li><a [routerLink]="(['/conversation/top-messages-in'])"><i class="fa fa-comment-o"></i><span>Top Messages In</span></a></li>
+                      <li><a [routerLink]="(['/conversation/top-messages-out'])"><i class="fa fa-comments"></i><span>Top Messages Out</span></a></li>
+                    </ul>
 
+                  </li>
+                  <li>
+                    <a (click)="showMenu = !showMenu; showReport = true; showConversation = showKnowledge = showStarted = showAccount = showModules = false;" [class.active]="showReport" [routerLink]="(['reports/analytics'])">
+                      <i class="fa fa-line-chart" aria-hidden="true"></i> Reports
+                    </a>
+
+                  </li>
+                </ul>-->
+
+                <div class="sidebarmenusec">
+                    <ul>
+                        <li><a [routerLink]="(['/get-started'])"><i
+                                class="fa fa-desktop"></i><span>Boot Dashboard</span></a></li>
+                        <label class="sidebarmenutitle">Conversations</label>
+                        <li><a [routerLink]="(['/conversation/transcripts'])"><i class="fa fa-table"></i><span>Transcripts</span></a>
+                        </li>
+                        <li><a [routerLink]="(['/conversation/topic-cloud'])"><i
+                                class="fa fa-book"></i><span>Topics</span></a></li>
+                        <li><a [routerLink]="(['/conversation/top-messages-in'])"><i class="fa fa-comment-o"></i><span>Top Messages In</span></a>
+                        </li>
+                        <li><a [routerLink]="(['/conversation/top-messages-out'])"><i class="fa fa-comments"></i><span>Top Messages Out</span></a>
+                        </li>
+                        <label class="sidebarmenutitle">Analytics</label>
+                        <li><a [routerLink]="(['/reports/analytics'])"><i class="fa fa-bolt"></i><span>Usage</span></a>
+                        </li>
+                        <li><a [routerLink]="(['/reports/service-kpi'])"><i
+                                class="fa fa-cogs"></i><span>Service KPI</span></a></li>
+                        <label class="sidebarmenutitle">Feedback</label>
+                        <li><a [routerLink]="(['/reports/feedback'])"><i
+                                class="fa fa-pencil-square-o"></i><span>Service</span></a></li>
+                        <li class="fullscreendisblock"><a href="javascript:void(0)" (click)="logout()"><i
+                                class="fa fa-sign-out"></i><span>Logout</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <!--<div class="app-version-dashboard">
+
+         &lt;!&ndash; <ul>
+            <li><a (click)="showMenu = !showMenu; showAccount = true; showReport = showModules = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
+            </li>
+          </ul>&ndash;&gt;
+           <a class="sign-out-css" (click)="logout()"><span class="version-css">Logout</span> <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+        </div>-->
     </div>
-    <div class="app-version-dashboard">
-
-     <!-- <ul>
-        <li><a (click)="showMenu = !showMenu; showAccount = true; showReport = showModules = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
-        </li>
-      </ul>-->
-       <a class="sign-out-css" (click)="logout()"><span class="version-css">Logout</span> <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-    </div>
-  </div>
 </div>
