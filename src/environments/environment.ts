@@ -14,5 +14,5 @@ export const environment = {
     ANALYTICS_API_ENDPOINT: 'https://analytics.uniq.ai/api/',
     API_ENDPOINT: 'https://stagingapi.uniq.ai',
     PREVIEW_BOT: 'http://52.163.118.137:4201/',
-    CLIENT_ID: '222695198352-0rfl5k1g3aripfkcla9sv5vjoqlhjpuq'
+    CLIENT_ID: '652382493825-rivscd41rd50ltjb7bbp7m9ha11oj9rm.apps.googleusercontent.com'
 };

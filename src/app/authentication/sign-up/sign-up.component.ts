@@ -57,9 +57,9 @@ export class SignUpComponent implements OnInit {
         });
     }
     googleSignIn() {
-        this.authenticationService.loginWithGoogle().then((data) => {
+        /*this.authenticationService.loginWithGoogle().then((data) => {
             this.router.navigate(['/get-started']);
-        });
+        });*/
     }
 
     getPlan(plan) {

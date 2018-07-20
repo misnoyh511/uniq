@@ -17,8 +17,8 @@ export class AuthenticationService {
     users: FirebaseListObservable<any[]>;
 
     constructor(private firebaseAuth: AngularFireAuth, private router: Router, private db: AngularFireDatabase,
-                private snackBarService: SnackBarService, private httpClient: InterceptorService,  public ngProgress: NgProgress,
-                private http: Http)  {
+                private snackBarService: SnackBarService, private httpClient: InterceptorService, public ngProgress: NgProgress,
+                private http: Http) {
         this.user = firebaseAuth.authState;
         this.user.subscribe(
             (user) => {
@@ -36,7 +36,7 @@ export class AuthenticationService {
             .auth
             .createUserWithEmailAndPassword(user.email, user.password)
             .then(value => {
-                this.firebaseAuth.auth.onAuthStateChanged((response)=> {
+                this.firebaseAuth.auth.onAuthStateChanged((response) => {
                     if (response) {
                         response.updateProfile({ // <-- Update Method here
                             displayName: user.name,
@@ -68,46 +68,69 @@ export class AuthenticationService {
             });
     }
 
-  loginAuth(email: string, password: string) {
-    return this.httpClient.get(AppConfig.API_ENDPOINT + '/login?email=' + email + '&password=' + password)
-      .map(response => {
-        const resJson = response.json();
-        const users = resJson.users;
-        if (users && users.length > 0) {
-          this.snackBarService.openSnackBar('Login Successful');
-          localStorage.setItem('USER_INFO_KEY', JSON.stringify(users[0]));
-          this.router.navigate(['/get-started']);
-          return users[0];
-        }
-      })
-      .catch((err: Response) => {
-        if (email === '' && password === '') {
-            this.snackBarService.openSnackBar('Please Enter Email and password');
-        } else if (email === '') {
-          this.snackBarService.openSnackBar('Please Enter Email Address');
-        } else if (password === '') {
-          this.snackBarService.openSnackBar('Please Enter Password');
-        } else {
-          this.snackBarService.openSnackBar('Incorrect Email or Password');
-        }
-        this.ngProgress.done();
-        return Observable.of(err);
-      });
-  }
+    loginAuth(email: string, password: string) {
+        return this.httpClient.get(AppConfig.API_ENDPOINT + '/login?email=' + email + '&password=' + password)
+            .map(response => {
+                const resJson = response.json();
+                const users = resJson.users;
+                if (users && users.length > 0) {
+                    this.snackBarService.openSnackBar('Login Successful');
+                    localStorage.setItem('USER_INFO_KEY', JSON.stringify(users[0]));
+                    this.router.navigate(['/get-started']);
+                    return users[0];
+                }
+            })
+            .catch((err: Response) => {
+                if (email === '' && password === '') {
+                    this.snackBarService.openSnackBar('Please Enter Email and password');
+                } else if (email === '') {
+                    this.snackBarService.openSnackBar('Please Enter Email Address');
+                } else if (password === '') {
+                    this.snackBarService.openSnackBar('Please Enter Password');
+                } else {
+                    this.snackBarService.openSnackBar('Incorrect Email or Password');
+                }
+                this.ngProgress.done();
+                return Observable.of(err);
+            });
+    }
+
     logout() {
         return this.firebaseAuth
             .auth
             .signOut();
     }
 
-    loginWithGoogle() {
-        return this.firebaseAuth.auth.signInWithPopup(
+    loginWithGoogle(userData) {
+        /*return this.firebaseAuth.auth.signInWithPopup(
             new firebase.auth.GoogleAuthProvider()
         ).then((result) => {
         }).catch((error) => {
             this.snackBarService.openSnackBar(error.message);
-        });
+        });*/
+        const myHeaders = new Headers();
+        // this.httpClient.createAuthorizationHeader(myHeaders);
+        myHeaders.append('Accept', 'application/vnd.hopin-v1+json');
+        myHeaders.append('X-HopIn-Application-Id', '2XOZj58Iy6FE3wkSZDHqVlQ9TD1vm43l');
+        myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
+        const options = new RequestOptions({headers: myHeaders});
+        return this.http.post(AppConfig.API_ENDPOINT + '/users/oauth', userData, options)
+            .map(response => {
+                const resJson = response.json();
+                const users = resJson.users;
+                if (users && users.length > 0) {
+                    this.snackBarService.openSnackBar('Login Successful');
+                    localStorage.setItem('USER_INFO_KEY', JSON.stringify(users[0]));
+                    this.router.navigate(['/get-started']);
+                    return users[0];
+                }
+            })
+            .catch((err: Response) => {
+                this.ngProgress.done();
+                return Observable.of(err);
+            });
     }
+
     loginWithFacebook() {
         return this.firebaseAuth.auth.signInWithPopup(
             new firebase.auth.FacebookAuthProvider()
@@ -116,6 +139,7 @@ export class AuthenticationService {
             this.snackBarService.openSnackBar(error.message);
         });
     }
+
     writeUserData(userId, user) {
         firebase.database().ref('users/' + userId).set({
             displayName: user.name,
@@ -123,6 +147,7 @@ export class AuthenticationService {
         });
         this.router.navigate(['/home']);
     }
+
     checkAuthenticate() {
         if ((this.router.url === '/login' || this.router.url === '/sign-up') && localStorage[AppConfig.USER_INFO_KEY]) {
             this.router.navigate(['/home']);

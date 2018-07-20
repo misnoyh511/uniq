@@ -10,6 +10,7 @@ import {AngularFireDatabase} from 'angularfire2/database-deprecated';
 import {ToastyModule} from 'ng2-toasty';
 import {MatStepperModule} from '@angular/material/stepper';
 import {SharedModule} from '../shared/shared.module';
+import {GoogleSignInComponent} from 'angular-google-signin';
 
 @NgModule({
     imports: [
@@ -20,7 +21,7 @@ import {SharedModule} from '../shared/shared.module';
         MatStepperModule,
         SharedModule
     ],
-    declarations: [LoginComponent, SignUpComponent],
+    declarations: [LoginComponent, SignUpComponent, GoogleSignInComponent],
     providers: [AuthenticationService, AngularFireDatabase]
 })
 

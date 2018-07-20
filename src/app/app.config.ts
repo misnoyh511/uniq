@@ -7,4 +7,5 @@ export class AppConfig {
     public static API_ENDPOINT = environment.API_ENDPOINT;
     public static PREVIEW_BOT = environment.PREVIEW_BOT;
     public static MODULE_NAME = ['knowledge-center', 'conversation', 'reports'];
+    public static CLIENT_ID = environment.CLIENT_ID;
 }
