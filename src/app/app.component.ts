@@ -27,7 +27,6 @@ export class AppComponent {
   hideSideBar = true;
 
   shrinkBar() {
-    console.log('cgvbhjnmk', this.shrinkSideBar);
     this.Service.getSideBar.emit(this.shrinkSideBar);
   }
 

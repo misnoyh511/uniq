@@ -100,9 +100,7 @@ div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .dashb
 div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .dashboard-new-wrapper .dashboard-new-steps-wrapper{
   box-shadow: 0 5px 10px rgba(21,57,130,0.07), 0 0 0 1px rgba(0,0,0,0.05);
   overflow: hidden;
-  margin: 5px 5px;
   float: left;
-  width: calc(100% - 10px);
   border-radius: 0;
   background: #fff;
 }
@@ -183,4 +181,57 @@ div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .dashb
   color: #97a6ad;
   margin: 0;
   padding: 0 !important;
+}
+
+.exitButton {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.quickstart-campaign-wrap.checkedbox {
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.40);
+  border-color: rgba(0, 123, 255, 0.50);
+}
+
+.quickstart-campaign-wrap.checkedbox .customize-btn-wrapper {
+  opacity: 1;
+  visibility: visible;
+  padding: 10px 15px;
+  height: auto;
+  display: none;
+}
+
+.campaign-chebox-container input:checked ~ .campaign-checkmark {
+  background-color: #00dc71;
+  border-color: #24c27a;
+}
+.campaign-checkmark {
+  position: absolute;
+  top: -2px;
+  left: 0px;
+  height: 36px;
+  width: 36px;
+  background-color: #f5f6f9;
+  border-radius: 50%;
+  border: 1px solid #e3e4e5;
+}
+
+.campaign-chebox-container input:checked ~ .campaign-checkmark:after {
+  display: block;
+}
+.campaign-chebox-container .campaign-checkmark:after {
+  left: 12px;
+  top: 7px;
+  width: 11px;
+  height: 16px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.campaign-checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
 }

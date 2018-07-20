@@ -33,7 +33,6 @@ export class SidebarComponent implements OnInit {
 
     constructor(private Service: SidebarService, private router: Router, private botService: BotService) {
       this.Service.getSideBar.subscribe((data) => {
-        console.log(data);
         this.sideBarShrinkLeft = data;
       });
     }

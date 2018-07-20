@@ -57,8 +57,8 @@ export class NewBotComponent implements OnInit, OnDestroy {
     coverUrl: any;
     data: any;
     showDiv = false;
-    botType = false;
-    showNlp = true;
+    botType = true;
+    showNlp = false;
     showLook = false;
     showModules = false;
     showTooltip = false;
@@ -100,6 +100,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     showMobDwell = false;
     indexDrag: number;
     indexDrop: number;
+    checkCampaign = false;
 
     addIdBoot = true;
 

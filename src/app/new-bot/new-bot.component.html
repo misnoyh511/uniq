@@ -5,7 +5,7 @@
         </div>
         <div class="dashboard-new-wrapper">
             <div class="dashboard-new-title-wrap">
-                <span (click)="removeIdBoot()" [routerLink]="(['/get-started'])">Exit</span>
+                <span class="exitButton" (click)="removeIdBoot()" [routerLink]="(['/get-started'])">Exit</span>
                 <h3>Create A New Bot</h3>
                 <div class="title-links">
                     <a data-toggle="pill" href="#capture" (click)="clearSearch()"
@@ -17,17 +17,17 @@
                 <ul class="nav nav-pills dashboard-step-list" id="pills-tab" role="tablist">
                     <li class="nav-item" xyz="abc">
                       <a class="nav-link step-links" (click)="botType = true; showNlp = showLook = showModules = false;"
-                         [class.active]="showNlp" id="new-step0" data-toggle="pill" href="#botType" role="tab"
+                         [class.active]="botType" id="new-step1" data-toggle="pill" href="#botType" role="tab"
                          aria-controls="capture" aria-selected="true">
-                        <strong>0</strong>
+                        <strong>1</strong>
                         <span>Select Your Bot Type</span>
                       </a>
                     </li>
                     <li class="nav-item" xyz="abc">
                       <a class="nav-link step-links" (click)="showNlp = true; botType = showLook = showModules = false;"
-                         [class.active]="showNlp" id="new-step1" data-toggle="pill" href="#capture" role="tab"
+                         [class.active]="showNlp" id="new-step2" data-toggle="pill" href="#capture" role="tab"
                          aria-controls="capture" aria-selected="true">
-                        <strong>1</strong>
+                        <strong>2</strong>
                         <span>Your NLP</span>
                       </a>
                     </li>
@@ -35,29 +35,30 @@
                         <a class="nav-link" id="new-step3" (click)="showLook = true; botType = showNlp = showModules = false;"
                            [class.active]="showLook" data-toggle="pill" href="#message" role="tab"
                            aria-controls="message" aria-selected="true">
-                            <strong>2</strong>
+                            <strong>3</strong>
                             <span>Look &amp; Feel</span>
                         </a>
                     </li>
                     <li class="nav-item step-links">
                         <a href="javascript:void(0);" class="nav-link" [class.active]="showModules">
-                            <strong>3</strong>
+                            <strong>4</strong>
                             <span>Modules</span>
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                  <div class="tab-pane active" id="botType" role="tabpanel" aria-labelledby="new-step0">
+                  <div class="tab-pane active" id="botType" role="tabpanel" aria-labelledby="new-step1">
                     <div class="tab-content-wrap bot-type-wrapper">
                       <div class="row justify-content-center">
+                          <div class="col-sm-2"></div>
                         <div class="col-sm-4">
-                          <div class="quickstart-campaign-wrap">
+                          <div class="quickstart-campaign-wrap" [class.checkedbox]="checkCampaign">
                             <div class="bot-type-padding-box">
                               <span class="campaign-type"></span>
                               <div class="campaign-chebox">
                                 <label class="campaign-chebox-container">
                                   <input name="bottype" type="radio">
-                                  <span class="campaign-checkmark"></span>
+                                  <span class="campaign-checkmark" (click)="checkCampaign = !checkCampaign"></span>
                                   <img src="./../../assets/images/quickstart-campaign1.png" alt="">
                                   <h3>Faq Bot</h3>
                                   <p>Display a stream of the most recent individual conversions</p>
@@ -101,7 +102,7 @@
                     </div>
                   </div>
 
-                  <div class="tab-pane" id="capture" role="tabpanel" aria-labelledby="new-step1">
+                  <div class="tab-pane" id="capture" role="tabpanel" aria-labelledby="new-step2">
                     <div class="tab-content-wrap">
                       <div class="row">
                         <div class="col-lg-9">
