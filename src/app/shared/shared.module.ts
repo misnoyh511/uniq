@@ -13,13 +13,14 @@ import {OutSideClickDirective} from '../directives/outsideclick.directive';
 import { NouisliderModule} from 'ng2-nouislider';
 import {ArraySortPipe} from '../directives/sort.directive';
 import { TagCloudModule } from 'angular-tag-cloud-module';
-
+import {MainHeaderComponent} from './main-header/main-header.component';
+import {SubHeaderComponent} from './sub-header/sub-header.component';
 
 declare var require: any;
 
 @NgModule({
   imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule, NouisliderModule, TagCloudModule],
-  declarations: [SidebarComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe, OutSideClickDirective],
+  declarations: [SidebarComponent, MainHeaderComponent, SubHeaderComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe, OutSideClickDirective],
   exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule,
       DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe, TagCloudModule, OutSideClickDirective],
   providers: [
