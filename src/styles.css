@@ -1775,13 +1775,13 @@ p {
 }
 
 .dashboard-sidebar {
-    width: 250px;
+    width: 260px;
     position: fixed;
     height: calc(100vh - 114px);
     background: #394555 /*linear-gradient(to right, #363795, #005C97)*/;
     z-index: 999;
   top: 114px;
-  padding-top: 14px;
+  padding-top: 0;
 }
 
 .scrollable-wrap {
@@ -2052,22 +2052,20 @@ p {
     position: absolute;
     top: 100%;
     left: 0;
-    visibility: hidden;
-    opacity: 0;
+    display: none;
     z-index: -999;
-    transition: 0.4s ease-in-out;
-    transform: translateY(20px);
+   /* transition: 0.4s ease-in-out;
+    transform: translateY(20px);*/
     border-radius: 5px;
     max-height: 50vh;
     overflow: auto;
 }
 
 .bot-list-wrap.active {
-    visibility: visible;
-    opacity: 1;
+    display: block;
     z-index: 999;
-    transition: 0.4s ease-in-out;
-    transform: translateY(0px)
+    /*transition: 0.4s ease-in-out;
+    transform: translateY(0px)*/
 }
 
 .bot-list-wrap li {

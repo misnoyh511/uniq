@@ -57,6 +57,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
     coverUrl: any;
     data: any;
     showDiv = false;
+    botType = false;
     showNlp = true;
     showLook = false;
     showModules = false;
@@ -100,6 +101,8 @@ export class NewBotComponent implements OnInit, OnDestroy {
     indexDrag: number;
     indexDrop: number;
 
+    addIdBoot = true;
+
     constructor(private router: Router, private Service: NewBotService, public sbs: SidebarService, public botService: BotService,
                 public dialog: MatDialog, @Inject(DOCUMENT) private doc: any, public snackBarService: SnackBarService,
                 private sort: ArraySortPipe, private dragulaService: DragulaService) {
@@ -129,6 +132,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
         };
         this.bot.tab_color = '#00FF00';
         this.bot.tab_text_color = '#00FF00';
+        this.addIdBoot = true;
     }
 
     ngOnDestroy() {
@@ -297,17 +301,21 @@ export class NewBotComponent implements OnInit, OnDestroy {
     }
 
     redirectPage(value) {
+        if (value === '#botType') {
+            this.botType = true;
+            this.showNlp = this.showLook = this.showModules = false;
+        }
         if (value === '#capture') {
             this.showNlp = true;
-            this.showLook = this.showModules = false;
+            this.botType = this.showLook = this.showModules = false;
         }
         if (value === '#message') {
             this.showLook = true;
-            this.showNlp = this.showModules = false;
+            this.botType = this.showNlp = this.showModules = false;
         }
         if (value === '#customize') {
             this.showModules = true;
-            this.showLook = this.showNlp = false;
+            this.botType = this.showLook = this.showNlp = false;
         }
     }
 
@@ -576,6 +584,12 @@ export class NewBotComponent implements OnInit, OnDestroy {
         };
         this.editBotData(bot, this.bot.id);
     }
+
+    removeIdBoot() {
+      console.log("remove");
+      this.addIdBoot = false;
+    }
+
 }
 
 @Component({

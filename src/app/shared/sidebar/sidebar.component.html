@@ -16,8 +16,14 @@
       <div class="scrollable-wrap">
 
         <ul>
-          <li><a (click)="showMenu = !showMenu; showStarted = true; showKnowledge = showModules = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
-            <span>Dashboard</span></a></li>
+          <li>
+            <ul>
+              <li>
+                <a (click)="showMenu = !showMenu; showStarted = true; showKnowledge = showModules = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
+                  <span>Dashboard</span></a>
+              </li>
+            </ul>
+          </li>
         </ul>
         <!--<div class="bot-dropdown">
           <a class="bot-name-link" [routerLink]="(['/bot-home'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showReport = showStarted = showAccount = showModules = false; getBotData();"><b>{{currentBot}}</b></a>
@@ -35,28 +41,44 @@
 
       <ul class="sideMenu">
         <li>
-          <a (click)="showMenu = !showMenu; showKnowledge = true; showConversation = showReport = showStarted = showAccount = showModules = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])">
-            <i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center
-          </a>
+          <ul>
+            <li>
+              <a (click)="showMenu = !showMenu; showKnowledge = true; showConversation = showReport = showStarted = showAccount = showModules = false;" [class.active]="showKnowledge" [routerLink]="(['/knowledge-center/setup-ai'])">
+                <i class="fa fa-cog" aria-hidden="true"></i>Knowledge Center
+              </a>
+            </li>
+          </ul>
 
         </li>
         <li>
           <a (click)="showMenu = !showMenu; showModules = true; showKnowledge = showReport = showStarted = showAccount = showConversation = false;" [class.active]="showModules" [routerLink]="(['/modules'])">
-            <i class="fa fa-cog" aria-hidden="true"></i> Modules
+            Modules
           </a>
-
+          <ul class="sub-side-menu">
+            <li><a href=""><i class="fa fa-cog" aria-hidden="true"></i> Analytics</a></li>
+            <li><a href=""><i class="fa fa-cog" aria-hidden="true"></i> Feedback</a></li>
+            <li><a href=""><i class="fa fa-cog" aria-hidden="true"></i> Service KPI</a></li>
+          </ul>
         </li>
         <li>
           <a (click)="showMenu = !showMenu; showConversation = true; showKnowledge = showReport = showStarted = showAccount = showModules = false;" [class.active]="showConversation" [routerLink]="(['conversation/transcripts'])">
-            <i class="fa fa-comments" aria-hidden="true"></i> Conversations
+            Conversations
           </a>
-
+          <ul class="sub-side-menu">
+            <li><a href="" class="active"><i class="fa fa-comments" aria-hidden="true"></i> Analytics</a></li>
+            <li><a href=""><i class="fa fa-comments" aria-hidden="true"></i> Feedback</a></li>
+            <li><a href=""><i class="fa fa-comments" aria-hidden="true"></i> Service KPI</a></li>
+          </ul>
         </li>
         <li>
           <a (click)="showMenu = !showMenu; showReport = true; showConversation = showKnowledge = showStarted = showAccount = showModules = false;" [class.active]="showReport" [routerLink]="(['reports/analytics'])">
-            <i class="fa fa-line-chart" aria-hidden="true"></i> Reports
+            Reports
           </a>
-
+          <ul class="sub-side-menu">
+            <li><a href=""><i class="fa fa-line-chart" aria-hidden="true"></i> Analytics</a></li>
+            <li><a href=""><i class="fa fa-line-chart" aria-hidden="true"></i> Feedback</a></li>
+            <li><a href=""><i class="fa fa-line-chart" aria-hidden="true"></i> Service KPI</a></li>
+          </ul>
         </li>
       </ul>
       </div>

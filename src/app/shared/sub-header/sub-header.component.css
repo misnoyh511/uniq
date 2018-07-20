@@ -35,6 +35,15 @@
   position: static;
   font-size: 13px;
 }
-.sub-header .bot-list-wrap.active { padding-bottom: 0;}
-.sub-header .type-bot .mybot-menu-wrap ul { padding: 0;}
-.sub-header .type-bot .mybot-menu-wrap ul li a { font-size: 13px;}
+.sub-header .bot-list-wrap.active { width: 192px; box-shadow: 0 0 20px rgba(0,0,0,0.05);}
+.sub-header .type-bot .mybot-menu-wrap ul { padding: 0; margin-bottom: 0;}
+.sub-header .type-bot .mybot-menu-wrap ul li a {
+  display: block !important;
+  padding: 10px 15px !important;
+  font-weight: 400 !important;
+  border-radius: 5px;
+}
+.sub-header .type-bot .mybot-menu-wrap ul li a:hover {
+  box-shadow: none !important;
+  background: #f3f3f3;
+}
