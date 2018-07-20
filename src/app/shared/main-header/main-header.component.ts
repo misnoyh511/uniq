@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {SidebarService} from "../sidebar/sidebar.service";
+import {SidebarService} from '../sidebar/sidebar.service';
 
 @Component({
   selector: 'app-main-header',
@@ -15,7 +15,6 @@ export class MainHeaderComponent implements OnInit {
   }
 
   showNewBot() {
-    console.log('Hello');
     this.addClass = !this.addClass;
   }
 

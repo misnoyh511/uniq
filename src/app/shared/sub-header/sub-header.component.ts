@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Injectable} from '@angular/core';
-import {SidebarService} from './../sidebar/sidebar.service';
+import {SidebarService} from '../sidebar/sidebar.service';
 import {Router} from '@angular/router';
 import {AppConfig} from '../../app.config';
 import {BotService} from '../../bot/bot.service';

@@ -19,9 +19,11 @@ import {SubHeaderComponent} from './sub-header/sub-header.component';
 declare var require: any;
 
 @NgModule({
-  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule, NouisliderModule, TagCloudModule],
-  declarations: [SidebarComponent, MainHeaderComponent, SubHeaderComponent, DatePickerDirective, ColorPickerDirective, ArraySortPipe, OutSideClickDirective],
-  exports: [SidebarComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule,
+  imports: [RouterModule, CommonModule, ChartModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule, NouisliderModule,
+      TagCloudModule],
+  declarations: [SidebarComponent, MainHeaderComponent, SubHeaderComponent, DatePickerDirective, ColorPickerDirective,
+      ArraySortPipe, OutSideClickDirective],
+  exports: [SidebarComponent, MainHeaderComponent, SubHeaderComponent, ChartModule, CommonModule, MaterialComponentsModule, FormsModule, ReactiveFormsModule,
       DatePickerDirective, ColorPickerDirective, NouisliderModule, ArraySortPipe, TagCloudModule, OutSideClickDirective],
   providers: [
     {

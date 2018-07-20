@@ -1,8 +1,8 @@
 <div class="shrink-sidebar" *ngIf="hideSideBar" (click)="shrinkSideBar=!shrinkSideBar; shrinkBar()" [ngClass]="{'shirnk-sidebar-left': shrinkSideBar}"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
 
-<app-main-header *ngIf="hideSideBar"></app-main-header>
-<app-sub-header *ngIf="hideSideBar"></app-sub-header>
 <div class="sidebar-left" *ngIf="hideSideBar" [ngClass]="{'shirnk-sidebar-left': shrinkSideBar}">
+  <app-main-header></app-main-header>
+  <app-sub-header></app-sub-header>
   <app-sidebar [getUrl]="getUrl"></app-sidebar>
 </div>
 <div class="main-content" [ngClass]="{'shirnk-sidebar-left': shrinkSideBar}" *ngIf="hideSideBar">

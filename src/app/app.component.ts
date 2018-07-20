@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
-import {SidebarService} from "./shared/sidebar/sidebar.service";
+import {SidebarService} from './shared/sidebar/sidebar.service';
 
 @Component({
   selector: 'app-root',
