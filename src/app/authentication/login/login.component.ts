@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
 import {Router} from '@angular/router';
 import {AppConfig} from '../../app.config';
-import {GoogleSignInSuccess} from 'angular-google-signin';
+/*import {GoogleSignInSuccess} from 'angular-google-signin';*/
 
 @Component({
     selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent {
         this.authenticationService.checkAuthenticate();
     }
 
-    onGoogleSignInSuccess(event: GoogleSignInSuccess) {
+    /*onGoogleSignInSuccess(event: GoogleSignInSuccess) {
         const googleUser: gapi.auth2.GoogleUser = event.googleUser;
         const id: string = googleUser.getId();
         const profile: gapi.auth2.BasicProfile = googleUser.getBasicProfile();
@@ -26,7 +26,7 @@ export class LoginComponent {
         this.authenticationService.loginWithGoogle({'token': profile.getId()}).subscribe((data) => {
             console.log('data', data);
         });
-    }
+    }*/
 
     /*loginWithGoogle() {
         this.authenticationService.loginWithGoogle().then((data) => {
