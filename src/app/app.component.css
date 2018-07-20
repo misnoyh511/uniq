@@ -8,9 +8,11 @@
   position: fixed;
   left: 260px;
   top: 114px;
+  box-shadow: 0 0 5px #aaa;
 }
 .shrink-sidebar.shirnk-sidebar-left {
   left: 60px;
+  transform: rotate(180deg);
 }
 .sidebar-left {
   width: 260px;
