@@ -1130,7 +1130,7 @@ p {
     background-color: #fff;
     border: 2px solid #eceff0;
     border-radius: 5px;
-    padding: 20px 8px 10px;
+    padding: 20px 8px 20px;
     width: 100%;
 }
 
@@ -8473,4 +8473,53 @@ a.mat-mini-fab.mat-primary {
 html[xmlns*=""]:root .sub-nav-list ul {
     padding: 0 15px 0 0 !important;
     margin-left: 20px !important;
+}
+.sub-nav-list{
+    width:100%;
+    float:left;
+    background: #fff;
+}
+.sub-nav-list ul{
+    padding:0px;
+    margin:0px;
+    list-style:none;
+}
+.sub-nav-list ul li{
+    float:left;
+}
+.sub-nav-list ul li a{
+    color:#000 !important;
+    padding:20px 20px;
+    display:block;
+    font-size:16px;
+    font-weight:bold;
+}
+.sub-nav-list ul li a span:before{
+    position: absolute;
+    content: '';
+    display: none;
+    left: 0px;
+    right: 0px;
+    bottom: -22px;
+    background: #0095f7;
+    width: 100%;
+    height: 3px;
+}
+.sub-nav-list ul li a span{
+    color:#000 !important;
+    position: relative;
+    display:block;
+
+}
+.sub-nav-list ul li a:hover span:before{
+    display:block;
+}
+.sub-nav-list ul li a.active span:before{
+    display:block;
+}
+.sub-nav-list ul li a.active{
+
+}
+.login-form-elements.transate-left{
+    padding-left:15px !important;
 }

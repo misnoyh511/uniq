@@ -1,3 +1,4 @@
+<app-sub-nav [navType]="'home'"></app-sub-nav>
 <div class="dashboard-container">
 
   <div class="dashboard-inner-container">
@@ -8,7 +9,7 @@
         <p>Be productive. Use bots.</p>
       </div>
       <div class="getting-started-video-wrapper notification-wrap">
-        <app-sub-nav [navType]="'home'"></app-sub-nav>
+
         <div class="on-off-btn toggle-btn-on-off bot-title-on-off">
           <mat-slide-toggle type="text" color="primary" (change)="changeBotStatus()" [(ngModel)]="botData.active" name="active"></mat-slide-toggle>
         </div>

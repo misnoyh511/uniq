@@ -81,6 +81,9 @@ ul.sideMenu {
   border-left: 7px solid #6078FF;
   color: #fff;
 }
+.dashboard-navigation ul li ul li a:hover{
+  border-left: 7px solid #6078FF;
+}
 .dashboard-navigation ul li a:hover, .dashboard-navigation ul li a.active {
   background: none;
   color: #A2B0C4;

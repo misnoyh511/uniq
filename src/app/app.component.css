@@ -1,17 +1,13 @@
 .shrink-sidebar {
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  line-height: 25px;
-  font-size: 20px;
-  color: #000;
-  position: fixed;
-  left: 260px;
+ position: fixed;
+  left: 265px;
   top: 114px;
-  box-shadow: 0 0 5px #aaa;
+}
+.shrink-sidebar i{
+  font-size:22px;
 }
 .shrink-sidebar.shirnk-sidebar-left {
-  left: 60px;
+  left: 65px;
   transform: rotate(180deg);
 }
 .sidebar-left {
@@ -22,14 +18,14 @@
   width: 60px;
 }
 .main-content {
-  width: calc(100% - 280px);
+  width: calc(100% - 260px);
   float: right;
   height: calc(100vh - 115px);
   overflow-y: auto;
   margin-top: 114px;
 }
 .main-content.shirnk-sidebar-left  {
-  width: calc(100% - 80px);
+  width: calc(100% - 60px);
 }
 
 @media(max-width: 1169px) {
