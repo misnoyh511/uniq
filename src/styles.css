@@ -7252,7 +7252,7 @@ a.mat-mini-fab.mat-primary {
     float: left;
     padding: 3px 0 0;
     position: absolute;
-    right: 20px;
+    right: 0;
 }
 
 .feature-toggle {

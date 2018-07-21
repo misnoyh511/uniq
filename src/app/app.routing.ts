@@ -12,19 +12,19 @@ import {AccountSettingsRoutes} from './account-settings/account-settings.routing
 import {botRoutes} from './bot/bot.routing';
 
 export const AppRoutes: Routes = [
-  ...AuthenticationRoutes,
-  ...DashboardRoutes,
-  ...PublicRoutes,
-  ...GetStartedRoutes,
-  ...NewBotRoutes,
-  ...AutomateRoutes,
-  ...ConversationsRoutes,
-  ...ReportsRoutes,
-  ...AccountSettingsRoutes,
-  ...botRoutes,
-  {
-    path: '',
-    redirectTo: '/get-started',
-    pathMatch: 'full'
-  }
+    ...AuthenticationRoutes,
+    ...DashboardRoutes,
+    ...PublicRoutes,
+    ...GetStartedRoutes,
+    ...NewBotRoutes,
+    ...AutomateRoutes,
+    ...ConversationsRoutes,
+    ...ReportsRoutes,
+    ...AccountSettingsRoutes,
+    ...botRoutes,
+    {
+        path: '',
+        redirectTo: '/get-started',
+        pathMatch: 'full'
+    }
 ];

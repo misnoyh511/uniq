@@ -1,19 +1,19 @@
 <div class="dashboard-main" [ngClass]="{'shrink-sidebar-left': sideBarShrinkLeft}">
-  <div class="toggle-sidebar" [class.active]="showMenu" (click)="showMenu = !showMenu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="dashboard-sidebar" [class.dashboard-sidebar-toggled]="showMenu">
-    <!--<div class="dashboard-logo-wrap">
-      &lt;!&ndash;<a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>&ndash;&gt;
-      <img src="../assets/images/new-un-logo.png" alt="">
+    <div class="toggle-sidebar" [class.active]="showMenu" (click)="showMenu = !showMenu">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-    <div class="dashboard-new">
-      <a [routerLink]="(['/new-bot'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showModules = showReport = showStarted = showAccount = false;" class="cursor blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> <span>New Bot</span></a>
-    </div>-->
-    <div class="dashboard-navigation">
-      <div class="scrollable-wrap">
+    <div class="dashboard-sidebar" [class.dashboard-sidebar-toggled]="showMenu">
+        <!--<div class="dashboard-logo-wrap">
+          &lt;!&ndash;<a [routerLink]="(['/'])"><img src="../assets/images/logo.png" alt=""></a>&ndash;&gt;
+          <img src="../assets/images/new-un-logo.png" alt="">
+        </div>
+        <div class="dashboard-new">
+          <a [routerLink]="(['/new-bot'])" (click)="showMenu = !showMenu; showKnowledge = showConversation = showModules = showReport = showStarted = showAccount = false;" class="cursor blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> <span>New Bot</span></a>
+        </div>-->
+        <div class="dashboard-navigation">
+            <div class="scrollable-wrap">
 
                 <!-- <ul>
                    <li><a (click)="showMenu = !showMenu; showStarted = true; showKnowledge = showModules = showConversation = showReport = showAccount = false;" [class.active]="showStarted" [routerLink]="(['/get-started'])"><i class="fa fa-star" aria-hidden="true"></i>
@@ -33,54 +33,64 @@
                   </div>
                 </div>-->
 
-        <ul class="sideMenu">
-          <li>
-            <ul>
-              <li>
-                <a [routerLinkActive]="['active']" [routerLink]="(['/get-started'])"><i class="fa fa-desktop"></i><span>Boot Dashboard</span></a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a>
-              Conversations
-            </a>
-            <ul class="sub-side-menu">
-              <li><a [routerLinkActive]="['active']" [routerLink]="(['/conversation/transcripts'])"><i class="fa fa-table"></i><span>Transcripts</span></a></li>
-              <li><a [routerLinkActive]="['active']" [routerLink]="(['/conversation/topic-cloud'])"><i class="fa fa-book"></i><span>Topics</span></a></li>
-              <li><a [routerLinkActive]="['active']" [routerLink]="(['/conversation/top-messages-in'])"><i class="fa fa-comment-o"></i><span>Top Messages In</span></a> </li>
-              <li><a [routerLinkActive]="['active']" [routerLink]="(['/conversation/top-messages-out'])"><i class="fa fa-comments"></i><span>Top Messages Out</span></a> </li>
-            </ul>
-          </li>
-          <li>
-            <a>
-              Analytics
-            </a>
-            <ul class="sub-side-menu">
-              <li><a [routerLinkActive]="['active']" [routerLink]="(['/reports/analytics'])"><i class="fa fa-bolt"></i><span>Usage</span></a> </li>
-              <li><a [routerLinkActive]="['active']" [routerLink]="(['/reports/service-kpi'])"><i class="fa fa-cogs"></i><span>Service KPI</span></a></li>
-            </ul>
-          </li>
-          <li>
-            <a>
-              Feedback
-            </a>
-            <ul class="sub-side-menu">
-              <li><a [routerLinkActive]="['active']" [routerLink]="(['/reports/feedback'])"><i class="fa fa-pencil-square-o"></i><span>Service</span></a></li>
-              <!--<li class="fullscreendisblock"><a [routerLinkActive]="['active']" href="javascript:void(0)" (click)="logout()"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>-->
-            </ul>
-          </li>
-        </ul>
-      </div>
+                <ul class="sideMenu">
+                    <li>
+                        <ul>
+                            <li>
+                                <a [routerLinkActive]="['active']" [routerLink]="(['/get-started'])"><i
+                                        class="fa fa-desktop"></i><span>Boot Dashboard</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            Conversations
+                        </a>
+                        <ul class="sub-side-menu">
+                            <li><a [routerLinkActive]="['active']" [routerLink]="(['/conversation/transcripts'])"><i
+                                    class="fa fa-table"></i><span>Transcripts</span></a></li>
+                            <li><a [routerLinkActive]="['active']" [routerLink]="(['/conversation/topic-cloud'])"><i
+                                    class="fa fa-book"></i><span>Topics</span></a></li>
+                            <li><a [routerLinkActive]="['active']" [routerLink]="(['/conversation/top-messages-in'])"><i
+                                    class="fa fa-comment-o"></i><span>Top Messages In</span></a></li>
+                            <li><a [routerLinkActive]="['active']"
+                                   [routerLink]="(['/conversation/top-messages-out'])"><i
+                                    class="fa fa-comments"></i><span>Top Messages Out</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            Analytics
+                        </a>
+                        <ul class="sub-side-menu">
+                            <li><a [routerLinkActive]="['active']" [routerLink]="(['/reports/analytics'])"><i
+                                    class="fa fa-bolt"></i><span>Usage</span></a></li>
+                            <li><a [routerLinkActive]="['active']" [routerLink]="(['/reports/service-kpi'])"><i
+                                    class="fa fa-cogs"></i><span>Service KPI</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a>
+                            Feedback
+                        </a>
+                        <ul class="sub-side-menu">
+                            <li><a [routerLinkActive]="['active']" [routerLink]="(['/reports/feedback'])"><i
+                                    class="fa fa-pencil-square-o"></i><span>Service</span></a></li>
+                            <!--<li class="fullscreendisblock"><a [routerLinkActive]="['active']" href="javascript:void(0)" (click)="logout()"><i class="fa fa-sign-out"></i><span>Logout</span></a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 
-    </div>
-    <div class="app-version-dashboard">
+        </div>
+        <div class="app-version-dashboard">
 
-     <!-- <ul>
-        <li><a (click)="showMenu = !showMenu; showAccount = true; showReport = showModules = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
-        </li>
-      </ul>-->
-       <a class="sign-out-css" (click)="logout()"><span class="version-css">Logout</span> <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            <!-- <ul>
+               <li><a (click)="showMenu = !showMenu; showAccount = true; showReport = showModules = showConversation = showKnowledge = showStarted = false;" [class.active]="showAccount" [routerLink]="(['/account-settings'])"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Account Settings</span></a>
+               </li>
+             </ul>-->
+            <a class="sign-out-css" (click)="logout()"><span class="version-css">Logout</span> <i class="fa fa-sign-out"
+                                                                                                  aria-hidden="true"></i></a>
+        </div>
     </div>
-  </div>
 </div>

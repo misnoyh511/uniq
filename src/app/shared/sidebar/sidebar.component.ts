@@ -76,14 +76,14 @@ export class SidebarComponent implements OnInit {
     }
 
     onloaddata() {
-            this.Service.getBot().subscribe((data) => {
-                if (data && data.length) {
-                    this.bot = data;
-                    if (Object.keys(this.Service.savedData).length === 0) {
-                        this.Service.savedData = this.bot[0];
-                    }
+        this.Service.getBot().subscribe((data) => {
+            if (data && data.length) {
+                this.bot = data;
+                if (Object.keys(this.Service.savedData).length === 0) {
+                    this.Service.savedData = this.bot[0];
                 }
-            });
+            }
+        });
     }
 
     dropDown(getUrl, botData) {

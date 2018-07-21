@@ -25,14 +25,14 @@
   border-bottom: 30px solid transparent;
   border-left: 18px solid #696d75;
 }
-.sub-header .type-bot { width: 120px; float: left; margin: 10px 0 10px 50px;}
+.sub-header .type-bot { width: 11%; float: left; margin: 10px 0 10px 50px;}
 .sub-header .type-bot .mybot-menu-wrap { margin-bottom: 0;}
 .sub-header .type-bot .mybot-menu-wrap.active, .sub-header .type-bot .mybot-menu-wrap:hover { background: none;}
 .sub-header .bot-dropdown a.bot-name-link {
   margin: 0 0 -40px;
   float: left;
   width: auto;
-  position: static;
+  position: relative;
   font-size: 13px;
 }
 .sub-header .bot-list-wrap.active { width: 192px; box-shadow: 0 0 20px rgba(0,0,0,0.05);}
