@@ -18,12 +18,6 @@ export class SidebarComponent implements OnInit {
     data: any;
     id: any;
     linkUrl: any;
-    showStarted = false;
-    showKnowledge = false;
-    showConversation = false;
-    showReport = false;
-    showAccount = false;
-    showModules = false;
     message: string;
     showList = false;
     currentBot: string;
@@ -41,8 +35,6 @@ export class SidebarComponent implements OnInit {
         this.Service.botList.subscribe((data) => {
             this.bot = data;
             if (this.Service.deleteMsg) {
-                this.showStarted = true;
-                this.showKnowledge = this.showConversation = this.showReport = this.showAccount = false;
                 this.currentBot = this.bot[0].name;
                 this.Service.token = this.bot[0].analytics_token;
             } else {
@@ -61,17 +53,6 @@ export class SidebarComponent implements OnInit {
         this.onloaddata();
         if (!this.data) {
             this.data = 'Bot Providencia';
-        }
-        if (location.pathname.includes('knowledge-center')) {
-            this.showKnowledge = true;
-        } else if (location.pathname.includes('conversation')) {
-            this.showConversation = true;
-        } else if (location.pathname.includes('reports')) {
-            this.showReport = true;
-        } else if (location.pathname.includes('get-started')) {
-            this.showStarted = true;
-        } else if (location.pathname.includes('account')) {
-            this.showAccount = true;
         }
     }
 

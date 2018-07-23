@@ -339,7 +339,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
                 this.sbs.deleteMsg = '';
                 this.sbs.getBot().subscribe((data) => {
                     this.snackBarService.openSnackBar('Bot Created');
-                    this.showNlp = this.showLook = false;
+                    this.botType = this.showNlp = this.showLook = false;
                     this.showModules = true;
                     this.dataSaved = true;
                 });
@@ -378,7 +378,7 @@ export class NewBotComponent implements OnInit, OnDestroy {
         this.bot = {};
         this.snackbarsOne = true;
         this.showNlp = true;
-        this.showModules = this.showLook = false;
+        this.botType = this.showModules = this.showLook = false;
         this.snackBarService.openSnackBar('Your Chat Bot has been reset');
     }
 

@@ -18,7 +18,7 @@
                     <li class="nav-item" xyz="abc">
                       <a class="nav-link step-links" (click)="botType = true; showNlp = showLook = showModules = false;"
                          [class.active]="botType" id="new-step1" data-toggle="pill" href="#botType" role="tab"
-                         aria-controls="capture" aria-selected="true">
+                         aria-controls="botType" aria-selected="true">
                         <strong>1</strong>
                         <span>Select Your Bot Type</span>
                       </a>
@@ -92,8 +92,8 @@
                         </div>
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
-                          <button class="btnNext" data-toggle="pill" href="#message"
-                                  (click)="next(); showNlp = showModules = false; showLook = true;">
+                          <button class="btnNext" data-toggle="pill" href="#capture"
+                                  (click)="next(); botType = showLook = showModules = false; showNlp = true;">
                             Next
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
                           </button>
@@ -159,13 +159,16 @@
                     </div>
                     <div class="next-button-wrap">
                       <div class="row">
-                        <div class="col-sm-4">
-                          <div class="blank-wrap"></div>
-                        </div>
+                          <div class="col-sm-4">
+                              <div class="blank-wrap">
+                                  <a data-toggle="pill" href="#botType"
+                                     (click)="showNlp = showLook = showModules = false; botType = true;" class="btnPrev">Back</a>
+                              </div>
+                          </div>
                         <div class="col-sm-4"></div>
                         <div class="col-sm-4">
                           <button class="btnNext" data-toggle="pill" href="#message"
-                                  (click)="next(); showNlp = showModules = false; showLook = true;">
+                                  (click)="next(); botType = showNlp = showModules = false; showLook = true;">
                             Next
                             <i class="fa fa-arrow-right" aria-hidden="true"></i>
                           </button>
@@ -413,7 +416,7 @@
                                 <div class="col-sm-4">
                                     <div class="blank-wrap">
                                         <a data-toggle="pill" href="#capture"
-                                           (click)="showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
+                                           (click)="botType = showLook = showModules = false; showNlp = true;" class="btnPrev">Back</a>
                                     </div>
                                 </div>
                                 <div class="col-sm-4"></div>
