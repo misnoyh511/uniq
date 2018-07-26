@@ -1,5 +1,5 @@
 
-import {Directive, ElementRef, AfterViewInit, Input, EventEmitter, Output, ViewChild, Inject} from '@angular/core';
+import {Directive, ElementRef, AfterViewInit, EventEmitter, Output, Inject} from '@angular/core';
 import {DOCUMENT} from '@angular/platform-browser';
 
 declare var $: any;

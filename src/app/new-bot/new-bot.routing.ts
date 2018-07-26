@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
 import {NewBotComponent} from './new-bot.component';
-import {AuthGuard} from "../auth-guard/auth-guard.middleware";
+import {AuthGuard} from '../auth-guard/auth-guard.middleware';
 
 export const NewBotRoutes: Routes = [
     {
