@@ -1,0 +1,115 @@
+.mybot-step-wrapper {
+    margin-top: 30px;
+}
+.quickstart-wrapper {
+    padding: 0;
+    box-shadow: 0 0px 10px rgba(21,57,130,0.07);
+    border-radius: 8px;
+}
+.quickstart-wrapper {
+    background: #fff;
+}
+.quickstart-wrapper .step-inner-title {
+    background: #556dff;
+}
+.quickstart-wrapper .step-inner-title h3 {
+    color: #fff;
+    padding: 15px 20px;
+}
+.quickstart-wrap {
+    border-bottom: 1px solid #f2f1f2;
+}
+.check-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 0;
+}
+.check-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.check-container input:checked ~ .checkmark {
+    background-color: #00dc71;
+    border-color: #24c27a;
+}
+.checkmark {
+    position: absolute;
+    top: 13px;
+    left: 20px;
+    height: 36px;
+    width: 36px;
+    background-color: #f5f6f9;
+    border-radius: 50%;
+    border: 1px solid #e3e4e5;
+    pointer-events: none;
+}
+.check-container input:checked ~ .checkmark:after {
+    display: block;
+}
+.check-container .checkmark:after {
+    left: 12px;
+    top: 7px;
+    width: 11px;
+    height: 16px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.check-container input:checked ~ .checkmark {
+    background-color: #00dc71;
+    border-color: #24c27a;
+}
+.quickstart-wrap.checked a {
+    color: #a7afb4;
+}
+.quickstart-wrap a {
+    display: block;
+    width: calc(100% - 56px);
+    margin-left: 56px;
+    font-size: 20px;
+    color: #3a4255;
+    position: relative;
+    top: 0px;
+    padding: 18px 15px;
+}
+.quickstart-wrap a i {
+    float: right;
+    padding: 3px 0 0;
+    font-size: 28px;
+}
+.edit-btn {
+    display: inline-flex;
+    opacity: 0;
+    margin-left: 20px;
+    visibility: hidden;
+    transition: 0.3s ease-in-out 0s;
+    -moz-transition: 0.3s ease-in-out 0s;
+    -webkit-transition: 0.3s ease-in-out 0s;
+    -ms-transition: 0.3s ease-in-out 0s;
+    width: 0;
+}
+.quickstart-wrap .edit-btn i {
+    font-size: 16px;
+}
+.quickstart-wrap:hover {
+    background: #e4e7fa;
+}
+.quickstart-wrap:hover .edit-btn{
+    visibility: visible;
+    opacity:1;
+}

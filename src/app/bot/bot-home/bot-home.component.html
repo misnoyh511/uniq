@@ -15,67 +15,615 @@
         </div>
 
         <h3>{{botData.name}}</h3>
-        <div class="mybot-blocks-wrapper">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mybot-block-wrap">
-                <div class="block-status">
-                  <h5>Complete</h5>
-                  <i class="fa fa-check" aria-hidden="true"></i>
+        <div class="step-inner-wrapper quickstart-wrapper mybot-step-wrapper">
+          <div class="step-inner-title">
+            <h3>Quickstart Checklist</h3>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="showBotConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="showBotConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="showDiv = true">Complete your Bot Configuration
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i> </a> </div>
+            <div class="visitor-count-wrapper" [class.active]="showDiv">
+              <div class="close-visitor-count" (click)="showDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onFaqOutside($event)" appClickOutside>
+                <div class="quickstart-profile-wrapper">
+                  <div class="quickstart-profile-form">
+                    <h2>Complete your Bot configuration </h2>
+                    <div class="step-inner-wrapper">
+                      <div class="step-inner-title">
+                        <h3>Tap On Your NLP Provider of Choice</h3>
+                      </div>
+                      <div class="stepinner-content-box">
+                        <div class="webhook-list">
+                          <ul>
+                            <li (click)="dialogFlow = true; comingSoon1 = comingSoon2 = false;" [class.active]="dialogFlow"><a href="javascript:void(0)"><img src="assets/images/dialogflow-logo.png" alt=""></a></li>
+                            <li (click)="comingSoon1 = true; dialogFlow = comingSoon2 = false" [class.active]="comingSoon1"><a href="javascript:void(0)"><img src="assets/images/witai-logo.png" alt=""></a></li>
+                            <li (click)="dialogFlow = comingSoon1 = false; comingSoon2 = true;" [class.active]="comingSoon2"><a href="javascript:void(0)"><img src="assets/images/luisai-logo.png" alt=""></a></li>
+                          </ul>
+                        </div>
+                        <form>
+                          <div class="full-width-input-fields">
+                            <p>Enter Your NLP Server Token <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b class="">Enter Your NLP Server Token</b> </p>
+                          </div>
+                          <div class="login-form-elements transate-left">
+                            <label> Enter Server Token</label>
+                            <input type="text" name="token" [(ngModel)]="botData.token">
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+                    <div class="step-inner-wrapper delete-bot-wrapper">
+                      <div class="step-inner-title">
+                        <h3>Delete Bot</h3>
+                      </div>
+                      <div class="delete-bot-text">
+                        <p>If you really are sure. <a (click)="showDelete = true" href="javascript:void(0)">Click here </a>  to delete this bot.</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="block-icon block-icon-config">
-                  <a [routerLink]="(['/bot-configuration'])"><img src="../assets/images/mybot-block-icon1.png" alt=""></a>
-                </div>
-                <div class="block-desc">
-                  <a [routerLink]="(['/bot-configuration'])"><h4>Initial Setup</h4></a>
-                  <p></p>
+                <button class="blue-btn close-slide-btn" (click)="showBotConfig = true; showDiv = false; editBotConfig();">Save</button>
+              </div>
+            </div>
+            <div class="visitor-count-wrapper" [class.active]="showDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Bot Deletion</h5>
+                    <div class="close-visitor-count" (click)="showDelete = false">
+                      <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                  <div class="modal-body">
+                    <div class="db-form-elements">
+                      <label>What is the #1 thing you wish Uniq did better?</label>
+                      <input type="text" class="modal-btns" placeholder="Please be as specific as possible" [(ngModel)]="feedback" name="feedback">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="white-btn modal-btns" (click)="showDelete = false">Go Back</button>
+                    <button type="button" class="blue-btn modal-btns send-feedback-btn" [class.disabled]="feedback === ''" (click)="showDelete = false; showEditPass = true;">Send Feedback</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="mybot-block-wrap">
-                <div class="block-status">
-                  <h5>Complete</h5>
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </div>
-                <div class="block-icon block-icon-install">
-                  <a [routerLink]="(['/bot-installation'])"><img src="../assets/images/mybot-block-icon2.png" alt=""></a>
-                </div>
-                <div class="block-desc">
-                  <a [routerLink]="(['/bot-installation'])"><h4>Installation</h4></a>
-                  <p></p>
-                  <p></p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mybot-block-wrap">
-                <div class="block-status">
-                  <h5>Incomplete</h5>
-                  <i class="fa fa-exclamation" aria-hidden="true"></i>
-                </div>
-                <div class="block-icon block-icon-knwldge">
-                  <a [routerLink]="(['/knowledge-center/setup-ai-questions'])"><img src="../assets/images/mybot-block-icon3.png" alt=""></a>
-                </div>
-                <div class="block-desc">
-                  <a [routerLink]="(['/knowledge-center/setup-ai-questions'])"><h4>Knowledge Center</h4></a>
-                  <p></p>
+            <div class="visitor-count-wrapper" [class.active]="showEditPass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Bot Deletion</h5>
+                    <div class="close-visitor-count" (click)="showEditPass = false">
+                      <span><i class="fa fa-close" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                  <div class="modal-body">
+                    <div class="db-form-elements">
+                      <label>Please type your email address to confirm you want to delete your bot: <span>{{userData.email}}</span></label>
+                      <input type="text" class="modal-btns" [(ngModel)]="email">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="white-btn modal-btns" [class.disabled]="email !== userData.email" (click)="showEditPass = false; deleteBot();">Delete My Bot</button>
+                    <button type="button" class="white-btn modal-btns" (click)="showEditPass = false">Go Back</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="mybot-block-wrap">
-                <div class="block-status">
-                  <h5>Incomplete</h5>
-                  <i class="fa fa-exclamation" aria-hidden="true"></i>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="lookConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="lookConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="lookDiv = true">Look &amp; Feel
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i></a> </div>
+            <div class="visitor-count-wrapper" [class.active]="lookDiv">
+              <div class="close-visitor-count" (click)="lookDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onLookOutside($event)" appClickOutside>
+                <div class="quickstart-profile-wrapper">
+                  <div class="quickstart-profile-form">
+                    <h2>Look &amp; Feel</h2>
+                    <div class="step-inner-wrapper custom-margin-bottom">
+                      <div class="step-inner-title">
+                        <h3>Give it a name</h3>
+                      </div>
+                      <div class="stepinner-content-box">
+                        <div class="full-width-input-fields full-width-input-fields-step4">
+                          <p>Bot Name <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b> The name of this project. Only you  will see this.</b> </p>
+                          <div class="login-form-elements">
+                            <label>Enter Your Bot Name</label>
+                            <input type="text">
+                          </div>
+                        </div>
+                        <div class="full-width-input-fields">
+                          <p> Chat Window Name <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b> The Chat Window Header Title. Everyone  will see this.</b> </p>
+                          <div class="login-form-elements">
+                            <label> Enter A Chat Window Name</label>
+                            <input type="text">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="step-inner-wrapper custom-margin-bottom">
+                      <div class="step-inner-title">
+                        <h3>Chat Style</h3>
+                      </div>
+                      <div class="stepinner-content-box">
+                        <div class="full-panel chat-style-wrap chat-style-latteral-tab"> <span>Lateral Tab <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b class="">This is lateral tab.</b> </span>
+                          <div class="on-off-btn toggle-btn-on-off active" data-input-id="chatstyle1"> <span class="rounded-on-off-btn"></span> <span class="on-off-text">On</span> </div>
+                        </div>
+                        <div class="full-panel chat-style-wrap chat-style-floating-icon"> <span>Floating Icon <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b class="">This is floating icon.</b> </span>
+                          <div class="on-off-btn toggle-btn-on-off" data-input-id="chatstyle2"> <span class="rounded-on-off-btn"></span> <span class="on-off-text">Off</span> </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4">
+                      <div class="step-inner-title">
+                        <h3>Chat Window Customization</h3>
+                      </div>
+                      <div class="stepinner-content-box">
+                        <div class="full-width-input-fields full-width-input-fields-step4">
+                          <p>Welcome  Message <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b> The Chat Window Welcome Message. Everyone will see  this.</b> </p>
+                          <div class="login-form-elements">
+                            <label>Enter A Welcome  Message</label>
+                            <input type="text">
+                          </div>
+                        </div>
+                        <div class="full-width-input-fields full-width-input-fields-step4">
+                          <p>Input Title <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b>The text that appears    in the chatbot  input text field.</b> </p>
+                          <div class="login-form-elements">
+                            <label> Please  Enter An Input Text</label>
+                            <input type="text">
+                          </div>
+                        </div>
+                        <div class="full-width-input-fields full-width-input-fields-step4">
+                          <p>Input Waiting Text <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b>The  text that appears in chat window when your bot is waiting.</b> </p>
+                          <div class="login-form-elements">
+                            <label>Please Enter A Waiting Text</label>
+                            <input type="text">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="step-inner-wrapper custom-margin-bottom">
+                      <div class="step-inner-title">
+                        <h3>Appearance</h3>
+                      </div>
+                      <div class="stepinner-content-box">
+                        <div class="full-panel full-panel-step2"> <span>Upload Your Avatar Image <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b> Upload  a PNG or JPEG file (Size 40x40).</b> </span>
+                          <div class="right-side-form">
+                            <input type="file" id="files" class="uploadfiles" name="files[]" multiple="">
+                          </div>
+                        </div>
+                        <div class="full-panel full-panel-step2"> <span>Upload Your   Cover Image <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b>Upload a PNG or JPEG file (Size 680x170).</b> </span>
+                          <div class="right-side-form">
+                            <form>
+                              <input type="file" id="uploadfiles" class="uploadfiles" name="files[]" multiple="">
+                            </form>
+                          </div>
+                        </div>
+                        <div class="full-panel full-panel-step2"> <span> Choose the background color of chat tab/icon <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b>The tab/icon background  color seen by users</b> </span>
+                          <div class="right-side-form">
+                            <!--<div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
+                            <input type="text" class="color-picker-input" maxlength="6" size="6" id="colorpickerField1" value="00ff00">
+                          </div>
+                        </div>
+                        <div class="full-panel full-panel-step2"> <span>Choose the font color ofthe   tab/icon. <sup><i class="fa fa-question-circle" aria-hidden="true"></i></sup> <b>The tab/icon color seen by users</b> </span>
+                          <div class="right-side-form">
+                            <!-- <div class="bfh-colorpicker" data-name="colorpicker3" data-close="false"></div> -->
+                            <input type="text" class="color-picker-input" maxlength="6" size="6" id="colorpickerField2" value="00ff00">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="block-icon block-icon-improve">
-                  <a [routerLink]="(['/knowledge-center/setup-ai'])"><img src="../assets/images/mybot-block-icon4.png" alt=""></a>
+                <button class="blue-btn close-slide-btn" (click)="lookConfig = true; lookDiv = false;">Save</button>
+              </div>
+            </div>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="previewConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="previewConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="previewDiv = true">Preview your Bot
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i></a> </div>
+            <div class="visitor-count-wrapper" [class.active]="previewDiv">
+              <div class="close-visitor-count" (click)="previewDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onPreviewOutside($event)" appClickOutside>
+                <div class="quickstart-team-wrapper">
+                  <h2>Preview your Bot</h2>
+                  <p>We are commited to helping you increase your website conversions and providing the best possible customer experience.</p>
+                  <!--<img src="images/quickstart-team-image.jpg" alt=""> -->
                 </div>
-                <div class="block-desc">
-                  <a [routerLink]="(['/knowledge-center/setup-ai'])"><h4>Improvements</h4></a>
-                  <p></p>
+                <button class="blue-btn close-slide-btn" (click)="previewConfig = true; previewDiv = false;">Save</button>
+              </div>
+            </div>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="installConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="installConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="installDiv = true">Install your pixel
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i></a> </div>
+            <div class="visitor-count-wrapper" [class.active]="installDiv">
+              <div class="close-visitor-count" (click)="installDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onInstallOutside($event)" appClickOutside>
+                <div class="quickstart-team-wrapper">
+                  <h2>Install Your Pixel</h2>
+                  <div class="pixel-install-section">
+                    <div class="step-inner-wrapper">
+                      <div class="step-inner-title">
+                        <h3>Pixel Install</h3>
+
+                      </div>
+
+                      <div class="pixel-install-script">
+                        <h5>1. Add this Code to The Header</h5>
+                        <p>Add it to every page of your site that you plan to track, capture or display on. (In
+                          most cases this will be every page of your site)</p>
+                      </div>
+                      <div class="pixel-install-script">
+              <textarea id=".pixel-install-script textarea" #inputTarget><script type="text/javascript" data-app-id="{{botData.id}}" src="https://service.allegra.ai/bot-script/bot.js"></script>
+              </textarea>
+                        <button id="selectVal" [class.btn-info]= "isCopied" type="button" (click)="copyToClipboard()" [ngxClipboard]="inputTarget" (cbOnSuccess)="isCopied = true">
+                <span *ngIf="!isCopied"><i class="fa fa-copy" aria-hidden="true"></i>
+                Copy To Clipboard</span>
+                          <span *ngIf="isCopied">Copied</span>
+                        </button>
+                      </div>
+                      <div class="install-success-wrap">
+                        <p>Congrats! Your pixel is sending data!</p>
+                        <span>Last pageview was tracked <strong>22 minutes ago</strong></span>
+                      </div>
+                      <div class="pixel-install-script">
+                        <h5>2. Wait for the data from your website.</h5>
+                        <p>A status message will appear above to let you know when we have detected your pixel.</p>
+                      </div>
+                      <div class="pixel-install-script">
+                        <h5>3. Still no data?</h5>
+                        <p>To make sure you installed your pixel correctly please watch pixel installation video and read the insulation article. Here are some common
+                          things to check. Feel tree to send us at emai at support@useproof.com or reach out in the chat if you're still running into trouble.</p>
+                      </div>
+                    </div>
+                    <button class="blue-btn close-slide-btn" (click)="installConfig = true; installDiv = false;">Install Pixel</button>
+                  </div>
                 </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="knowledgeConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="knowledgeConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="configureDiv = true">Configure your Knowledge base
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i></a> </div>
+            <div class="visitor-count-wrapper" [class.active]="configureDiv">
+              <div class="close-visitor-count" (click)="configureDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onConfigureOutside($event)" appClickOutside>
+                <div class="quickstart-team-wrapper">
+                  <h2>Configure your Knowledge base</h2>
+                  <p>Get Proof up and running on your first pages. It only takes a minute to set up and launch.</p>
+                  <div class="quickstart-campaign-wrapper quickstart-intent-list">
+                    <div class="step-inner-wrapper ai-group-wrap">
+                      <div class="ai-group-title ai-default-group-title step-inner-title">
+                        <h3>Intent List</h3>
+                        <input type="text">
+                      </div>
+                      <div class="ai-intent-wrapper">
+                        <div class="row">
+                          <!--<div class="col-md-3">
+                  <div class="add-rule-ai-btn-wrap">
+                      <button class="add-rule-ai-btn blue-btn"><i class="fa fa-plus" aria-hidden="true"></i> Add Intent</button>
+                  </div>
+              </div>-->
+                          <div class="col-md-12">
+                            <div class="search-ai-rules-wrap">
+                              <input placeholder="Search here" type="text">
+                              <button type="submit" class="blue-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="intent-list-wrap popup-intent-list-wrap">
+                          <div class="ai-intent-list-wrap">
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 1</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule1"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 1 Question</h5>
+                                <div id="textcard1" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 2</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule2"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 2 Question</h5>
+                                <div id="textcard2" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 3</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule3"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 3 Question</h5>
+                                <div id="textcard3" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 4</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule4"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 4 Question</h5>
+                                <div id="textcard4" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 5</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule5"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 5 Question</h5>
+                                <div id="textcard5" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 6</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule6"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 4 Question</h5>
+                                <div id="textcard3" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 7</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule7"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 4 Question</h5>
+                                <div id="textcard3" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 8</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule8"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 4 Question</h5>
+                                <div id="textcard3" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 9</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule9"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 4 Question</h5>
+                                <div id="textcard3" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="intent-list-article">
+                              <div class="intent-name-td default-intent-name"> <span class="intent-name-title intent-name-id1" intent-title-id="intent1">Intent Name 10</span>
+                                <input type="text">
+                                <button class="blue-btn add-rule-btn add-rule-btn-dup" rule-data-id="rule10"><i class="fa fa-plus"></i>View Intent</button>
+                                <button class="blue-btn saveclosebtn">Save &amp; Close</button>
+                              </div>
+                              <div class="editorshowhide">
+                                <div class="close-editorshowhide">x</div>
+                                <h5>Intent Name 4 Question</h5>
+                                <div id="textcard3" class="text-card-wrap ui-state-default">
+                                  <div class="richText"><div class="richText-toolbar"><ul><li><a class="richText-btn fa fa-bold" data-command="bold" title="Bold"></a></li><li><a class="richText-btn fa fa-italic" data-command="italic" title="Italic"></a></li><li><a class="richText-btn fa fa-underline" data-command="underline" title="Underline"></a></li><li><a class="richText-btn fa fa-link" title="Add URL"><div class="richText-dropdown-outer"><div class="richText-dropdown"><span class="richText-dropdown-close"><span class="fa fa-times" title="Close"></span></span><div class="richText-form" id="richText-URL" data-editor="richText-11d6en"><div class="richText-form-item"><label for="url">URL</label><input type="text" id="url"></div><div class="richText-form-item"><label for="urlText">Text</label><input type="text" id="urlText"></div><div class="richText-form-item"><label for="openIn">Open in</label><select id="openIn"><option value="_self">Same tab</option><option value="_blank">New tab</option></select></div><div class="richText-form-item"><button class="btn">Add</button></div></div></div></div></a></li></ul></div><div class="richText-editor" id="richText-11d6en" contenteditable="true"><div><br></div></div><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><textarea name="content" class="editor1 text-input active text-card-textbox richText-initial" style="display: none;"></textarea><div class="richText-toolbar"><a class="richText-undo is-disabled" title="Undo"><span class="fa fa-undo"></span></a><a class="richText-redo is-disabled" title="Redo"><span class="fa fa-repeat"></span></a><a class="richText-help"><span class="fa fa-question-circle"></span></a></div></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="blue-btn close-slide-btn" (click)="knowledgeConfig = true; configureDiv = false;">Launch First Campaign</button>
+                <button class="white-btn">Read Help Article</button>
+              </div>
+            </div>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="inviteConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="inviteConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="insertDiv = true">Invite Your Team
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i></a> </div>
+            <div class="visitor-count-wrapper" 	[class.active]="insertDiv">
+              <div class="close-visitor-count" (click)="insertDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onInsertOutside($event)" appClickOutside>
+                <div class="quickstart-team-wrapper quickstart-conversion-club-wrapper">
+                  <h2>Invite Your Team</h2>
+                  <div class="stepinner-content-box">
+                    <div class="step-inner-wrapper share-bot-wrapper">
+                      <div class="step-inner-title">
+                        <h3>Share Your Bot</h3>
+                      </div>
+                      <div class="bot-list-config-wrapper">
+                        <div class="bot-list-config-wrap">
+                          <div class="row">
+                            <div class="col-md-7">
+                              <h5>Bot Settings</h5>
+                            </div>
+                            <div class="col-md-5"> <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig"> <i class="fa fa-share" aria-hidden="true"></i> <span>Share Settings</span> </a> </div>
+                          </div>
+                        </div>
+                        <div class="bot-list-config-wrap">
+                          <div class="row">
+                            <div class="col-md-7">
+                              <h5>Bot Knowledge Center</h5>
+                            </div>
+                            <div class="col-md-5"> <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig"> <i class="fa fa-share" aria-hidden="true"></i> <span>Share Knowledge Center</span> </a> </div>
+                          </div>
+                        </div>
+                        <div class="bot-list-config-wrap">
+                          <div class="row">
+                            <div class="col-md-7">
+                              <h5>Bot Conversations</h5>
+                            </div>
+                            <div class="col-md-5"> <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig"> <i class="fa fa-share" aria-hidden="true"></i> <span>Share Conversations</span> </a> </div>
+                          </div>
+                        </div>
+                        <div class="bot-list-config-wrap">
+                          <div class="row">
+                            <div class="col-md-7">
+                              <h5>Bot Reports</h5>
+                            </div>
+                            <div class="col-md-5"> <a href="javascript:void(0)" class="blue-btn" data-toggle="modal" data-target="#shareConfig"> <i class="fa fa-share" aria-hidden="true"></i> <span>Share Reports</span> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             <button class="blue-btn close-slide-btn" (click)="inviteConfig = true;  insertDiv= false;">Invite</button>
+              </div>
+            </div>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="reportConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="reportConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="reportDiv = true">Send Automated Reports
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i></a> </div>
+            <div class="visitor-count-wrapper" [class.active]="reportDiv">
+              <div class="close-visitor-count" (click)="reportDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onReportOutside($event)" appClickOutside>
+                <div class="quickstart-team-wrapper quickstart-conversion-club-wrapper">
+                  <h2>Send Automated Reports</h2>
+                  <div class="step-inner-wrapper full-panel-wrap step-inner-wrapepr-step4 config-form-wrapper">
+                    <div class="step-inner-title">
+                      <h3>Send Automated Reports to Email</h3>
+                      <div class="on-off-btn toggle-btn-on-off toggle-visitor-count toggle-visitor-count1"> <span class="rounded-on-off-btn"></span> <span class="on-off-text">Off</span> </div>
+                    </div>
+                    <div class="stepinner-content-box">automated-form-wrap
+                      <div class="row">
+                        <div class="col-md-6">
+                          <p>Your Name</p>
+                          <div class="login-form-elements">
+                            <label>Enter your name</label>
+                            <input type="text">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <p>Your Email</p>
+                          <div class="login-form-elements">
+                            <label>Enter your email</label>
+                            <input type="text">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="blue-btn close-slide-btn" (click)="reportConfig = true; reportDiv = false;">Send</button>
+              </div>
+            </div>
+          </div>
+          <div class="quickstart-wrap" [class.checkedbox]="productConfig">
+            <div class="quickstart-custom-check-box">
+              <label class="check-container">
+                <input type="checkbox" [checked]="productConfig">
+                <span class="checkmark"></span> </label>
+              <a class="quickstart-slide-toggle" href="javascript:void(0)" (click)="feedbackDiv = true">Product Feedback
+                <div class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                <i class="fa fa-angle-right"></i></a> </div>
+            <div class="visitor-count-wrapper" [class.active]="feedbackDiv">
+              <div class="close-visitor-count" (click)="feedbackDiv = false"> <span><i class="fa fa-close" aria-hidden="true"></i></span> </div>
+              <div class="visitor-count-wrap" (clickOutside)="onFeedbackOutside($event)" appClickOutside>
+                <div class="quickstart-team-wrapper quickstart-conversion-club-wrapper">
+                  <h2>Visit Our Help Center</h2>
+                  <p>Get advice and answers from the Proof Team on the most common integrations and issues you may run into.</p>
+                  <div class="quickstart-faq-wrapper">
+                    <div class="quickstart-faq-wrap">
+                      <h5>Our Favorite Proof Settings For Higher Conversions<span>Finished</span></h5>
+                      <h6><img src="images/ribbon-icon.png" alt=""><span>Setup &amp; Troubleshooting</span></h6>
+                      <p>These are the settings and configuration that work for us and will hopefully work for...</p>
+                    </div>
+                    <div class="quickstart-faq-wrap">
+                      <h5>How to use the Hot Strak notification<span>Finished</span></h5>
+                      <h6><img src="images/ribbon-icon.png" alt=""><span>Setup &amp; Troubleshooting</span></h6>
+                      <p>Learn how to setup the Hot Streak notifications on your website and most frequently...</p>
+                    </div>
+                    <div class="quickstart-faq-wrap">
+                      <h5>Where do I find my Pixels?<span>Finished</span></h5>
+                      <h6><img src="images/ribbon-icon.png" alt=""><span>Frequently Asked Questions</span></h6>
+                      <p>Find out how to locate your Proof Pixel Code</p>
+                    </div>
+                  </div>
+                </div>
+                <button class="blue-btn close-slide-btn" (click)="productConfig = true; feedbackDiv = false;">Visit Our Help Center</button>
               </div>
             </div>
           </div>
