@@ -1,6 +1,6 @@
 <div class="sub-header">
     <div class="login-user-name">
-        <a [routerLink]="(['/'])">{{userData.username}}</a>
+        <a [routerLink]="(['/'])">{{userData ? userData.username : ''}}</a>
     </div>
     <div class="type-bot">
         <div class="bot-dropdown">

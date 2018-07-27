@@ -6,10 +6,8 @@
     <app-sub-header></app-sub-header>
     <app-sidebar [getUrl]="getUrl"></app-sidebar>
 </div>
-<div class="main-content" [ngClass]="{'shirnk-sidebar-left': shrinkSideBar}" *ngIf="hideSideBar">
+<div [class.main-content]="hideSideBar" [class.shirnk-sidebar-left]="shrinkSideBar">
     <router-outlet></router-outlet>
 </div>
-<div *ngIf="!hideSideBar">
-    <router-outlet></router-outlet>
-</div>
+
 <ng-progress [color]="'#0095f7'"></ng-progress>
