@@ -100,7 +100,7 @@ div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .dashb
 div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .dashboard-new-wrapper .dashboard-new-steps-wrapper{
   box-shadow: 0 5px 10px rgba(21,57,130,0.07), 0 0 0 1px rgba(0,0,0,0.05);
   overflow: hidden;
-  border-radius: 0;
+  border-radius: 5px;
   background: #fff;
   width:80%;
   margin:45px auto 0px;
