@@ -2462,7 +2462,7 @@ p {
 }
 
 .next-button-wrap button:hover {
-    background-color: #12a1ff;
+    background-color: #5972ff;
 }
 
 .webhook-integration-wrap {
@@ -8484,6 +8484,83 @@ a.mat-mini-fab.mat-primary {
         text-align: center;
         margin: 0 0 20px;
     }
+    .new-bot-button{
+        width:35% !important;
+    }
+    .main-logo {
+        width: 35% !important;
+    }
+    .dashboard-container {
+        padding: 0px 0px 60px !important;
+    }
+    .page-main-title-section h1 {
+        font-size: 20px !important;
+    }
+    .quickstart-wrap[_ngcontent-c6] a[_ngcontent-c6] {
+       font-size: 14px !important;
+    }
+    .blank-wrap /deep/a{
+        padding:6px 20px !important;
+
+    }
+    .visitor-count-wrapper .visitor-count-wrap{
+        width:70% !important
+    }
+    .quickstart-wrap .visitor-count-wrap h2{
+        font-size:18px !important;
+    }
+    .next-button-wrap /deep/button{
+        padding:6px 20px !important;
+
+ }
+    .right-side-form.color-pick-section{
+        width:100% !important;
+        float:none !important;
+    }
+    .right-side-form.color-pick-section input{
+        width:100% !important;
+    }
+    .step-image-wrapper.step-give-name-image {
+        height: inherit;
+    }
+    .dashboard-new-title-wrap h3{
+    font-size:16px !important;
+    }
+    div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .dashboard-new-title-wrap span{
+        left: 26px!important;
+        top: 18px!important;
+    }
+    .step-image-wrapper.step-chat-window-image{
+        height:inherit !important;
+    }
+    .step-image-wrapper.step-appearance-image{
+        height:inherit !important;
+    }
+    .tab-content-wrap {
+        padding: 10px !important;
+    }
+    .blank-wrap a {
+       margin-bottom: 10px;
+    }
+    .step-image-wrapper /deep/img{
+        width:100% !important;
+        max-width:220px !important;
+        margin:0px auto !important;
+        display:block !important;
+    }
+    .campaign-chebox-container input{
+        position:static !important;
+    }
+    .dashboard-step-list li {
+        width: 100% !important;
+    }
+    div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .dashboard-new-wrapper .dashboard-new-steps-wrapper{
+        width: 90% !important;
+        margin:80px auto 160px !important;
+    }
+    .quickstart-campaign-wrap p{
+        font-size:16px !important;
+    }
 }
 
 html[xmlns*=""]:root .sub-nav-list ul {
@@ -8853,4 +8930,13 @@ html[xmlns*=""]:root .sub-nav-list ul {
     width: 100%;
     min-height: 400px;
     height: 400px;
+}
+
+@media (min-width:1025px) and (max-width:1190px){
+    .step-image-wrapper.step-give-name-image {
+        height: inherit !important;
+    }
+    .step-image-wrapper.step-chat-window-image{
+        height:inherit !important;
+    }
 }

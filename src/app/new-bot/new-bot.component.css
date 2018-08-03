@@ -66,6 +66,7 @@ div.fix-new-boot .dashboard-inner-container.dashboard-container-inner-new .next-
   padding: 10px 30px;
   width: 100%;
   float: left;
+  z-index:9;
   position: fixed;
   bottom: 0;
   left: 0;
