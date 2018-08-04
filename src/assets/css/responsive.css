@@ -446,9 +446,17 @@ img {
 @media (min-width:768px) and (max-width:1024px){
   .step-image-wrapper.step-give-name-image {
     height: inherit !important;
+    display:none;
   }
   .step-image-wrapper.step-chat-window-image {
     height: inherit !important;
+    display:none;
+  }
+  .step-image-wrapper{
+    display:none;
+  }
+  .step-video-wrapper{
+    display:none;
   }
   .dashboard-step-list li a strong {
     width: 26px !important;

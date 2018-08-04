@@ -8522,6 +8522,7 @@ a.mat-mini-fab.mat-primary {
     }
     .step-image-wrapper.step-give-name-image {
         height: inherit;
+        display:none;
     }
     .dashboard-new-title-wrap h3{
     font-size:16px !important;
@@ -8532,6 +8533,13 @@ a.mat-mini-fab.mat-primary {
     }
     .step-image-wrapper.step-chat-window-image{
         height:inherit !important;
+        display:none;
+    }
+    .step-image-wrapper{
+        display:none;
+    }
+    .step-video-wrapper{
+        display:none;
     }
     .step-image-wrapper.step-appearance-image{
         height:inherit !important;
