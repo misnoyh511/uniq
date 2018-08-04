@@ -485,3 +485,12 @@ img {
     padding:15px 2px !important;
   }
 }
+
+@media (min-width:1025px) and (max-width: 1199px){
+    .step-image-wrapper{
+        display:none;
+    }
+    .step-video-wrapper{
+        display:none;
+    }
+}
