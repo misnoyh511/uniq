@@ -4,7 +4,6 @@ import {AuthenticationService} from '../authentication.service';
 import {Router} from '@angular/router';
 import {SnackBarService} from '../../snack-bar/snack-bar.service';
 import {MatStepper} from '@angular/material';
-import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from 'angular5-social-login';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,7 +19,7 @@ export class SignUpComponent implements OnInit {
   showCardFront = true;
   planInfo: string;
 
-  constructor(private socialAuthService: AuthService, private authenticationService: AuthenticationService, private router: Router,
+  constructor(private authenticationService: AuthenticationService, private router: Router,
               private snackBarService: SnackBarService, private _formBuilder: FormBuilder) {
     this.authenticationService.checkAuthenticate();
   }
