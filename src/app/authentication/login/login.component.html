@@ -19,6 +19,9 @@
                     <!--<google-signin [clientId]="clientId" width="400" theme="dark" scope="email profile" longTitle="true"
                                    (googleSignInSuccess)="onGoogleSignInSuccess($event)"></google-signin>-->
                     <!--<a href="javascript:void(0)" class="white-btn" (click)="loginWithGoogle()">Continue with Google</a>-->
+                        <!--<button type="button" class="btn btn-danger btn-block" (click)="tryGoogleLogin()">Login with Google</button>-->
+                        <!--<button (click)="socialSignIn('google')" class="white-btn col-12">Continue with Google</button>-->
+                        <button (click)="tryGoogleLogin()" class="white-btn col-12">Continue with Google</button>
                     <div class="login-signup-border-wrap"><span>or</span></div>
                     <form>
                         <div class="login-signup-form-elements-wrap">

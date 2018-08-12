@@ -23,7 +23,8 @@
                                 <p class="large-text">Enter your work email to access your <strong>fully-loaded</strong>
                                     14-day trial.</p>
                                 <form>
-                                    <div class="login-signup-form-elements-wrap">
+
+                                  <div class="login-signup-form-elements-wrap">
                                         <div class="login-signup-form-elements">
                                             <label>Name</label>
                                             <input placeholder="nameofuser" type="text" name="name"
@@ -40,12 +41,16 @@
                                                    [(ngModel)]="user.password">
                                         </div>
                                     </div>
-                                    <div class="login-signup-form-elements no-border">
-                                        <button mat-button class="blue-btn" type="submit" (click)="signUp(stepper)">
+
+                                  <div class="login-signup-form-elements no-border">
+
+                                    <button mat-button class="blue-btn" type="submit" (click)="signUp(stepper)">
                                             Create
                                             Account
                                         </button>
-                                    </div>
+                                    <button (click)="tryGoogleLogin()" class="white-btn col-12">Continue with Google</button>
+
+                                  </div>
                                 </form>
 
                             </div>

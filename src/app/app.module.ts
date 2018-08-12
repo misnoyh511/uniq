@@ -29,36 +29,40 @@ import {HttpClient} from '@angular/common/http';
 import {NgProgressModule} from 'ngx-progressbar';
 import {SidebarService} from './shared/sidebar/sidebar.service';
 import {SnackBarService} from './snack-bar/snack-bar.service';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireAuthModule,
-        AuthenticationModule,
-        ToastyModule.forRoot(),
-        RouterModule.forRoot(AppRoutes),
-        HttpModule,
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AuthenticationModule,
+    ToastyModule.forRoot(),
+    RouterModule.forRoot(AppRoutes),
+    HttpModule,
 
-        DashboardModule,
-        PublicModule,
-        GetStarteddModule,
-        SharedModule,
-        NewBotModule,
-        AutomateModule,
-        ConversationsModule,
-        ReportsModule,
-        AccountSettingsModule,
-        BotModule,
-        HttpClientModule,
-        NgProgressModule
-    ],
-    providers: [AuthGuard, InterceptorService, LocalStorageService, HttpClient, SidebarService, SnackBarService],
-    bootstrap: [AppComponent]
+    DashboardModule,
+    PublicModule,
+    GetStarteddModule,
+    SharedModule,
+    NewBotModule,
+    AutomateModule,
+    ConversationsModule,
+    ReportsModule,
+    AccountSettingsModule,
+    BotModule,
+    HttpClientModule,
+    NgProgressModule
+  ],
+  providers: [AuthGuard, InterceptorService, LocalStorageService, HttpClient, SidebarService, SnackBarService],
+  bootstrap: [AppComponent]
 })
+
+
 export class AppModule {
 }

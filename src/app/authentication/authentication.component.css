@@ -1,0 +1,19 @@
+button.white-btn {
+  display: block;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.12);
+  padding: 15px 30px;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0,0,0,.11), 0 1px 3px rgba(0,0,0,.08);
+  transition: 0.15s ease-in-out;
+  margin: 10px 0 10px 0;
+  width: 100%;
+}
+
+button.white-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(0,0,0,.1), 0 3px 6px rgba(0,0,0,.08);
+  transition: 0.15s ease-in-out;
+}
