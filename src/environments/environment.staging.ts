@@ -1,18 +1,17 @@
 export const environment = {
     production: true,
     firebase: {
-        apiKey: 'AIzaSyAMJMIQuxX8rH41a4Mi63vFGe9f3-Vy4Sw',
-        authDomain: 'uniq-ec575.firebaseapp.com',
-        databaseURL: 'https://uniq-ec575.firebaseio.com',
-        projectId: 'uniq-ec575',
-        storageBucket: 'uniq-ec575.appspot.com',
-        messagingSenderId: '108302917615',
-        appName: '[DEFAULT]'
+      apiKey: 'AIzaSyDq6IzoYc6ysB2LuR8mPbul21QS9JPNYs0',
+      authDomain: 'uniq-b2d.firebaseapp.com',
+      databaseURL: 'https://uniq-b2d.firebaseio.com',
+      projectId: 'uniq-b2d',
+      storageBucket: 'uniq-b2d.appspot.com',
+      messagingSenderId: '805382546912'
     },
     USER_INFO_KEY: 'USER_INFO_KEY',
     ANALYTICS_TOKEN: 'ANALYTICS_TOKEN',
     ANALYTICS_API_ENDPOINT: 'https://analytics.uniq.ai/api/',
     API_ENDPOINT: 'https://stagingapi.uniq.ai',
     PREVIEW_BOT: 'http://52.163.118.137:4201/',
-    CLIENT_ID: '652382493825-rivscd41rd50ltjb7bbp7m9ha11oj9rm.apps.googleusercontent.com'
+    CLIENT_ID: '805382546912-qnscdhucnna00d1tgfeuu9eskh3e36vd.apps.googleusercontent.com'
 };
