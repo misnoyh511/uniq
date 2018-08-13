@@ -104,8 +104,8 @@ export class AuthenticationService {
       this.firebaseAuth.auth
         .signInWithPopup(provider)
         .then(res => {
-          const credential = res.credential;
-          this.afterLoginWithGoogle(credential).subscribe(function (siteUser) {
+          console.log(res);
+          this.afterLoginWithGoogle(res).subscribe(function (siteUser) {
             console.log(siteUser);
             resolve(siteUser);
           });
@@ -134,11 +134,13 @@ export class AuthenticationService {
     myHeaders.append('X-HopIn-API-Key', 'Vcq9C97Gm4QE72D2HgUjtbJqjLtTkeJaCGfhGefW3XcwAT' +
       '82xfeYrP5uhHkMyh43PWkWGGJExyetJEp43aBqBYamfENf8nskF5Vg');
     const options = new RequestOptions({headers: myHeaders});
-    return this.http.post(AppConfig.API_ENDPOINT + '/users/oauth', {'token': userData.idToken}, options)
+    return this.http.post(AppConfig.API_ENDPOINT + '/users/oauth', {
+      'token': userData.credential.idToken,
+      'given_name': userData.user.displayName
+    }, options)
       .map(response => {
         const resJson = response.json();
         const users = resJson.users;
-        console.log(users);
         if (users && users.length > 0) {
           this.snackBarService.openSnackBar('Login Successful');
           localStorage.setItem('USER_INFO_KEY', JSON.stringify(users[0]));
